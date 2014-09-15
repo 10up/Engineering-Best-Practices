@@ -1,0 +1,7 @@
+name:          10up Development Standards
+description:   Project development standards used by 10up.
+url:           http://10up.github.io/devstandards
+
+markdown:      rdiscount
+permalink:     pretty
+pygments:      true
