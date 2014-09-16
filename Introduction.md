@@ -14,4 +14,4 @@ At the very heart of 10up is the publishing or user experience. WordPress, we fi
 
 > "Keep it simple."
 
-While our solutions are far from simple, we want our code, tools, processes, systems, and practices to be as simple as possible. Simplicity facilitates collaboration as their is a lower barrier of entry. This goes for things like PHP code design patterns as well as workflow. We discourage practices such as writing extra levels of code abstraction (wrapping existing API's).
+While our solutions are far from simple, we want our code, tools, processes, systems, and practices to be as simple as possible. Simplicity facilitates collaboration as there is a lower barrier of entry. This goes for things like PHP code design patterns as well as workflow. We discourage practices such as writing extra levels of code abstraction (wrapping existing API's) as they complicate debugging and add another component that needs to be maintained.
