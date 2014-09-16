@@ -143,7 +143,7 @@ Any non-static data that is stored in the database must be validated or sanitize
 
 ```php
 if ( ! empty( $_POST['user_id'] ) ) {
-	update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
+    update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
 }
 ```
 
@@ -151,7 +151,7 @@ if ( ! empty( $_POST['user_id'] ) ) {
 
 ```php
 if ( ! empty( $_POST['special_heading'] ) ) {
-	update_option( 'option_key', sanitize_text_field( $_POST['special_heading'] ) );
+    update_option( 'option_key', sanitize_text_field( $_POST['special_heading'] ) );
 }
 ```
 
@@ -165,7 +165,7 @@ For security on the other end of the spectrum, we have escaping. To escape is to
 
 ```php
 <div>
-	<?php echo esc_html( get_post_meta( $post_id, 'key', true ) ); ?>
+    <?php echo esc_html( get_post_meta( $post_id, 'key', true ) ); ?>
 </div>
 ```
 
@@ -174,7 +174,7 @@ For security on the other end of the spectrum, we have escaping. To escape is to
 ```php
 <script>
 if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
-	document.getElementById( 'test' ).getAttribute( 'href' ) = '<?php echo esc_js( get_post_meta( $post_id, 'key', true ) ); ?>';
+    document.getElementById( 'test' ).getAttribute( 'href' ) = '<?php echo esc_js( get_post_meta( $post_id, 'key', true ) ); ?>';
 }
 </script>
 ```
@@ -185,7 +185,7 @@ If we need to escape that permits HTML (but not harmful JavaScript), we usually 
 
 ```php
 <div>
-	<?php echo wp_kses_post( get_post_meta( $post_id, 'meta_key', true ) ); ?>
+    <?php echo wp_kses_post( get_post_meta( $post_id, 'meta_key', true ) ); ?>
 </div>
 ```
 
