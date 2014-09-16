@@ -8,7 +8,7 @@ As a company we strive to efficiently provide websites and components that lend 
 
 # Philosophy
 
-## "We make web publishing easy. Maybe even fun"
+> "We make web publishing easy. Maybe even fun"
 
 At the very heart of 10up is the publishing or user experience. WordPress, we firmly believe, is the best tool for this. We sell custom publishing experiences to major companies and brands around the world. These publishing experiences or websites are tailor made for our clients and their specific needs. As such the content management experience cannot be genericized. We don't cut corners when it comes to user experience and interface. We don't take shortcuts that compromise the end experience for the user. We don't distribute pre-packaged, auto-generated user interfaces or components.
 
