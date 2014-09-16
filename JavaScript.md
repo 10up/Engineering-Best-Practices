@@ -34,7 +34,7 @@ jQuery( '#menu' );
 
 We can pass our own HTMLCollection to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each collection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
-``javascript
+```javascript
 jQuery( document.getElementById( 'menu' ) );
 ```
 
