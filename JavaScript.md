@@ -4,56 +4,56 @@ Writing performant code is absolutely critical. Poorly written JavaScript can si
 
 ##Only Load Libraries You Need
 
-JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn’t a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries.
+JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries.
 
 ## Use jQuery Wisely
 
-jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let’s say we want to hide an element:
+jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let's say we want to hide an element:
 
 ```javascript
-document.getElementById( ‘element’ ).style.display = ‘none’;
+document.getElementById( 'element' ).style.display = 'none';
 ```
 
 vs.
 
 ```javascript
-jQuery( ‘#element’ ).hide();
+jQuery( '#element' ).hide();
 ```
 
 The jQuery method is [~98% slower](http://jsperf.com/selecting-and-hiding-element-with-without-jquery) than non-jQuery.
 
-Much of the time we do need jQuery (or something like it). It’s important that we not depend on it to accomplish simple tasks like the one above. Even if we are using jQuery for something else like sending an AJAX call, we can still use non-jQuery methods in other areas of the same script.
+Much of the time we do need jQuery (or something like it). It's important that we not depend on it to accomplish simple tasks like the one above. Even if we are using jQuery for something else like sending an AJAX call, we can still use non-jQuery methods in other areas of the same script.
 
 ## Cache DOM Selections
 
-It’s a common JavaScript request to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather we select the menu once and cache it’s selector. This applies whether you are using jQuery or not. For example:
+It's a common JavaScript request to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather we select the menu once and cache it's selector. This applies whether you are using jQuery or not. For example:
 
 non-jQuery Uncached:
 
 ```javascript
-var hideButton = document.getElementByClassName( ‘hide-button’ )[0];
+var hideButton = document.getElementByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
-    var menu = document.getElementById( ‘menu’ );
-    menu.style.display = ‘none’;
+    var menu = document.getElementById( 'menu' );
+    menu.style.display = 'none';
 }
 ```
 
 non-jQuery Cached:
 
 ```javascript
-var menu = document.getElementById( ‘menu’ );
-var hideButton = document.getElementByClassName( ‘hide-button’ )[0];
+var menu = document.getElementById( 'menu' );
+var hideButton = document.getElementByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
-    menu.style.display = ‘none’;
+    menu.style.display = 'none';
 }
 ```
 
 jQuery Uncached:
 
 ```javascript
-var $hideButton = jQuery( ‘.hide-button’ );
-$hideButton.on( ‘click’, function() {
-    var $menu = jQuery( ‘#menu’ );
+var $hideButton = jQuery( '.hide-button' );
+$hideButton.on( 'click', function() {
+    var $menu = jQuery( '#menu' );
     $menu.hide();
 });
 ```
@@ -61,9 +61,9 @@ $hideButton.on( ‘click’, function() {
 jQuery Cached:
 
 ```javascript
-var $menu = jQuery( ‘#menu’ );
-var $hideButton = jQuery( ‘.hide-button’ );
-$hideButton.on( ‘click’, function() {
+var $menu = jQuery( '#menu' );
+var $hideButton = jQuery( '.hide-button' );
+$hideButton.on( 'click', function() {
 	$menu.hide();
 });
 ```
@@ -76,8 +76,8 @@ Event delegation is the act of adding one event listener to a parent node to lis
 Without jQuery:
 
 ```javascript
-document.getElementById( ‘menu’ ).addEventListener( ‘click’, function( event ) {
-    if( event.target && event.target.nodeName === ‘LI’ ) {
+document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
+    if( event.target && event.target.nodeName === 'LI' ) {
         // Do stuff!
     }
 });
@@ -86,7 +86,7 @@ document.getElementById( ‘menu’ ).addEventListener( ‘click’, function( e
 With jQuery:
 
 ```javascript
-jQuery( ‘#menu’ ).on( ‘click’, ‘li’, function() {
+jQuery( '#menu' ).on( 'click', 'li', function() {
     // Do stuff!
 });
 ```
@@ -101,11 +101,11 @@ At 10up, we generally employ unit and/or integration tests only when building ap
 
 # Libraries
 
-There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of libraries whitelisted for use at 10up. If you need to use a library outside of this list, it’s worth getting a second opinion.
+There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of libraries whitelisted for use at 10up. If you need to use a library outside of this list, it's worth getting a second opinion.
 
 ## DOM Manipulation
 
-[jQuery](http://jquery.com/) - Our and WordPress’s library of choice for DOM manipulation. You should not need any other DOM manipulation library such as Prototype or MooTools.
+[jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation. You should not need any other DOM manipulation library such as Prototype or MooTools.
 
 ## Utility:
 
