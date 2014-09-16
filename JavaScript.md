@@ -91,6 +91,8 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 });
 ```
 
+You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for performance reasons. This would also be pretty messy code to write.
+
 # Code Style
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
