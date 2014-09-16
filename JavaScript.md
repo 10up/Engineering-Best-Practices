@@ -24,6 +24,21 @@ The jQuery method is [~98% slower](http://jsperf.com/selecting-and-hiding-elemen
 
 Much of the time we do need jQuery (or something like it). It's important that we not depend on it to accomplish simple tasks like the one above. Even if we are using jQuery for something else like sending an AJAX call, we can still use non-jQuery methods in other areas of the same script.
 
+### Try to pass an Element or HTMLCollection to jQuery instead of a selection string
+
+When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
+
+```javascript
+jQuery( '#menu' );
+```
+
+We can pass our own HTMLCollection to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each collection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+
+``javascript
+jQuery( document.getElementById( 'menu' ) );
+```
+
+
 ## Cache DOM Selections
 
 It's a common JavaScript request to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather we select the menu once and cache it's selector. This applies whether you are using jQuery or not. For example:
