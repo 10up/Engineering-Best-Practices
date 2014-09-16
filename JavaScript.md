@@ -32,7 +32,7 @@ When we create a new jQuery object by passing it a selection string, jQuery uses
 jQuery( '#menu' );
 ```
 
-We can pass our own HTMLCollection to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each collection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+We can pass our own HTMLCollection or Element to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each collection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
 jQuery( document.getElementById( 'menu' ) );
