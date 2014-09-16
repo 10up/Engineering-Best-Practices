@@ -1,6 +1,6 @@
 # Audience
 
-The 10up Coding Standards are not geared to teach anyone to become designers or PHP/JavaScript engineers. Rather it aims to show how to design and program in PHP and JavaScript the 10up way. Therefore this is intended for web and design engineers.
+The 10up Engineering Best Practices are not geared to teach anyone to become designers or PHP/JavaScript engineers. Rather it aims to show how to design and program in PHP and JavaScript the 10up way. Therefore this is intended for web and design engineers.
 
 # Goal
 
