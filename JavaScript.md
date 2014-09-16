@@ -31,7 +31,7 @@ It's a common JavaScript request to reselect something unnecessarily. For exampl
 non-jQuery Uncached:
 
 ```javascript
-var hideButton = document.getElementByClassName( 'hide-button' )[0];
+var hideButton = document.getElementsByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
     var menu = document.getElementById( 'menu' );
     menu.style.display = 'none';
@@ -42,7 +42,7 @@ non-jQuery Cached:
 
 ```javascript
 var menu = document.getElementById( 'menu' );
-var hideButton = document.getElementByClassName( 'hide-button' )[0];
+var hideButton = document.getElementsByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
     menu.style.display = 'none';
 }
@@ -67,7 +67,7 @@ $hideButton.on( 'click', function() {
 	$menu.hide();
 });
 ```
-Notice how in cached version we are pulling the menu selection out of the event handler so it only happens once.
+Notice how in cached version we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
 
 ## Event Delegation:
 
@@ -91,7 +91,7 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 });
 ```
 
-The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for performance reasons. This would also be pretty messy code to write.
+The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
 # Code Style
 
