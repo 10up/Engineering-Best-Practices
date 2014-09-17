@@ -2,7 +2,7 @@
 
 Project development standards used by 10up.
 
-**[Start reading ☞](http://10up.github.io/devstandards)**
+**[Start reading ☞](http://10up.github.io/Engineering-Best-Practices)**
 
 ---
 
