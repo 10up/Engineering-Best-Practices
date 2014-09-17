@@ -221,7 +221,7 @@ We even need to escape translated text. Generally, instead of use ```__()```, we
 </div>
 ```
 
-WordPress has a number of functions built-in for [escaping output](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output).
+There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
 # Code Style
 
