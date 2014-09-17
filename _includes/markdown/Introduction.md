@@ -1,12 +1,12 @@
-# Audience
+### Audience
 
 The 10up Engineering Best Practices are not geared to teach anyone to become designers or PHP/JavaScript engineers. Rather it aims to show how to design and program in PHP and JavaScript the 10up way. Therefore this is intended for web and design engineers.
 
-# Goal
+### Goal
 
 As a company we strive to efficiently provide websites and components that lend a top-notch user experience. In order to improve efficiency we need to standardize what we use and how we use it. This includes tools, frameworks, libraries, style, version control, and even languages. Standardizing these things will allow us to understand better the inner-workings of someone else’s project and produce better solutions ourselves.
 
-# Philosophy
+### Philosophy
 
 > "We make web publishing easy. Maybe even fun."
 

@@ -1,8 +1,8 @@
-# Performance
+### Performance
 
 Writing performant code is absolutely critical especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
-## Efficient Database Queries
+#### Efficient Database Queries
 
 When querying the database in WordPress you should generally use a ```WP_Query``` object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as ```get_posts()``` do not. You should read the ```WP_Query``` codex page thoroughly. Here are a few key points/rules:
 
@@ -34,11 +34,11 @@ new WP_Query( array(
 ));
 ```
 
-## Caching
+#### Caching
 
 Caching is simply the act of storing computed data somewhere for later use and is an incredibly important concept in WordPress. There are different ways to employ caching. Often we utilize multiple methods.
 
-### The "Object Cache"
+##### The "Object Cache"
 Object caching is the act of caching data or objects for later use. In the context of WordPress, we prefer to cache objects in memory so we can retrieve them quickly.
 
 In WordPress the object cache functionality provided by ```WP_Object_Cache``` and the Transient API are great solutions for improving performance on long running queries, complex functions or the like.
@@ -111,7 +111,7 @@ With this implementation you can keep the cache object forever and don't need to
 
 In some cases it might be necessary to create multiple objects depending on the parameters a function is called with. In these cases it's usually a good idea to create a cache key which includes a representation of the variable parameters. A simple solution for this would be appending a md5 hash of the serialized parameters to the key name.
 
-### Page Caching
+##### Page Caching
 
 Page caching in the context of web development refers to storing a requested locations entire output to serve in the event of subsequent requests to the same location.
 
@@ -125,7 +125,7 @@ As Batcache does not cache calls for URLs with query strings or logged in users 
 
 There are other page caching solutions such as W3 Total Cache. We generally do not use other page caching plugins for a variety of reasons.
 
-### AJAX Endpoints
+##### AJAX Endpoints
 
 AJAX stands for Asynchronous JavaScript and XML. Often we use JavaScript on the client-side to ping endpoints for things like infinite scroll.
 
@@ -133,7 +133,7 @@ WordPress [provides an API](http://codex.wordpress.org/AJAX_in_Plugins) to regis
 
 For this reason, front facing endpoints should written by using the [Rewrite Rules API](http://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process.
 
-## Appropriately Storing Data
+#### Appropriately Storing Data
 
 Utilizing built-in WordPress API's we can store data in a number of ways. We can store data using options, post meta, post types, object cache, and taxonomy terms. There are a number of performance considerations for each WordPress storage vehicle:
 
@@ -143,7 +143,7 @@ Utilizing built-in WordPress API's we can store data in a number of ways. We can
 * Posts. WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
 * Object Cache. See caching section.
 
-## Database Writes
+#### Database Writes
 
 Writing information to the database is at the core of any website we build. Here are some tips:
 
@@ -155,11 +155,11 @@ Writing information to the database is at the core of any website we build. Here
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When creating or updating options, you can pass an ```$autoload``` argument to ```add_option()```. If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, ```update_option()``` automatically sets autoload to true so you have to use a combination of ```delete_option()``` and ```add_option()``` to accomplish this.
 
-# Security
+### Security
 
 Security in the context of web development is a huge topic. This section only addresses what we can do at the server-side code level.
 
-##Input Validation and Sanitization
+#### Input Validation and Sanitization
 
 To validate is to ensure the data you've requested of the user matches what they've submitted. There are several core methods you can use for input validation; usage obviously depends on the type of fields you'd like to validate.
 
@@ -183,7 +183,7 @@ Again, since ```update_option()``` is storing in the database we must validate o
 
 WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input). Sometimes it can be confusing as to which is the most appropriate for a given situation. Sometimes it's even appropriate for us to write our own sanitization and validation methods.
 
-## Escape Output
+#### Escape Output
 
 To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. Here are some simple examples:
 
@@ -231,11 +231,11 @@ We even need to escape translated text. Generally, instead of use ```__()```, we
 
 There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
-# Code Style
+### Code Style
 
 We follow the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
 
-# Unit and Integration Testing
+### Unit and Integration Testing
 
 Unit testing is the automated testing of units of source code against assumptions. The goal of unit testing is to write test cases with assumptions that test if a unit of code is truly working as intended. If an assumption fails, a potential issue is exposed, and code needs to be revised.
 
@@ -245,6 +245,6 @@ At 10up, we generally employ unit and/or integration tests only when building ap
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](http://make.wordpress.org/core/handbook/automated-testing/)
 
-# Libraries and Frameworks
+### Libraries and Frameworks
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme development. WordPress API's provide us with 99% of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
