@@ -7,8 +7,20 @@ Writing performant code is absolutely critical especially at the enterprise leve
 When querying the database in WordPress you should generally use a ```WP_Query``` object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as ```get_posts()``` do not. You should read the ```WP_Query``` codex page thoroughly. Here are a few key points/rules:
 
 * Do not use ```posts_per_page => -1```. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget for example and just want to grab all of a custom post type, use a reasonable number like 500.
+
+```php
+new WP_Query({
+  'posts_per_page' => 500,
+});```
+
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason. ```WP_Query``` actually calls ```get_posts()```; calling ```get_posts()``` directly bypasses a number of filters. Not sure whether you need these things or not? You probably don't.
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```. This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
+
+```php
+new WP_Query({
+  'no_found_rows' => true,
+});```
+
 * A taxonomy is a tool that lets us group or classify posts. Post meta lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
 * Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea. If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
 * Multi-dimensional queries should be avoided. 3-dimensional queries should almost always be avoided. Examples of multi-dimensional queries are querying for posts based on terms across multiple taxonomies or multiple post meta keys. Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need. Here is an example of a 2-dimensional query:
