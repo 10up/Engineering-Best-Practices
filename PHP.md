@@ -125,6 +125,14 @@ As Batcache does not cache calls for URLs with query strings or logged in users 
 
 There are other page caching solutions such as W3 Total Cache. We generally do not use other page caching plugins for a variety of reasons.
 
+### AJAX Endpoints
+
+AJAX stands for Asynchronous JavaScript and XML. Often we use JavaScript on the client-side to ping endpoints for things like infinite scroll.
+
+WordPress [provides an API](http://codex.wordpress.org/AJAX_in_Plugins) to register AJAX endpoints on ```wp-admin/admin-ajax.php```. However, WordPress does not cache queries within the administration panel for obvious reasons. Therefore, if you send requests to an admin-ajax.php endpoint, you are bootstrapping WordPress and running uncached queries. Used properly, this is totally fine. However, this can take down a website if used on the frontend.
+
+For this reason, front facing endpoints should written by using the [Rewrite Rules API](http://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process.
+
 ## Appropriately Storing Data
 
 Utilizing built-in WordPress API's we can store data in a number of ways. We can store data using options, post meta, post types, object cache, and taxonomy terms. There are a number of performance considerations for each WordPress storage vehicle:
