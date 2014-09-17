@@ -9,18 +9,22 @@ When querying the database in WordPress you should generally use a ```WP_Query``
 * Do not use ```posts_per_page => -1```. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget for example and just want to grab all of a custom post type, use a reasonable number like 500.
 
 ```php
+<?php
 new WP_Query( array(
   'posts_per_page' => 500,
 ));
+?>
 ```
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason. ```WP_Query``` actually calls ```get_posts()```; calling ```get_posts()``` directly bypasses a number of filters. Not sure whether you need these things or not? You probably don't.
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```. This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
 ```php
+<?php
 new WP_Query( array(
   'no_found_rows' => true,
 ));
+?>
 ```
 
 * A taxonomy is a tool that lets us group or classify posts. Post meta lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
@@ -28,10 +32,12 @@ new WP_Query( array(
 * Multi-dimensional queries should be avoided. 3-dimensional queries should almost always be avoided. Examples of multi-dimensional queries are querying for posts based on terms across multiple taxonomies or multiple post meta keys. Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need. Here is an example of a 2-dimensional query:
 
 ```php
+<?php
 new WP_Query( array(
   'category_name' => 'cat-slug',
   'tag' => 'tag-slug',
 ));
+?>
 ```
 
 #### Caching
@@ -52,6 +58,7 @@ However, as the objects are stored in memory you need to consider that these obj
 This means we always need to ensure that we check for the existence of a cached object and be ready to generate it in case it's not available. Here is an example:
 
 ```php
+<?php
 function get_top_commented_posts() {
     // Check for the top_commented_posts key in the top_posts group
     $top_commented_posts = wp_cache_get( 'top_commented_posts', 'top_posts' );
@@ -66,6 +73,7 @@ function get_top_commented_posts() {
     }
     return $top_commented_posts;
 }
+?>
 ```
 
 
@@ -84,6 +92,7 @@ With this in mind we can change our function so that the cache would always be p
 Here is how it's done:
 
 ```php
+<?php
 // Force a refresh of top commented posts when we have a new comment count
 add_action( 'wp_update_comment_count', 'refresh_top_commented_posts', 10, 3 );
 function refresh_top_commented_posts( $post_id, $new, $old ) {
@@ -105,6 +114,7 @@ function get_top_commented_posts( $force_refresh = false ) {
     }
     return $top_commented_posts;
 }
+?>
 ```
 
 With this implementation you can keep the cache object forever and don't need to add an expiration for the object as you would create a new cache entry whenever it is required.  Just keep in mind that some external caches (like Memcache) can invalidate cache objects without any input from WordPress. For that reason, we always need the code that repopulates the cache available.
@@ -166,17 +176,21 @@ To validate is to ensure the data you've requested of the user matches what they
 Any non-static data that is stored in the database must be validated or sanitized. Not doing so can result in creating potential security vulnerabilities. For example, let's validate an integer we are storing in post meta:
 
 ```php
+<?php
 if ( ! empty( $_POST['user_id'] ) ) {
     update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
 }
+?>
 ```
 
 ```$_POST['user_id']``` is validated using ```absint()``` which ensures an integer >= 0. Without validation ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database. Here is another example where we sanitize a text field to be stored in the database:
 
 ```php
+<?php
 if ( ! empty( $_POST['special_heading'] ) ) {
     update_option( 'option_key', sanitize_text_field( $_POST['special_heading'] ) );
 }
+?>
 ```
 
 Again, since ```update_option()``` is storing in the database we must validate or sanitize. Here we use the sanitize text field function which is appropriate for general text fields.
