@@ -30,7 +30,7 @@ We use Composer for managing PHP dependencies. Usually everything we need is bun
 
 ### Version Control
 
-At 10up we use Git except when interacting with WordPress.com VIP (SVN). We encourage people to use the command line for interacting with Git. GUI’s are permitted, but will not be supported internally.
+At 10up we use [Git](http://git-scm.com) except when interacting with WordPress.com VIP where we use [SVN](https://subversion.apache.org/). We encourage people to use the command line for interacting with Git. GUI’s are permitted, but will not be supported internally.
 
 ### Command Line Tools
 
