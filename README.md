@@ -1,3 +1,5 @@
+__*THESE DOCS ARE UNDER ACTIVE DEVELOPMENT. PLEASE HOLD OFF CONTRIBUTIONS FOR NOW*__
+
 # Code Guide
 
 Project development standards used by 10up.
