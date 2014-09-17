@@ -1,6 +1,6 @@
-name:          10up Development Standards
-description:   Project development standards used by 10up.
-url:           http://10up.github.io/devstandards
+name:          10up Engineering Best Practices
+description:   Project engineering best practices used by 10up.
+url:           http://10up.github.io/Engineering-Best-Practices/
 
 markdown:      rdiscount
 permalink:     pretty
