@@ -197,6 +197,12 @@ if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
 
 ```esc_js()``` ensures that whatever is returned is ok to be printed within a JavaScript string.
 
+Sometimes we need to escape data that is meant to serve as an attribute. We can use ```esc_attr()``` to ensure output only contains characters appropriate for an attribute:
+
+```php
+<div class="<?php echo esc_attr( get_post_meta( $post_id, 'key', true ) ); ?>"></div>
+```
+
 If we need to escape such that HTML is permitted (but not harmful JavaScript), we usually have to use the ```wp_kses_*``` functions:
 
 ```php
@@ -206,6 +212,14 @@ If we need to escape such that HTML is permitted (but not harmful JavaScript), w
 ```
 
 ```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as whole. Are you providing a meta box for users to enter arbitrary HTML? Perhaps, you can add the HTML programmatically and provide the user with a few options to customize. If you do have to use wp_kses_*, output should be cached for as long as possible.
+
+We even need to escape translated text. Generally, instead of use ```__()```, we should use ```esc_html__()```. Instead of using ```_e()```, we should use ```esc_html_e()```:
+
+```php
+<div>
+    <?php esc_html_e( 'An example localized string.', 'my-domain' ) ?>
+</div>
+```
 
 WordPress has a number of functions built-in for [escaping output](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output).
 
