@@ -4,14 +4,14 @@ Writing performant code is absolutely critical especially at the enterprise leve
 
 ## Efficient Database Queries
 
-When querying the database in WordPress you should generally use a WP_Query object. WP_Query objects take a number of useful arguments and do things behind-the-scenes that other DB access methods (get_posts()) do not. You should read the WP_Query codex page thoroughly. Here are a few key points/rules:
+When querying the database in WordPress you should generally use a ```WP_Query``` object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as ```get_posts()``` do not. You should read the ```WP_Query``` codex page thoroughly. Here are a few key points/rules:
 
-* Do not use posts_per_page = -1. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget for example and just want to grab all of a custom post type, use a reasonable number like 500.
-* Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason. WP_Query actually calls get_posts; calling get_posts() directly bypasses a number of filters. Ask another Engineer if you are unsure. Not sure whether you need these things or not? You probably don't.
-* If you don't plan to paginate query results, always pass no_found_rows => true to WP_Query. This will tell WordPress not to run SQL_CALC_FOUND_ROWS on the SQL query drastically speeding up your query. SQL_CALC_FOUND_ROWS calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
+* Do not use ```posts_per_page => -1```. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget for example and just want to grab all of a custom post type, use a reasonable number like 500.
+* Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason. ```WP_Query``` actually calls ```get_posts()```; calling ```get_posts()``` directly bypasses a number of filters. Not sure whether you need these things or not? You probably don't.
+* If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```. This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 * A taxonomy is a tool that lets us group or classify posts. Post meta lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
-* Passing cache_results to WP_Query is usually not a good idea. If cache_results = true (which is true by default if you have caching enabled and an object cache setup), WP_Query will cache the posts found among other things. It makes sense to use cache_results = false in rare situations (possibly WP-CLI commands).
-* Multi-dimensional queries should be avoided. 3-dimensional queries should almost always be avoided. Examples of multi-dimensional queries are querying for posts based on terms across multiple taxonomies or posts based on based on multiple post meta keys. Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need. Here is an example of a 2-dimensional query:
+* Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea. If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
+* Multi-dimensional queries should be avoided. 3-dimensional queries should almost always be avoided. Examples of multi-dimensional queries are querying for posts based on terms across multiple taxonomies or multiple post meta keys. Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need. Here is an example of a 2-dimensional query:
 
 ```php
 new WP_Query({
@@ -22,20 +22,20 @@ new WP_Query({
 
 ## Caching
 
-Caching is simply the act of storing computed data somewhere for later use and is an incredibly important concept in WordPress. What separates a good hosting experience from a great one is how your site handles the load. There are different ways to employ caching; often we utilize multiple methods.
+Caching is simply the act of storing computed data somewhere for later use and is an incredibly important concept in WordPress. There are different ways to employ caching. Often we utilize multiple methods.
 
 ### The "Object Cache"
-Object caching is the act of caching data or objects for later use. In the context of WordPress, we prefer to cache objects in memory so we can retrieve it quickly.
+Object caching is the act of caching data or objects for later use. In the context of WordPress, we prefer to cache objects in memory so we can retrieve them quickly.
 
-In WordPress the Object Cache functionality provided by WP_Object_Cache and the Transient API are great solutions for improving performance on long running queries, complex functions or the like.
+In WordPress the object cache functionality provided by ```WP_Object_Cache``` and the Transient API are great solutions for improving performance on long running queries, complex functions or the like.
 
 On a regular WordPress install the difference between transients and the object cache is that transients are persistent and would write to the options table while the object cache only persists for the particular page load.
 
-On environments with a persistent caching mechanism (eg. Memcache) enabled, the transient functions become wrappers for the normal WP_Object_Cache functions. The objects are identically stored in the object cache and will be available across page loads.
+On environments with a persistent caching mechanism (eg. Memcache) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
-However, as the objects are stored in memory you need to consider that these objects can be cleared at any time and your code must be architected in a way that it would not rely on the objects being in place.
+However, as the objects are stored in memory you need to consider that these objects can be cleared at any time and your code must be constructed in a way that it would not rely on the objects being in place.
 
-This means that you always need to ensure that you check for the existence of a cached object and be ready to generate it in case it's not available. Here is an example:
+This means we always need to ensure that we check for the existence of a cached object and be ready to generate it in case it's not available. Here is an example:
 
 ```php
 function get_top_commented_posts() {
@@ -55,15 +55,15 @@ function get_top_commented_posts() {
 ```
 
 
-In this example we would check the cache for an object with the 10 most commented posts and would generate the list in case the object is not in the cache yet. Generally, calls to WP_Query other than the main query should be cached.
+In this example we would check the cache for an object with the 10 most commented posts and would generate the list in case the object is not in the cache yet. Generally, calls to ```WP_Query``` other than the main query should be cached.
 
-As we cache the content for 300 seconds we limit the query execution to one time every 5 minutes which is nice.
+As we cache the content for 300 seconds, we limit the query execution to one time every 5 minutes which is nice.
 
-However, the cache rebuild in this example would  always be triggered by a visitor who would hit a stale cache which will increase the page load time for the visitors and under high traffic conditions can cause race conditions when a lot of people hit a stale cache for a complex query at the same time. In the worst case this could cause queries at the database server to pile up causing replication lag or worse.
+However, the cache rebuild in this example would always be triggered by a visitor who would hit a stale cache which will increase the page load time for the visitors and under high traffic conditions. This can cause race conditions when a lot of people hit a stale cache for a complex query at the same time. In the worst case this could cause queries at the database server to pile up causing replication, lag, or worse.
 
 That said, a relatively easy solution for this problem is to make sure that your users would ideally always hit a primed cache. To do this you need to think about the conditions that need to be met to make the cached value invalid. In our case this would be the change of a comment.
 
-The easiest hook we could identify that would be triggered for any of this actions would be wp_update_comment_count set as do_action( 'wp_update_comment_count', $post_id, $new, $old );.
+The easiest hook we could identify that would be triggered for any of this actions would be wp_update_comment_count set as ```do_action( 'wp_update_comment_count', $post_id, $new, $old )```.
 
 With this in mind we can change our function so that the cache would always be primed when this action is triggered.
 
@@ -94,7 +94,8 @@ function get_top_commented_posts( $force_refresh = false ) {
 ```
 
 With this implementation you can keep the cache object forever and don't need to add an expiration for the object as you would create a new cache entry whenever it is required.  Just keep in mind that some external caches (like Memcache) can invalidate cache objects without any input from WordPress. For that reason, we always need the code that repopulates the cache available.
-In some cases it might be necessary to create multiple objects depending on the parameters a function is called with. In this cases it's usually a good idea to create a cache key which includes a representation of the variable parameters. A simple solution for this would be appending a md5 hash of the serialized parameters to the key name.
+
+In some cases it might be necessary to create multiple objects depending on the parameters a function is called with. In these cases it's usually a good idea to create a cache key which includes a representation of the variable parameters. A simple solution for this would be appending a md5 hash of the serialized parameters to the key name.
 
 ### Page Caching
 
@@ -104,11 +105,9 @@ Page caching in the context of web development refers to storing a requested loc
 
 Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (max 5 min) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old, however this only applies to people who have not interacted with your web site before. Once they have logged in or left a comment they will always get fresh pages.
 
-Although this plugin has a lot of benefits it also has a couple of code design requirements. As the rendered html of your pages might be cached you cannot rely on server side logic related to $_SERVER, $_COOKIE or other values that are unique to a particular user. You can however implement cookie or other user based logic on the front-end (eg. with JavaScript).
+Although this plugin has a lot of benefits, it also has a couple of code design requirements. As the rendered HTML of your pages might be cached you cannot rely on server side logic related to ```$_SERVER```, ```$_COOKIE``` or other values that are unique to a particular user. You can however implement cookie or other user based logic on the front-end (eg. with JavaScript).
 
-In rare cases which really require server-side exceptions we can help you to find a possible solution that serves your needs.
-
-As Batcache does not cache calls for URLs with query strings or logged in users (based on WordPress login cookies) you will need to make sure that your application design uses pretty urls to really benefit from this caching layer.
+As Batcache does not cache calls for URLs with query strings or logged in users (based on WordPress login cookies), you will need to make sure that your application design uses pretty urls to really benefit from this caching layer.
 
 There are other page caching solutions such as W3 Total Cache. We generally do not use other page caching plugins for a variety of reasons.
 
@@ -123,17 +122,20 @@ Utilizing built-in WordPress API's we can store data in a number of ways. We can
 * Object Cache. See caching section.
 
 ## Database Writes
+
 Writing information to the database is at the core of any website we build. Here are some tips:
 
-Generally, do not write to the database on frontend pages doing so can result in major performance issues and race conditions.
+* Generally, do not write to the database on frontend pages as doing so can result in major performance issues and race conditions.
 
-When multiple threads (or page requests) read or write to a shared location in memory and the order of those read or writes is unknown, you have what is known as a race condition.
+* When multiple threads (or page requests) read or write to a shared location in memory and the order of those read or writes is unknown, you have what is known as a [race condition](http://en.wikipedia.org/wiki/Race_condition).
 
-Store information in the correct place. See "Appropriately Storing Data" section.
+* Store information in the correct place. See "Appropriately Storing Data" section.
 
-Certain options are "autoloaded" or put into the object cache on each page load. When creating or updating options, you can pass an $autoload argument to add_option(). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, update_option() automatically sets autoload to true so you have to use a combination of delete_option() and add_option() to accomplish this.
+* Certain options are "autoloaded" or put into the object cache on each page load. When creating or updating options, you can pass an ```$autoload``` argument to ```add_option()```. If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, ```update_option()``` automatically sets autoload to true so you have to use a combination of ```delete_option()``` and ```add_option()``` to accomplish this.
 
 # Security
+
+Security in the context of web development is a huge topic. This section only addresses what we can do at the server-side code level.
 
 ##Input Validation and Sanitization
 
@@ -161,7 +163,7 @@ WordPress has a number of [validation and sanitization functions built-in](http:
 
 ## Escape Output
 
-For security on the other end of the spectrum, we have escaping. To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. Here is a simple example:
+To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. Here are some simple examples:
 
 ```php
 <div>
@@ -181,7 +183,7 @@ if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
 
 ```esc_js()``` ensures that whatever is returned is ok to be printed within a JavaScript string.
 
-If we need to escape that permits HTML (but not harmful JavaScript), we usually have to use the ```wp_kses_*``` functions:
+If we need to escape such that HTML is permitted (but not harmful JavaScript), we usually have to use the ```wp_kses_*``` functions:
 
 ```php
 <div>
@@ -197,12 +199,6 @@ WordPress has a number of functions built-in for [escaping output](http://codex.
 
 We follow the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
 
-# Plugins
-
-Right now our list of approved plugins lives here:
-https://docs.google.com/a/get10up.com/spreadsheets/d/1SpclhvMANm1J8p4zhtrxc8d-XetD22-bs8v8MjMWpLU/edit?usp=drive_web
-We recommend clients only use approved plugins. If a request is made for a plugin not on this list, we generally do a plugin review and add the review to this document.
-
 # Unit and Integration Testing
 
 Unit testing is the automated testing of units of source code against assumptions. The goal of unit testing is to write test cases with assumptions that test if a unit of code is truly working as intended. If an assumption fails, a potential issue is exposed, and code needs to be revised.
@@ -216,11 +212,3 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 # Libraries and Frameworks
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme development. WordPress API's provide us with 99% of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
-
-# WordPress.com VIP
-
-WordPress.com VIP is a WordPress PaaS hosting solution for enterprise level websites. VIP is a special "tier" for WordPress.com hosting. With the VIP package, you can create and maintain your own theme, have access to the VIP support ticketing system, and can sustain high-levels of traffic.
-
-# Local Development
-
-10up Engineers should use either Varying Vagrant Vagrants or VIP Quickstart as mentioned in the "Tools" section. The reason for standardizing the way we locally develop is based in debugging. If an engineer has a problem with a development tool not used by the company, we will most likely not be able to help them debug issues.
