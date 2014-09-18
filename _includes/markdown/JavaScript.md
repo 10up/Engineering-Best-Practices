@@ -28,6 +28,28 @@ The jQuery method is [~98% slower](http://jsperf.com/selecting-and-hiding-elemen
 
 Much of the time we do need jQuery (or something like it). It's important that we not depend on it to accomplish simple tasks like the one above. Even if we are using jQuery for something else like sending an AJAX call, we can still use non-jQuery methods in other areas of the same script.
 
+#### Use modern functions, methods, and properties
+
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+
+For example, in jQuery ```jQuery.live()``` is a deprecated method:
+
+```javascript
+jQuery( '.menu' ).live( 'click', function() {
+    // Clicked!
+});
+```
+
+We should use ```jQuery.on()``` instead:
+
+```javascript
+jQuery( '.menu' ).on( 'click', function() {
+    // Clicked!
+});
+```
+
+Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
+
 ##### Try to pass an Element or HTMLCollection to jQuery instead of a selection string
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
