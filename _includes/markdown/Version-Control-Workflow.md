@@ -1,4 +1,4 @@
-### General Workflow for Theme Development
+<h3 id="theme-workflow">General Workflow for Theme Development</h3>
 
 All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature/fix on the stage environment.
 
@@ -39,7 +39,7 @@ After a branch has been merged back to both ```staging``` and ```master``` (i.e.
 
 The tag will allow us to easily return to the branch should we need to for any reason.
 
-### General Workflow for Plugin Development
+<h3 id="plugin-workflow">General Workflow for Plugin Development</h3>
 
 Unlike theme development, the ```master``` branch represents a stable, released, versioned product. Ongoing development will happen on a ```develop``` branch, which it itself branched off ```master```.
 

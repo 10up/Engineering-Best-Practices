@@ -1,4 +1,4 @@
-### Performance
+<h3 id="js-performance">Performance</h3>
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. Performance at the browser level is a major part of user experience which is part of our mission statement.
 
@@ -6,7 +6,7 @@ Writing performant code is absolutely critical. Poorly written JavaScript can si
 
 JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries.
 
-#### Use jQuery Wisely
+<h4 id="use-jquery-wisely">Use jQuery Wisely</h4>
 
 jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let's say we want to hide an element:
 
@@ -24,7 +24,7 @@ jQuery( '#element' ).hide();
 </script>
 ```
 
-##### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
+#### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
 
@@ -41,7 +41,6 @@ We can pass our own HTMLCollection or Element to jQuery to create the same objec
 jQuery( document.getElementById( 'menu' ) );
 </script>
 ```
-
 
 #### Cache DOM Selections
 
@@ -96,7 +95,7 @@ $hideButton.on( 'click', function() {
 ```
 Notice how in cached version we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
 
-#### Event Delegation:
+#### Event Delegation
 
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from children. This is much more performant than adding one event listener for each child element. Here is an example:
 
@@ -124,7 +123,7 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 
 The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
-### Design Patterns
+<h3 id="js-design-patterns">Design Patterns</h3>
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
@@ -188,15 +187,15 @@ jQuery( '.menu' ).on( 'click', function() {
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
 
-### Code Style
+<h3 id="js-code-style">Code Style</h3>
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
-### Unit and Integration Testing
+<h3 id="js-unit-testing">Unit and Integration Testing</h3>
 
 At 10up, we generally employ unit and/or integration tests only when building applications that are meant to be distributed. Building tests for client themes does usually not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
 
-### Libraries
+<h3 id="js-libraries">Libraries</h3>
 
 There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of libraries whitelisted for use at 10up. If you need to use a library outside of this list, it's worth getting a second opinion.
 

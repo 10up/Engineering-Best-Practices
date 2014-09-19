@@ -1,4 +1,4 @@
-### Performance
+<h3 id="php-performance">Performance</h3>
 
 Writing performant code is absolutely critical especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
@@ -165,7 +165,11 @@ Writing information to the database is at the core of any website we build. Here
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When creating or updating options, you can pass an ```$autoload``` argument to ```add_option()```. If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, ```update_option()``` automatically sets autoload to true so you have to use a combination of ```delete_option()``` and ```add_option()``` to accomplish this.
 
-### Security
+<h3 id="php-design-patterns">Design Patterns</h3>
+
+Coming soon.
+
+<h3 id="php-security">Security</h3>
 
 Security in the context of web development is a huge topic. This section only addresses what we can do at the server-side code level.
 
@@ -245,11 +249,11 @@ We even need to escape translated text. Generally, instead of use ```__()```, we
 
 There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
-### Code Style
+<h3 id="php-code-style">Code Style</h3>
 
 We follow the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
 
-### Unit and Integration Testing
+<h3 id="php-unit-testing">Unit and Integration Testing</h3>
 
 Unit testing is the automated testing of units of source code against assumptions. The goal of unit testing is to write test cases with assumptions that test if a unit of code is truly working as intended. If an assumption fails, a potential issue is exposed, and code needs to be revised.
 
@@ -259,6 +263,6 @@ At 10up, we generally employ unit and/or integration tests only when building ap
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](http://make.wordpress.org/core/handbook/automated-testing/)
 
-### Libraries and Frameworks
+<h3 id="php-libraries">Libraries and Frameworks</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme development. WordPress API's provide us with 99% of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
