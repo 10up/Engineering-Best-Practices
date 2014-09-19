@@ -203,11 +203,11 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 [jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation. You should not need any other DOM manipulation library such as Prototype or MooTools.
 
-#### Utility:
+#### Utility
 
 [Underscores](http://underscorejs.org) - Provides a number of useful utility functions such as ```clone()```, ```each()```, and ```extend()```. WordPress core uses this library quite a bit.
 
-#### Frameworks:
+#### Frameworks
 
 [Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires underscores.js and a DOM manipulation library (jQuery)
 
