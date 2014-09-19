@@ -24,11 +24,44 @@ jQuery( '#element' ).hide();
 </script>
 ```
 
-The jQuery method is [~98% slower](http://jsperf.com/selecting-and-hiding-element-with-without-jquery) than non-jQuery.
+#### Don't Pollute the Window Object
 
-Much of the time we do need jQuery (or something like it). It's important that we not depend on it to accomplish simple tasks like the one above. Even if we are using jQuery for something else like sending an AJAX call, we can still use non-jQuery methods in other areas of the same script.
+Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` decisively.
 
-#### Use modern functions, methods, and properties
+When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
+
+```javascript
+<script type="text/javascript">
+console.log( this === window ); // true
+for ( var i = 0; i < 9; i++ ) {
+    // Do stuff
+}
+var result = true;
+console.log( window.result === result ); // true
+console.log( window.i === i ); // true
+</script>
+```
+
+When we put our code inside a closure, our variables are private to that closure unless we expose them:
+
+```javascript
+<script type="text/javascript">
+( function() {
+    for ( var i = 0; i < 9; i++ ) {
+        // Do stuff
+    }
+
+    window.result = true;
+})();
+
+console.log( typeof window.result !== 'undefined' ); // true
+console.log( typeof window.i !== 'undefined' ); // false
+</script>
+```
+
+Notice how ```i``` was not exposed to the ```window``` object.
+
+#### Use Modern Functions, Methods, and Properties
 
 It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
@@ -50,7 +83,7 @@ jQuery( '.menu' ).on( 'click', function() {
 
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
-##### Try to pass an Element or HTMLCollection to jQuery instead of a selection string
+##### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
 
@@ -60,7 +93,7 @@ jQuery( '#menu' );
 </script>
 ```
 
-We can pass our own HTMLCollection or Element to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each collection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+We can pass our own HTMLCollection or Element to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
 <script type="text/javascript">
