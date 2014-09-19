@@ -24,65 +24,6 @@ jQuery( '#element' ).hide();
 </script>
 ```
 
-#### Don't Pollute the Window Object
-
-Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` decisively.
-
-When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
-
-```javascript
-<script type="text/javascript">
-console.log( this === window ); // true
-for ( var i = 0; i < 9; i++ ) {
-    // Do stuff
-}
-var result = true;
-console.log( window.result === result ); // true
-console.log( window.i === i ); // true
-</script>
-```
-
-When we put our code inside a closure, our variables are private to that closure unless we expose them:
-
-```javascript
-<script type="text/javascript">
-( function() {
-    for ( var i = 0; i < 9; i++ ) {
-        // Do stuff
-    }
-
-    window.result = true;
-})();
-
-console.log( typeof window.result !== 'undefined' ); // true
-console.log( typeof window.i !== 'undefined' ); // false
-</script>
-```
-
-Notice how ```i``` was not exposed to the ```window``` object.
-
-#### Use Modern Functions, Methods, and Properties
-
-It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
-
-For example, in jQuery ```jQuery.live()``` is a deprecated method:
-
-```javascript
-jQuery( '.menu' ).live( 'click', function() {
-    // Clicked!
-});
-```
-
-We should use ```jQuery.on()``` instead:
-
-```javascript
-jQuery( '.menu' ).on( 'click', function() {
-    // Clicked!
-});
-```
-
-Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
-
 ##### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
@@ -182,6 +123,70 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 ```
 
 The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+
+### Design Patterns
+
+Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
+
+#### Don't Pollute the Window Object
+
+Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` decisively.
+
+When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
+
+```javascript
+<script type="text/javascript">
+console.log( this === window ); // true
+for ( var i = 0; i < 9; i++ ) {
+    // Do stuff
+}
+var result = true;
+console.log( window.result === result ); // true
+console.log( window.i === i ); // true
+</script>
+```
+
+When we put our code inside a closure, our variables are private to that closure unless we expose them:
+
+```javascript
+<script type="text/javascript">
+( function() {
+    for ( var i = 0; i < 9; i++ ) {
+        // Do stuff
+    }
+
+    window.result = true;
+})();
+
+console.log( typeof window.result !== 'undefined' ); // true
+console.log( typeof window.i !== 'undefined' ); // false
+</script>
+```
+
+Notice how ```i``` was not exposed to the ```window``` object.
+
+#### Use Modern Functions, Methods, and Properties
+
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+
+For example, in jQuery ```jQuery.live()``` is a deprecated method:
+
+```javascript
+jQuery( '.menu' ).live( 'click', function() {
+    // Clicked!
+});
+```
+
+We should use ```jQuery.on()``` instead:
+
+```javascript
+jQuery( '.menu' ).on( 'click', function() {
+    // Clicked!
+});
+```
+
+Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
+
 
 ### Code Style
 
