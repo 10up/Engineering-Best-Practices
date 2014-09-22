@@ -6,7 +6,7 @@ Writing performant code is absolutely critical. Poorly written JavaScript can si
 
 JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries.
 
-<h4 id="use-jquery-wisely">Use jQuery Wisely</h4>
+#### Use jQuery Wisely
 
 jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let's say we want to hide an element:
 
@@ -20,7 +20,7 @@ vs.
 jQuery( '#element' ).hide();
 ```
 
-#### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
+#### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
 
@@ -28,7 +28,7 @@ When we create a new jQuery object by passing it a selection string, jQuery uses
 jQuery( '#menu' );
 ```
 
-We can pass our own HTMLCollection or Element to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
 jQuery( document.getElementById( 'menu' ) );
