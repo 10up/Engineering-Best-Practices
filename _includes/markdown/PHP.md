@@ -59,18 +59,21 @@ This means we always need to ensure that we check for the existence of a cached 
 
 ```php
 <?php
-function get_top_commented_posts() {
+function prefix_get_top_commented_posts() {
     // Check for the top_commented_posts key in the top_posts group
-    $top_commented_posts = wp_cache_get( 'top_commented_posts', 'top_posts' );
+    $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
+
     // if nothing is found, build the object.
     if ( false === $top_commented_posts ) {
         // grab the top 10 most commented posts
         $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
-        if ( !is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
+
+        if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs)
-            wp_cache_set( 'top_commented_posts', $top_commented_posts, 'top_posts', 300 )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 300 )
         }
     }
+
     return $top_commented_posts;
 }
 ?>
@@ -93,23 +96,24 @@ Here is how it's done:
 
 ```php
 <?php
-// Force a refresh of top commented posts when we have a new comment count
-add_action( 'wp_update_comment_count', 'refresh_top_commented_posts', 10, 3 );
-function refresh_top_commented_posts( $post_id, $new, $old ) {
+function prefix_refresh_top_commented_posts( $post_id, $new, $old ) {
     // force the cache refresh for top commented posts
-    get_top_commented_posts( $force_refresh = true );
+    prefix_get_top_commented_posts( $force_refresh = true );
 }
+add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10, 3 );
 
-function get_top_commented_posts( $force_refresh = false ) {
+function prefix_get_top_commented_posts( $force_refresh = false ) {
     // Check for the top_commented_posts key in the top_posts group
-    $top_commented_posts = wp_cache_get( 'top_commented_posts', 'top_posts' );
+    $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
+
     // if nothing is found, build the object.
     if ( true === $force_refresh || false === $top_commented_posts ) {
         // grab the top 10 most commented posts
         $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
-        if ( !is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
+
+        if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // In this case we don't need a timed cache expiration
-            wp_cache_set( 'top_commented_posts', $top_commented_posts, 'top_posts' )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' )
         }
     }
     return $top_commented_posts;
@@ -141,7 +145,32 @@ AJAX stands for Asynchronous JavaScript and XML. Often we use JavaScript on the 
 
 WordPress [provides an API](http://codex.wordpress.org/AJAX_in_Plugins) to register AJAX endpoints on ```wp-admin/admin-ajax.php```. However, WordPress does not cache queries within the administration panel for obvious reasons. Therefore, if you send requests to an admin-ajax.php endpoint, you are bootstrapping WordPress and running uncached queries. Used properly, this is totally fine. However, this can take down a website if used on the frontend.
 
-For this reason, front facing endpoints should written by using the [Rewrite Rules API](http://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process.
+For this reason, front facing endpoints should written by using the [Rewrite Rules API](http://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process. Here is a simple example of how to structure your endpoints:
+
+```php
+<?php
+function prefix_add_api_endpoints() {
+	add_rewrite_tag( '%api_item_id%', '([0-9]+)' );
+	add_rewrite_rule( 'api/items/([0-9]+)/?', 'index.php?api_item_id=$matches[1]', 'top' );
+}
+add_action( 'init', 'prefix_add_api_endpoints' );
+
+function prefix_do_api() {
+	global $wp_query;
+
+	$item_id = $wp_query->get( 'api_item_id' );
+
+	if ( ! empty( $item_id ) ) {
+		$response = array();
+
+		// Do stuff with $item_id
+
+		wp_send_json( $response );
+	}
+}
+add_action( 'template_redirect', 'prefix_do_api' );
+?>
+```
 
 #### Appropriately Storing Data
 
