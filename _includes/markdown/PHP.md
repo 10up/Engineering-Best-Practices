@@ -85,7 +85,7 @@ However, the cache rebuild in this example would always be triggered by a visito
 
 That said, a relatively easy solution for this problem is to make sure that your users would ideally always hit a primed cache. To do this you need to think about the conditions that need to be met to make the cached value invalid. In our case this would be the change of a comment.
 
-The easiest hook we could identify that would be triggered for any of this actions would be wp_update_comment_count set as ```do_action( 'wp_update_comment_count', $post_id, $new, $old )```.
+The easiest hook we could identify that would be triggered for any of this actions would be ```wp_update_comment_count``` set as ```do_action( 'wp_update_comment_count', $post_id, $new, $old )```.
 
 With this in mind we can change our function so that the cache would always be primed when this action is triggered.
 
