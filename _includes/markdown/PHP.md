@@ -275,7 +275,7 @@ $wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_conten
 
 #### Escape Output
 
-To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. Here are some simple examples:
+To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. At 10up, we follow the philosophy of *late escaping*. This means we escape things just before output in order to reduce missed escaping and improve code readability. Here are some simple examples:
 
 ```php
 <div>
