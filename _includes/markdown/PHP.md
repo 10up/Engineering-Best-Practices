@@ -4,9 +4,9 @@ Writing performant code is absolutely critical especially at the enterprise leve
 
 #### Efficient Database Queries
 
-When querying the database in WordPress you should generally use a ```WP_Query``` object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as ```get_posts()``` do not. You should read the ```WP_Query``` codex page thoroughly. Here are a few key points/rules:
+When querying the database in WordPress you should generally use a ```WP_Query``` (see [codex](http://codex.wordpress.org/Class_Reference/WP_Query)) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as ```get_posts()``` do not. You should read the ```WP_Query``` codex page thoroughly. Here are a few key points/rules:
 
-* Do not use ```posts_per_page => -1```. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget for example and just want to grab all of a custom post type, use a reasonable number like 500.
+* Do not use ```posts_per_page => -1```. This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
 
 ```php
 <?php
@@ -27,7 +27,7 @@ new WP_Query( array(
 ?>
 ```
 
-* A taxonomy is a tool that lets us group or classify posts. Post meta lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
+* A [taxonomy](http://codex.wordpress.org/Taxonomies) is a tool that lets us group or classify posts. [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
 * Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea. If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
 * Multi-dimensional queries should be avoided. 3-dimensional queries should almost always be avoided. Examples of multi-dimensional queries are querying for posts based on terms across multiple taxonomies or multiple post meta keys. Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need. Here is an example of a 2-dimensional query:
 
@@ -45,13 +45,14 @@ new WP_Query( array(
 Caching is simply the act of storing computed data somewhere for later use and is an incredibly important concept in WordPress. There are different ways to employ caching. Often we utilize multiple methods.
 
 ##### The "Object Cache"
+
 Object caching is the act of caching data or objects for later use. In the context of WordPress, we prefer to cache objects in memory so we can retrieve them quickly.
 
-In WordPress the object cache functionality provided by ```WP_Object_Cache``` and the Transient API are great solutions for improving performance on long running queries, complex functions or the like.
+In WordPress the object cache functionality provided by ```WP_Object_Cache``` (see [codex](http://codex.wordpress.org/Class_Reference/WP_Object_Cache)) and the Transient API are great solutions for improving performance on long running queries, complex functions or the like.
 
 On a regular WordPress install the difference between transients and the object cache is that transients are persistent and would write to the options table while the object cache only persists for the particular page load.
 
-On environments with a persistent caching mechanism (eg. Memcache) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
+On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/)) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
 However, as the objects are stored in memory you need to consider that these objects can be cleared at any time and your code must be constructed in a way that it would not rely on the objects being in place.
 
@@ -176,11 +177,11 @@ add_action( 'template_redirect', 'prefix_do_api' );
 
 Utilizing built-in WordPress API's we can store data in a number of ways. We can store data using options, post meta, post types, object cache, and taxonomy terms. There are a number of performance considerations for each WordPress storage vehicle:
 
-* [Options](http://codex.wordpress.org/Options_API). The options API is a simple key-value storage system backed by a MySQL table. This API is mean't to store things like settings and not variable amounts of data.
-* [Post Meta or Custom Fields](http://codex.wordpress.org/Custom_Fields). Post meta is an API mean't for storing information specific to a post. For example, if we had a custom post type, "Product", "serial number" would be information appropriate for post meta. Because of this, it usually doesn't make sense to search for groups of posts based on post meta
-* [Taxonomies and Terms](http://codex.wordpress.org/Taxonomies). Taxonomies are essentially groupings. If we have a "classification" that spans multiple posts, it is a good fit for a taxonomy term. For example, if we had a custom post type, "Product", "manufacturer" would be a good term since multiple products could have the same manufacturer. Taxonomy terms can be efficiently searched across as opposed to post meta.
-* Posts. WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
-* Object Cache. See caching section.
+* [Options](http://codex.wordpress.org/Options_API) - The options API is a simple key-value storage system backed by a MySQL table. This API is mean't to store things like settings and not variable amounts of data.
+* [Post Meta or Custom Fields](http://codex.wordpress.org/Custom_Fields) - Post meta is an API meant for storing information specific to a post. For example, if we had a custom post type, "Product", "serial number" would be information appropriate for post meta. Because of this, it usually doesn't make sense to search for groups of posts based on post meta
+* [Taxonomies and Terms](http://codex.wordpress.org/Taxonomies) - Taxonomies are essentially groupings. If we have a "classification" that spans multiple posts, it is a good fit for a taxonomy term. For example, if we had a custom post type, "Product", "manufacturer" would be a good term since multiple products could have the same manufacturer. Taxonomy terms can be efficiently searched across as opposed to post meta.
+* [Custom Post Types](http://codex.wordpress.org/Post_Types) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
+* [Object Cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache) - See caching section.
 
 #### Database Writes
 
@@ -192,7 +193,7 @@ Writing information to the database is at the core of any website we build. Here
 
 * Store information in the correct place. See "Appropriately Storing Data" section.
 
-* Certain options are "autoloaded" or put into the object cache on each page load. When creating or updating options, you can pass an ```$autoload``` argument to ```add_option()```. If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, ```update_option()``` automatically sets autoload to true so you have to use a combination of ```delete_option()``` and ```add_option()``` to accomplish this.
+* Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to ```add_option()```. If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, ```update_option()``` automatically sets ```autoload``` to true so you have to use a combination of ```delete_option()``` and ```add_option()``` to accomplish this.
 
 <h3 id="php-design-patterns">Design Patterns</h3>
 
