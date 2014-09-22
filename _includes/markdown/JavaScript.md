@@ -11,17 +11,13 @@ JavaScript libraries should only be loaded on the page when needed. jquery-1.11.
 jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let's say we want to hide an element:
 
 ```javascript
-<script type="text/javascript">
 document.getElementById( 'element' ).style.display = 'none';
-</script>
 ```
 
 vs.
 
 ```javascript
-<script type="text/javascript">
 jQuery( '#element' ).hide();
-</script>
 ```
 
 #### Try to Pass an Element or HTMLCollection to jQuery Instead of a Selection String
@@ -29,17 +25,13 @@ jQuery( '#element' ).hide();
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
 
 ```javascript
-<script type="text/javascript">
 jQuery( '#menu' );
-</script>
 ```
 
 We can pass our own HTMLCollection or Element to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
-<script type="text/javascript">
 jQuery( document.getElementById( 'menu' ) );
-</script>
 ```
 
 #### Cache DOM Selections
@@ -49,49 +41,41 @@ It's a common JavaScript request to reselect something unnecessarily. For exampl
 non-jQuery Uncached:
 
 ```javascript
-<script type="text/javascript">
 var hideButton = document.getElementsByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
     var menu = document.getElementById( 'menu' );
     menu.style.display = 'none';
 }
-</script>
 ```
 
 non-jQuery Cached:
 
 ```javascript
-<script type="text/javascript">
 var menu = document.getElementById( 'menu' );
 var hideButton = document.getElementsByClassName( 'hide-button' )[0];
 hideButton.onclick = function() {
     menu.style.display = 'none';
 }
-</script>
 ```
 
 jQuery Uncached:
 
 ```javascript
-<script type="text/javascript">
 var $hideButton = jQuery( '.hide-button' );
 $hideButton.on( 'click', function() {
     var $menu = jQuery( '#menu' );
     $menu.hide();
 });
-</script>
 ```
 
 jQuery Cached:
 
 ```javascript
-<script type="text/javascript">
 var $menu = jQuery( '#menu' );
 var $hideButton = jQuery( '.hide-button' );
 $hideButton.on( 'click', function() {
 	$menu.hide();
 });
-</script>
 ```
 Notice how in cached version we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
 
@@ -102,23 +86,19 @@ Event delegation is the act of adding one event listener to a parent node to lis
 Without jQuery:
 
 ```javascript
-<script type="text/javascript">
 document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
     if( event.target && event.target.nodeName === 'LI' ) {
         // Do stuff!
     }
 });
-</script>
 ```
 
 With jQuery:
 
 ```javascript
-<script type="text/javascript">
 jQuery( '#menu' ).on( 'click', 'li', function() {
     // Do stuff!
 });
-</script>
 ```
 
 The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
@@ -134,7 +114,6 @@ Adding methods or properties to the ```window``` object or the global namespace 
 When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
 
 ```javascript
-<script type="text/javascript">
 console.log( this === window ); // true
 for ( var i = 0; i < 9; i++ ) {
     // Do stuff
@@ -142,13 +121,11 @@ for ( var i = 0; i < 9; i++ ) {
 var result = true;
 console.log( window.result === result ); // true
 console.log( window.i === i ); // true
-</script>
 ```
 
 When we put our code inside a closure, our variables are private to that closure unless we expose them:
 
 ```javascript
-<script type="text/javascript">
 ( function() {
     for ( var i = 0; i < 9; i++ ) {
         // Do stuff
@@ -159,7 +136,6 @@ When we put our code inside a closure, our variables are private to that closure
 
 console.log( typeof window.result !== 'undefined' ); // true
 console.log( typeof window.i !== 'undefined' ); // false
-</script>
 ```
 
 Notice how ```i``` was not exposed to the ```window``` object.
