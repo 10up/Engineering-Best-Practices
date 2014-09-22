@@ -231,6 +231,26 @@ Again, since ```update_option()``` is storing in the database we must validate o
 
 WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input). Sometimes it can be confusing as to which is the most appropriate for a given situation. Sometimes it's even appropriate for us to write our own sanitization and validation methods.
 
+#### Raw SQL Prepartion and Sanitization
+
+There are times when we need to deal directly with SQL. WordPress provides us with ```$wpdb``` (see [codex](http://codex.wordpress.org/Class_Reference/wpdb)). We must take special care to ensure our queries are properly prepared and sanitized:
+
+```php
+<?php
+$wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID='%d'", absint( $post_id ) ) );
+?>
+```
+
+```$wpdb->prepare()``` behaves like ```sprintf()``` and essentially calls ```mysqli_real_escape_string()``` on each argument. ```mysqli_real_escape_string()``` escapes characters like ```'``` and ```"``` which prevents many SQL injection attacks. By using ```%d``` in ```sprintf()``` we are ensuring our argument is forced to be an integer. You might be wondering why we use ```absint()``` since it seems redundant. It's better to over sanitize then to miss something accidentally. Here is another example:
+
+```php
+<?php
+$wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_content ), array( '%s' ) );
+?>
+```
+
+```$wpdb->insert()``` creates a new row in the database. We are passing ```$post_content``` into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing our value to be a string using ```%s``` prevents many SQL injections attacks. However, we still need to call ```wp_kses_post()``` on ```$post_excerpt``` as someone could inject harmful JavaScript.
+
 #### Escape Output
 
 To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. Here are some simple examples:
