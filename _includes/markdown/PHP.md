@@ -173,6 +173,28 @@ add_action( 'template_redirect', 'prefix_do_api' );
 ?>
 ```
 
+##### Cache Remote Requests
+
+Requests made to third parties, whether synchronous or asynchronous, should be cached. Not doing so will result in your site's load time depend on an unreliable third party! Here is a quick code example:
+
+```php
+<?php
+function prefix_get_posts_from_other_blog() {
+    if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
+
+        $request = wp_remote_get( ... );
+        $posts = wp_remote_retrieve_body( $request );
+
+        wp_cache_set( 'prefix_other_blog_posts, $posts, '', HOUR_IN_SECONDS );
+    }
+
+    return $posts
+}
+?>
+```
+
+```prefix_get_posts_form_other_blog()``` can be called to get posts from a third party and will handle caching internally.
+
 #### Appropriately Storing Data
 
 Utilizing built-in WordPress API's we can store data in a number of ways. We can store data using options, post meta, post types, object cache, and taxonomy terms. There are a number of performance considerations for each WordPress storage vehicle:
