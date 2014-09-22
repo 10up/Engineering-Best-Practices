@@ -20,7 +20,7 @@ At 10up, we use Vagrant to build and interactive with virtual environments that 
 
 <h3 id="version-control">Version Control</h3>
 
-[Git](http://git-scm.com) - At 10up we use Git for version control. We encourage people to use the command line for interacting with Git. GUI’s are permitted, but will not be supported internally.
+[Git](http://git-scm.com) - At 10up we use Git for version control. We encourage people to use the command line for interacting with Git. GUI’s are permitted but will not be supported internally.
 
 [SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUI's internally.
 
