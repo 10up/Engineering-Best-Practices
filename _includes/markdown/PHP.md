@@ -321,6 +321,31 @@ We even need to escape translated text. Generally, instead of use ```__()```, we
 
 There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
+#### Nonces
+
+[WordPress Nonces](http://codex.wordpress.org/WordPress_Nonces) or numbers used only once is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) or cross-site request forgery. The purpose of a nonce is to make each request unique so an action cannot be replayed.
+
+For example, to trash post 1 I might visit this URL: ```http://example.com/wp-admin/post.php?post=1&action=trash```. An attacker could trick me into visiting a URL like this ```http://example.com/wp-admin/post.php?post=2&action=trash``` since I am authenticated and authorized. For this reason, the trash action requires a valid nonce. After visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
+
+Update and delete actions (like trashing a post) should require a valid nonce. Here is some example code:
+
+```php
+<form method="post" action="">
+    <?php wp_create_nonce( 'my_action_name' ); ?>
+    ...
+</form>
+```
+
+When we process the form request, we check the nonce:
+
+```php
+<?php
+if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name' ) ) {
+    // Nonce is valid!
+}
+?>
+```
+
 <h3 id="php-code-style">Code Style</h3>
 
 We follow the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
