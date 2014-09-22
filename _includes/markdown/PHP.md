@@ -253,7 +253,7 @@ Again, since ```update_option()``` is storing in the database we must validate o
 
 WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input). Sometimes it can be confusing as to which is the most appropriate for a given situation. Sometimes it's even appropriate for us to write our own sanitization and validation methods.
 
-#### Raw SQL Prepartion and Sanitization
+#### Raw SQL Preparation and Sanitization
 
 There are times when we need to deal directly with SQL. WordPress provides us with ```$wpdb``` (see [codex](http://codex.wordpress.org/Class_Reference/wpdb)). We must take special care to ensure our queries are properly prepared and sanitized:
 
