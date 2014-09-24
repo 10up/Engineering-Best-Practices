@@ -24,10 +24,10 @@ layout: default
 			<li><a href="#php-code-style">Code Style</a></li>
 			<li><a href="#php-libraries">Libraries and Frameworks</a></li>
 		</ul>
-		<h4><a href="#version-control-workflow">Version Control Workflow</a></h4>
+		<h4><a href="#version-control">Version Control</a></h4>
 		<ul>
-			<li><a href="#theme-workflow">Theme Development</a></li>
-			<li><a href="#plugin-workflow">Plugin Development</a></li>
+			<li><a href="structure">Structure</a></li>
+			<li><a href="workflows">Workflows</a></li>
 		</ul>
 	</div>
 	<div class="col">
@@ -39,8 +39,6 @@ layout: default
 			<li><a href="#js-code-style">Code Style</a></li>
 			<li><a href="#js-libraries">Libraries</a></li>
 		</ul>
-		<h4><a href="#markup">Markup</a></h4>
-		<h4><a href="#css">CSS</a></h4>
 		<h4><a href="#tools">Tools</a></h4>
 		<ul>
 			<li><a href="#local-development">Local Development Environments</a></li>
@@ -86,36 +84,14 @@ layout: default
 	</div>
 </div>
 
-<div class="heading" id="version-control-workflow">
-	<h2>Version Control Workflow</h2>
+<div class="heading" id="version-control">
+	<h2>Version Control</h2>
 </div>
 
 <div class="section">
 	<div class="col">
-		{% capture workflow %}{% include markdown/Version-Control-Workflow.md %}{% endcapture %}
+		{% capture workflow %}{% include markdown/Version-Control.md %}{% endcapture %}
 		{{ workflow | markdownify }}
-	</div>
-</div>
-
-<div class="heading" id="markup">
-	<h2>Markup</h2>
-</div>
-
-<div class="section">
-	<div class="col">
-		{% capture markup %}{% include markdown/Markup.md %}{% endcapture %}
-		{{ markup | markdownify }}
-	</div>
-</div>
-
-<div class="heading" id="css">
-	<h2>CSS</h2>
-</div>
-
-<div class="section">
-	<div class="col">
-		{% capture css %}{% include markdown/CSS.md %}{% endcapture %}
-		{{ css | markdownify }}
 	</div>
 </div>
 

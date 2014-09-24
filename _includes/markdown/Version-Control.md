@@ -1,21 +1,33 @@
-<h3 id="theme-workflow">Theme Development</h3>
+We version control all projects at 10up using [Git](http://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each others changes.
+
+<h3 id="version-control-structure">Structure</h3>
+
+The key philosophy that drives our repository structure is *we don't version control things that are version controlled elsewhere*. This means we don't version control WordPress core files or third party plugins. If we are building a theme, we version control only the theme and deploy to the themes directory. Similarly, if we are building a plugin, we version control only the plugin and deploy to the plugins directory. Rather than version control third party libraries, we use [package managers](#package-managers) to include those dependencies. There are of course exceptions to this.
+
+The counter argument to this philosophy is "what if the latest version of ______ breaks the site? How will we revert to a working state if we don't version control WordPress core and plugins?". WordPress core is backwards compatible, and we believe in trusting it. Similarly, we only install and recommend plugins that we trust. These best practices coupled with our talented engineers gives us confidence that our code will work with core and plugin updates. If we discover code in core or a plugin that has issues, we try our best to correct that code and push the changes upstream giving back to the open source community.
+
+<h3 id="workflows">Workflows</h3>
+
+At 10up we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason we use the following workflows company-wide both for internal and client projects.
+
+#### Themes
 
 All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature/fix on the stage environment.
 
 When things are absolutely ready to go, we'll deploy the fix by performing a non-fast-forward merge from that branch to ```master```
 
-#### Branching
+##### Branching
 
 All theme projects will treat the ```master``` branch as the canonical source for live, production code. Feature branches will branch off ```master``` and should always have ```master``` merged back into them before requesting peer code review and before deploying to any staging environments.
 
 All staging branches will branch off ```master``` as well, and should be named ```staging``` or ```stage-{environment}``` for consistency and clarity. Staging branches will never be merged into any other branches. The ```master``` branch can be merged into both staging and feature branches to keep them up-to-date.
 
-#### Working with VIP
+##### Working with VIP
 
 In a VIP environment, we want every commit to the theme's Subversion repository to be matched 1:1 with a merge commit on our Beanstalk Git repository. This means we add a step to our deployment above: Create a diff between the branch and ```master``` before merging - we can apply this diff as a patch to the VIP Subversion repository
 Using non-fast-forward merges allows us to easily track various changes back in the history tree.
 
-#### Backporting VIP
+##### Backporting VIP
 
 In the event that VIP makes a change to the repository, we'll capture the diff of their changeset and import it to our development repository by:
 
@@ -25,7 +37,7 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 * Merging the branch to ```staging```, using a non-fast-forward merge
 * Merging the branch back to ```master```, again using a non-fast-forward merge
 
-#### Archiving Branches
+##### Archiving Branches
 
 This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll archive them after feature development is complete.
 
@@ -39,15 +51,15 @@ After a branch has been merged back to both ```staging``` and ```master``` (i.e.
 
 The tag will allow us to easily return to the branch should we need to for any reason.
 
-<h3 id="plugin-workflow">Plugin Development</h3>
+#### Plugins
 
 Unlike theme development, the ```master``` branch represents a stable, released, versioned product. Ongoing development will happen on a ```develop``` branch, which it itself branched off ```master```.
 
-#### Branching
+##### Branching
 
 New features should be branched off ```develop``` and, once complete, merged back into ```develop``` using a non-fast-forward merge.
 
-#### Deploying
+##### Deploying
 
 When a new version is complete and ready to ship, update version slugs on ```develop```, then merge ```develop``` back to ```master``` (using a non-fast-forward merge). Tag the merge commit with the version number being released so we can keep track of where new versions land.
 
