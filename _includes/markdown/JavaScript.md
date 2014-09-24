@@ -20,6 +20,8 @@ vs.
 jQuery( '#element' ).hide();
 ```
 
+The non-jQuery version is [much faster](http://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
+
 #### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
