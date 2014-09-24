@@ -227,9 +227,11 @@ Security in the context of web development is a huge topic. This section only ad
 
 #### Input Validation and Sanitization
 
-To validate is to ensure the data you've requested of the user matches what they've submitted. There are several core methods you can use for input validation; usage obviously depends on the type of fields you'd like to validate.
+To validate is to ensure the data you've requested of the user matches what they've submitted. Sanitization is a broader approach ensuring data conforms to certain standards such as an integer or HTML-less text. The difference between validating and sanitizing data can be subtle at times and context dependant. Validation is always preferred to sanitization. Any non-static data that is stored in the database must be validated or sanitized. Not doing so can result in creating potential security vulnerabilities.
 
-Any non-static data that is stored in the database must be validated or sanitized. Not doing so can result in creating potential security vulnerabilities. For example, let's validate an integer we are storing in post meta:
+WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input). Sometimes it can be confusing as to which is the most appropriate for a given situation. Sometimes it's even appropriate for us to write our own sanitization and validation methods.
+
+Let's validate an integer we are storing in post meta:
 
 ```php
 <?php
@@ -239,7 +241,9 @@ if ( ! empty( $_POST['user_id'] ) ) {
 ?>
 ```
 
-```$_POST['user_id']``` is validated using ```absint()``` which ensures an integer >= 0. Without validation ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database. Here is another example where we sanitize a text field to be stored in the database:
+```$_POST['user_id']``` is validated using ```absint()``` which ensures an integer >= 0. Without validation (or sanitization) ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database.
+
+Here is an example where we sanitize a text field to be stored in the database:
 
 ```php
 <?php
@@ -249,11 +253,9 @@ if ( ! empty( $_POST['special_heading'] ) ) {
 ?>
 ```
 
-Again, since ```update_option()``` is storing in the database we must validate or sanitize. Here we use the sanitize text field function which is appropriate for general text fields.
+Since ```update_option()``` is storing in the database we must sanitize (or validate). Here we use the ```sanitize_text_field()``` function which is appropriate for general text fields.
 
-WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input). Sometimes it can be confusing as to which is the most appropriate for a given situation. Sometimes it's even appropriate for us to write our own sanitization and validation methods.
-
-#### Raw SQL Preparation and Sanitization
+##### Raw SQL Preparation and Sanitization
 
 There are times when we need to deal directly with SQL. WordPress provides us with ```$wpdb``` (see [codex](http://codex.wordpress.org/Class_Reference/wpdb)). We must take special care to ensure our queries are properly prepared and sanitized:
 
@@ -273,9 +275,9 @@ $wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_conten
 
 ```$wpdb->insert()``` creates a new row in the database. We are passing ```$post_content``` into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing our value to be a string using ```%s``` prevents many SQL injections attacks. However, we still need to call ```wp_kses_post()``` on ```$post_excerpt``` as someone could inject harmful JavaScript.
 
-#### Escape Output
+#### Escape or Validate Output
 
-To escape is to take the data you may already have and help secure it prior to rendering it for the end user. Any non-static data outputted to the browser must be escaped. WordPress has a number of core functions we can leverage for escaping. At 10up, we follow the philosophy of *late escaping*. This means we escape things just before output in order to reduce missed escaping and improve code readability. Here are some simple examples:
+To escape is to ensure data conforms to specific standards before being passed off. Validation, again, ensures that data matches what is to be expected in a much stricter way. Any non-static data outputted to the browser must be escaped or validated. WordPress has a number of core functions we can leverage for escaping. At 10up, we follow the philosophy of *late escaping*. This means we escape things just before output in order to reduce missed escaping and improve code readability. Here are some simple examples:
 
 ```php
 <div>
@@ -284,6 +286,12 @@ To escape is to take the data you may already have and help secure it prior to r
 ```
 
 ```esc_html()``` ensures output does not contain any html thus preventing JavaScript injection and layout breaks. Here is another example:
+
+```php
+<a href="mailto:<?php echo sanitize_email( get_post_meta( $post_id, 'key', true ) ); ?>">Email me</a>
+```
+
+```sanitize_email()``` ensures output is a valid email address. This is an example of validating our data. We could have used a broader escaping function like ```esc_attr()``` but instead we used ```sanitize_email()``` to validate. Here is another example:
 
 ```php
 <script>
@@ -362,4 +370,4 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 
 <h3 id="php-libraries">Libraries and Frameworks</h3>
 
-Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme development. WordPress API's provide us with 99% of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
+Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress API's provide us with 99% of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
