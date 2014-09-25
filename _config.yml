@@ -5,3 +5,4 @@ url:           http://10up.github.io/Engineering-Best-Practices/
 markdown:      redcarpet
 permalink:     pretty
 highlighter:   pygments
+encoding:      utf-8
