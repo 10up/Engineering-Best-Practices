@@ -6,3 +6,5 @@ markdown:      redcarpet
 permalink:     pretty
 highlighter:   pygments
 encoding:      utf-8
+redcarpet:
+    extensions: [with_toc_data]
