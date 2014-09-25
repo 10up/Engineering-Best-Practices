@@ -219,7 +219,89 @@ Writing information to the database is at the core of any website we build. Here
 
 <h3 id="php-design-patterns">Design Patterns</h3>
 
-Coming soon.
+Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
+
+#### Namespacing
+
+All functional code should be properly namespaced. Generally, this means using a PHP `namespace` identifier at the top of included files:
+
+```php
+<?php
+namespace 10up\Utilities\API;
+
+function do_something() {
+  // ...
+}
+```
+
+If the code is for general release to the WordPress.org theme or plugin repositories, we must match the minimum PHP compatibility of WordPress itself. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead we will structure a class wrapping static functions to serve as a _pseudo_ namespace:
+
+```php
+<?php class Utilities_API {
+  public static function do_something() {
+    // ...
+  }
+}
+```
+
+The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if/when WordPress raises its minimum version requirements).
+
+#### Object Design
+
+Firstly, if a function is not specific to an object, it should be included in a functional <a href="#namespacing">namespace</a> as referenced above.
+
+Objects should be well-defined, atomic, and fully documented in the leading docblock for the file. Every function within the object must relate to the object itself.
+
+```php
+<?php
+/**
+ * Video
+ *
+ * This is a video object that wraps both traditional WordPress posts
+ * and various YouTube meta information APIs hidden beneath them.
+ *
+ * @package    ClientTheme
+ * @subpackage Content
+ */
+class Video {
+
+  /**
+   * WordPress post object used for data storage.
+   *
+   * @var WP_Post
+   */
+  protected $_post;
+
+  /**
+   * Default video constructor.
+   *
+   * @uses get_post
+   *
+   * @throws Exception Throws an exception if the data passed is not a post or post ID.
+   *
+   * @var int|WP_Post $post
+   */
+  public function __construct( $post = null ) {
+    if ( null === $post ) {
+      throw new Exception( 'Invalid post supplied' );
+    }
+
+    $this->_post = get_post( $post );
+  }
+}
+```
+
+#### Visibility
+
+In terms of OOP, public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed upon rationale.
+
+#### Structure and Patterns
+
+Singletons are not advised - there is little justification for this pattern in practice and they cause more maintainability problems than they fix.
+
+Class inheritance should be used where possible to produce DRY code and share previously developed components throughout the application.
+
+Global variable should be avoided. If objects need to be passed throughout the theme/plugin, those object should either be passed as parameters or referenced through an object factory.
 
 <h3 id="php-security">Security</h3>
 
