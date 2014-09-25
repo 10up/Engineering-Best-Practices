@@ -301,7 +301,9 @@ Singletons are not advised - there is little justification for this pattern in p
 
 Class inheritance should be used where possible to produce DRY code and share previously developed components throughout the application.
 
-Global variable should be avoided. If objects need to be passed throughout the theme/plugin, those object should either be passed as parameters or referenced through an object factory.
+Global variables should be avoided. If objects need to be passed throughout the theme/plugin, those object should either be passed as parameters or referenced through an object factory.
+
+Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method.
 
 <h3 id="php-security">Security</h3>
 
