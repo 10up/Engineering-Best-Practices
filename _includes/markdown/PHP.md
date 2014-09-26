@@ -223,11 +223,11 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 #### Namespacing
 
-All functional code should be properly namespaced. Generally, this means using a PHP `namespace` identifier at the top of included files:
+All functional code should be properly namespaced. We do this to logically organize our code and to prevent collisions in the global namespace. Generally, this means using a PHP `namespace` identifier at the top of included files:
 
 ```php
 <?php
-namespace 10up\Utilities\API;
+namespace tenup\Utilities\API;
 
 function do_something() {
   // ...
@@ -237,7 +237,7 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, we must match the minimum PHP compatibility of WordPress itself. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead we will structure a class wrapping static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php class Utilities_API {
+<?php class Prefix_Utilities_API {
   public static function do_something() {
     // ...
   }
@@ -245,6 +245,8 @@ If the code is for general release to the WordPress.org theme or plugin reposito
 ```
 
 The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if/when WordPress raises its minimum version requirements).
+
+Anything declared in the global namespace, including a namespace itself, should be written in such a way to ensure uniqueness. A namespace like ```tenup``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix our declaration with unique prefix. Above we prefixed our class with ```Prefix_``` to demonstrate this concept.
 
 #### Object Design
 
@@ -263,7 +265,7 @@ Objects should be well-defined, atomic, and fully documented in the leading docb
  * @package    ClientTheme
  * @subpackage Content
  */
-class Video {
+class Prefix_Video {
 
   /**
    * WordPress post object used for data storage.
@@ -299,7 +301,7 @@ In terms of OOP, public properties and methods should obviously be `public`. Any
 
 Singletons are not advised - there is little justification for this pattern in practice and they cause more maintainability problems than they fix.
 
-Class inheritance should be used where possible to produce DRY code and share previously developed components throughout the application.
+Class inheritance should be used where possible to produce [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself) code and share previously developed components throughout the application.
 
 Global variables should be avoided. If objects need to be passed throughout the theme/plugin, those object should either be passed as parameters or referenced through an object factory.
 
