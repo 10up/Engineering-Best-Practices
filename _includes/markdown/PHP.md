@@ -354,7 +354,7 @@ WordPress has a number of [validation and sanitization functions built-in](http:
 
 Sometimes it can be confusing as to which is the most appropriate for a given situation. Other times, it's even appropriate for you to write our own sanitization and validation methods.
 
-Here's an example of validating and integer stored in post meta:
+Here's an example of validating an integer stored in post meta:
 
 ```php
 <?php
@@ -364,7 +364,7 @@ if ( ! empty( $_POST['user_id'] ) ) {
 ?>
 ```
 
-```$_POST['user_id']``` is validated using [```absint()```](https://developer.wordpress.org/reference/functions/absint/) which ensures an integer >= 0. Without validation (or sanitization) ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database.
+```$_POST['user_id']``` is validated using [```absint()```](https://developer.wordpress.org/reference/functions/absint/) which ensures an integer >= 0. Without validation (or sanitization), ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database.
 
 Here is an example of sanitizing a text field value that will be stored in the database:
 
@@ -376,13 +376,13 @@ if ( ! empty( $_POST['special_heading'] ) ) {
 ?>
 ```
 
-Since ```update_option()``` is storing in the database the value must be sanitized (or validated). The example uses the [```sanitize_text_field()```](https://developer.wordpress.org/reference/functions/sanitize_text_field/) function, which is appropriate for general text fields.
+Since ```update_option()``` is storing in the database, the value must be sanitized (or validated). The example uses the [```sanitize_text_field()```](https://developer.wordpress.org/reference/functions/sanitize_text_field/) function, which is appropriate for sanitizing general text fields.
 
 ##### Raw SQL Preparation and Sanitization
 
 There are times when dealing directly with SQL can't be avoided. WordPress provides us with [```$wpdb```](http://codex.wordpress.org/Class_Reference/wpdb).
 
-Special care must be taken to ensure our queries are properly prepared and sanitized:
+Special care must be taken to ensure queries are properly prepared and sanitized:
 
 ```php
 <?php
@@ -390,7 +390,11 @@ $wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID=
 ?>
 ```
 
-```$wpdb->prepare()``` behaves like ```sprintf()``` and essentially calls ```mysqli_real_escape_string()``` on each argument. ```mysqli_real_escape_string()``` escapes characters like ```'``` and ```"``` which prevents many SQL injection attacks. By using ```%d``` in ```sprintf()``` we are ensuring our argument is forced to be an integer. You might be wondering why we use ```absint()``` since it seems redundant. It's better to over sanitize then to miss something accidentally. Here is another example:
+```$wpdb->prepare()``` behaves like ```sprintf()``` and essentially calls ```mysqli_real_escape_string()``` on each argument. ```mysqli_real_escape_string()``` escapes characters like ```'``` and ```"``` which prevents many SQL injection attacks.
+
+By using ```%d``` in ```sprintf()```, we are ensuring the argument is forced to be an integer. You might be wondering why ```absint()``` was used since it seems redundant. It's better to over sanitize than to miss something accidentally.
+
+Here is another example:
 
 ```php
 <?php
@@ -398,7 +402,7 @@ $wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_conten
 ?>
 ```
 
-```$wpdb->insert()``` creates a new row in the database. We are passing ```$post_content``` into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing our value to be a string using ```%s``` prevents many SQL injections attacks. However, we still need to call ```wp_kses_post()``` on ```$post_excerpt``` as someone could inject harmful JavaScript.
+```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injections attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_excerpt``` as someone could inject harmful JavaScript otherwise.
 
 #### Escape or Validate Output
 
@@ -450,7 +454,11 @@ If you need to escape such that HTML is permitted (but not harmful JavaScript), 
 </div>
 ```
 
-```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as whole. Are you providing a meta box for users to enter arbitrary HTML? Perhaps you can add the HTML programmatically and provide the user with a few options to customize. If you do have to use ```wp_kses_*``` on the frontend, output should be cached for as long as possible.
+```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as whole.
+
+Are you providing a meta box for users to enter arbitrary HTML? Perhaps you can add the HTML programmatically and provide the user with a few options to customize.
+
+If you do have to use ```wp_kses_*``` on the frontend, output should be cached for as long as possible.
 
 Translated text also often needs to be escaped on output.
 
@@ -462,7 +470,7 @@ Here's an example:
 </div>
 ```
 
-Instead of using the generic [```__()```](https://developer.wordpress.org/reference/functions/__/) function, something like [```esc_html__()```](https://developer.wordpress.org/reference/functions/esc_html__/) might be more appropriate. Instead of using the generic [```_e()```](https://developer.wordpress.org/reference/functions/_e/) function, [```esc_html_e()```](https://developer.wordpress.org/reference/functions/esc_html_e/) would be used instead.
+Instead of using the generic [```__()```](https://developer.wordpress.org/reference/functions/__/) function, something like [```esc_html__()```](https://developer.wordpress.org/reference/functions/esc_html__/) might be more appropriate. Instead of using the generic [```_e()```](https://developer.wordpress.org/reference/functions/_e/) function, [```esc_html_e()```](https://developer.wordpress.org/reference/functions/esc_html_e/) would instead be used.
 
 There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
@@ -476,15 +484,13 @@ WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonc
 
 The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time it was generated for.
 
-Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL:
+Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL: ```http://example.com/wp-admin/post.php?post=1&action=trash```
 
-```http://example.com/wp-admin/post.php?post=1&action=trash```
+Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this: ```http://example.com/wp-admin/post.php?post=2&action=trash```
 
-Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this:
+For this reason, the trash action requires a valid WordPress nonce.
 
-```http://example.com/wp-admin/post.php?post=2&action=trash```
-
-For this reason, the trash action requires a valid WordPress nonce. After visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
+After visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
 
 Update and delete actions (like trashing a post) should require a valid nonce.
 
