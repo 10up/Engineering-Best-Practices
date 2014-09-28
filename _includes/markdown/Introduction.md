@@ -4,13 +4,17 @@ The 10up Engineering Best Practices are not geared to teach anyone to become des
 
 ### Goal
 
-As a company we strive to efficiently provide websites and components that lend a top-notch user experience. In order to improve efficiency we need to standardize what we use and how we use it. This includes tools, frameworks, libraries, style, version control, and even languages. Standardizing these things will allow us to understand better the inner-workings of someone else’s project and produce better solutions ourselves. As such 10up engineers should follow these best practices in all their work. Our best practices are not meant to be restricting or comprehensive. We value creativity at 10up. The aim is for this document to provide a strong guidance not an authoritative direction. It's our hope that these best practices will not only influence 10up'ers but community members as well.
+As a company we strive to efficiently provide websites and components that lend a top-notch user experience. In order to improve efficiency we need to standardize what we use and how we use it. This includes tools, frameworks, libraries, style, version control, and even languages. Standardizing these things will allow us to understand better the inner-workings of someone else’s project and produce better solutions ourselves.
+
+As such, 10up engineers should follow these best practices in all their work. Our best practices are not meant to be restricting or comprehensive. We value creativity at 10up. The aim is for this document to provide a strong guidance not an authoritative direction. It's our hope that these best practices will not only influence 10uppers but community members as well.
 
 ### Philosophy
 
 > "We make web publishing easy. Maybe even fun."
 
-At the very heart of 10up is the publishing or user experience. WordPress, we firmly believe, is the best tool for this. We sell custom publishing experiences to major companies and brands around the world. These publishing experiences or websites are tailor made for our clients and their specific needs. As such the content management experience cannot be genericized. We don't cut corners when it comes to user experience and interface. We don't take shortcuts that compromise the end experience for the user. We don't distribute pre-packaged, auto-generated user interfaces or components.
+At the very heart of 10up is the publishing or user experience. WordPress, we firmly believe, is the best tool for this. We sell custom publishing experiences to major companies and brands around the world. These publishing experiences or websites are tailor-made for our clients and their specific needs.
+
+As such, the content management experience cannot be made to be generic. We don't cut corners when it comes to user experience and interface. We don't take shortcuts that compromise the end experience for the user. We don't distribute pre-packaged, auto-generated user interfaces or components.
 
 > "Keep it simple."
 
