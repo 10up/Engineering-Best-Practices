@@ -468,19 +468,19 @@ There are many escaping situations not covered in this section. Everyone should 
 
 #### Nonces
 
-In programming, a nonce, or number used only once, is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) cross-site request forgery.
+In programming, a nonce, or number used only once, is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) or cross-site request forgery.
 
 The purpose of a nonce is to make each request unique so an action cannot be replayed.
 
-WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonces are not strictly numbers used once, though they serve equal same purpose.
+WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonces are not strictly numbers used once, though they serve an equal purpose.
 
-The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not used as a true nonce, the generated number *is* specifically tied to the action, user, and window of time it was generated for.
+The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time it was generated for.
 
 Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL:
 
 ```http://example.com/wp-admin/post.php?post=1&action=trash```
 
-Since I am authenticated and authorized, an attacker could trick me into visiting a URL like this:
+Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this:
 
 ```http://example.com/wp-admin/post.php?post=2&action=trash```
 
