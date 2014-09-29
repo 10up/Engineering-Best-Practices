@@ -2,7 +2,7 @@ __*THESE DOCS ARE UNDER ACTIVE DEVELOPMENT.*__
 
 # Code Guide
 
-Project development standards used by 10up.
+Engineering Best Practices used by 10up.
 
 **[Start reading ☞](http://10up.github.io/Engineering-Best-Practices)**
 
