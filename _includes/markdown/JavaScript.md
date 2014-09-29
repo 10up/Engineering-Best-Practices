@@ -1,14 +1,14 @@
 <h3 id="js-performance">Performance</h3>
 
-Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. Performance at the browser level is a major part of user experience which is part of our mission statement.
+Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
 #### Only Load Libraries You Need
 
-JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries.
+JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflictions.
 
 #### Use jQuery Wisely
 
-jQuery is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain tasks but overkill for others. For example, let's say we want to hide an element:
+[jQuery](http://jquery.com/) is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
 
 ```javascript
 document.getElementById( 'element' ).style.display = 'none';
@@ -38,7 +38,7 @@ jQuery( document.getElementById( 'menu' ) );
 
 #### Cache DOM Selections
 
-It's a common JavaScript request to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather we select the menu once and cache it's selector. This applies whether you are using jQuery or not. For example:
+It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache it's selector. This applies whether you are using jQuery or not. For example:
 
 non-jQuery Uncached:
 
@@ -79,7 +79,7 @@ $hideButton.on( 'click', function() {
 	$menu.hide();
 });
 ```
-Notice how in cached version we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
+Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
 
 #### Event Delegation
 
@@ -171,15 +171,15 @@ We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/
 
 <h3 id="js-unit-testing">Unit and Integration Testing</h3>
 
-At 10up, we generally employ unit and/or integration tests only when building applications that are meant to be distributed. Building tests for client themes does usually not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
 
 <h3 id="js-libraries">Libraries</h3>
 
-There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of libraries whitelisted for use at 10up. If you need to use a library outside of this list, it's worth getting a second opinion.
+There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of primary libraries used by 10up.
 
 #### DOM Manipulation
 
-[jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation. You should not need any other DOM manipulation library such as Prototype or MooTools.
+[jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
 
 #### Utility
 
@@ -187,5 +187,5 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 #### Frameworks
 
-[Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires underscores.js and a DOM manipulation library (jQuery)
+[Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library (jQuery)
 
