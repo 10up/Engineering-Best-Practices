@@ -12,9 +12,9 @@ At 10up we consider standardizing a workflow to be a very important part of the 
 
 #### Themes
 
-All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature/fix on the stage environment.
+All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge (```--no-ff``` flag) from that branch to ```staging``` to verify the feature or fix on the stage environment.
 
-When things are absolutely ready to go, we'll deploy the fix by performing a non-fast-forward merge from that branch to ```master```
+When things are absolutely ready to go, we'll deploy the feature or fix by performing a non-fast-forward merge from that branch to ```master```
 
 ##### Branching
 
@@ -22,9 +22,10 @@ All theme projects will treat the ```master``` branch as the canonical source fo
 
 All staging branches will branch off ```master``` as well, and should be named ```staging``` or ```stage-{environment}``` for consistency and clarity. Staging branches will never be merged into any other branches. The ```master``` branch can be merged into both staging and feature branches to keep them up-to-date.
 
-##### Working with VIP
+##### Working with WordPress.com VIP
 
-In a VIP environment, we want every commit to the theme's Subversion repository to be matched 1:1 with a merge commit on our Beanstalk Git repository. This means we add a step to our deployment above: Create a diff between the branch and ```master``` before merging - we can apply this diff as a patch to the VIP Subversion repository
+In a VIP environment, we want every commit to the theme's Subversion repository to be matched 1:1 with a merge commit on our Beanstalk Git repository. This means we add a step to our deployment above: Create a diff between the branch and ```master``` before merging. We can apply this diff as a patch to the VIP Subversion repository.
+
 Using non-fast-forward merges allows us to easily track various changes back in the history tree.
 
 ##### Backporting VIP
