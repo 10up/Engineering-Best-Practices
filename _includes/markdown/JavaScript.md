@@ -165,9 +165,11 @@ jQuery( '.menu' ).on( 'click', function() {
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
 
-<h3 id="js-code-style">Code Style</h3>
+<h3 id="js-code-style">Code Style & Documentation</h3>
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
+
+In the absence of an adopted core standard for JavaScript documentation, we follow the [JSDoc3](http://usejsdoc.org/) standards.
 
 <h3 id="js-unit-testing">Unit and Integration Testing</h3>
 

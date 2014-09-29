@@ -513,9 +513,9 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 ?>
 ```
 
-<h3 id="php-code-style">Code Style</h3>
+<h3 id="php-code-style">Code Style & Documentation</h3>
 
-We follow the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
+We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards.
 
 <h3 id="php-unit-testing">Unit and Integration Testing</h3>
 
