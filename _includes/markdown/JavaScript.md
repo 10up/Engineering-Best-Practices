@@ -116,13 +116,13 @@ Adding methods or properties to the ```window``` object or the global namespace 
 When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
 
 ```javascript
-console.log( this === window ); // true
+window.console.log( this === window ); // true
 for ( var i = 0; i < 9; i++ ) {
     // Do stuff
 }
 var result = true;
-console.log( window.result === result ); // true
-console.log( window.i === i ); // true
+window.console.log( window.result === result ); // true
+window.console.log( window.i === i ); // true
 ```
 
 When we put our code inside a closure, our variables are private to that closure unless we expose them:
@@ -136,8 +136,8 @@ When we put our code inside a closure, our variables are private to that closure
     window.result = true;
 })();
 
-console.log( typeof window.result !== 'undefined' ); // true
-console.log( typeof window.i !== 'undefined' ); // false
+window.console.log( typeof window.result !== 'undefined' ); // true
+window.console.log( typeof window.i !== 'undefined' ); // false
 ```
 
 Notice how ```i``` was not exposed to the ```window``` object.
