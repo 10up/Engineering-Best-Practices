@@ -4,9 +4,9 @@ Writing performant code is absolutely critical, especially at the enterprise lev
 
 #### Efficient Database Queries
 
-When querying the database in WordPress, you should generally use a [```WP_Query```](http://codex.wordpress.org/Class_Reference/WP_Query) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as [```get_posts()```](https://developer.wordpress.org/reference/functions/get_posts/) do not. You should read the ```WP_Query``` codex page thoroughly.
+When querying the database in WordPress, you should generally use a [```WP_Query```](http://codex.wordpress.org/Class_Reference/WP_Query) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as [```get_posts()```](https://developer.wordpress.org/reference/functions/get_posts/) do not.
 
-Here are a few key points/rules:
+Here are a few key points:
 
 * Do not use ```posts_per_page => -1```.
 
@@ -51,7 +51,7 @@ Examples of multi-dimensional queries include:
   * Querying for posts based on terms across multiple taxonomies
   * Querying multiple post meta keys
   
-Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to facilitate filtering out results you don't need.
+Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to filter out results you don't need.
 
 Here is an example of a 2-dimensional query:
 
@@ -170,7 +170,7 @@ There are other popular page caching solutions such as the W3 Total Cache plugin
 
 ##### AJAX Endpoints
 
-AJAX stands for Asynchronous JavaScript and XML. Often we use JavaScript on the client-side to ping endpoints for things like infinite scroll.
+AJAX stands for Asynchronous JavaScript and XML. Often, we use JavaScript on the client-side to ping endpoints for things like infinite scroll.
 
 WordPress [provides an API](http://codex.wordpress.org/AJAX_in_Plugins) to register AJAX endpoints on ```wp-admin/admin-ajax.php```. However, WordPress does not cache queries within the administration panel for obvious reasons. Therefore, if you send requests to an admin-ajax.php endpoint, you are bootstrapping WordPress and running un-cached queries. Used properly, this is totally fine. However, this can take down a website if used on the frontend.
 
@@ -235,9 +235,9 @@ We can store data using options, post meta, post types, object cache, and taxono
 
 There are a number of performance considerations for each WordPress storage vehicle:
 
-* [Options](http://codex.wordpress.org/Options_API) - The options API is a simple key-value storage system backed by a MySQL table. This API is mean't to store things like settings and not variable amounts of data.
+* [Options](http://codex.wordpress.org/Options_API) - The options API is a simple key-value storage system backed by a MySQL table. This API is meant to store things like settings and not variable amounts of data.
 * [Post Meta or Custom Fields](http://codex.wordpress.org/Custom_Fields) - Post meta is an API meant for storing information specific to a post. For example, if we had a custom post type, "Product", "serial number" would be information appropriate for post meta. Because of this, it usually doesn't make sense to search for groups of posts based on post meta
-* [Taxonomies and Terms](http://codex.wordpress.org/Taxonomies) - Taxonomies are essentially groupings. If we have a "classification" that spans multiple posts, it is a good fit for a taxonomy term. For example, if we had a custom post type, "Product", "manufacturer" would be a good term since multiple products could have the same manufacturer. Taxonomy terms can be efficiently searched across as opposed to post meta.
+* [Taxonomies and Terms](http://codex.wordpress.org/Taxonomies) - Taxonomies are essentially groupings. If we have a classification that spans multiple posts, it is a good fit for a taxonomy term. For example, if we had a custom post type, "Car", "Nissan" would be a good term since multiple cars are made by Nissan. Taxonomy terms can be efficiently searched across as opposed to post meta.
 * [Custom Post Types](http://codex.wordpress.org/Post_Types) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
 * [Object Cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache) - See caching section.
 
@@ -259,7 +259,7 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 #### Namespacing
 
-All functional code should be properly namespaced. We do this to logically organize our code and to prevent collisions in the global namespace. Generally, this means using a PHP `namespace` identifier at the top of included files:
+All functional code should be properly namespaced. We do this to logically organize our code and to prevent collisions in the global namespace. Generally, this means using a PHP ```namespace``` identifier at the top of included files:
 
 ```php
 <?php
@@ -273,16 +273,16 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php class Prefix_Utilities_API {
+<?php class Tenup_Utilities_API {
   public static function do_something() {
     // ...
   }
 }
 ```
 
-The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if/when WordPress raises its minimum version requirements).
+The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if and when WordPress raises its minimum version requirements).
 
-Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```tenup``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix. Above, the class was prefixed ```Prefix_``` to demonstrate this concept.
+Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```tenup``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
 
 #### Object Design
 
@@ -335,9 +335,9 @@ In terms of [Object-Orieted Programming](http://en.wikipedia.org/wiki/Object-ori
 
 #### Structure and Patterns
 
-* Singletons are not advised - there is little justification for this pattern in practice and they cause more maintainability problems than they fix.
+* Singletons are not advised. There is little justification for this pattern in practice and they cause more maintainability problems than they fix.
 * Class inheritance should be used where possible to produce [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself) code and share previously-developed components throughout the application.
-* Global variables should be avoided. If objects need to be passed throughout the theme/plugin, those object should either be passed as parameters or referenced through an object factory.
+* Global variables should be avoided. If objects need to be passed throughout the theme or plugin, those objects should either be passed as parameters or referenced through an object factory.
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 
 <h3 id="php-security">Security</h3>
@@ -352,7 +352,7 @@ Validation is always preferred to sanitization. Any non-static data that is stor
 
 WordPress has a number of [validation and sanitization functions built-in](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Validating:_Checking_User_Input).
 
-Sometimes it can be confusing as to which is the most appropriate for a given situation. Other times, it's even appropriate for you to write our own sanitization and validation methods.
+Sometimes it can be confusing as to which is the most appropriate for a given situation. Other times, it's even appropriate to write our own sanitization and validation methods.
 
 Here's an example of validating an integer stored in post meta:
 
@@ -364,7 +364,7 @@ if ( ! empty( $_POST['user_id'] ) ) {
 ?>
 ```
 
-```$_POST['user_id']``` is validated using [```absint()```](https://developer.wordpress.org/reference/functions/absint/) which ensures an integer >= 0. Without validation (or sanitization), ```$_POST['user_id']``` could be used maliciously to inject harmful code/data into the database.
+```$_POST['user_id']``` is validated using [```absint()```](https://developer.wordpress.org/reference/functions/absint/) which ensures an integer >= 0. Without validation (or sanitization), ```$_POST['user_id']``` could be used maliciously to inject harmful code or data into the database.
 
 Here is an example of sanitizing a text field value that will be stored in the database:
 
@@ -418,7 +418,7 @@ Here are some simple examples of *late-escaped* output:
 </div>
 ```
 
-[```esc_html()```](https://developer.wordpress.org/reference/functions/esc_html/) ensures output does not contain any html thus preventing JavaScript injection and layout breaks.
+[```esc_html()```](https://developer.wordpress.org/reference/functions/esc_html/) ensures output does not contain any HTML thus preventing JavaScript injection and layout breaks.
 
 Here is another example:
 
@@ -426,7 +426,7 @@ Here is another example:
 <a href="mailto:<?php echo sanitize_email( get_post_meta( $post_id, 'key', true ) ); ?>">Email me</a>
 ```
 
-[```sanitize_email()```](https://developer.wordpress.org/reference/functions/sanitize_email/) ensures output is a valid email address. This is an example of validating our data. A broader escaping function like [```esc_attr()```](https://developer.wordpress.org/reference/functions/esc_attr/) could have been used, but instead, ```sanitize_email()``` was used to validate.
+[```sanitize_email()```](https://developer.wordpress.org/reference/functions/sanitize_email/) ensures output is a valid email address. This is an example of validating our data. A broader escaping function like [```esc_attr()```](https://developer.wordpress.org/reference/functions/esc_attr/) could have been used, but instead ```sanitize_email()``` was used to validate.
 
 Here is another example:
 
@@ -438,7 +438,7 @@ if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
 </script>
 ```
 
-[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is OK to be printed within a JavaScript string.
+[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string.
 
 Sometimes you need to escape data that is meant to serve as an attribute. For that, you can use ```esc_attr()``` to ensure output only contains characters appropriate for an attribute:
 
@@ -456,7 +456,7 @@ If you need to escape such that HTML is permitted (but not harmful JavaScript), 
 
 ```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as whole.
 
-Are you providing a meta box for users to enter arbitrary HTML? Perhaps you can add the HTML programmatically and provide the user with a few options to customize.
+Are you providing a meta box for users to enter arbitrary HTML? Perhaps you can generate the HTML programmatically and provide the user with a few options to customize.
 
 If you do have to use ```wp_kses_*``` on the frontend, output should be cached for as long as possible.
 
@@ -482,7 +482,7 @@ The purpose of a nonce is to make each request unique so an action cannot be rep
 
 WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonces are not strictly numbers used once, though they serve an equal purpose.
 
-The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time it was generated for.
+The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time for which it was generated.
 
 Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL: ```http://example.com/wp-admin/post.php?post=1&action=trash```
 
@@ -521,9 +521,9 @@ We follow the [WordPress coding standards](http://make.wordpress.org/core/handbo
 
 Unit testing is the automated testing of units of source code against certain assertions. The goal of unit testing is to write test cases with assertions that test if a unit of code is truly working as intended. If an assertion fails, a potential issue is exposed, and code needs to be revised.
 
-By definition, unit tests do not have dependencies on outside systems; in other words, only your code (a single unit of code) is being tested. Integration testing works similarly to unit tests but assumptions are tested against systems of code, moving parts, or an entire application. The phrases unit testing and integration testing are often misused to reference one another especially in the context of WordPress
+By definition, unit tests do not have dependencies on outside systems; in other words, only your code (a single unit of code) is being tested. Integration testing works similarly to unit tests but assumptions are tested against systems of code, moving parts, or an entire application. The phrases unit testing and integration testing are often misused to reference one another especially in the context of WordPress.
 
-At 10up, we generally employ unit and/or integration tests only when building applications that are meant to be distributed. Building tests for client themes does usually not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Building tests for client themes does usually not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](http://make.wordpress.org/core/handbook/automated-testing/)
 
