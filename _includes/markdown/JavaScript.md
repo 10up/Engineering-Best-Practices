@@ -1,4 +1,4 @@
-<h3 id="js-performance">Performance</h3>
+### Performance
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
@@ -105,7 +105,7 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 
 The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
-<h3 id="js-design-patterns">Design Patterns</h3>
+### Design Patterns
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
@@ -165,17 +165,17 @@ jQuery( '.menu' ).on( 'click', function() {
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
 
-<h3 id="js-code-style">Code Style & Documentation</h3>
+<h3 id="code-style">Code Style & Documentation</h3>
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
 In the absence of an adopted core standard for JavaScript documentation, we follow the [JSDoc3](http://usejsdoc.org/) standards.
 
-<h3 id="js-unit-testing">Unit and Integration Testing</h3>
+### Unit and Integration Testing
 
 At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
 
-<h3 id="js-libraries">Libraries</h3>
+### Libraries
 
 There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of primary libraries used by 10up.
 
