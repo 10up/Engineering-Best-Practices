@@ -1,0 +1,13 @@
+{% if site.safe and site.CONFIG.BASE_PATH and site.CONFIG.BASE_PATH != '' %}
+  {% assign BASE_PATH = site.CONFIG.BASE_PATH %}
+  {% assign HOME_PATH = site.CONFIG.BASE_PATH %}
+{% else %}
+  {% assign BASE_PATH = nil %}
+  {% assign HOME_PATH = "/" %}
+{% endif %}
+
+{% if site.CONFIG.ASSET_PATH %}
+  {% assign ASSET_PATH = site.CONFIG.ASSET_PATH %}
+{% else %}
+  {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ page.theme.name }}{% endcapture %}
+{% endif %}
