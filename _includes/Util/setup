@@ -1,4 +1,4 @@
-{% if site.safe and site.CONFIG.BASE_PATH and site.CONFIG.BASE_PATH != '' %}
+{% if site.CONFIG.BASE_PATH and site.CONFIG.BASE_PATH != '' %}
   {% assign BASE_PATH = site.CONFIG.BASE_PATH %}
   {% assign HOME_PATH = site.CONFIG.BASE_PATH %}
 {% else %}
