@@ -1,10 +1,21 @@
 name:          10up Engineering Best Practices
+title:         10up Engineering Best Practices
 description:   Project engineering best practices used by 10up.
 url:           http://10up.github.io/Engineering-Best-Practices/
+author:
+  name:    10up
+  email:   sales@10up.com
+  github:  10up
+  twitter: 10up
 
 markdown:      redcarpet
 permalink:     pretty
 highlighter:   pygments
 encoding:      utf-8
 redcarpet:
-    extensions: [with_toc_data]
+  extensions: [with_toc_data]
+
+CONFIG:
+  BASE_PATH: https://10up.github.io/Engineering-Best-Practices/
+
+  ASSET_PATH: false
