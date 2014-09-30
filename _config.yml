@@ -16,6 +16,6 @@ redcarpet:
   extensions: [with_toc_data]
 
 CONFIG:
-  BASE_PATH: https://10up.github.io/Engineering-Best-Practices/
+  BASE_PATH: http://10up.github.io/Engineering-Best-Practices/
 
   ASSET_PATH: false
