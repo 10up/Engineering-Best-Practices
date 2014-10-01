@@ -20,6 +20,10 @@ As such, the content management experience cannot be made to be generic. We don'
 
 While our solutions are far from simple, we want our code, tools, processes, systems, and practices to be as simple as possible. Simplicity facilitates collaboration as there is a lower barrier of entry. This goes for things like PHP design patterns as well as workflow. We discourage practices such as writing extra levels of code abstraction (wrapping existing API's) as they complicate debugging and add another component that needs to be maintained.
 
+> "We are always learning."
+
+We are constantly challenging ourselves and learning. Knowledge gives us a competitive edge. Everyone around us is growing; if we stop growing individually or collectively and stop challenging ourselves to improve, we fall behind. For that reason, this document is not set in stone and will change. Evolving these best practices through contributions is incredibly important to us.
+
 ### Contributing
 
-This is a living, breathing document. At 10up we value open source because we believe it yields the best solutions for everyone. We don't know everything and value the knowledge of the collective community. Please contribute via [pull requests on Github](https://github.com/10up/Engineering-Best-Practices).
+Please contribute via [pull requests on Github](https://github.com/10up/Engineering-Best-Practices).
