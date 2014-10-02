@@ -1,6 +1,7 @@
 ---
 page: introduction
-title: Home
+title: Introduction
+nav: Home
 group: navigation
 layout: default
 ---

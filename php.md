@@ -1,6 +1,7 @@
 ---
 page: php
 title: PHP
+nav: PHP
 group: navigation
 layout: default
 ---

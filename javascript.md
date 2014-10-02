@@ -1,6 +1,7 @@
 ---
 page: javascript
-title: JS
+title: JavaScript
+nav: JS
 group: navigation
 layout: default
 ---

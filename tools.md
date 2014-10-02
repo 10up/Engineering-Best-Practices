@@ -1,6 +1,7 @@
 ---
 page: tools
 title: Tools
+nav: Tools
 group: navigation
 layout: default
 ---
