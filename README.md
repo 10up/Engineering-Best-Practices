@@ -14,4 +14,4 @@ Released under MIT by, and copyright 2014 by 10up.
 
 ### Thanks
 
-Heavily inspired by [Code Guide by @mdo](http://codeguide.co/).
+Inspired by [Code Guide by @mdo](http://codeguide.co/).
