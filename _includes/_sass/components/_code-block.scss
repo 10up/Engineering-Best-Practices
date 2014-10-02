@@ -1,0 +1,51 @@
+/*
+ * Code
+ */
+
+code,
+pre {
+	font-family: "PT Mono", Menlo, "Courier New", monospace;
+	font-size: .8em;
+}
+
+code {
+	padding: .25em .5em;
+	color: #005980;
+	background-color: #efefef;
+	border-radius: .2rem;
+}
+
+pre {
+	display: block;
+	margin: 0 0 1rem;
+	line-height: 1.4;
+	white-space: pre;
+	white-space: pre-wrap;
+}
+
+pre code {
+	padding: 0;
+	color: inherit;
+	background-color: transparent;
+	border: 0;
+}
+
+.highlight {
+	margin: 0;
+	font-size: 2rem;
+}
+
+.highlight pre {
+	margin-bottom: 0;
+}
+
+.highlight + .highlight {
+	margin-top: 1rem;
+}
+
+.highlight {
+	background-color: #efefef;
+	margin: 0 0 1rem;
+	padding: .75rem;
+	border-left: 20px solid #ddd;
+}
