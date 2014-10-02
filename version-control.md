@@ -5,9 +5,7 @@ group: navigation
 layout: default
 ---
 
-<div class="section">
-	<div class="col">
+<div class="docs-section">
 		{% capture vcs %}{% include markdown/Version-Control.md %}{% endcapture %}
 		{{ vcs | markdownify }}
-	</div>
 </div>
