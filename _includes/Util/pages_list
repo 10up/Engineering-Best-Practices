@@ -2,10 +2,21 @@
   {% if null != node.title %}
     {% if null == group or node.group == group %}
       {% if page.url == node.url %}
-      <li class="current-menu-item"><a href="{{ BASE_PATH }}{{ node.url }}">{{ node.nav }}</a></li>
+      <li class="current-menu-item">
       {% else %}
-      <li><a href="{{ BASE_PATH }}{{ node.url }}">{{ node.nav }}</a></li>
+      <li>
       {% endif %}
+      	<a href="{{ BASE_PATH }}{{ node.url }}">{{ node.nav }}</a>
+      	{% if node.subnav %}
+      	{% assign subnav_list = node.subnav %}
+      	<ul class="subnav">
+      	  {% for subnav in subnav_list %}
+		  <li><a href="{{ BASE_PATH }}{{ node.url }}#{{ subnav.tag }}">{{ subnav.title }}</a></li>
+          {% endfor %}
+      	</ul>
+      	{% assign subnav_list = nil %}
+      	{% endif %}
+      </li>
     {% endif %}
   {% endif %}
 {% endfor %}

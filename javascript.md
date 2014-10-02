@@ -4,6 +4,17 @@ title: JavaScript
 nav: JS
 group: navigation
 layout: default
+subnav:
+  - title: Performance
+    tag: performance
+  - title: Design Patterns
+    tag: design-patterns
+  - title: Unit and Integration Testing
+    tag: unit-and-integration-testing
+  - title: Code Style & Documentation
+    tag: code-style
+  - title: Libraries and Frameworks
+    tag: libraries
 ---
 
 <div class="docs-section">
