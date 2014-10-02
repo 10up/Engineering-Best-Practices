@@ -41,3 +41,4 @@ validation-report.json
 node_modules
 bower_components
 .sass-cache
+_local.yaml
