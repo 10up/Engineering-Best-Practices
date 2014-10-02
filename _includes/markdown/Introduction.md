@@ -1,5 +1,7 @@
 ### Audience
 
+Lorem ipsum dolor sit amet, consectetur adip*isicing elit, sed do eiusmod *tempor incididunt ut labore et dolore magna aliqua.
+
 The 10up Engineering Best Practices are not geared to teach anyone to become engineers. Rather, they aim to illustrate how to engineer the 10up way. Therefore, these best practices are intended for capable engineers.
 
 ### Goal

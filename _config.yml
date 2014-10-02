@@ -14,8 +14,9 @@ highlighter:   pygments
 encoding:      utf-8
 redcarpet:
   extensions: [with_toc_data]
-
+sass:
+  sass_dir: _includes/_sass
 CONFIG:
-  BASE_PATH: http://10up.github.io/Engineering-Best-Practices/
+  BASE_PATH: /
 
   ASSET_PATH: false
