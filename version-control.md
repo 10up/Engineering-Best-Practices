@@ -4,6 +4,11 @@ title: Version Control
 nav: VCS
 group: navigation
 layout: default
+subnav:
+  - title: Structure
+    tag: structure
+  - title: Workflows
+    tag: workflows
 ---
 
 <div class="docs-section">
