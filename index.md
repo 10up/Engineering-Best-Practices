@@ -5,9 +5,7 @@ group: navigation
 layout: default
 ---
 
-<div class="section">
-	<div class="col">
+<div class="docs-section">
 		{% capture introduction %}{% include markdown/Introduction.md %}{% endcapture %}
 		{{ introduction | markdownify }}
-	</div>
 </div>

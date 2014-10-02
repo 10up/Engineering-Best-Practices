@@ -1,0 +1,36 @@
+.footer-about {
+	background-color: #3f3f3f;
+	color: $default-light-color;
+
+	.footer-about-inner {
+		max-width: $single-max-width;
+		padding: $guaranteed-edge-standoff $guaranteed-edge-standoff $guaranteed-edge-standoff/2 $guaranteed-edge-standoff;
+		margin: 0 auto;
+	}
+
+	.cta-careers {
+		margin-bottom: $gutter-width;
+		display: inline-block;
+		width: 48%;
+		vertical-align: top;
+
+		.button {
+			margin-top: .5em;
+		}
+	}
+
+
+	.license {
+		display: inline-block;
+		width: 48%;
+		margin-left: 2%;
+		vertical-align: top;
+		text-align: right;
+
+		p {
+			font-size: 1rem;
+			margin: 1rem 0;
+		}
+	}
+
+}

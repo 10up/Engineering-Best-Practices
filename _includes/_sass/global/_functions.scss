@@ -1,0 +1,11 @@
+// Removes units from the input
+// Returns a unitless number
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+// considering the base, return a color that contrasts. Either $lighter or $darker
+// the percentage below (60%) is the threshold. Less than 60% lightness and it uses the $lighter, otherwise $darker
+@function contrast($base, $lighter: $default-light-color, $darker: $default-dark-color) {
+	@return if(lightness($base) < 60%, $lighter, $darker);
+}

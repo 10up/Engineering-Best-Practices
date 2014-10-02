@@ -5,9 +5,7 @@ group: navigation
 layout: default
 ---
 
-<div class="section">
-	<div class="col">
+<div class="docs-section">
 		{% capture php %}{% include markdown/PHP.md %}{% endcapture %}
 		{{ php | markdownify }}
-	</div>
 </div>

@@ -1,0 +1,93 @@
+// Colors
+$party-blue: #54cdcd;
+$business-red: #b73030;
+$business-red-light: #b72f2f;
+
+$very-light-grey: #fefefe;
+$light-grey: #F9F9F9;
+$medium-grey: #eeeeee; /*used to be "light-grey" but needed a lighter grey added*/
+$dark-grey: #545353;
+$very-dark-grey: #232323;
+$almost-black: #111;
+
+// Assign colors
+$default-light-color: $very-light-grey;
+// used in _function.scss:contrast()
+$default-dark-color: $very-dark-grey;
+// used in _function.scss:contrast()
+
+$color-background-color-default: $very-light-grey;
+$color-text-default: contrast($color-background-color-default);
+
+$color-dark: $very-dark-grey;
+$color-dark-text: contrast($color-dark);
+
+$color-medium-dark: $dark-grey;
+$color-medium-dark-text: contrast($color-medium-dark);
+
+$color-medium-light: $medium-grey;
+$color-medium-light-text: contrast($color-medium-light);
+
+$color-light: $light-grey;
+$color-light-text: contrast($color-light);
+
+$color-very-light: $very-light-grey;
+$color-very-light-text: contrast($color-very-light);
+
+$color-accent: $business-red;
+$color-accent-text: lighten($color-accent, 30%);
+
+$color-accent-light: $business-red-light;
+$color-accent-light-text: lighten($color-accent-light, 30%);
+
+$color-accent-alternate: $party-blue;
+$color-accent-alternate-text: lighten($color-accent-alternate, 30%);
+
+$color-button: $very-dark-grey;
+$color-button-text: contrast($color-button);
+
+$color-success-light: #D6E9C6;
+$color-success-dark: darken(saturate($color-success-light, 50%), 50%);
+
+$color-warning-light: #f2efdf;
+$color-warning-dark: darken(saturate($color-warning-light, 50%), 50%);
+
+$color-error-light: #f2dede;
+$color-error-dark: darken(saturate($color-error-light, 50%), 50%);
+
+// font stacks
+$base-font-size: 1.2rem;
+$base-line-height: 1.4;
+$font-family-serif: 'freight-text-pro', serif;
+$font-family-sans: 'proxima-nova', sans-serif;
+
+// responsive breakpoints
+$wpadminbar-narrow: 782px;
+$breakpoint-alpha: 570px;
+// same as the max-width of the featured grid primary
+$breakpoint-bravo: 768px;
+$breakpoint-charlie: 1024px;
+$breakpoint-delta: 1100px;
+$breakpoint-featured-grid: 512px;
+
+// Make my logo bigger cream.
+$header-logo-small: 60px;
+$header-logo-small-protrusion: $header-logo-small * .1;
+$header-logo-large: 80px;
+$header-logo-large-protrusion: $header-logo-large * .16;
+
+// grid metrics
+$grid-width: 990px;
+$grid-gutter: percentage(30px / $grid-width);
+$guaranteed-edge-standoff: percentage(25px / $grid-width);
+$guaranteed-edge-standoff: $grid-gutter;
+
+$single-max-width: 700px;
+
+$header-height-sm: 200px;
+$header-height: 388px;
+
+
+// ----------------------
+// COLORS
+// ----------------------

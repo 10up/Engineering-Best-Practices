@@ -1,67 +1,108 @@
-<header class="masthead">
-  <div class="container">
-    <span class="icon">&#9997;</span>
-    <h1>{{ site.name }}</h1>
-    <p class="lead">{{ site.description }}</p>
+<header id="page-header" role="banner">
+	<div class="page-header-content">
+		<a href="{{ HOME_PATH }}" class="logo-link">10up</a>
+		<nav class="page-nav top-nav" role="navigation">
+			<ul class="header-nav">
+				<li {% if page.page == "introduction" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}">Home</a>
+				</li>
+				<li {% if page.page == "php" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}php">PHP</a>
+				</li>
+				<li {% if page.page == "javascript" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}javascript">JS</a>
+				</li>
+				<li {% if page.page == "html" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}html">HTML</a>
+				</li>
+				<li {% if page.page == "css" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}css">CSS</a>
+				</li>
+				<li {% if page.page == "version-control" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}version-control">Git</a>
+				</li>
+				<li {% if page.page == "tools" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}tools">Tools</a>
+				</li>
+			</ul>
+		</nav>
 
-    <p class="masthead-links">
-      <a href="https://github.com/10up/Engineering-Best-Practices">
-        <span class="icon icon-github-circled"></span>
-      </a>
-      <a href="https://twitter.com/10up">
-        <span class="icon icon-twitter"></span>
-      </a>
-    </p>
-  </div>
+		<a href="https://github.com/10up/Engineering-Best-Practices" class="main-nav-supplemental-icon">
+			<span class="screen-reader-text">View on Github</span>
+		</a>
+		<a class="toggle-menu-icon toggle-main-navigation">
+			<span class="screen-reader-text">Toggle Main Navigation</span>
+		</a>
+
+	</div>
 </header>
 
-<div class="heading" id="toc">
-	<h2>Table of contents</h2>
-</div>
-<div class="section toc">
-	<div class="col">
-		<h4><a href="{{ HOME_PATH }}#top">Introduction</a></h4>
-		<ul>
-			<li><a href="{{ HOME_PATH }}#audience">Audience</a></li>
-			<li><a href="{{ HOME_PATH }}#goal">Goal</a></li>
-			<li><a href="{{ HOME_PATH }}#philosophy">Philosophy</a></li>
-			<li><a href="{{ HOME_PATH }}#contributing">Contributing</a></li>
-		</ul>
-		<h4><a href="{{ HOME_PATH }}php#top">PHP</a></h4>
-		<ul>
-			<li><a href="{{ HOME_PATH }}php#performance">Performance</a></li>
-			<li><a href="{{ HOME_PATH }}php#design-patterns">Design Patterns</a></li>
-			<li><a href="{{ HOME_PATH }}php#security">Security</a></li>
-			<li><a href="{{ HOME_PATH }}php#unit-testing">Unit and Integration Testing</a></li>
-			<li><a href="{{ HOME_PATH }}php#code-style">Code Style & Documentation</a></li>
-			<li><a href="{{ HOME_PATH }}php#libraries">Libraries and Frameworks</a></li>
-		</ul>
-		<h4><a href="{{ HOME_PATH }}version-control#top">Version Control</a></h4>
-		<ul>
-			<li><a href="{{ HOME_PATH }}version-control#structure">Structure</a></li>
-			<li><a href="{{ HOME_PATH }}version-control#workflows">Workflows</a></li>
-		</ul>
+<header class="template-header header-{{ page.page }}">
+	<div class="grid-inner">
+		<h1>
+			{% if page.page == "introduction" %}
+				Best Practices<br>
+				<span class="subhead">10up Engineering</span>
+			{% else %}
+				{{ page.title }}
+			{% endif %}
+		</h1>
 	</div>
-	<div class="col">
-		<h4><a href="{{ HOME_PATH }}javascript#top">JavaScript</a></h4>
-		<ul>
-			<li><a href="{{ HOME_PATH }}javascript#performance">Performance</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#design-patterns">Design Patterns</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#unit-and-integration-testing">Unit and Integration Testing</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#code-style">Code Style & Documentation</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#libraries">Libraries</a></li>
-		</ul>
-		<h4><a href="{{ HOME_PATH }}tools#top">Tools</a></h4>
-		<ul>
-			<li><a href="{{ HOME_PATH }}tools#local-development">Local Development Environments</a></li>
-			<li><a href="{{ HOME_PATH }}tools#task-runners">Task Runners</a></li>
-			<li><a href="{{ HOME_PATH }}tools#package-managers">Package/Dependency Managers</a></li>
-			<li><a href="{{ HOME_PATH }}tools#version-control">Version Control</a></li>
-			<li><a href="{{ HOME_PATH }}tools#command-line">Command Line Tools</a></li>
-		</ul>
-	</div>
-</div>
+</header>
 
-<div class="heading" id="top">
-	<h2>{{ page.title }}</h2>
-</div>
+<section class="toc">
+	<header>
+		<h2>Table of Contents</h2>
+	</header>
+	<div class="section">
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}#top">Introduction</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}#audience">Audience</a></li>
+				<li><a href="{{ HOME_PATH }}#goal">Goal</a></li>
+				<li><a href="{{ HOME_PATH }}#philosophy">Philosophy</a></li>
+				<li><a href="{{ HOME_PATH }}#contributing">Contributing</a></li>
+			</ul>
+		</div>
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}php#top">PHP</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}php#performance">Performance</a></li>
+				<li><a href="{{ HOME_PATH }}php#design-patterns">Design Patterns</a></li>
+				<li><a href="{{ HOME_PATH }}php#security">Security</a></li>
+				<li><a href="{{ HOME_PATH }}php#unit-testing">Unit and Integration Testing</a></li>
+				<li><a href="{{ HOME_PATH }}php#code-style">Code Style & Documentation</a></li>
+				<li><a href="{{ HOME_PATH }}php#libraries">Libraries and Frameworks</a></li>
+			</ul>
+		</div>
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}version-control#top">Version Control</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}version-control#structure">Structure</a></li>
+				<li><a href="{{ HOME_PATH }}version-control#workflows">Workflows</a></li>
+			</ul>
+		</div>
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}javascript#top">JavaScript</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}javascript#performance">Performance</a></li>
+				<li><a href="{{ HOME_PATH }}javascript#design-patterns">Design Patterns</a></li>
+				<li>
+					<a href="{{ HOME_PATH }}javascript#unit-and-integration-testing">Unit and Integration Testing</a>
+				</li>
+				<li><a href="{{ HOME_PATH }}javascript#code-style">Code Style & Documentation</a></li>
+				<li><a href="{{ HOME_PATH }}javascript#libraries">Libraries</a></li>
+			</ul>
+		</div>
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}tools#top">Tools</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}tools#local-development">Local Development Environments</a></li>
+				<li><a href="{{ HOME_PATH }}tools#task-runners">Task Runners</a></li>
+				<li><a href="{{ HOME_PATH }}tools#package-managers">Package/Dependency Managers</a></li>
+				<li><a href="{{ HOME_PATH }}tools#version-control">Version Control</a></li>
+				<li><a href="{{ HOME_PATH }}tools#command-line">Command Line Tools</a></li>
+			</ul>
+		</div>
+	</div>
+</section>

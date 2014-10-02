@@ -1,0 +1,76 @@
+.button {
+	background-color: $color-dark;
+	color: $color-dark-text;
+	border: 0;
+  @include transition( background-color, .2s, linear );
+}
+
+.button.party-blue {
+  background: $color-accent-alternate;
+  color: $default-light-color;
+  padding: 10px;
+  margin: 2em 0 0 0;
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-block;
+  min-width: 120px;
+  &:hover {
+    background-color: darken($color-accent-alternate, 10%);
+  }
+}
+.button.red {
+  display: inline-block;
+  padding: 0.6em 3em;
+  background-color: #B53234;
+  text-transform: uppercase;
+  margin: 2em 0;
+  font-size: 1.5em;
+  color: white;
+  &:hover {
+    background-color: darken(#B53234, 5%);
+  }
+}
+.button-light {
+	@extend .button;
+	background-color: $color-medium-dark;
+}
+
+%circle-buttons {
+	@extend %caps-text;
+	text-transform: none;
+	font-variant: small-caps;
+	display: inline-block;
+	width: 4em;
+	height: 4em;
+	line-height: 4em;
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: #fff;
+	border-radius: 50%;
+	&:hover {
+		opacity: .5;
+		text-decoration: none;
+	}
+
+	@include breakpoint($breakpoint-bravo) {
+		width: 5.5em;
+		height: 5.5em;
+		line-height: 5.5em;
+	}
+}
+
+// a.button-hire-us {
+// 	@extend %circle-buttons;
+// 	background: #090909 url("../img/button-hire-us-background.jpg");
+// }
+
+// a.button-apply {
+// 	@extend %circle-buttons;
+// 	background: $color-accent-alternate url("../img/button-apply-background.jpg");
+// }
+
+// In the roadmap, but not needed at the moment
+//a.button-support {
+//	@extend	%circle-buttons;
+//	background: #c03236 url("../img/button-support-background.png");
+//}

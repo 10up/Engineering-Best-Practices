@@ -1,0 +1,91 @@
+// Put things into the context of the grid — basically, max-width of the grid width.
+// contains floated items with clearfix.
+%grid-context {
+	@extend %clearfix;
+	max-width: $grid-width;
+	margin: 0 auto;
+}
+
+// Inline block grid
+//
+// See http://justifygrid.com/
+// Uses text-align justify, font-size:0, and inline-block to align items
+//
+// Quick usage: extend the placeholders %inline-block-grid and %inline-block-grid-cell
+// where needed outside of Media Queries. Then use the function inline-block-grid-span(),
+// probably inside Media Queries, to set the width on elements extending %inline-block-grid-cell
+// using the column span as parameter.
+//
+// For example to span 3 columns, use width: inline-block-grid-span(3);. The second parameter is only needed for nested grids.
+
+$columns: 3 !default;
+$column-width: 310px !default;
+$gutter-width: 30px !default;
+
+%inline-block-grid {
+	@extend %grid-context;
+	text-align: justify !important;
+	text-justify: distribute-all-lines;
+	font-size: 0 !important;
+
+	&:after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+%inline-block-grid-cell {
+	display: inline-block;
+	text-align: left; // reset the justify grid
+	font-size: $base-font-size;
+	vertical-align: top;
+	width: 100%;
+}
+
+@function inline-block-grid-span($cols, $total: $columns) {
+	@return ($column-width * $cols  + $gutter-width * ($cols  - 1)) /
+          ($column-width * $total + $gutter-width * ($total - 1)) * 100%;
+}
+
+// content-sidebar grid.
+// allows consistency in a content + sidebar system.
+// be sure to clearfix the containing element
+@mixin content-sidebar-grid($content-or-sidebar, $left-or-right) {
+
+	@include breakpoint($breakpoint-alpha) {
+		float: left;
+		display: inline-block;
+
+		@if ( $left-or-right == 'left' ) {
+			padding-right: 3%;
+			// padding-right: percentage(25px / $grid-width);
+		}
+
+		@if ( $left-or-right == 'right' ) {
+			padding-left: 3%;
+			// padding-left: percentage(25px / $grid-width);
+		}
+
+	}
+
+	@if( $content-or-sidebar == 'sidebar' ) {
+		@include breakpoint($breakpoint-alpha) {
+			width: 46%;
+		}
+		@include breakpoint($breakpoint-bravo) {
+			width: 31%;
+			// width: percentage(314px / $grid-width);
+		}
+	}
+
+	@if ( $content-or-sidebar == 'content' ) {
+		@include breakpoint($breakpoint-alpha) {
+			width: 51%;
+		}
+		@include breakpoint($breakpoint-bravo) {
+			width: 66%;
+			// width: percentage(676px / $grid-width);
+		}
+	}
+}

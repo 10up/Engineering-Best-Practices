@@ -1,0 +1,220 @@
+// Apply to the ul element to make li items into a list of sorts
+//
+// This seems like a candidate for a placeholder instead of a mixin, but we
+// use it within media queries.
+//
+// Avoids these two errors:
+// You may not @extend an outer selector from within @media.
+// You may only @extend selectors within the same directive.
+@mixin inline-list() {
+	padding-left: 0;
+	li {
+		list-style-type: none;
+		display: inline-block;
+	}
+}
+
+// Simple breakpoint mixin for "mobile-first" development.
+@mixin breakpoint($break) {
+	@media screen and (min-width: $break) {
+		@content;
+	}
+}
+
+// for transitions
+@mixin transition($transition-property, $transition-time, $method: linear, $delay: 0) {
+  -webkit-transition: $transition-property $transition-time $delay $method;
+  -moz-transition: $transition-property $transition-time $delay $method;
+  -ms-transition: $transition-property $transition-time $delay $method;
+  -o-transition: $transition-property $transition-time $delay $method;
+  transition: $transition-property $transition-time $delay $method;
+}
+
+// Allows us to select an icon. Many shared selectors in %icon (_placeholders.scss)
+@mixin icon($icon) {
+	&:before {
+		@extend %icon;
+
+		@if 'dribbble' == $icon {
+			content: "\e600";
+		}
+
+		@if 'dribble2' == $icon {
+			content: "\e601";
+		}
+
+		@if 'twitter' == $icon {
+			content: "\e602";
+		}
+
+		@if 'instagram' == $icon {
+			content: "\e603";
+		}
+
+		@if 'github' == $icon {
+			content: "\e604";
+		}
+
+		@if 'facebook' == $icon {
+			content: "\e605";
+		}
+
+		@if 'share' == $icon {
+			content: "\e606";
+		}
+
+		@if 'search' == $icon {
+			content: "\e607";
+		}
+
+		@if 'menu' == $icon {
+			content: "\e608";
+		}
+
+		@if 'close' == $icon {
+			content: "\e608";
+		}
+
+		@if 'linkedin' == $icon {
+			content: "\e609";
+		}
+
+		@if 'calendar' == $icon {
+			content: "\e60a";
+		}
+
+		@if 'coin' == $icon {
+			content: '\e60b';
+		}
+
+		@if 'bullhorn' == $icon {
+			content: '\e60c';
+		}
+
+    @if 'google' == $icon {
+      content: '\e60d';
+    }
+	}
+}
+
+// Make a CSS arrow
+//
+// $direction: top, right, bottom, left
+// $color: hex, rgb or rbga
+// $size: any valid size for border: -- px, em, rem, etc.
+//
+// @example
+// .element{
+//     @include arrow(top, #000, 50px);
+// }
+@mixin arrow($direction, $color, $size, $pseudo-element: after) {
+
+	&:#{$pseudo-element} {
+		content: ' ';
+		position: absolute;
+		display: block;
+		height: 0;
+		width: 0;
+		border: $size solid transparent;
+
+		@if $direction == 'bottom'{
+			border-top-color: $color;
+			bottom: -($size*2);
+			left: 50%;
+			margin-left: -($size/2);
+		}
+
+		@if $direction == 'top' {
+			border-bottom-color: $color;
+			top: -($size*2);
+			left: 50%;
+			margin-left: -($size/2);
+		}
+
+		@if $direction == 'right' {
+			border-left-color: $color;
+			right: -($size*2);
+			top: 50%;
+			margin-top: -($size/2);
+		}
+
+		@if $direction == 'left' {
+			border-right-color: $color;
+			left: -($size*2);
+			top: 50%;
+			margin-top: -($size/2);
+		}
+
+	}
+}
+
+// box sizing cross-browser support
+
+@mixin box-sizing($box-model) {
+  -webkit-box-sizing: $box-model; // Safari <= 5
+     -moz-box-sizing: $box-model; // Firefox <= 29
+          box-sizing: $box-model;
+}
+
+@mixin vertical-align {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin opacity($opacity) {
+	 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity*100)";
+	 filter: alpha(opacity=$opacity*100);
+	 -moz-opacity: $opacity;
+	 -khtml-opacity: $opacity;
+	 opacity: $opacity;
+}
+
+@mixin tenup-bump($color, $bg, $position) {
+  &:after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    display: block;
+    -webkit-background-size: 25px;
+    background-size: 25px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -25px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: $bg;
+    @if $position == 'top' {
+      top: -25px;
+    }
+    @if $position == 'bottom' {
+      bottom: -25px;
+    }
+    @if $color == 'white' {
+      background-image: url("../img/10up-icon-reversed.svg");
+    }
+    @if $color == 'red' {
+      background-image: url("../img/10up-icon.svg");
+    }
+  }
+}
