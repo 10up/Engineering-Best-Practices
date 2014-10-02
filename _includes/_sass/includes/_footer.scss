@@ -1,6 +1,5 @@
 footer[role="contentinfo"] {
 	padding: 0 $guaranteed-edge-standoff;
-	text-align: center;
 	background-color: #303030;
 	position: relative;
 
@@ -39,26 +38,18 @@ footer[role="contentinfo"] {
 		line-height: inherit;
 		display: inline-block;
 		margin: 0;
-		@include breakpoint($breakpoint-alpha) {
-			margin: 0 100px 0 -92px;
-		}
+		width: 49%;
+		padding-right: $header-logo-large;
+		text-align: right;
 	}
 
 	.footer-social {
 		font-size: 1.7rem;
-		padding-bottom: 1em;
-
-		@include breakpoint($breakpoint-alpha) {
-			padding-bottom: 0;
-			display: inline-block;
-			vertical-align: middle;
-
-			// &:before {
-			//   content: ' ';
-			//   border-left: 1px solid darken($color-dark-text, 50%);
-			//   padding-right: .5em;
-			// }
-		}
+		padding-bottom: 0;
+		display: inline-block;
+		vertical-align: middle;
+		width: 49%;
+		padding-left: $header-logo-large;
 
 		a {
 			color: lighten($color-medium-dark, 10%);
@@ -108,12 +99,6 @@ footer[role="contentinfo"] {
 			}
 		}
 
-	}
-
-	.inspired-by {
-		color: #ccc;
-		font-size: .8rem;
-		display: block;
 	}
 
 }
