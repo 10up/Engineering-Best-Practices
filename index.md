@@ -69,6 +69,14 @@ subnav:
 				<li><a href="{{ HOME_PATH }}tools#command-line">Command Line Tools</a></li>
 			</ul>
 		</div>
+		<div class="col">
+			<h3><a href="{{ HOME_PATH }}structure#top">Project Structure</a></h3>
+			<ul>
+				<li><a href="{{ HOME_PATH }}structure#templates">Templates</a></li>
+				<li><a href="{{ HOME_PATH }}structure#modular-code">Modular Code</a></li>
+				<li><a href="{{ HOME_PATH }}structure#dependencies">Dependencies</a></li>
+			</ul>
+		</div>
 	</div>
 </section>
 
