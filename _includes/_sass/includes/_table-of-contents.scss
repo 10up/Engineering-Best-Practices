@@ -1,0 +1,36 @@
+.toc {
+
+	background-color: #efefef;
+	padding: $guaranteed-edge-standoff $guaranteed-edge-standoff;
+
+	h2 {
+		margin: 0;
+	}
+
+	/* Make the ToC a whole section */
+	.col + .col {
+		background-color: #efefef;
+	}
+
+	.col, .col ul {
+		font-size: 1em;
+	}
+
+	ul {
+		padding-left: 0;
+		margin-top: .5em;
+
+		a:hover {
+			border-bottom-color: rgba(saturate(darken($color-accent-alternate, 10%), 10%), .8);
+		}
+	}
+
+	h3 {
+		margin-bottom: 0;
+	}
+
+	li {
+		list-style-type: none;
+		line-height: 2;
+	}
+}

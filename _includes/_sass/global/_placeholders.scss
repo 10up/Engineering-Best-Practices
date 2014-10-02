@@ -1,0 +1,105 @@
+// Placeholder classes
+// See: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_
+
+// Make text capitalized and spaced out a bit for legibility
+%caps-text {
+	text-transform: uppercase;
+	letter-spacing: .1em;
+}
+
+%italic-serif {
+	font-family: $font-family-serif;
+	font-style: italic;
+}
+
+// Image replacement
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+%hide-text {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+%clearfix, .cf {
+	&:before,
+	&:after {
+		content: " "; /* 1 */
+		display: table; /* 2 */
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+// Used repeatedly for menu icons.
+%menu-icon {
+	font-size: 1.3rem;
+	color: #fff;
+	display: none;
+	position: absolute;
+	top: 15px;
+	right: 0;
+	padding: 7px;
+	cursor: pointer;
+	line-height: 1;
+	z-index: 15; /* override .top-nav */
+
+	@include breakpoint($breakpoint-bravo) {
+		font-size: 1.6rem;
+		height: 2.8rem;
+		width: 2.8rem;
+	}
+}
+
+// Used by the "icon" mixin.
+%icon {
+	font-family: tenup;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+%overlay-caption {
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+	min-height: 5rem;
+	width: 100%;
+	padding: 1.5rem 2rem;
+	background-color: $color-dark;
+	color: $color-very-light;
+	font-size: 1.25rem;
+	//letter-spacing: 3px; // letter spacing is a design no-no on non-uppercase words
+	font-weight: 300;
+	font-style: normal;
+	text-transform: uppercase;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+
+	@include breakpoint($breakpoint-alpha) {
+		font-size: 1.5rem;
+	}
+}
+
+%flourish-headline {
+
+	margin-top: 0;
+	margin-bottom: 4rem;
+	font-family: $font-family-serif;
+
+	&:after {
+		content: ' ';
+		display: block;
+		width: 10%;
+		border-bottom: 2px solid $color-accent-alternate;
+		margin-top: 1.5rem;
+	}
+
+}

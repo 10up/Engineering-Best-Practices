@@ -12,12 +12,12 @@
 @import "base/base";
 @import "base/typography";
 @import "base/fonts";
+@import "base/old-grid";
 
 // Components
 @import "components/syntax-highlighter";
+@import "components/template-header";
 
 // Includes
 @import "includes/header";
-/*
- * Fonts
- */
+@import "includes/table-of-contents";

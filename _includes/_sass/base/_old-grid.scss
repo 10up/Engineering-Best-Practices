@@ -1,0 +1,36 @@
+/*
+ * The Grid
+ */
+
+.col {
+}
+
+.col p {
+	max-width: 40rem;
+}
+
+.col + .col {
+	border-top: 1px solid #dfe1e8;
+	background-color: #f7f7f9;
+}
+
+@media (min-width: 38em) {
+	.col {
+	}
+}
+
+@media (min-width: 48em) {
+	.section {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+	}
+	.col {
+		padding-right: 1em;
+		display: table-cell;
+		vertical-align: top;
+	}
+	.col + .col {
+		border-top: 0;
+	}
+}

@@ -1,0 +1,105 @@
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: $base-font-size;
+	line-height: $base-line-height;
+	color: $color-text-default;
+	background-color: $color-background-color-default;
+	font-family: $font-family-sans;
+    padding-top: 60px;
+}
+
+::selection {
+	background: $party-blue; /* Webkit */
+	color:white;
+}
+	
+::-moz-selection {
+	background: $party-blue; /* Firefox */
+	color:white;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: darken($color-accent-alternate, 10%);
+	text-decoration: none;
+
+	&:visited {
+		color: desaturate($color-accent-alternate, 20%);
+	}
+
+	&:hover,
+	&:active {
+		color: saturate( darken($color-accent-alternate, 10%), 10% );
+	}
+}
+
+p a {
+	border-bottom: 1px solid rgba( $color-accent-alternate, .3 );
+
+	&:hover {
+		border-bottom-color: rgba( saturate( darken( $color-accent-alternate, 10%), 10% ), .8 );
+	}
+
+	&:visited {
+
+	}
+
+}
+
+// otherwise its too wonky with our static header on mobile
+body #wpadminbar {
+  position: fixed;
+}
+
+// Reusable, toolbox kind of class
+.screen-reader-text {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
+.interface-checkbox {
+	display: none;
+	speak: none;
+}
+
+// .template-header {
+// 	padding-top: 4rem;
+// 	padding-bottom: 4rem;
+// 	text-align: center;
+
+// 	@include breakpoint($breakpoint-alpha) {
+// 		padding-bottom: 11.5rem;
+// 		padding-top: 14rem;
+// 	}
+
+// 	h1,
+// 	.subhead {
+// 		margin-top: 0;
+// 	}
+
+// 	*:last-child {
+// 		margin-bottom: 0;
+// 	}
+
+// 	.wp-post-image {
+// 		margin-top:3rem;
+
+// 		@include breakpoint($breakpoint-alpha) {
+// 			margin-top:8rem;
+// 		}
+// 	}
+// }
