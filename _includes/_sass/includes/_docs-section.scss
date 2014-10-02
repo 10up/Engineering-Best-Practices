@@ -1,18 +1,5 @@
-
-
 .docs-section {
 	padding: $guaranteed-edge-standoff;
-
-	p,
-	h3,
-	h4,
-	h5,
-	h6,
-	ul,
-	ol,
-	blockquote {
-		max-width: 34em;
-	}
-
-
+	max-width: 700px;
+	margin: 0 auto;
 }

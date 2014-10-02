@@ -1,0 +1,23 @@
+.social-networks {
+
+	.twitter {
+		@include icon("twitter");
+	}
+
+	.facebook {
+		@include icon("facebook");
+	}
+
+	.github {
+		@include icon("github");
+	}
+
+	.dribbble {
+		@include icon("dribbble");
+	}
+
+	.linkedin {
+		@include icon("linkedin");
+	}
+
+}

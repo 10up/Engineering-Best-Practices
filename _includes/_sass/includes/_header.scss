@@ -37,23 +37,6 @@
 		}
 	}
 
-	h1 {
-		@extend %caps-text;
-		font-size: 1em;
-		color: white;
-		width: 48%;
-		display: inline-block;
-		padding: 0;
-		margin: 0;
-		vertical-align: top;
-		text-align: right;
-		padding-right: $header-logo-small /2;
-
-		a {
-			display: inline-block;
-		}
-	}
-
 	.top-nav {
 		top: 60px;
 		width: 48%;
@@ -72,7 +55,7 @@
 
 		@include transition(height, 150ms, linear);
 
-		@include breakpoint($breakpoint-alpha) {
+		@include breakpoint($breakpoint-bravo) {
 			height: auto !important;
 			background-color: transparent;
 			position: relative;
@@ -96,7 +79,7 @@
 	font-size: 1.3rem;
 	background-color: black;
 
-	@include breakpoint($breakpoint-alpha) {
+	@include breakpoint($breakpoint-bravo) {
 		display: none;
 	}
 }
@@ -109,7 +92,7 @@
 	background-color: black;
 	right: 2.5em;
 
-	@include breakpoint($breakpoint-alpha) {
+	@include breakpoint($breakpoint-bravo) {
 		right: 0;
 	}
 }
@@ -121,20 +104,20 @@
 	margin: 0;
 	padding: 1rem 0 1rem 0;
 
-	@include breakpoint($breakpoint-alpha) {
+	@include breakpoint($breakpoint-bravo) {
 		@include inline-list();
 		display: block !important;
 		padding: 0;
-		padding-left: $header-logo-small;
+		padding-right: $header-logo-small /2;
 	}
 
 	li {
 		list-style-type: none;
 
-		@include breakpoint($breakpoint-alpha) {
+		@include breakpoint($breakpoint-bravo) {
 			margin: 0 0.3em;
 
-			@include breakpoint($breakpoint-bravo) {
+			@include breakpoint($breakpoint-charlie) {
 				margin: 0 0.4em;
 			}
 		}
@@ -165,7 +148,7 @@
 		font-weight: 400;
 		color: $color-dark-text;
 
-		@include breakpoint($breakpoint-alpha) {
+		@include breakpoint($breakpoint-bravo) {
 			padding: 21px 0;
 			font-size: 11px;
 			position: relative;
@@ -193,7 +176,7 @@
 				@include transition(all, 80ms, ease-in);
 			}
 
-			@include breakpoint($breakpoint-bravo) {
+			@include breakpoint($breakpoint-charlie) {
 				font-size: 12px;
 				font-weight: 600;
 			}

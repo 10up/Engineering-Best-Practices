@@ -1,16 +1,29 @@
 <header id="page-header" role="banner">
 	<div class="page-header-content">
 		<a href="{{ HOME_PATH }}" class="logo-link">10up</a>
-
-		<h1><a href="{{ HOME_PATH }}">{{ site.name }}</a></h1>
 		<nav class="page-nav top-nav" role="navigation">
 			<ul class="header-nav">
-				<li><a href="{{ HOME_PATH }}php">PHP</a></li>
-				<li><a href="{{ HOME_PATH }}js">JS</a></li>
-				<li><a href="{{ HOME_PATH }}html">HTML</a></li>
-				<li><a href="{{ HOME_PATH }}css">CSS</a></li>
-				<li><a href="{{ HOME_PATH }}version-control">Git</a></li>
-				<li><a href="{{ HOME_PATH }}tools">Tools</a></li>
+				<li {% if page.page == "introduction" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}">Home</a>
+				</li>
+				<li {% if page.page == "php" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}php">PHP</a>
+				</li>
+				<li {% if page.page == "javascript" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}javascript">JS</a>
+				</li>
+				<li {% if page.page == "html" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}html">HTML</a>
+				</li>
+				<li {% if page.page == "css" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}css">CSS</a>
+				</li>
+				<li {% if page.page == "version-control" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}version-control">Git</a>
+				</li>
+				<li {% if page.page == "tools" %} class="current-menu-item" {% endif %}>
+					<a href="{{ HOME_PATH }}tools">Tools</a>
+				</li>
 			</ul>
 		</nav>
 
@@ -23,28 +36,19 @@
 
 	</div>
 </header>
-<!--
-<header class="masthead">
-  <div class="container">
-    <span class="icon">&#9997;</span>
-    <h1>{{ site.name }}</h1>
-    <p class="lead">{{ site.description }}</p>
 
-    <p class="masthead-links">
-
-      <a href="https://twitter.com/10up">
-        <span class="icon icon-twitter"></span>
-      </a>
-    </p>
-  </div>
+<header class="template-header header-{{ page.page }}">
+	<div class="grid-inner">
+		<h1>
+			{% if page.page == "introduction" %}
+				Best Practices<br>
+				<span class="subhead">10up Engineering</span>
+			{% else %}
+				{{ page.title }}
+			{% endif %}
+		</h1>
+	</div>
 </header>
--->
-
-	<header class="template-header header-{{ page.page }}">
-		<div class="grid-inner">
-			<h1>{{ page.title }}</h1>
-		</div>
-	</header>
 
 <section class="toc">
 	<header>
