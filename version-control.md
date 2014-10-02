@@ -1,6 +1,6 @@
 ---
 page: version-control
-title: Version Control
+title: VCS
 group: navigation
 layout: default
 ---

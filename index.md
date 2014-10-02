@@ -1,6 +1,6 @@
 ---
 page: introduction
-title: Introduction
+title: Home
 group: navigation
 layout: default
 ---

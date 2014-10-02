@@ -3,27 +3,9 @@
 		<a href="{{ HOME_PATH }}" class="logo-link">10up</a>
 		<nav class="page-nav top-nav" role="navigation">
 			<ul class="header-nav">
-				<li {% if page.page == "introduction" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}">Home</a>
-				</li>
-				<li {% if page.page == "php" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}php">PHP</a>
-				</li>
-				<li {% if page.page == "javascript" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}javascript">JS</a>
-				</li>
-				<li {% if page.page == "html" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}html">HTML</a>
-				</li>
-				<li {% if page.page == "css" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}css">CSS</a>
-				</li>
-				<li {% if page.page == "version-control" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}version-control">Git</a>
-				</li>
-				<li {% if page.page == "tools" %} class="current-menu-item" {% endif %}>
-					<a href="{{ HOME_PATH }}tools">Tools</a>
-				</li>
+				{% assign pages_list = site.pages %}
+				{% assign group = 'navigation' %}
+				{% include Util/pages_list %}
 			</ul>
 		</nav>
 
