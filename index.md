@@ -15,7 +15,7 @@ subnav:
     tag: contributing
 ---
 
-<section class="toc">
+<div class="toc">
 	<header>
 		<h2>Table of Contents</h2>
 	</header>
@@ -78,7 +78,7 @@ subnav:
 			</ul>
 		</div>
 	</div>
-</section>
+</div>
 
 <div class="docs-section">
 		{% capture introduction %}{% include markdown/Introduction.md %}{% endcapture %}
