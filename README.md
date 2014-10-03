@@ -1,17 +1,11 @@
-__*THESE DOCS ARE UNDER ACTIVE DEVELOPMENT.*__
+# 10up Engineering Best Practices
 
-# Code Guide
+These are the official best practices for 10up. 10up Engineers are expected to uphold these standards in all their work.
 
-Engineering Best Practices used by 10up.
 
 **[Start reading ☞](http://10up.github.io/Engineering-Best-Practices)**
 
----
 
-### License
+## License
 
 Released under MIT by, and copyright 2014 by 10up.
-
-### Thanks
-
-Inspired by [Code Guide by @mdo](http://codeguide.co/).
