@@ -67,11 +67,16 @@
 	ul {
 		padding-left: 0;
 		margin-top: .5em;
+	}
 
-		li a:hover {
-			display: inline-block;
-			border-bottom-color: rgba(saturate(darken($color-accent-alternate, 10%), 10%), .8);
-		}
+	a {
+		display: inline-block;
+		padding-bottom: 1px;
+	}
+
+	a:hover {
+		padding-bottom: 0;
+		border-bottom: 1px solid rgba(saturate(darken($color-accent-alternate, 10%), 10%), .8);
 	}
 
 	h3 {
