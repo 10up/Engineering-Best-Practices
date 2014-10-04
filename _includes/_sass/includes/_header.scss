@@ -38,28 +38,50 @@
 	}
 
 	.top-nav {
-		top: 60px;
-		width: 48%;
+		top: 6rem;
 		z-index: 5; /* higher than normal so it overlays content elements */
 		background-color: #303030;
 		padding: 0;
-		text-align: left;
-		display: inline-block;
 		height: 0;
-		overflow: hidden;
+		position: relative;
 
+		.js-mobile-expandable {
+			display: none;
 
-		&.open {
-			height: 240px;
+			&.is-open {
+				display: block;
+
+				&:before {
+					content: '';
+					border: 10px solid transparent;
+					border-bottom-color: #222;
+					display: block;
+					position: absolute;
+					right: .25em;
+					top: -20px;
+				}
+			}
+		}
+
+		.header-nav {
+			background-color: #222;
+			text-align: right;
+
+			@include breakpoint($breakpoint-bravo) {
+				background-color: transparent;
+				text-align: left;
+			}
 		}
 
 		@include transition(height, 150ms, linear);
 
 		@include breakpoint($breakpoint-bravo) {
+			display: inline-block;
 			height: auto !important;
 			background-color: transparent;
 			position: relative;
 			top: auto;
+			width: 48%;
 		}
 	}
 }
@@ -102,19 +124,30 @@
 	color: $color-dark-text;
 	line-height: inherit;
 	margin: 0;
-	padding: 1rem 0 1rem 0;
+	padding: 0;
+	padding-top: 1em;
 
 	@include breakpoint($breakpoint-bravo) {
 		@include inline-list();
 		display: block !important;
-		padding: 0;
 		padding-right: $header-logo-small /2;
+		padding-top: 0;
 	}
 
 	li {
 		list-style-type: none;
+		padding: .5em 1em;
+
+			&:hover {
+				background-color: #303030;
+				@include breakpoint($breakpoint-bravo) {
+					background-color: transparent;
+				}
+			}
+
 
 		@include breakpoint($breakpoint-bravo) {
+			padding: 0;
 			margin: 0 0.3em;
 
 			@include breakpoint($breakpoint-charlie) {
@@ -122,8 +155,8 @@
 			}
 		}
 
-		&.current-menu-item a,
-		&.current_page_parent a {
+		&.current-menu-item > a,
+		&.current_page_parent > a {
 			&:after {
 				background-color: #585858;
 				bottom: 7px;
@@ -136,10 +169,6 @@
 				// border-top-color: transparent;
 			}
 		}
-	}
-
-	.subnav {
-		display: none;
 	}
 }
 
