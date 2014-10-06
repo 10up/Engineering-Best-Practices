@@ -2,7 +2,7 @@
 	<div class="page-header-content">
 		<a href="{{ HOME_PATH }}" class="logo-link">10up</a>
 		<nav class="page-nav top-nav" role="navigation">
-			<ul class="header-nav">
+			<ul class="header-nav nav-dropdowns js-mobile-expandable">
 				{% assign pages_list = site.pages %}
 				{% assign group = 'navigation' %}
 				{% include Util/pages_list %}
@@ -12,7 +12,7 @@
 		<a href="https://github.com/10up/Engineering-Best-Practices" class="main-nav-supplemental-icon">
 			<span class="screen-reader-text">View on Github</span>
 		</a>
-		<a class="toggle-menu-icon toggle-main-navigation">
+		<a class="toggle-menu-icon js-mobile-expandable-toggle">
 			<span class="screen-reader-text">Toggle Main Navigation</span>
 		</a>
 

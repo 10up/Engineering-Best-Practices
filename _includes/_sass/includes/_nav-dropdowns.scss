@@ -1,0 +1,62 @@
+.nav-dropdowns {
+
+	li {
+		position: relative;
+	}
+
+	.subnav {
+		display: none;
+		position: absolute;
+		left: -1em;
+		top: 3.35em;
+		background-color: #222;
+		z-index: 80;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: block;
+			margin: 0;
+		}
+
+		a {
+			position: relative;
+			z-index: 90;
+			padding: 1em 1.5em;
+			text-transform: none;
+			letter-spacing: 0;
+			font-weight: normal;
+			font-size: 14px;
+			white-space: nowrap;
+			margin-bottom: 0;
+		}
+
+		a:hover {
+			background-color: #303030;
+
+			&:after {
+				content: none;
+			}
+		}
+
+		&:after {
+			content: ' ';
+			display: block;
+			position: absolute;
+			z-index: 50;
+			/* border: 1px solid red; /* Uncomment to visualize this buffer zone */
+			top: -10px;
+			background: none !important;
+			width: 150%;
+			left: -25%;
+			height: 140%;
+		}
+	}
+
+	/** Only use sub-menus on desktop */
+	@include breakpoint($breakpoint-bravo) {
+		li:hover .subnav {
+			display: block;
+		}
+	}
+}
