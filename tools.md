@@ -15,6 +15,7 @@ subnav:
     tag: version-control
   - title: Command Line Tools
     tag: command-line
+updated: 6 Oct 2014
 ---
 
 <div class="docs-section">

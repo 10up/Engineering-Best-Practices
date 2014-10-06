@@ -13,6 +13,7 @@ subnav:
     tag: philosophy
   - title: Contributing
     tag: contributing
+updated: 6 Oct 2014
 ---
 
 <div class="toc">
