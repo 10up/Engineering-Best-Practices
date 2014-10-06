@@ -25,11 +25,23 @@ Vendor scripts and style should be placed in their respective `/vendor` director
 
 ### Modular Code {% include Util/top %}
 
-Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular. Plugins should be entirely self-contained and expose access to their internals through actions and filters. Themes should likewise use actions and filters for extensibility.
+Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
+
+#### Plugins
+
+If the code for a project is split off into a functionality plugin, it should be done in such a way that the theme can function when the functionality plugin is disabled, broken, or missing. Each plugin should operate within its own namespace, both in terms of code isolation and in terms of internationalization.
+
+Any functions the plugin exposes for use in a theme should be done so through actions and filters - the plugin should contain multiple calls to `add_filter()` and `add_action()` as the hooks themselves will be defined in the theme.
+
+#### Themes
+
+ Any theme dependencies on functionality plugins should be built with the use of `do_action()` or `apply_filters()`.
 
 **In short,** changing to the default theme should not trigger errors on a site. Nor should disabling a functionality plugin - every piece of code should be decoupled and use standard WordPress paradigms (hooks) for interacting with one another.
 
-Every project, whether it includes back-end dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.  For example:
+#### General Notes
+
+Every project, whether it includes Composer-managed dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.  For example:
 
 ```json
 {
@@ -45,6 +57,8 @@ Every project, whether it includes back-end dependencies or not, _must_ contain 
 	}
 }
 ```
+
+When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
 
 ### Dependencies {% include Util/top %}
 
