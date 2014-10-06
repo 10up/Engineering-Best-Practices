@@ -17,6 +17,6 @@ redcarpet:
 sass:
   sass_dir: _includes/_sass
 CONFIG:
-  BASE_PATH: http://10up.github.io/Engineering-Best-Practices/
+  BASE_PATH: http://10up.github.io/Engineering-Best-Practices
 
   ASSET_PATH: false
