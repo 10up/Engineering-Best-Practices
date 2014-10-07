@@ -100,11 +100,11 @@ function prefix_get_top_commented_posts() {
     // If nothing is found, build the object.
     if ( false === $top_commented_posts ) {
         // Grab the top 10 most commented posts.
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // Cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs).
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 300 )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS )
         }
     }
     return $top_commented_posts;
@@ -156,7 +156,7 @@ function prefix_get_top_commented_posts( $force_refresh = false ) {
     // If nothing is found, build the object.
     if ( true === $force_refresh || false === $top_commented_posts ) {
         // Grab the top 10 most commented posts.
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // In this case we don't need a timed cache expiration.
@@ -251,10 +251,9 @@ function prefix_get_posts_from_other_blog() {
         $request = wp_remote_get( ... );
         $posts = wp_remote_retrieve_body( $request );
 
-        wp_cache_set( 'prefix_other_blog_posts, $posts, '', HOUR_IN_SECONDS );
+        wp_cache_set( 'prefix_other_blog_posts', $posts, '', HOUR_IN_SECONDS );
     }
-
-    return $posts
+    return $posts;
 }
 ?>
 ```
@@ -312,9 +311,9 @@ If the code is for general release to the WordPress.org theme or plugin reposito
  * Namespaced class name example.
  */
 class Tenup_Utilities_API {
-  public static function do_something() {
-    // ...
-  }
+	public static function do_something() {
+		// ...
+	}
 }
 ```
 
@@ -426,6 +425,8 @@ Special care must be taken to ensure queries are properly prepared and sanitized
 
 ```php
 <?php
+global $wpdb;
+
 $wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID='%d'", absint( $post_id ) ) );
 ?>
 ```
@@ -438,6 +439,8 @@ Here is another example:
 
 ```php
 <?php
+global $wpdb;
+
 $wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_content ), array( '%s' ) );
 ?>
 ```
