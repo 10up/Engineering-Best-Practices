@@ -84,21 +84,26 @@ This means you always need to ensure you check for the existence of a cached obj
 
 ```php
 <?php
+/**
+ * Retrieve top 10 most-commented posts and cache the results.
+ *
+ * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
+ *                        WP_Error object otherwise.
+ */
 function prefix_get_top_commented_posts() {
-    // Check for the top_commented_posts key in the top_posts group
+    // Check for the top_commented_posts key in the 'top_posts' group.
     $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
 
-    // if nothing is found, build the object.
+    // If nothing is found, build the object.
     if ( false === $top_commented_posts ) {
-        // grab the top 10 most commented posts
+        // Grab the top 10 most commented posts.
         $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
-            // cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs)
+            // Cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs).
             wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 300 )
         }
     }
-
     return $top_commented_posts;
 }
 ?>
@@ -120,23 +125,38 @@ Here is how it's done:
 
 ```php
 <?php
+/**
+ * Prime the cache for the top 10 most-commented posts cache.
+ *
+ * @param int $post_id Post ID.
+ * @param int $new     The new comment count.
+ * @param int $old     The old comment count.
+ */
 function prefix_refresh_top_commented_posts( $post_id, $new, $old ) {
-    // force the cache refresh for top commented posts
+    // Force the cache refresh for top commented posts.
     prefix_get_top_commented_posts( $force_refresh = true );
 }
 add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10, 3 );
 
+/**
+ * Retrieve top 10 most-commented posts and cache the results.
+ *
+ * @param bool $force_refresh Optional. Whether to force the cache to be refreshed.
+                              Default false.
+ * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
+ *                        WP_Error object otherwise.
+ */
 function prefix_get_top_commented_posts( $force_refresh = false ) {
-    // Check for the top_commented_posts key in the top_posts group
+    // Check for the top_commented_posts key in the 'top_posts' group.
     $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
 
-    // if nothing is found, build the object.
+    // If nothing is found, build the object.
     if ( true === $force_refresh || false === $top_commented_posts ) {
-        // grab the top 10 most commented posts
+        // Grab the top 10 most commented posts.
         $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
-            // In this case we don't need a timed cache expiration
+            // In this case we don't need a timed cache expiration.
             wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' )
         }
     }
@@ -180,12 +200,18 @@ Here is a simple example of how to structure your endpoints:
 
 ```php
 <?php
+/**
+ * Register a rewrite endpoint for the API.
+ */
 function prefix_add_api_endpoints() {
 	add_rewrite_tag( '%api_item_id%', '([0-9]+)' );
 	add_rewrite_rule( 'api/items/([0-9]+)/?', 'index.php?api_item_id=$matches[1]', 'top' );
 }
 add_action( 'init', 'prefix_add_api_endpoints' );
 
+/**
+ * Handle data (maybe) passed to the API endpoint.
+ */
 function prefix_do_api() {
 	global $wp_query;
 
@@ -211,6 +237,11 @@ Here is a quick code example for caching a third-party request:
 
 ```php
 <?php
+/**
+ * Retrieve posts from another blog and cache the response body.
+ *
+ * @return string Body of the response. Empty string if no body or incorrect
+                  parameter given.
 function prefix_get_posts_from_other_blog() {
     if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
 
@@ -273,7 +304,11 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php class Tenup_Utilities_API {
+<?php
+/**
+ * Namespaced class name example.
+ */
+class Tenup_Utilities_API {
   public static function do_something() {
     // ...
   }
@@ -293,7 +328,7 @@ Objects should be well-defined, atomic, and fully documented in the leading docb
 ```php
 <?php
 /**
- * Video
+ * Video.
  *
  * This is a video object that wraps both traditional WordPress posts
  * and various YouTube meta information APIs hidden beneath them.
@@ -303,29 +338,31 @@ Objects should be well-defined, atomic, and fully documented in the leading docb
  */
 class Prefix_Video {
 
-  /**
-   * WordPress post object used for data storage.
-   *
-   * @var WP_Post
-   */
-  protected $_post;
+	/**
+	 * WordPress post object used for data storage.
+	 *
+	 * @access protected
+	 * @var WP_Post
+	 */
+	protected $_post;
 
-  /**
-   * Default video constructor.
-   *
-   * @uses get_post
-   *
-   * @throws Exception Throws an exception if the data passed is not a post or post ID.
-   *
-   * @var int|WP_Post $post
-   */
-  public function __construct( $post = null ) {
-    if ( null === $post ) {
-      throw new Exception( 'Invalid post supplied' );
-    }
+	/**
+	 * Default video constructor.
+	 *
+	 * @access public
+	 *
+	 * @see get_post()
+	 * @throws Exception Throws an exception if the data passed is not a post or post ID.
+	 *
+	 * @param int|WP_Post $post Post ID or WP_Post object.
+	 */
+	public function __construct( $post = null ) {
+		if ( null === $post ) {
+			throw new Exception( 'Invalid post supplied' );
+		}
 
-    $this->_post = get_post( $post );
-  }
+		$this->_post = get_post( $post );
+	}
 }
 ```
 
