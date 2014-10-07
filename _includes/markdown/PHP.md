@@ -91,7 +91,7 @@ function prefix_get_top_commented_posts() {
     // if nothing is found, build the object.
     if ( false === $top_commented_posts ) {
         // grab the top 10 most commented posts
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs)
@@ -133,7 +133,7 @@ function prefix_get_top_commented_posts( $force_refresh = false ) {
     // if nothing is found, build the object.
     if ( true === $force_refresh || false === $top_commented_posts ) {
         // grab the top 10 most commented posts
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // In this case we don't need a timed cache expiration
