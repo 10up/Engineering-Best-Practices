@@ -14,6 +14,7 @@ This is a performance hazard. What if we have 100,000 posts? This could crash th
 
 ```php
 <?php
+// Query for 500 posts.
 new WP_Query( array(
   'posts_per_page' => 500,
 ));
@@ -30,6 +31,7 @@ This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query d
 
 ```php
 <?php
+// Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
 new WP_Query( array(
   'no_found_rows' => true,
 ));
@@ -57,6 +59,7 @@ Here is an example of a 2-dimensional query:
 
 ```php
 <?php
+// Query for posts with both a particular category and tag.
 new WP_Query( array(
   'category_name' => 'cat-slug',
   'tag' => 'tag-slug',
@@ -126,14 +129,14 @@ Here is how it's done:
 ```php
 <?php
 /**
- * Prime the cache for the top 10 most-commented posts cache.
+ * Prime the cache for the top 10 most-commented posts.
  *
  * @param int $post_id Post ID.
  * @param int $new     The new comment count.
  * @param int $old     The old comment count.
  */
 function prefix_refresh_top_commented_posts( $post_id, $new, $old ) {
-    // Force the cache refresh for top commented posts.
+    // Force the cache refresh for top-commented posts.
     prefix_get_top_commented_posts( $force_refresh = true );
 }
 add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10, 3 );
@@ -544,6 +547,7 @@ When the form request is processed, the nonce must be verified:
 
 ```php
 <?php
+// Verify the nonce to continue.
 if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name' ) ) {
     // Nonce is valid!
 }
