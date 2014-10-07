@@ -217,7 +217,7 @@ function prefix_get_posts_from_other_blog() {
         $request = wp_remote_get( ... );
         $posts = wp_remote_retrieve_body( $request );
 
-        wp_cache_set( 'prefix_other_blog_posts, $posts, '', HOUR_IN_SECONDS );
+        wp_cache_set( 'prefix_other_blog_posts', $posts, '', HOUR_IN_SECONDS );
     }
 
     return $posts
