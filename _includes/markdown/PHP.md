@@ -95,7 +95,7 @@ function prefix_get_top_commented_posts() {
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs)
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 300 )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS )
         }
     }
 
@@ -219,8 +219,7 @@ function prefix_get_posts_from_other_blog() {
 
         wp_cache_set( 'prefix_other_blog_posts, $posts, '', HOUR_IN_SECONDS );
     }
-
-    return $posts
+    return $posts;
 }
 ?>
 ```
@@ -273,10 +272,11 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php class Tenup_Utilities_API {
-  public static function do_something() {
-    // ...
-  }
+<?php
+class Tenup_Utilities_API {
+	public static function do_something() {
+		// ...
+	}
 }
 ```
 
@@ -386,6 +386,8 @@ Special care must be taken to ensure queries are properly prepared and sanitized
 
 ```php
 <?php
+global $wpdb;
+
 $wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID='%d'", absint( $post_id ) ) );
 ?>
 ```
@@ -398,6 +400,8 @@ Here is another example:
 
 ```php
 <?php
+global $wpdb;
+
 $wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_content ), array( '%s' ) );
 ?>
 ```
