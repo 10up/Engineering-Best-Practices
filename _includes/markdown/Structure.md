@@ -23,7 +23,7 @@ Scripts should be placed in an `/assets/js` directory - raw files in a `/src` su
 
 Vendor scripts and style should be placed in their respective `/vendor` directories and ignored by linting tools.
 
-### Modular Code {% include Util/top %}
+<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -60,7 +60,7 @@ Every project, whether it includes Composer-managed dependencies or not, _must_ 
 
 When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
 
-### Dependencies {% include Util/top %}
+<h3 id="dependencies">Dependencies {% include Util/top %}</h3>
 
 Projects generally use three different classes of dependency management:
 

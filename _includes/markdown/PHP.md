@@ -286,7 +286,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
-### Design Patterns {% include Util/top %}
+<h3 id="design-patterns">Design Patterns {% include Util/top %}</h3>
 
 Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
 
@@ -379,7 +379,7 @@ In terms of [Object-Orieted Programming](http://en.wikipedia.org/wiki/Object-ori
 * Global variables should be avoided. If objects need to be passed throughout the theme or plugin, those objects should either be passed as parameters or referenced through an object factory.
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 
-### Security {% include Util/top %}
+<h3 id="security">Security {% include Util/top %}</h3>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 
