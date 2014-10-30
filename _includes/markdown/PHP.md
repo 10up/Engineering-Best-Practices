@@ -79,7 +79,7 @@ In WordPress, the object cache functionality provided by [```WP_Object_Cache```]
 
 On a regular WordPress install, the difference between transients and the object cache is that transients are persistent and would write to the options table, while the object cache only persists for the particular page load.
 
-On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/)) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
+On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/), [Redis](http://redis.io/), or similar) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
 Note: as the objects are stored in memory, you need to consider that these objects can be cleared at any time and that your code must be constructed in a way that it would not rely on the objects being in place.
 
@@ -178,9 +178,9 @@ In some cases, it might be necessary to create multiple objects depending on the
 
 Page caching in the context of web development refers to storing a requested location's entire output to serve in the event of subsequent requests to the same location.
 
-[Batcache](https://wordpress.org/plugins/batcache) is a WordPress plugin that uses cache (usually Memcache in the context of WordPress) to store and serve rendered pages. It can also optionally cache redirects. It's not as fast as some other caching plugins, but it can be used where file-based caching is not practical or desired.
+[Batcache](https://wordpress.org/plugins/batcache) is a WordPress plugin that uses cache (often Memcache in the context of WordPress) to store and serve rendered pages. It can also optionally cache redirects. It's not as fast as some other caching plugins, but it can be used where file-based caching is not practical or desired.
 
-Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
+Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age by default, but adjustable) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
 
 Although this plugin has a lot of benefits, it also has a couple of code design requirements:
 
