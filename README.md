@@ -7,7 +7,7 @@ These are the official best practices for 10up. This guide dictates how we, as a
 
 ## Contributions
 
-We don't know everything! We hope that this can serve as a starting point for the community to improve experiences across the web. We welcome pull requests and spirited debates.
+We don't know everything! We welcome pull requests and spirited debates :)
 
 ## License
 
