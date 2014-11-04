@@ -1,6 +1,6 @@
 # 10up Engineering Best Practices
 
-These are the official best practices for 10up. These documents dictate how we, as a company, engineer websites. The purpose behind them is to improve the quality of the experiences we build as well as to standardize in turn improving ease of collaboration.
+These are the official best practices for 10up. This guide dictates how we, as a company, engineer websites. The purpose behind them is to improve the quality of the experiences we build as well as to standardize in turn improving ease of collaboration.
 
 
 **[Start reading ☞](http://10up.github.io/Engineering-Best-Practices)**
