@@ -185,7 +185,7 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 #### Utility
 
-[Underscores](http://underscorejs.org) - Provides a number of useful utility functions such as ```clone()```, ```each()```, and ```extend()```. WordPress core uses this library quite a bit.
+[Underscore](http://underscorejs.org) - Provides a number of useful utility functions such as ```clone()```, ```each()```, and ```extend()```. WordPress core uses this library quite a bit.
 
 #### Frameworks
 
