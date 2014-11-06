@@ -3,7 +3,7 @@
 These are the official best practices for 10up. This guide dictates how we, as a company, engineer websites. The purpose behind them is to improve the quality of the experiences we build as well as to standardize in order to facilitate more effective collaboration.
 
 
-**[Start reading ☞](https://10up.github.io/Engineering-Best-Practices)**
+**[Start reading ☞](https://10up.github.io/Engineering-Best-Practices/)**
 
 ## Contributions
 
