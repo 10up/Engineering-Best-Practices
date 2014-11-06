@@ -23,7 +23,7 @@ new WP_Query( array(
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
-```WP_Query``` actually calls ```get_posts()```; calling ```get_posts()``` directly bypasses a number of filters. Not sure whether you need these things or not? You probably don't.
+```get_posts()``` actually calls ```WP_Query```, but calling ```get_posts()``` directly bypasses a number of filters by default. Not sure whether you need these things or not? You probably don't.
 
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```.
 
