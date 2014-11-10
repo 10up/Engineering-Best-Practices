@@ -243,8 +243,8 @@ Here is a quick code example for caching a third-party request:
 /**
  * Retrieve posts from another blog and cache the response body.
  *
- * @return string Body of the response. Empty string if no body or incorrect
-                  parameter given.
+ * @return string Body of the response. Empty string if no body or incorrect parameter given.
+ */
 function prefix_get_posts_from_other_blog() {
     if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
 
@@ -258,7 +258,7 @@ function prefix_get_posts_from_other_blog() {
 ?>
 ```
 
-```prefix_get_posts_form_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
+```prefix_get_posts_from_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
 
 #### Appropriate Data Storage
 
