@@ -2,7 +2,7 @@ The following are the tools we use at 10up. This list will grow and change over 
 
 <h3 id="local-development">Local Development Environments</h3>
 
-At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interactive with virtual environments that match production as closely as possible. There are many different Vagrant setups and configurations available. The following setups are the only ones we support internally.
+At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with virtual environments that match production as closely as possible. There are many different Vagrant setups and configurations available. The following setups are the only ones we support internally.
 
 [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project and something with which we have a lot of familiarity.
 
