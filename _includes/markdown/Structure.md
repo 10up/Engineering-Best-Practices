@@ -13,7 +13,7 @@ Concretely, all new projects should include:
 - A `.jshintrc` file defining JSHint standards
 - An `.editorconfig` file defining line-ending standards and common editor configurations
 - A `Gruntfile.js` file defining the Grunt build process
-- A `package.json` defining the project and it's npm <a href="#dependencies">dependencies</a>
+- A `package.json` defining the project and its npm <a href="#dependencies">dependencies</a>
 - A [`composer.json`](#modular-code) defining the project at a minimum (so it can be included via Composer in other projects) and optionally any back-end dependencies
 - A `bower.json` (optional) defining the project's script dependencies
 

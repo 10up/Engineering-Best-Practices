@@ -24,7 +24,7 @@ The non-jQuery version is [much faster](http://jsperf.com/hide-with-and-without-
 
 #### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
 
-When we create a new jQuery object by passing it a selection string, jQuery uses it's selection engine to select those element(s) in the DOM:
+When we create a new jQuery object by passing it a selection string, jQuery uses its selection engine to select those element(s) in the DOM:
 
 ```javascript
 jQuery( '#menu' );
@@ -38,7 +38,7 @@ jQuery( document.getElementById( 'menu' ) );
 
 #### Cache DOM Selections
 
-It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache it's selector. This applies whether you are using jQuery or not. For example:
+It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache its selector. This applies whether you are using jQuery or not. For example:
 
 non-jQuery Uncached:
 
