@@ -398,7 +398,9 @@ Here's an example of validating an integer stored in post meta:
 ```php
 <?php
 if ( ! empty( $_POST['user_id'] ) ) {
-    update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
+    if ( absint( $_POST['user_id'] == $_POST['user_id'] ) {
+        update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
+    }
 }
 ?>
 ```
