@@ -541,7 +541,7 @@ Here is some example code for creating a nonce:
 
 ```php
 <form method="post" action="">
-    <?php wp_create_nonce( 'my_action_name' ); ?>
+    <?php wp_nonce_field( 'my_action_name' ); ?>
     ...
 </form>
 ```
