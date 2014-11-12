@@ -370,7 +370,7 @@ class Prefix_Video {
 
 #### Visibility
 
-In terms of [Object-Orieted Programming](http://en.wikipedia.org/wiki/Object-oriented_programming) (OOP), public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed-upon rationale.
+In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-oriented_programming) (OOP), public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed-upon rationale.
 
 #### Structure and Patterns
 
