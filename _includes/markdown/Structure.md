@@ -12,8 +12,8 @@ Concretely, all new projects should include:
 - A `.gitignore` file ignoring common directories like `.sass-cache`, `node_modules`, and `.idea`
 - A `.jshintrc` file defining JSHint standards
 - An `.editorconfig` file defining line-ending standards and common editor configurations
-- A Gruntfile defining the build process
-- A `package.json` defining the project and it's npm <a href="#dependencies">dependencies</a>
+- A `Gruntfile.js` file defining the Grunt build process
+- A `package.json` defining the project and its npm <a href="#dependencies">dependencies</a>
 - A [`composer.json`](#modular-code) defining the project at a minimum (so it can be included via Composer in other projects) and optionally any back-end dependencies
 - A `bower.json` (optional) defining the project's script dependencies
 
@@ -23,13 +23,25 @@ Scripts should be placed in an `/assets/js` directory - raw files in a `/src` su
 
 Vendor scripts and style should be placed in their respective `/vendor` directories and ignored by linting tools.
 
-### Modular Code {% include Util/top %}
+<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
 
-Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular. Plugins should be entirely self-contained and expose access to their internals through actions and filters. Themes should likewise use actions and filters for extensibility.
+Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
+
+#### Plugins
+
+If the code for a project is split off into a functionality plugin, it should be done in such a way that the theme can function when the functionality plugin is disabled, broken, or missing. Each plugin should operate within its own namespace, both in terms of code isolation and in terms of internationalization.
+
+Any functions the plugin exposes for use in a theme should be done so through actions and filters - the plugin should contain multiple calls to `add_filter()` and `add_action()` as the hooks themselves will be defined in the theme.
+
+#### Themes
+
+ Any theme dependencies on functionality plugins should be built with the use of `do_action()` or `apply_filters()`.
 
 **In short,** changing to the default theme should not trigger errors on a site. Nor should disabling a functionality plugin - every piece of code should be decoupled and use standard WordPress paradigms (hooks) for interacting with one another.
 
-Every project, whether it includes back-end dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.  For example:
+#### General Notes
+
+Every project, whether it includes Composer-managed dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.  For example:
 
 ```json
 {
@@ -46,7 +58,9 @@ Every project, whether it includes back-end dependencies or not, _must_ contain 
 }
 ```
 
-### Dependencies {% include Util/top %}
+When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
+
+<h3 id="dependencies">Dependencies {% include Util/top %}</h3>
 
 Projects generally use three different classes of dependency management:
 

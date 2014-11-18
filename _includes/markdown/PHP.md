@@ -14,6 +14,7 @@ This is a performance hazard. What if we have 100,000 posts? This could crash th
 
 ```php
 <?php
+// Query for 500 posts.
 new WP_Query( array(
   'posts_per_page' => 500,
 ));
@@ -22,7 +23,7 @@ new WP_Query( array(
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
-```WP_Query``` actually calls ```get_posts()```; calling ```get_posts()``` directly bypasses a number of filters. Not sure whether you need these things or not? You probably don't.
+```get_posts()``` actually calls ```WP_Query```, but calling ```get_posts()``` directly bypasses a number of filters by default. Not sure whether you need these things or not? You probably don't.
 
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```.
 
@@ -30,6 +31,7 @@ This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query d
 
 ```php
 <?php
+// Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
 new WP_Query( array(
   'no_found_rows' => true,
 ));
@@ -57,6 +59,7 @@ Here is an example of a 2-dimensional query:
 
 ```php
 <?php
+// Query for posts with both a particular category and tag.
 new WP_Query( array(
   'category_name' => 'cat-slug',
   'tag' => 'tag-slug',
@@ -76,7 +79,7 @@ In WordPress, the object cache functionality provided by [```WP_Object_Cache```]
 
 On a regular WordPress install, the difference between transients and the object cache is that transients are persistent and would write to the options table, while the object cache only persists for the particular page load.
 
-On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/)) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
+On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/), [Redis](http://redis.io/), or similar) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
 Note: as the objects are stored in memory, you need to consider that these objects can be cleared at any time and that your code must be constructed in a way that it would not rely on the objects being in place.
 
@@ -84,21 +87,26 @@ This means you always need to ensure you check for the existence of a cached obj
 
 ```php
 <?php
+/**
+ * Retrieve top 10 most-commented posts and cache the results.
+ *
+ * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
+ *                        WP_Error object otherwise.
+ */
 function prefix_get_top_commented_posts() {
-    // Check for the top_commented_posts key in the top_posts group
+    // Check for the top_commented_posts key in the 'top_posts' group.
     $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
 
-    // if nothing is found, build the object.
+    // If nothing is found, build the object.
     if ( false === $top_commented_posts ) {
-        // grab the top 10 most commented posts
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        // Grab the top 10 most commented posts.
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
-            // cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs)
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 300 )
+            // Cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs).
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS )
         }
     }
-
     return $top_commented_posts;
 }
 ?>
@@ -120,23 +128,38 @@ Here is how it's done:
 
 ```php
 <?php
+/**
+ * Prime the cache for the top 10 most-commented posts.
+ *
+ * @param int $post_id Post ID.
+ * @param int $new     The new comment count.
+ * @param int $old     The old comment count.
+ */
 function prefix_refresh_top_commented_posts( $post_id, $new, $old ) {
-    // force the cache refresh for top commented posts
+    // Force the cache refresh for top-commented posts.
     prefix_get_top_commented_posts( $force_refresh = true );
 }
 add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10, 3 );
 
+/**
+ * Retrieve top 10 most-commented posts and cache the results.
+ *
+ * @param bool $force_refresh Optional. Whether to force the cache to be refreshed.
+                              Default false.
+ * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
+ *                        WP_Error object otherwise.
+ */
 function prefix_get_top_commented_posts( $force_refresh = false ) {
-    // Check for the top_commented_posts key in the top_posts group
+    // Check for the top_commented_posts key in the 'top_posts' group.
     $top_commented_posts = wp_cache_get( 'prefix_top_commented_posts', 'top_posts' );
 
-    // if nothing is found, build the object.
+    // If nothing is found, build the object.
     if ( true === $force_refresh || false === $top_commented_posts ) {
-        // grab the top 10 most commented posts
-        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10');
+        // Grab the top 10 most commented posts.
+        $top_commented_posts = new WP_Query( 'orderby=comment_count&posts_per_page=10' );
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
-            // In this case we don't need a timed cache expiration
+            // In this case we don't need a timed cache expiration.
             wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' )
         }
     }
@@ -155,16 +178,16 @@ In some cases, it might be necessary to create multiple objects depending on the
 
 Page caching in the context of web development refers to storing a requested location's entire output to serve in the event of subsequent requests to the same location.
 
-[Batcache](https://wordpress.org/plugins/batcache) is a WordPress plugin that uses cache (usually Memcache in the context of WordPress) to store and serve rendered pages. It can also optionally cache redirects. It's not as fast as some other caching plugins, but it can be used where file-based caching is not practical or desired.
+[Batcache](https://wordpress.org/plugins/batcache) is a WordPress plugin that uses the object cache (often Memcache in the context of WordPress) to store and serve rendered pages. It can also optionally cache redirects. It's not as fast as some other caching plugins, but it can be used where file-based caching is not practical or desired.
 
-Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
+Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age by default, but adjustable) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
 
 Although this plugin has a lot of benefits, it also has a couple of code design requirements:
 
 * As the rendered HTML of your pages might be cached you cannot rely on server side logic related to ```$_SERVER```, ```$_COOKIE``` or other values that are unique to a particular user.
 * You can however implement cookie or other user based logic on the front-end (eg. with JavaScript)
 
-As Batcache does not cache calls for URLs with query strings or logged-in users (based on WordPress login cookies), you will need to make sure that your application design uses pretty URLs to really benefit from this caching layer.
+Batcache does not cache logged in users (based on WordPress login cookies), so keep this in mind the performance implications for subscription sites (like BuddyPress). Batcache also treats the query string as part of the URL which means the use of query strings for tracking campaigns (common with Google Analytics) can render page caching ineffective.  Also beware that while WordPress VIP uses batcache, there are specific rules and conditions on VIP that do not apply to the open source version of the plugin.
 
 There are other popular page caching solutions such as the W3 Total Cache plugin, though we generally do not use them for a variety of reasons.
 
@@ -180,12 +203,18 @@ Here is a simple example of how to structure your endpoints:
 
 ```php
 <?php
+/**
+ * Register a rewrite endpoint for the API.
+ */
 function prefix_add_api_endpoints() {
 	add_rewrite_tag( '%api_item_id%', '([0-9]+)' );
 	add_rewrite_rule( 'api/items/([0-9]+)/?', 'index.php?api_item_id=$matches[1]', 'top' );
 }
 add_action( 'init', 'prefix_add_api_endpoints' );
 
+/**
+ * Handle data (maybe) passed to the API endpoint.
+ */
 function prefix_do_api() {
 	global $wp_query;
 
@@ -211,21 +240,25 @@ Here is a quick code example for caching a third-party request:
 
 ```php
 <?php
+/**
+ * Retrieve posts from another blog and cache the response body.
+ *
+ * @return string Body of the response. Empty string if no body or incorrect parameter given.
+ */
 function prefix_get_posts_from_other_blog() {
     if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
 
         $request = wp_remote_get( ... );
         $posts = wp_remote_retrieve_body( $request );
 
-        wp_cache_set( 'prefix_other_blog_posts, $posts, '', HOUR_IN_SECONDS );
+        wp_cache_set( 'prefix_other_blog_posts', $posts, '', HOUR_IN_SECONDS );
     }
-
-    return $posts
+    return $posts;
 }
 ?>
 ```
 
-```prefix_get_posts_form_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
+```prefix_get_posts_from_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
 
 #### Appropriate Data Storage
 
@@ -253,7 +286,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
-### Design Patterns {% include Util/top %}
+<h3 id="design-patterns">Design Patterns {% include Util/top %}</h3>
 
 Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
 
@@ -273,10 +306,14 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php class Tenup_Utilities_API {
-  public static function do_something() {
-    // ...
-  }
+<?php
+/**
+ * Namespaced class name example.
+ */
+class Tenup_Utilities_API {
+	public static function do_something() {
+		// ...
+	}
 }
 ```
 
@@ -293,7 +330,7 @@ Objects should be well-defined, atomic, and fully documented in the leading docb
 ```php
 <?php
 /**
- * Video
+ * Video.
  *
  * This is a video object that wraps both traditional WordPress posts
  * and various YouTube meta information APIs hidden beneath them.
@@ -303,35 +340,37 @@ Objects should be well-defined, atomic, and fully documented in the leading docb
  */
 class Prefix_Video {
 
-  /**
-   * WordPress post object used for data storage.
-   *
-   * @var WP_Post
-   */
-  protected $_post;
+	/**
+	 * WordPress post object used for data storage.
+	 *
+	 * @access protected
+	 * @var WP_Post
+	 */
+	protected $_post;
 
-  /**
-   * Default video constructor.
-   *
-   * @uses get_post
-   *
-   * @throws Exception Throws an exception if the data passed is not a post or post ID.
-   *
-   * @var int|WP_Post $post
-   */
-  public function __construct( $post = null ) {
-    if ( null === $post ) {
-      throw new Exception( 'Invalid post supplied' );
-    }
+	/**
+	 * Default video constructor.
+	 *
+	 * @access public
+	 *
+	 * @see get_post()
+	 * @throws Exception Throws an exception if the data passed is not a post or post ID.
+	 *
+	 * @param int|WP_Post $post Post ID or WP_Post object.
+	 */
+	public function __construct( $post = null ) {
+		if ( null === $post ) {
+			throw new Exception( 'Invalid post supplied' );
+		}
 
-    $this->_post = get_post( $post );
-  }
+		$this->_post = get_post( $post );
+	}
 }
 ```
 
 #### Visibility
 
-In terms of [Object-Orieted Programming](http://en.wikipedia.org/wiki/Object-oriented_programming) (OOP), public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed-upon rationale.
+In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-oriented_programming) (OOP), public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed-upon rationale.
 
 #### Structure and Patterns
 
@@ -340,7 +379,7 @@ In terms of [Object-Orieted Programming](http://en.wikipedia.org/wiki/Object-ori
 * Global variables should be avoided. If objects need to be passed throughout the theme or plugin, those objects should either be passed as parameters or referenced through an object factory.
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 
-### Security {% include Util/top %}
+<h3 id="security">Security {% include Util/top %}</h3>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 
@@ -386,6 +425,8 @@ Special care must be taken to ensure queries are properly prepared and sanitized
 
 ```php
 <?php
+global $wpdb;
+
 $wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID='%d'", absint( $post_id ) ) );
 ?>
 ```
@@ -398,11 +439,13 @@ Here is another example:
 
 ```php
 <?php
-$wpdb->insert( $wpdb->posts, array( 'post_excerpt' => wp_kses_post( $post_content ), array( '%s' ) );
+global $wpdb;
+
+$wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_content ), array( '%s' ) );
 ?>
 ```
 
-```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injections attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_excerpt``` as someone could inject harmful JavaScript otherwise.
+```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injections attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_content``` as someone could inject harmful JavaScript otherwise.
 
 #### Escape or Validate Output
 
@@ -498,7 +541,7 @@ Here is some example code for creating a nonce:
 
 ```php
 <form method="post" action="">
-    <?php wp_create_nonce( 'my_action_name' ); ?>
+    <?php wp_nonce_field( 'my_action_name' ); ?>
     ...
 </form>
 ```
@@ -507,6 +550,7 @@ When the form request is processed, the nonce must be verified:
 
 ```php
 <?php
+// Verify the nonce to continue.
 if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name' ) ) {
     // Nonce is valid!
 }
@@ -515,7 +559,7 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 
 <h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
 
-We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards.
+We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
 <h3 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h3>
 

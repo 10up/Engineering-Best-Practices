@@ -2,13 +2,13 @@ The following are the tools we use at 10up. This list will grow and change over 
 
 <h3 id="local-development">Local Development Environments</h3>
 
-At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interactive with virtual environments that match production as closely as possible. There are many different Vagrant setups and configurations available. The following setups are the only ones we support internally.
+At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with virtual environments that match production as closely as possible. There are many different Vagrant setups and configurations available. The following setups are the only ones we support internally.
 
 [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project and something with which we have a lot of familiarity.
 
 [VIP Quickstart](https://github.com/Automattic/vip-quickstart) - A Vagrant setup meant to closely match the WordPress.com VIP environment. If you are working on a VIP project, it is good to have this installed to effectively test your website locally. We only recommend this Vagrant setup for VIP projects.
 
-### Task Runners {% include Util/top %}
+<h3 id="task-runners">Task Runners {% include Util/top %}</h3>
 
 [Grunt](http://gruntjs.com/) - Grunt is a task runner built on Node that lets you automate tasks like Sass preprocessing and JS minification. Grunt is the only taskrunner we currently use on company and client projects.
 
@@ -18,7 +18,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interactive w
 
 [Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress. Sometimes we need external libraries like "Patchwork". Composer is a great way to manage those external libraries but is not necessary on most projects
 
-### Version Control {% include Util/top %}
+<h3 id="version-control">Version Control {% include Util/top %}</h3>
 
 [Git](http://git-scm.com) - At 10up we use Git for version control. We encourage people to use the command line for interacting with Git. GUI’s are permitted but will not be supported internally.
 

@@ -6,7 +6,7 @@ The key philosophy that drives our repository structure is *we don't version con
 
 The counter argument to this philosophy is "what if the latest version of ______ breaks the site? How will we revert to a working state if we don't version control WordPress core and plugins?". WordPress core is backwards compatible, and we believe in trusting it the same way we trust PHP or MySQL. Similarly, we only install and recommend plugins that we trust. These best practices coupled with our talented engineers gives us confidence that our code will work with core and plugin updates. We still test major updates to plugins and core on staging first. If we discover code in core or a plugin that has issues, we try our best to correct that code and push the changes upstream giving back to the open source community.
 
-### Workflows {% include Util/top %}
+<h3 id="workflows">Workflows {% include Util/top %}</h3>
 
 At 10up we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason we use the following workflows company-wide both for internal and client projects.
 
