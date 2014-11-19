@@ -580,7 +580,7 @@ Example:
  * @param    string  $current_meta_key   The meta key being referenced.
  * @return   bool    $protected
  */
-function hide_post_meta_from_custom_fields ( $protected, $current_meta_key ) {
+function protect_post_meta ( $protected, $current_meta_key ) {
     
     // Assemble an array of post meta keys to be protected
     $meta_keys_to_be_protected = array(
@@ -610,7 +610,7 @@ function hide_post_meta_from_custom_fields ( $protected, $current_meta_key ) {
  * Note, a meta field that is intended to be a viewable component of the post 
  * (Examples: event date, or employee title) should **not** be protected.
  */
-add_filter( 'is_protected_meta', 'hide_post_meta_from_custom_fields', 10, 2 );
+add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
 
 ?>
 ```
