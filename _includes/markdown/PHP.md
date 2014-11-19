@@ -588,10 +588,10 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
  * Flag some post meta keys as private so they're not exposed to the public 
  * via the Custom Fields meta box or the JSON REST API.
  *
- * @internal                              Called via is_protected_meta filter.
- * @param     bool    $protected          Whether the key is protected. Default is false.
- * @param     string  $current_meta_key   The meta key being referenced.
- * @return    bool    $protected          The (possibly) modified $protected variable
+ * @internal                          Called via is_protected_meta filter.
+ * @param    bool   $protected        Whether the key is protected. Default is false.
+ * @param    string $current_meta_key The meta key being referenced.
+ * @return   bool   $protected        The (possibly) modified $protected variable
  */
 function protect_post_meta( $protected, $current_meta_key ) {
     
