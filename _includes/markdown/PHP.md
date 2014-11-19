@@ -580,7 +580,7 @@ Example:
  * @param     string  $current_meta_key   The meta key being referenced.
  * @return    bool    $protected          The (possibly) modified $protected variable
  */
-function protect_post_meta ( $protected, $current_meta_key ) {
+function protect_post_meta( $protected, $current_meta_key ) {
     
     // Assemble an array of post meta keys to be protected
     $meta_keys_to_be_protected = array(
