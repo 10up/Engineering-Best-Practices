@@ -576,9 +576,9 @@ Example:
  * this way the meta will not display in the Custom Fields post meta box as editable. 
  * This is a cleaner approach than prefixing our meta keys with an underscore.
  *
- * @internal                             Called via is_protected_meta filter
- * @param    bool    $protected          Whether the key is protected. Default false.
- * @param    string  $current_meta_key   The meta key being referenced
+ * @internal                             Called via is_protected_meta filter.
+ * @param    bool    $protected          Whether the key is protected. Default is false.
+ * @param    string  $current_meta_key   The meta key being referenced.
  * @return   bool    $protected
  */
 function hide_post_meta_from_custom_fields ( $protected, $current_meta_key ) {
