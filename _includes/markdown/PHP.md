@@ -599,6 +599,19 @@ function hide_post_meta_from_custom_fields ( $protected, $current_meta_key ) {
     // Return the (possibly) modified $protected variable
     return $protected;
 }
+
+/**
+ * Mark custom post meta keys as protected
+ *
+ * Prefixing post meta keys with an underscore, ex: `_my_meta_key` has been 
+ * common practice to hide said post meta from being editable within the 
+ * 'Custom Fields' post meta box. However, the newer recommended method 
+ * encourages post meta key names to not include an underscore prefix, 
+ * ex: `my_meta_key` and then marking the post meta as protected via the 
+ * is_protected_meta filter. 
+ */
+add_filter( 'is_protected_meta', 'hide_post_meta_from_custom_fields', 10, 2 );
+
 ?>
 ```
 
