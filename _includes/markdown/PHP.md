@@ -570,11 +570,10 @@ Example:
 ```
 <?php
 /**
- * Hide Post Meta from Custom Fields Meta Box.
+ * Protect non-public meta keys
  *
- * We tap into the is_protected_meta filter to flag our post meta keys as private,
- * this way the meta will not display in the Custom Fields post meta box as editable. 
- * This is a cleaner approach than prefixing our meta keys with an underscore.
+ * Flag some post meta keys as private so they're not exposed to the public 
+ * via the Custom Fields meta box or the JSON REST API.
  *
  * @internal                             Called via is_protected_meta filter.
  * @param    bool    $protected          Whether the key is protected. Default is false.
@@ -601,14 +600,15 @@ function hide_post_meta_from_custom_fields ( $protected, $current_meta_key ) {
 }
 
 /**
- * Mark custom post meta keys as protected
+ * Hook into WordPress to mark specific post meta keys as protected
  *
- * Prefixing post meta keys with an underscore, ex: `_my_meta_key` has been 
- * common practice to hide said post meta from being editable within the 
- * 'Custom Fields' post meta box. However, the newer recommended method 
- * encourages post meta key names to not include an underscore prefix, 
- * ex: `my_meta_key` and then marking the post meta as protected via the 
+ * Post meta can be either public or protected. Any post meta which holds 
+ * **internal or read only** data should be protected via a prefixed underscore on
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
  * is_protected_meta filter. 
+ *
+ * Note, a meta field that is intended to be a viewable component of the post 
+ * (Examples: event date, or employee title) should **not** be protected.
  */
 add_filter( 'is_protected_meta', 'hide_post_meta_from_custom_fields', 10, 2 );
 
