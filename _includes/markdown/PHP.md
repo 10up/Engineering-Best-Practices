@@ -570,6 +570,19 @@ Example:
 ```
 <?php
 /**
+ * Hook into WordPress to mark specific post meta keys as protected
+ *
+ * Post meta can be either public or protected. Any post meta which holds 
+ * **internal or read only** data should be protected via a prefixed underscore on
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
+ * is_protected_meta filter. 
+ *
+ * Note, a meta field that is intended to be a viewable component of the post 
+ * (Examples: event date, or employee title) should **not** be protected.
+ */
+add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
+
+/**
  * Protect non-public meta keys
  *
  * Flag some post meta keys as private so they're not exposed to the public 
@@ -598,20 +611,6 @@ function protect_post_meta( $protected, $current_meta_key ) {
     // Return the (possibly) modified $protected variable
     return $protected;
 }
-
-/**
- * Hook into WordPress to mark specific post meta keys as protected
- *
- * Post meta can be either public or protected. Any post meta which holds 
- * **internal or read only** data should be protected via a prefixed underscore on
- * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
- * is_protected_meta filter. 
- *
- * Note, a meta field that is intended to be a viewable component of the post 
- * (Examples: event date, or employee title) should **not** be protected.
- */
-add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
-
 ?>
 ```
 
