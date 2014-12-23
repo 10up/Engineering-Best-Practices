@@ -8,6 +8,15 @@ When querying the database in WordPress, you should generally use a [```WP_Query
 
 Here are a few key points:
 
+* Only run the queries that you need.
+
+A new ```WP_Query``` object runs five queries by default, including calculating pagination and priming the term and meta caches. Each of the following arguments will remove a query:
+
+1. ```'no_found_rows' => true```: useful when pagination is not needed.
+2. ```'update_post_meta_cache' => true```: useful when post meta will not be utilized.
+3. ```'update_post_term_cache' => true```: useful when taxonomy terms will not be utilized.
+4. ```'fields' => 'ids'```: useful when only the post IDs are needed (less typical).
+
 * Do not use ```posts_per_page => -1```.
 
 This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
