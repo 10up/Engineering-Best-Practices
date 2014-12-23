@@ -13,8 +13,8 @@ Here are a few key points:
     A new ```WP_Query``` object runs five queries by default, including calculating pagination and priming the term and meta caches. Each of the following arguments will remove a query:
 
     * ```'no_found_rows' => true```: useful when pagination is not needed.
-    * ```'update_post_meta_cache' => true```: useful when post meta will not be utilized.
-    * ```'update_post_term_cache' => true```: useful when taxonomy terms will not be utilized.
+    * ```'update_post_meta_cache' => false```: useful when post meta will not be utilized.
+    * ```'update_post_term_cache' => false```: useful when taxonomy terms will not be utilized.
     * ```'fields' => 'ids'```: useful when only the post IDs are needed (less typical).
 
 * Do not use ```posts_per_page => -1```.
