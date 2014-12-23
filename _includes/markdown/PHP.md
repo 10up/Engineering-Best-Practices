@@ -10,71 +10,71 @@ Here are a few key points:
 
 * Only run the queries that you need.
 
-A new ```WP_Query``` object runs five queries by default, including calculating pagination and priming the term and meta caches. Each of the following arguments will remove a query:
+    A new ```WP_Query``` object runs five queries by default, including calculating pagination and priming the term and meta caches. Each of the following arguments will remove a query:
 
-1. ```'no_found_rows' => true```: useful when pagination is not needed.
-2. ```'update_post_meta_cache' => true```: useful when post meta will not be utilized.
-3. ```'update_post_term_cache' => true```: useful when taxonomy terms will not be utilized.
-4. ```'fields' => 'ids'```: useful when only the post IDs are needed (less typical).
+    * ```'no_found_rows' => true```: useful when pagination is not needed.
+    * ```'update_post_meta_cache' => true```: useful when post meta will not be utilized.
+    * ```'update_post_term_cache' => true```: useful when taxonomy terms will not be utilized.
+    * ```'fields' => 'ids'```: useful when only the post IDs are needed (less typical).
 
 * Do not use ```posts_per_page => -1```.
 
-This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
+    This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
 
-```php
-<?php
-// Query for 500 posts.
-new WP_Query( array(
-  'posts_per_page' => 500,
-));
-?>
-```
+    ```php
+    <?php
+    // Query for 500 posts.
+    new WP_Query( array(
+      'posts_per_page' => 500,
+    ));
+    ?>
+    ```
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
-```get_posts()``` actually calls ```WP_Query```, but calling ```get_posts()``` directly bypasses a number of filters by default. Not sure whether you need these things or not? You probably don't.
+    ```get_posts()``` actually calls ```WP_Query```, but calling ```get_posts()``` directly bypasses a number of filters by default. Not sure whether you need these things or not? You probably don't.
 
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```.
 
-This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
+    This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
-```php
-<?php
-// Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
-new WP_Query( array(
-  'no_found_rows' => true,
-));
-?>
-```
+    ```php
+    <?php
+    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
+    new WP_Query( array(
+      'no_found_rows' => true,
+    ));
+    ?>
+    ```
 
 * A [taxonomy](http://codex.wordpress.org/Taxonomies) is a tool that lets us group or classify posts.
 
-[Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
+    [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
 
 * Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea.
 
-If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
+    If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
 
 * Multi-dimensional queries should be avoided.
 
-Examples of multi-dimensional queries include:
+    Examples of multi-dimensional queries include:
 
-  * Querying for posts based on terms across multiple taxonomies
-  * Querying multiple post meta keys
-  
-Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to filter out results you don't need.
+      * Querying for posts based on terms across multiple taxonomies
+      * Querying multiple post meta keys
 
-Here is an example of a 2-dimensional query:
+    Each extra dimension of a query joins an extra database table. Instead, query by the minimum number of dimensions possible and use PHP to filter out results you don't need.
 
-```php
-<?php
-// Query for posts with both a particular category and tag.
-new WP_Query( array(
-  'category_name' => 'cat-slug',
-  'tag' => 'tag-slug',
-));
-?>
-```
+    Here is an example of a 2-dimensional query:
+
+    ```php
+    <?php
+    // Query for posts with both a particular category and tag.
+    new WP_Query( array(
+      'category_name' => 'cat-slug',
+      'tag' => 'tag-slug',
+    ));
+    ?>
+    ```
 
 #### Caching
 
