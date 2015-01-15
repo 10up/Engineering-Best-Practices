@@ -570,6 +570,59 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 
 We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
+That said, at 10up we highly value verbose commenting/documentation throughout any/all code, with an emphasis on docblock long descriptions which state 'why' the code is there and 'what' exactly the code does in human-readable prose. As a general rule of thumb; a manager should be able to grok your code by simply reading the docblock and inline comments.
+
+<img src="img/coding-documentation.jpg" width="300px" height="300px" alt="Code Documentation">
+
+Example:
+
+```
+<?php
+/**
+ * Hook into WordPress to mark specific post meta keys as protected
+ *
+ * Post meta can be either public or protected. Any post meta which holds 
+ * **internal or read only** data should be protected via a prefixed underscore on
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
+ * is_protected_meta filter. 
+ *
+ * Note, a meta field that is intended to be a viewable component of the post 
+ * (Examples: event date, or employee title) should **not** be protected.
+ */
+add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
+
+/**
+ * Protect non-public meta keys
+ *
+ * Flag some post meta keys as private so they're not exposed to the public 
+ * via the Custom Fields meta box or the JSON REST API.
+ *
+ * @internal                          Called via is_protected_meta filter.
+ * @param    bool   $protected        Whether the key is protected. Default is false.
+ * @param    string $current_meta_key The meta key being referenced.
+ * @return   bool   $protected        The (possibly) modified $protected variable
+ */
+function protect_post_meta( $protected, $current_meta_key ) {
+    
+    // Assemble an array of post meta keys to be protected
+    $meta_keys_to_be_protected = array(
+        'my_meta_key',
+        'my_other_meta_key',
+        'and_another_keta_key',
+    );
+
+    // Set the protected var to true when the current meta key matches
+    // one of the meta keys in our array of keys to be protected
+    if ( in_array( $current_meta_key, $meta_keys_to_be_protected ) ) {
+        $protected = true;
+    }
+
+    // Return the (possibly) modified $protected variable
+    return $protected;
+}
+?>
+```
+
 <h3 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
 Unit testing is the automated testing of units of source code against certain assertions. The goal of unit testing is to write test cases with assertions that test if a unit of code is truly working as intended. If an assertion fails, a potential issue is exposed, and code needs to be revised.
