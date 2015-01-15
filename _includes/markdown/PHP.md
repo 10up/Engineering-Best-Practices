@@ -572,11 +572,9 @@ We follow the official WordPress [coding](http://make.wordpress.org/core/handboo
 
 That said, at 10up we highly value verbose commenting/documentation throughout any/all code, with an emphasis on docblock long descriptions which state 'why' the code is there and 'what' exactly the code does in human-readable prose. As a general rule of thumb; a manager should be able to grok your code by simply reading the docblock and inline comments.
 
-<img src="img/coding-documentation.jpg" width="300px" height="300px" alt="Code Documentation">
-
 Example:
 
-```
+```php
 <?php
 /**
  * Hook into WordPress to mark specific post meta keys as protected
