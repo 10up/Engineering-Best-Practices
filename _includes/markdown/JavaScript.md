@@ -164,6 +164,23 @@ jQuery( '.menu' ).on( 'click', function() {
 
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
+<h3 id="dom-api">Use the DOM API to Insert HTML {% include Util/top %}</h3>
+
+The sites we build at 10up usually load third-party libraries, such as advertising scripts, from servers we don't control. Those scripts can potentially change the values of variables we define in our code, and expose us to cross-site-scripting attacks if someone modifies them maliciously.
+
+When adding elements to the page in JavaScript, create new DOMElement objects using document.createElement(), then set their properties using setAttribute() and the className property. This ensures that the attribute values you set are used literally, even if they contain markup. jQuery's html() function doesn't perform any sanitization on the string passed to it, so it's not secure to build your HTML as a string and inject it into the page this way.
+
+```javascript
+
+// This exposes you to cross-site-scripting (XSS)
+jQuery('#test').html('<div id="' + some_string + '"></div>');
+
+// id is literally set to the value of some_string, even if it contains XSS
+var new_div = document.createElement('div');
+new_div.setAttribute('id', some_string);
+jQuery('#test').get(0).appendChild(new_div);
+
+```
 
 <h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
 
