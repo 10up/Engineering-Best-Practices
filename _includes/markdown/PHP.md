@@ -76,6 +76,24 @@ Here are a few key points:
     ?>
     ```
 
+##### WP_Query vs. get_posts() vs. query_posts()
+As outlined above, ```get_posts()``` and ```WP_Query```, apart from some slight nuances, are quite similar:
+* They do not modify the main loop at all, ```query_posts()``` is a small wrapper for WP_Query that overwrites global ```$wp_query```.
+
+* Both have the same performance cost: the query performed.
+
+[```query_posts()```](https://developer.wordpress.org/reference/functions/query_posts/), on the other hand, behaves quite differently than the other two and probaby should not be used. Specifically:
+* It creates a new WP_Query object with the parameters you specify.
+
+* It replaces the existing main query loop with a new instance that is no longer the main query, after the main loop has already run.
+
+As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), ```query_posts()``` isn't meant to be used by plugins or themes.
+
+An example scenario where ```query_posts()``` would *seem* useful is where we want to output featured posts and then exclude those same posts from the main loop. In this case, we could instead use ```pre_get_posts```, which will allow us to exclude those posts from the main loop first and then run the featured posts query as usual with ```WP_Query``` or ```get_posts()```.
+
+[A good article with code examples](https://developer.wordpress.com/2012/05/14/querying-posts-without-query_posts/)
+
+
 #### Caching
 
 Caching is simply the act of storing computed data somewhere for later use, and is an incredibly important concept in WordPress. There are different ways to employ caching, and often multiple methods will be used.
