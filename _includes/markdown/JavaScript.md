@@ -183,7 +183,7 @@ document.getElementById( 'test' ).appendChild( new_div );
 
 ```
 
-When just adding or changing text inside an element, createTextNode() creates the same DOM text nodes the browser builds when you use other methods. It's faster to create these nodes directly. It also helps avoid cross-site-scripting vulnerabilities when the text is in a variable other code has touched and which might not contain plain text.
+When just adding or changing text inside an element, createTextNode() creates the same DOM text nodes the browser builds when you use other methods. It's faster to create these nodes directly. It also helps avoid cross-site-scripting vulnerabilities when the text is in a variable other code has touched and which might not actually contain plain text.
 
 ```javascript
 
