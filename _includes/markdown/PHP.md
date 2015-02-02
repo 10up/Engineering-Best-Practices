@@ -80,8 +80,8 @@ Here are a few key points:
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
 
 [`query_posts()`](https://developer.wordpress.org/reference/functions/query_posts/), on the other hand, behaves quite differently than the other two and should almost never be used. Specifically:
-* It creates a new `WP_Query` object with the parameters you specify.
 
+* It creates a new `WP_Query` object with the parameters you specify.
 * It replaces the existing main query loop with a new instance of `WP_Query`.
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
