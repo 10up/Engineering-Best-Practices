@@ -169,7 +169,7 @@ Another example in JavaScript is ```escape()``` and ```unescape()```. These func
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
-In the absence of an adopted core standard for JavaScript documentation, we follow the [JSDoc3](http://usejsdoc.org/) standards.
+We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/inline-documentation-standards/javascript-documentation-standards/).
 
 <h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
