@@ -31,6 +31,17 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
+    <div class="col">
+		<h3><a href="{{ HOME_PATH }}markup#top">Markup</a></h3>
+		<ul>
+			<li><a href="{{ HOME_PATH }}markup#philosophy">Philosophy</a></li>
+			<li><a href="{{ HOME_PATH }}markup#html5-structural-elements">HTML5 Structural Elements</a></li>
+			<li><a href="{{ HOME_PATH }}markup#classes-ids">Classes &amp; ID's</a></li>
+			<li><a href="{{ HOME_PATH }}markup#accessibility">Accessibility</a></li>
+			<li><a href="{{ HOME_PATH }}markup#progressive-enhancement">Progressive Enhancement</a></li>
+		</ul>
+	</div>
+
 	<div class="col">
 		<h3><a href="{{ HOME_PATH }}php#top">PHP</a></h3>
 		<ul>
