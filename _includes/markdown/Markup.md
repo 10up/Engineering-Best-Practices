@@ -32,11 +32,14 @@ For all new projects we use HTML5 with the following doctype: ```<!DOCTYPE html>
 Although HTML is not case sensitive, using lowercase tags is our preferred pattern. Again, we're emphasizing readability and consistency.
 
 ##### Examples
+
 Bad:
+
 ```html
 <DIV class="featured-image"></DIV>
 ```
 Good:
+
 ```html
 <div class="featured-image"></div>
 ```
@@ -50,10 +53,12 @@ This is not to say that multiple classes on an element are unacceptable. Context
 
 ##### Examples
 Bad:
+
 ```html
 <div class="col-lg-6 col-md-6 col-sm-9 col-xs-12 featured-image">
 ```
 Good:
+
 ```html
 <nav class="primary-nav"> / <nav class="primary-nav open">
 ```
@@ -70,7 +75,9 @@ To this end, we use Schema.org markup where relevant and reasonable to ensure th
 Schema markup should be validated against the the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
 
 ##### Examples
+
 Bad:
+
 ```html
 <div>
   <div>
@@ -87,6 +94,7 @@ Bad:
 ```
 
 Good:
+
 ```html
 <div itemscope itemtype="http://schema.org/Review">
   <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/Book">
@@ -114,7 +122,9 @@ Another misconception is that the ````<figure>```` element can only be used for 
 Finally, not all groups of links on a page need to be in a nav element. The ````<nav>```` element is primarily intended for sections that consist of major navigation blocks.
 
 #### Examples
+
 Bad:
+
 ```html
 <section id="wrapper">
     <header>
@@ -130,6 +140,7 @@ Bad:
 ```
 
 Good:
+
 ```html
 <div class="wrapper">
     <header>
@@ -149,11 +160,13 @@ Good:
 Since all browsers expect scripts to be JavaScript and styles to be CSS, you don't need to include type attribute. While it isn't really a mistake, it's a best practice to avoid this pattern.
 
 Bad example:
+
 ```html
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="script/scripts.js"></script>
 ```
 Good example:
+
 ```html
 <link rel="stylesheet" href="css/style.css">
 <script src="script/scripts.js"></script>
@@ -165,6 +178,7 @@ In order to create more maintainable projects, developers should use classes for
 When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
 
 Example:
+
 ```html
 <nav id="js-primary-menu" class="primary-menu"></nav>
 ```
@@ -185,6 +199,7 @@ ARIA (Assistive Rich Internet Applications) is a spec from the W3C. It was creat
 ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities.
 
 Example:
+
 ```html
 <header id="masthead" class="site-header" role="banner"></header>
 ```
