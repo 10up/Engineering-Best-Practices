@@ -17,6 +17,7 @@ CSS syntax is not strict and will accept a lot of variations, but for the sake o
 * Closing braces should be on a new line
 
 Avoid:
+
 ```css
 .class-1, .class-2,
 .class-3 {
@@ -25,6 +26,7 @@ color: red; background-color: blue; }
 ```
 
 Prefer:
+
 ```css
 .class-1,
 .class-2,
@@ -41,6 +43,7 @@ Prefer:
 * Include one space after each comma-separated values
 
 Avoid:
+
 ```css
 .class-1,.class-2{
   width:10px;
@@ -49,6 +52,7 @@ Avoid:
 ```
 
 Prefer:
+
 ```css
 .class-1,
 .class-2 {
@@ -63,6 +67,7 @@ Prefer:
 * Use double quotes instead of single quotes
 
 Avoid:
+
 ```css
 section {
   background-color: #FFFFFF;
@@ -72,6 +77,7 @@ section {
 ```
 
 Prefer:
+
 ```css
 section {
   background-color: #fff;
@@ -83,6 +89,7 @@ section {
 If you don't need to set all the values, don't use shorthand notation.
 
 Avoid:
+
 ```css
 .header-background {
   background: blue;
@@ -91,6 +98,7 @@ Avoid:
 ```
 
 Prefer:
+
 ```css
 .header-background {
   background-color: blue;
@@ -129,6 +137,7 @@ Sass nesting has changed the lives of many, but like everything in life, abusing
 Selectors should be lowercase, and words should be separated with hyphens. Please avoid camelcase. Underscores are acceptable if they’re being used for [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) syntax. The naming of selectors should be consistent and describe the functional purpose of the styles they’re applying.
 
 Avoid:
+
 ```css
 .btnRed {
 	background-color: red;
@@ -136,6 +145,7 @@ Avoid:
 ```
 
 Prefer:
+
 ```css
 .btn-warning {
 	background-color: red;
@@ -180,6 +190,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’re familiar with PHPDoc, this should be familiar.
 
 Example:
+
 ```scss
 /// Convert Photoshop tracking value to letter-spacing
 ///
@@ -231,6 +242,7 @@ Avoid using `!important` at all costs.
 Use [efficient selectors](http://csswizardry.com/2011/09/writing-efficient-css-selectors/).
 
 Avoid:
+
 ```css
 div {
   background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%);
@@ -238,6 +250,7 @@ div {
 ```
 
 Overqualified:
+
 ```css
  div div header#header div ul.nav-menu li a.black-background {
   background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%);
@@ -249,6 +262,7 @@ Overqualified:
 Fortunately, many CSS properties can be inherited from the parent. Take advantage of inheritance to avoid bloating your stylesheet but keep [specificity](#user-content-css-specificity) in mind.
 
 Avoid:
+
 ```css
 .sibling-1 {
 	font-family: Arial, sans-serif;
@@ -285,6 +299,7 @@ It's a common belief that CSS animations are more performant than JavaScript ani
 Limit your CSS animations to 3D transforms (translate, rotate, scale) and opacity, as those are aided by the GPU and thus smoother. Note that too much reliance on the GPU can also overload it.
 
 Avoid:
+
 ```css
 #menu li{
   left: 0;
@@ -362,6 +377,7 @@ $devices: (
 In Sass files, nest the media query or media query mixin within the selector it modifies. **Do not** create size-based partials (e.g. `_1024px.scss`, `_480px.scss`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the selector will allow the developer to immediately see all the different styles applied to an element.
 
 Avoid:
+
 ```css
 @media only screen and (min-width: 1024px) {
 	@import "responsive/1024up";
@@ -380,6 +396,7 @@ Avoid:
 ```
 
 Prefer:
+
 ```css
 .some-class {
 	color: red;
