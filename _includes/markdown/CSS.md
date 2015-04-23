@@ -1,10 +1,10 @@
-### Philosophy
+<h3 id="philosophy">Philosophy</h3>
 
 At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and won't sacrifice our client's most important asset over the latest, shiniest half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
 Our websites should be built mobile first, using performant CSS. Well structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
-### Syntax and Formatting
+<h3 id="syntax-formatting">Syntax and Formatting {% include Util/top %}</h3>
 
 Syntax and formatting are keys to a maintainable project. By keeping our code style consistent, we not only help ourselves debug faster but we're also lessening the burden on those who will have to maintain our code (maybe ourselves too!)
 
@@ -144,7 +144,7 @@ Prefer:
 
 For components that could possibly conflicts with plugins or third-party library, use vendor prefixes. Don’t use names that can be blocked by adblockers (e.g. “advertisement”). When in doubt, you can check a class name against [this list](https://easylist-downloads.adblockplus.org/easylist.txt) to see if it's likely to be blocked.
 
-### Documentation
+<h3 id="documentation">Documentation {% include Util/top %}</h3>
 
 Code documentation serves two purposes: to make maintenance easier and to perform a self sanity check. If the explanation is too complex, maybe the code is overly complex too. Documenting helps keeping our code simple and maintainable.
 
@@ -205,7 +205,7 @@ Example:
 
 Read more at [SassDoc official documentation](http://sassdoc.com/getting-started/).
 
-### Performance
+<h3 id="performance">Performance {% include Util/top %}</h3>
 
 Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
 
@@ -305,7 +305,7 @@ Articles worth reading:
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
-### Responsive websites
+<h3 id="responsive-websites">Responsive websites {% include Util/top %}</h3>
 
 We build our websites "mobile first". Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
 
@@ -399,7 +399,7 @@ We prefer showing a fixed-width non-responsive desktop version to older IE users
 * Use a breakpoint mixin to target older browsers (See [sass-mq](https://github.com/sass-mq/sass-mq) and similar).
 * Load a different stylesheet for older browsers.
 
-### Frameworks
+<h3 id="frameworks">Frameworks {% include Util/top %}</h3>
 
 Frameworks are built to save developers time and are great in many situations, however our projects can quickly become bloated and difficult to maintain if each developer added their own preferred framework. For this reason, we want to limit the use of third party frameworks.
 
