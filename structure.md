@@ -11,7 +11,9 @@ subnav:
     tag: modular-code
   - title: Dependencies
     tag: dependencies
-updated: 6 Oct 2014
+  - title: File Organization
+    tag: file-organization
+updated: 24 Apr 2015
 ---
 
 <div class="docs-section">

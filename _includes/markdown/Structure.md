@@ -71,3 +71,64 @@ Projects generally use three different classes of dependency management:
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the `.json` file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
+
+<h3 id="file-organization">File Organization {% include Util/top %}</h3>
+
+### Project Structure
+
+Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably expand as necessary. All projects should derive from this structure:
+
+* `/bin` *(WP-CLI and other scripts)*
+* `/node_modules` *(npm/Grunt modules)*
+* `/bower_components` *(Frontend dependencies)*
+* `/vendor` *(Composer dependencies)*
+* `/assets`   
+	* `/fonts`
+	* `/js` 
+		* `/src` *(Source JavaScript)* 
+		* `project.js` *(Concatenated JavaScript)*
+	* `/css`
+		* `/scss` *(See below for details)*
+		* `project.css`
+		* `project.min.css`
+		* `project-admin.css`
+		* `project-admin.min.css`
+		* `editor-style.css`
+	* `/images`  
+* `/includes` *(PHP classes and files)* 
+* `/templates` *(Page templates)*  
+* `/partials` *(Template parts)*
+* `/languages`
+* `/tests`
+	* `/php` *(PHP testing suite)*
+	* `/js` *(JavaScript testing suite)*
+
+The `scss` folder is described seperately, below to improve readability:
+
+* `/assets/css/scss` 
+	* `/global` *(Functions, mixins, placeholders, and variables)*
+	* `/base`
+		* reset, normalize, and sanitize    
+		* typography
+		* icons
+		* wordpress *(scss partial for WordPress default classes)*
+	* `/components` 
+		* buttons 
+		* callouts 
+		* toggles
+		* all other modular reusable UI components
+	* `/layout`
+		* header
+		* footer
+		* sidebar
+	* `/templates`
+		* home page
+		* single
+		* archives
+		* blog 
+		* all page, post, and custom post type specific styles
+	* `/admin` 
+	* `admin.scss` 
+	* `project.scss`
+	* `editor-styles.scss` *(editor styles both for front-end output and for tinyMCE usage in admin area)*
+
