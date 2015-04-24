@@ -1,32 +1,3 @@
-### Templates
-
-10up has developed two project templates for use with setting up new theme and plugin projects:
-
-1. [grunt-wp-theme](https://github.com/10up/grunt-wp-theme)
-1. [grunt-wp-plugin](https://github.com/10up/grunt-wp-plugin)
-
-In addition, 10up is always working to iterate on these templates and is working on a unified [Yeoman](http://yeoman.io) generator for WordPress projects. When possible, one of these official templates should be used to bootstrap projects as they set a unified directory structure for projects.
-
-Concretely, all new projects should include:
-
-- A `.gitignore` file ignoring common directories like `.sass-cache`, `node_modules`, and `.idea`
-- A `.jshintrc` file defining JSHint standards
-- An `.editorconfig` file defining line-ending standards and common editor configurations
-- A `Gruntfile.js` file defining the Grunt build process
-- A `package.json` defining the project and its npm <a href="#dependencies">dependencies</a>
-- A [`composer.json`](#modular-code) defining the project at a minimum (so it can be included via Composer in other projects) and optionally any back-end dependencies
-- A `bower.json` (optional) defining the project's script dependencies
-
-Styles should be placed in an `/assets/css` directory - raw files in either a `/src` or a `/sass` subdirectory, depending on the use of preprocessors and processed files in the root of the CSS directory.
-
-Scripts should be placed in an `/assets/js` directory - raw files in a `/src` subdirectory and concatenated/minified files in the root of the directory (ideally, minification will happen on the server and dynamically-generated files will be ignored by the repository).
-
-Vendor scripts and style should be placed in their respective `/vendor` directories and ignored by linting tools.
-
-<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
-
-Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
-
 #### Plugins
 
 If the code for a project is split off into a functionality plugin, it should be done in such a way that the theme can function when the functionality plugin is disabled, broken, or missing. Each plugin should operate within its own namespace, both in terms of code isolation and in terms of internationalization.
