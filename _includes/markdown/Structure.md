@@ -49,8 +49,6 @@ With some projects, using an automated dependency manager won't make sense. In s
 
 <h3 id="file-organization">File Organization {% include Util/top %}</h3>
 
-### Project Structure
-
 Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably expand as necessary. All projects should derive from this structure:
 
 * `/bin` *(WP-CLI and other scripts)*
