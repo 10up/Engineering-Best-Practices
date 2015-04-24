@@ -89,9 +89,9 @@ updated: 6 Oct 2014
 	<div class="col">
 		<h3><a href="{{ HOME_PATH }}structure#top">Project Structure</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}structure#templates">Templates</a></li>
 			<li><a href="{{ HOME_PATH }}structure#modular-code">Modular Code</a></li>
 			<li><a href="{{ HOME_PATH }}structure#dependencies">Dependencies</a></li>
+			<li><a href="{{ HOME_PATH }}structure#file-organization">File Organization</a></li>
 		</ul>
 	</div>
 

@@ -5,8 +5,6 @@ nav: Structure
 group: navigation
 layout: default
 subnav:
-  - title: Templates
-    tag: templates
   - title: Modular Code
     tag: modular-code
   - title: Dependencies
