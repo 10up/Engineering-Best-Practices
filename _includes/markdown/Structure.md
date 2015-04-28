@@ -60,6 +60,7 @@ Project structure unity across projects improves engineering efficiency and main
 	* `/js` 
 		* `/src` *(Source JavaScript)* 
 		* `project.js` *(Concatenated JavaScript)*
+		* `project.min.js` *(Minified JavaScript)*
 	* `/css`
 		* `/scss` *(See below for details)*
 		* `project.css`
@@ -81,7 +82,7 @@ The `scss` folder is described seperately, below to improve readability:
 * `/assets/css/scss` 
 	* `/global` *(Functions, mixins, placeholders, and variables)*
 	* `/base`
-		* reset, normalize, and sanitize    
+		* reset, normalize, or sanitize    
 		* typography
 		* icons
 		* wordpress *(scss partial for WordPress default classes)*
