@@ -322,14 +322,14 @@ Articles worth reading:
 
 <h3 id="responsive-websites">Responsive websites {% include Util/top %}</h3>
 
-We build our websites "mobile first". Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
+We build our websites mobile first. Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
 
 #### Min-width media queries
 
-A responsive website should be built with min-width media queries. It helps keep the code simple and goes with the idea of progressive enhancement.
+A responsive website should be built with min-width media queries.  This approach means that our media queries are consistent, readable and minimize selector overrides.
 
 * For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
-* It targets least capable browsers first which is philosophically in line with "mobile first" — a concept we often embrace for our sites
+* It targets least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
 * It is a point of consistency. When all media queries "point" the same direction, it makes it easier to understand and maintain stylesheets.
 
 Avoid mixing min-width and max-width media queries.
