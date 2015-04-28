@@ -185,7 +185,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 }
 ```
 
-#### Sassdoc
+#### SassDoc
 
 We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’re familiar with PHPDoc, this should be familiar.
 
