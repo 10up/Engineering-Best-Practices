@@ -23,7 +23,33 @@ We test our markup against the [W3C validator](http://validator.w3.org/) to ensu
 #### Optimize Readability
 At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, ease onboarding processes, and improve code maintainability.
 
-Always use tabs for indentation. When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block.
+Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
+
+When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block. Similary, keep PHP blocks to a minimum inside markup. Doing this turns the PHP blocks into a type of tag themself. Use colon syntax for PHP loops and conditionals so that it's easier to see when a certain loop ends within the block of markup.
+
+##### Examples
+
+Bad:
+
+```html
+<ul>
+<?php
+foreach( $things as $thing ) {
+  echo '<li>' . esc_html( $thing ) . '</li>';
+}
+?>
+</ul>
+```
+
+Good:
+
+```html
+<ul>
+  <?php foreach( $things as $thing ) : ?>
+    <li><?php echo esc_html( $thing ); ?></li>
+  <?php endforeach; ?>
+</ul>
+```
 
 #### Declaring the Proper Doctype
 For all new projects we use HTML5 with the following doctype: ```<!DOCTYPE html>```
