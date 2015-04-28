@@ -2,18 +2,18 @@
 At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
 #### Principles
-Markup is intended to define the structure and outline of a document and to offer semantic structure for the document's contents. Markup should not define the look and feel of the content on the page beyond the most basic structual concepts such as headers, paragraphs, and lists.
+Markup is intended to define the structure and outline of a document and to offer semantic structure for the document's contents. Markup should not define the look and feel of the content on the page beyond the most basic structural concepts such as headers, paragraphs, and lists.
 
 At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
 
 #### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by regular web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users". (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
+At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by regular web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
 
 Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```'s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
 
 #### Minimal &amp; Valid
-Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that,  we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
+Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
 
 Structuring markup this way allows for optimal readability and maintainability.
 
@@ -47,7 +47,7 @@ Good:
 #### Avoid Unnecessary Presentational Markup
 As part of our mission to write clean, semantic markup, avoid writing unnecessary presentational markup. Markup should always dictate what the content is, and CSS should dictate how the content looks. Mixing these two concerns makes maintaining code more difficult.
 
-By using Sass, we're able to better extend our classes within our CSS, allowing us to easily separate concerns between markup and styling. For example, we can @extend or @include our grid column sizes as well as media queries to modify the behavior at different sizes so that styles live separately from markup.
+By using Sass, we're able to better extend our classes within our CSS, allowing us to easily separate concerns between markup and styling. For example, we can ```@extend``` or ```@include``` our grid column sizes as well as media queries to modify the behavior at different sizes so that styles live separately from markup.
 
 This is not to say that multiple classes on an element are unacceptable. Contextual modifier classes are certainly acceptable and encouraged.
 
@@ -55,12 +55,13 @@ This is not to say that multiple classes on an element are unacceptable. Context
 Bad:
 
 ```html
-<div class="col-lg-6 col-md-6 col-sm-9 col-xs-12 featured-image">
+<div class="col-lg-6 col-md-6 col-sm-9 col-xs-12 featured-image"></div>
 ```
 Good:
 
 ```html
-<nav class="primary-nav"> / <nav class="primary-nav open">
+<nav class="primary-nav"></nav>
+<nav class="primary-nav open"></nav>
 ```
 
 #### Schema.org Markup
@@ -111,14 +112,15 @@ Good:
   <span itemprop="reviewBody">Catcher in the Rye is a fun book. It's a good book to read.</span>
 </div>
 ```
+
 <h3 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h3>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
-There are a few common pitfalls to avoid with HTML structural elements, though. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
+There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
 
-Another misconception is that the ````<figure>```` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
+Another misconception is that the ```<figure>``` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
 
-Finally, not all groups of links on a page need to be in a nav element. The ````<nav>```` element is primarily intended for sections that consist of major navigation blocks.
+Finally, not all groups of links on a page need to be in a nav element. The ```<nav>``` element is primarily intended for sections that consist of major navigation blocks.
 
 #### Examples
 
@@ -188,7 +190,7 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 <h3 id="accessibility">Accessibility {% include Util/top %}</h3>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. In some cases, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
-At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessbility laws and guidelines, may be required depending upon the project.
+At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
 
 We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](http://www.w3.org/WAI/intro/wcag) and [Section 508](http://www.section508.gov/).
 
@@ -233,7 +235,7 @@ Form elements should also be logically grouped using the ```<fieldset>``` tag. G
 Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities.
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
-Progressive enhancement means building a website that is robust, fault tolerant, and accessible. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
+Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement is a tactic where you begin with a baseline experience and build out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
 
 For example, browser support for SVG has not yet reached 100%. When using SVG, you should always provide a fallback, usually in the form of a PNG, for browsers that do not support vector graphics.
 
