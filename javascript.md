@@ -3,6 +3,7 @@ page: javascript
 title: JavaScript
 nav: JS
 group: navigation
+weight: 2
 layout: default
 subnav:
   - title: Performance

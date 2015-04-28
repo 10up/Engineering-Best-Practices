@@ -185,7 +185,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 }
 ```
 
-#### Sassdoc
+#### SassDoc
 
 We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’re familiar with PHPDoc, this should be familiar.
 
@@ -322,14 +322,14 @@ Articles worth reading:
 
 <h3 id="responsive-websites">Responsive websites {% include Util/top %}</h3>
 
-We build our websites "mobile first". Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
+We build our websites mobile first. Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
 
 #### Min-width media queries
 
-A responsive website should be built with min-width media queries. It helps keep the code simple and goes with the idea of progressive enhancement.
+A responsive website should be built with min-width media queries.  This approach means that our media queries are consistent, readable and minimize selector overrides.
 
 * For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
-* It targets least capable browsers first which is philosophically in line with "mobile first" — a concept we often embrace for our sites
+* It targets least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
 * It is a point of consistency. When all media queries "point" the same direction, it makes it easier to understand and maintain stylesheets.
 
 Avoid mixing min-width and max-width media queries.
@@ -418,20 +418,18 @@ We prefer showing a fixed-width non-responsive desktop version to older IE users
 
 <h3 id="frameworks">Frameworks {% include Util/top %}</h3>
 
-Frameworks are built to save developers time and are great in many situations, however our projects can quickly become bloated and difficult to maintain if each developer added their own preferred framework. For this reason, we want to limit the use of third party frameworks.
-
 #### Grids
-
-Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example, fixed-width content areas to accommodate advertising.
 
 If a simple grid is needed, define and document placeholders and mixins as needed in a _grid.scss partial. For an example of lightweight grid systems, see [Don’t Overthink It Grids](https://css-tricks.com/dont-overthink-it-grids/).
 
-Sometimes a more complex grid is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system. For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
+Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example, fixed-width content areas to accommodate advertising.
+
+Sometimes a more complex grid sytem is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system.For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
 
 #### Resets
 
 Please use [normalize.css](http://necolas.github.io/normalize.css/).
 
-### Further readings
+### Further readings {% include Util/top %}
 
 [CSS: Just Try and Do a Good Job](http://css-tricks.com/just-try-and-do-a-good-job/)

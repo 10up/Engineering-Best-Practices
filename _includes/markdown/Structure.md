@@ -49,59 +49,64 @@ With some projects, using an automated dependency manager won't make sense. In s
 
 <h3 id="file-organization">File Organization {% include Util/top %}</h3>
 
-Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably expand as necessary. All projects should derive from this structure:
+Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
 
-* `/bin` *(WP-CLI and other scripts)*
-* `/node_modules` *(npm/Grunt modules)*
-* `/bower_components` *(Frontend dependencies)*
-* `/vendor` *(Composer dependencies)*
-* `/assets`   
-	* `/fonts`
-	* `/js` 
-		* `/src` *(Source JavaScript)* 
-		* `project.js` *(Concatenated JavaScript)*
-	* `/css`
-		* `/scss` *(See below for details)*
-		* `project.css`
-		* `project.min.css`
-		* `project-admin.css`
-		* `project-admin.min.css`
-		* `editor-style.css`
-	* `/images`  
-* `/includes` *(PHP classes and files)* 
-* `/templates` *(Page templates)*  
-* `/partials` *(Template parts)*
-* `/languages`
-* `/tests`
-	* `/php` *(PHP testing suite)*
-	* `/js` *(JavaScript testing suite)*
+```
+|- bin/ __________________________________ # WP-CLI and other scripts
+|- node_modules/ _________________________ # npm/Grunt modules
+|- bower_components/ _____________________ # Frontend dependencies
+|- vendor/ _______________________________ # Composer dependencies
+|- assets/
+|  |- images/ ____________________________ # Theme images
+|  |- fonts/ _____________________________ # Custom/hosted fonts
+|  |- js/
+|    |- src/ _____________________________ # Source JavaScript
+|    |- project.js _______________________ # Concatenated JavaScript
+|    |- project.min.js ___________________ # Minified JavaScript
+|  |- css/
+|    |- scss/ ____________________________ # See below for details
+|    |- project.css
+|    |- project.min.css
+|    |- project-admin.css
+|    |- project-admin.min.css
+|    |- editor-style.css
+|- includes/ _____________________________ # PHP classes and files
+|- templates/ ____________________________ # Page templates
+|- partials/ _____________________________ # Template parts
+|- languages/ ____________________________ # Translations
+|- tests/
+|  |- php/ _______________________________ # PHP testing suite
+|  |- js/ ________________________________ # JavaScript testing suite
+```
 
 The `scss` folder is described seperately, below to improve readability:
 
-* `/assets/css/scss` 
-	* `/global` *(Functions, mixins, placeholders, and variables)*
-	* `/base`
-		* reset, normalize, and sanitize    
-		* typography
-		* icons
-		* wordpress *(scss partial for WordPress default classes)*
-	* `/components` 
-		* buttons 
-		* callouts 
-		* toggles
-		* all other modular reusable UI components
-	* `/layout`
-		* header
-		* footer
-		* sidebar
-	* `/templates`
-		* home page
-		* single
-		* archives
-		* blog 
-		* all page, post, and custom post type specific styles
-	* `/admin` 
-	* `admin.scss` 
-	* `project.scss`
-	* `editor-styles.scss` *(editor styles both for front-end output and for tinyMCE usage in admin area)*
-
+```
+|- assets/css/scss/
+|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
+|  |- base/
+|    |- reset, normalize, or sanitize
+|    |- typography
+|    |- icons
+|    |- wordpress ________________________ # Partial for WordPress default classes
+|  |- components/
+|    |- buttons
+|    |- callouts
+|    |- toggles
+|    |- all other modular reusable UI components
+|  |- layout/
+|    |- header
+|    |- footer
+|    |- sidebar
+|  |- templates/
+|    |- home page
+|    |- single
+|    |- archives
+|    |- blog
+|    |- all page, post, and custom post type specific styles
+|  |- admin/ _____________________________ # Admin specific partials
+|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
+|  |- admin.scss
+|  |- project.scss
+|  |- editor-styles.scss
+```
