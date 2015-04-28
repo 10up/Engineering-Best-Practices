@@ -256,7 +256,7 @@ Each form field should have its own ```<label>```. The label tag, along with the
 
 Form elements should also be logically grouped using the ```<fieldset>``` tag. Grouped form elements can be helpful for people who depend on screen readers or those with cognitive or learning disabilities.
 
-Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. Use the ```tabindex``` attribute to control tab order; some elements should't be tabbable - set ```tabindex=-1``` to have tabbing skip an element.
+Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. Use the ```tabindex``` attribute to control tab order; some elements shouldn't be tabbable. Set ```tabindex=-1``` to have tabbing skip an element.
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement is a tactic where you begin with a baseline experience and build out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
