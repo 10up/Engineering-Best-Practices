@@ -3,7 +3,7 @@
 		<a href="{{ HOME_PATH }}" class="logo-link">10up</a>
 		<nav class="page-nav top-nav" role="navigation">
 			<ul class="header-nav nav-dropdowns js-mobile-expandable">
-				{% assign pages_list = site.pages %}
+				{% assign pages_list = site.pages | sort: "weight" %}
 				{% assign group = 'navigation' %}
 				{% include Util/pages_list %}
 			</ul>

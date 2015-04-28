@@ -1,29 +1,4 @@
-### Templates
-
-10up has developed two project templates for use with setting up new theme and plugin projects:
-
-1. [grunt-wp-theme](https://github.com/10up/grunt-wp-theme)
-1. [grunt-wp-plugin](https://github.com/10up/grunt-wp-plugin)
-
-In addition, 10up is always working to iterate on these templates and is working on a unified [Yeoman](http://yeoman.io) generator for WordPress projects. When possible, one of these official templates should be used to bootstrap projects as they set a unified directory structure for projects.
-
-Concretely, all new projects should include:
-
-- A `.gitignore` file ignoring common directories like `.sass-cache`, `node_modules`, and `.idea`
-- A `.jshintrc` file defining JSHint standards
-- An `.editorconfig` file defining line-ending standards and common editor configurations
-- A `Gruntfile.js` file defining the Grunt build process
-- A `package.json` defining the project and its npm <a href="#dependencies">dependencies</a>
-- A [`composer.json`](#modular-code) defining the project at a minimum (so it can be included via Composer in other projects) and optionally any back-end dependencies
-- A `bower.json` (optional) defining the project's script dependencies
-
-Styles should be placed in an `/assets/css` directory - raw files in either a `/src` or a `/sass` subdirectory, depending on the use of preprocessors and processed files in the root of the CSS directory.
-
-Scripts should be placed in an `/assets/js` directory - raw files in a `/src` subdirectory and concatenated/minified files in the root of the directory (ideally, minification will happen on the server and dynamically-generated files will be ignored by the repository).
-
-Vendor scripts and style should be placed in their respective `/vendor` directories and ignored by linting tools.
-
-<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
+<h3 id="modular-code">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -71,3 +46,67 @@ Projects generally use three different classes of dependency management:
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the `.json` file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
+
+<h3 id="file-organization">File Organization {% include Util/top %}</h3>
+
+Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
+
+```
+|- bin/ __________________________________ # WP-CLI and other scripts
+|- node_modules/ _________________________ # npm/Grunt modules
+|- bower_components/ _____________________ # Frontend dependencies
+|- vendor/ _______________________________ # Composer dependencies
+|- assets/
+|  |- images/ ____________________________ # Theme images
+|  |- fonts/ _____________________________ # Custom/hosted fonts
+|  |- js/
+|    |- src/ _____________________________ # Source JavaScript
+|    |- project.js _______________________ # Concatenated JavaScript
+|    |- project.min.js ___________________ # Minified JavaScript
+|  |- css/
+|    |- scss/ ____________________________ # See below for details
+|    |- project.css
+|    |- project.min.css
+|    |- project-admin.css
+|    |- project-admin.min.css
+|    |- editor-style.css
+|- includes/ _____________________________ # PHP classes and files
+|- templates/ ____________________________ # Page templates
+|- partials/ _____________________________ # Template parts
+|- languages/ ____________________________ # Translations
+|- tests/
+|  |- php/ _______________________________ # PHP testing suite
+|  |- js/ ________________________________ # JavaScript testing suite
+```
+
+The `scss` folder is described seperately, below to improve readability:
+
+```
+|- assets/css/scss/
+|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
+|  |- base/
+|    |- reset, normalize, or sanitize
+|    |- typography
+|    |- icons
+|    |- wordpress ________________________ # Partial for WordPress default classes
+|  |- components/
+|    |- buttons
+|    |- callouts
+|    |- toggles
+|    |- all other modular reusable UI components
+|  |- layout/
+|    |- header
+|    |- footer
+|    |- sidebar
+|  |- templates/
+|    |- home page
+|    |- single
+|    |- archives
+|    |- blog
+|    |- all page, post, and custom post type specific styles
+|  |- admin/ _____________________________ # Admin specific partials
+|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
+|  |- admin.scss
+|  |- project.scss
+|  |- editor-styles.scss
+```
