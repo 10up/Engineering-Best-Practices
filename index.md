@@ -3,6 +3,7 @@ page: introduction
 title: Introduction
 nav: Home
 group: navigation
+weight: 1
 layout: default
 subnav:
   - title: Audience
