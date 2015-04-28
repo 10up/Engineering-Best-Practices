@@ -418,15 +418,13 @@ We prefer showing a fixed-width non-responsive desktop version to older IE users
 
 <h3 id="frameworks">Frameworks {% include Util/top %}</h3>
 
-Frameworks are built to save developers time and are great in many situations, however our projects can quickly become bloated and difficult to maintain if each developer added their own preferred framework. For this reason, we want to limit the use of third party frameworks.
-
 #### Grids
-
-Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example, fixed-width content areas to accommodate advertising.
 
 If a simple grid is needed, define and document placeholders and mixins as needed in a _grid.scss partial. For an example of lightweight grid systems, see [Don’t Overthink It Grids](https://css-tricks.com/dont-overthink-it-grids/).
 
-Sometimes a more complex grid is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system. For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
+Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example, fixed-width content areas to accommodate advertising.
+
+Sometimes a more complex grid sytem is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system.For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
 
 #### Resets
 
