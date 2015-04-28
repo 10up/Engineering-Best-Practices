@@ -13,7 +13,7 @@ Semantic elements are elements with clearly defined meaning to both the browser 
 
 
 #### Minimal &amp; Valid
-Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that,  we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
+Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
 
 Structuring markup this way allows for optimal readability and maintainability.
 
@@ -114,7 +114,7 @@ Good:
 <h3 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h3>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
-There are a few common pitfalls to avoid with HTML structural elements, though. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
+There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
 
 Another misconception is that the ````<figure>```` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
 
