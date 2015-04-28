@@ -13,7 +13,7 @@ Semantic elements are elements with clearly defined meaning to both the browser 
 
 
 #### Minimal &amp; Valid
-Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that,  we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
+Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
 
 Structuring markup this way allows for optimal readability and maintainability.
 
@@ -116,7 +116,7 @@ Good:
 <h3 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h3>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
-There are a few common pitfalls to avoid with HTML structural elements, though. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
+There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
 
 Another misconception is that the ```<figure>``` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
 
@@ -235,7 +235,7 @@ Form elements should also be logically grouped using the ```<fieldset>``` tag. G
 Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities.
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
-Progressive enhancement means building a website that is robust, fault tolerant, and accessible. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
+Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement is a tactic where you begin with a baseline experience and build out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
 
 For example, browser support for SVG has not yet reached 100%. When using SVG, you should always provide a fallback, usually in the form of a PNG, for browsers that do not support vector graphics.
 
