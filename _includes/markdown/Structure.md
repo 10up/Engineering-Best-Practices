@@ -1,4 +1,4 @@
-<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
+<h3 id="modular-code">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
