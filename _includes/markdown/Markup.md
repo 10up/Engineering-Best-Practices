@@ -13,9 +13,7 @@ Semantic elements are elements with clearly defined meaning to both the browser 
 
 
 #### Minimal &amp; Valid
-Markup should be written using the least amount of markup that accomplishes your goal, while still reasonably validating against the W3C Validator - reasonably, in this case, refers to the fact that the W3C Validator doesn't always get things perfectly right, so it's important to be pragmatic. In the interest of engineering maintainable projects it's imperative that we take into account two completely different types of readers: humans and browsers. Writing markup that is minimal makes it easy for humans to read, and, of course, validating your markup ensures that it will be easy for browsers to read.
-
-Structuring markup this way allows for optimal readability and maintainability.
+Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
 
 We test our markup against the [W3C validator](http://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
 
