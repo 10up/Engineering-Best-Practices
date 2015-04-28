@@ -7,7 +7,7 @@ Markup is intended to define the structure and outline of a document and to offe
 At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
 
 #### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by regular web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users". (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
+At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by regular web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
 
 Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```'s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
