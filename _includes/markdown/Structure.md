@@ -1,4 +1,4 @@
-<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
+<h3 id="modular-code">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -49,7 +49,7 @@ With some projects, using an automated dependency manager won't make sense. In s
 
 <h3 id="file-organization">File Organization {% include Util/top %}</h3>
 
-Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably expand as necessary. All projects should derive from this structure:
+Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
 
 * `/bin` *(WP-CLI and other scripts)*
 * `/node_modules` *(npm/Grunt modules)*
