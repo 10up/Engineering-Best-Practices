@@ -31,7 +31,7 @@ When mixing PHP and HTML together, indent PHP blocks to match the surrounding HT
 
 Bad:
 
-```html
+```php
 <ul>
 <?php
 foreach( $things as $thing ) {
@@ -43,7 +43,7 @@ foreach( $things as $thing ) {
 
 Good:
 
-```html
+```php
 <ul>
   <?php foreach( $things as $thing ) : ?>
     <li><?php echo esc_html( $thing ); ?></li>
