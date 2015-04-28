@@ -112,7 +112,7 @@ Good:
 </div>
 ```
 
-### HTML5 Structural Elements
+### HTML5 Structural Elements {% include Util/top %}
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
 There are a few common pitfalls to avoid with HTML structural elements, though. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
@@ -172,7 +172,7 @@ Good example:
 <script src="script/scripts.js"></script>
 ```
 
-### Classes &amp; ID's
+### Classes &amp; ID's  {% include Util/top %}
 In order to create more maintainable projects, developers should use classes for CSS and IDs for JavaScript. Separating concerns allows markup to be more flexible without risking breaking both styles and any JavaScript that may be attached to the element on which someone is working.
 
 When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
@@ -186,7 +186,7 @@ Example:
 #### Avoid using inline styles or JavaScript
 These are not easily maintainable and can be easily lost or cause unforeseen conflicts.
 
-### Accessibility
+### Accessibility  {% include Util/top %}
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. In some cases, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessbility laws and guidelines, may be required depending upon the project.
@@ -234,7 +234,7 @@ Form elements should also be logically grouped using the ```<fieldset>``` tag. G
 Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities.
 
 
-### Progressive Enhancement
+### Progressive Enhancement  {% include Util/top %}
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
 
 For example, browser support for SVG has not yet reached 100%. When using SVG, you should always provide a fallback, usually in the form of a PNG, for browsers that do not support vector graphics.
