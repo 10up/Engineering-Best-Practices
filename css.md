@@ -3,6 +3,7 @@ page: css
 title: CSS
 nav: CSS
 group: navigation
+weight: 2
 layout: default
 subnav:
   - title: Philosophy
