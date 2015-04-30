@@ -23,12 +23,12 @@ updated: 6 Oct 2014
 	</header>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}/#top">Introduction</a></h3>
+		<h3><a href="{{ HOME_PATH }}#top">Introduction</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}/#audience">Audience</a></li>
-			<li><a href="{{ HOME_PATH }}/#goal">Goal</a></li>
-			<li><a href="{{ HOME_PATH }}/#philosophy">Philosophy</a></li>
-			<li><a href="{{ HOME_PATH }}/#contributing">Contributing</a></li>
+			<li><a href="{{ HOME_PATH }}#audience">Audience</a></li>
+			<li><a href="{{ HOME_PATH }}#goal">Goal</a></li>
+			<li><a href="{{ HOME_PATH }}#philosophy">Philosophy</a></li>
+			<li><a href="{{ HOME_PATH }}#contributing">Contributing</a></li>
 		</ul>
 	</div>
 
