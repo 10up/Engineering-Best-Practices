@@ -7,7 +7,7 @@ Markup is intended to define the structure and outline of a document and to offe
 At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
 
 #### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by regular web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
+At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
 
 Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```'s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
@@ -19,7 +19,7 @@ We test our markup against the [W3C validator](http://validator.w3.org/) to ensu
 
 
 #### Optimize Readability
-At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, ease onboarding processes, and improve code maintainability.
+At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, eases onboarding processes, and improves code maintainability.
 
 Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
 
@@ -172,9 +172,9 @@ Good:
         <h1>My super duper page</h1>
         <!-- Header content -->
     </header>
-    <div role="main">
+    <main role="main">
         <!-- Page content -->
-    </div>
+    </main>
     <aside role="complementary">
         <!-- Secondary content -->
     </aside>
@@ -212,7 +212,7 @@ Example:
 These are not easily maintainable and can be easily lost or cause unforeseen conflicts.
 
 <h3 id="accessibility">Accessibility {% include Util/top %}</h3>
-It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. In some cases, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
+It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
 
@@ -230,11 +230,11 @@ Example:
 ```
 
 #### States and Properties
-The other kind of role you can add to elements has more to do with "state" and properties of an element as they change. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
+ARIA also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
 
-Again, ARIA roles to the rescue!
+ARIA to the rescue!
 
-ARIA roles can be added with JavaScript to help dynamically add context to your content. Thinking about the tabbed content example, it might look something like this:
+ARIA attributes can be added with JavaScript to help dynamically add context to your content. Thinking about the tabbed content example, it might look something like this:
 
 ```html
 <ul role="tabs">
@@ -254,14 +254,14 @@ Forms are one of the biggest areas of failure when it comes to accessibility. Fo
 
 Each form field should have its own ```<label>```. The label tag, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability to the form element for screen readers.
 
-Form elements should also be logically grouped using the ```<fieldset>``` tag. Grouped form elements can be helpful for people who depend on screen readers or those with cognitive or learning disabilities.
+Form elements should also be logically grouped using the ```<fieldset>``` tag. Grouped form elements can be helpful for people who depend on screen readers or those with cognitive disabilities.
 
 Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. Use the ```tabindex``` attribute to control tab order; some elements shouldn't be tabbable. Set ```tabindex=-1``` to have tabbing skip an element.
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
-Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement is a tactic where you begin with a baseline experience and build out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. At 10up, we employ progressive enhancement to ensure that the sites that we are building for our clients are accessible for as many of their visitors as possible. Baselines for browser support are generally set on a project-by-project basis; i.e., the site must support IE8.
+Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
-For example, browser support for SVG has not yet reached 100%. When using SVG, you should always provide a fallback, usually in the form of a PNG, for browsers that do not support vector graphics.
+At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
 
 #### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
