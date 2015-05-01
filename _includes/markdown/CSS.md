@@ -1,8 +1,8 @@
 <h3 id="philosophy">Philosophy</h3>
 
-At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and won't sacrifice our client's most important asset over the latest, shiniest half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
+At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
-Our websites should be built mobile first, using performant CSS. Well structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
+Our websites are built mobile first, using performant CSS. Well structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
 <h3 id="syntax-formatting">Syntax and Formatting {% include Util/top %}</h3>
 
@@ -10,7 +10,7 @@ Syntax and formatting are keys to a maintainable project. By keeping our code st
 
 #### CSS Syntax
 
-CSS syntax is not strict and will accept a lot of variations, but for the sake of legibility and fast debugging, let’s follow basic code styles:
+CSS syntax is not strict and will accept a lot of variations, but for the sake of legibility and fast debugging, we follow basic code styles:
 
 * Write one selector per line
 * Write one declaration per line
@@ -108,7 +108,7 @@ Prefer:
 
 #### Declaration ordering
 
-Declarations should be ordered alphabetically or by type (Positioning, Box model, Typography, Visual). The importance is consistency across the files in the project.
+Declarations should be ordered alphabetically or by type (Positioning, Box model, Typography, Visual). Whichever order is chosen, it should be consistent across all files in the project.
 
 Sass ordering:
 
@@ -119,7 +119,7 @@ Sass ordering:
 
 #### Nesting in Sass
 
-Sass nesting has changed the lives of many, but like everything in life, abusing good things will ultimately be bad. Nesting makes the code more difficult to read and can create confusion, this is why we want to avoid selector nesting as much as possible.
+Sass nesting has changed the lives of many, but like everything in life, abusing good things will ultimately be bad. Nesting makes the code more difficult to read and can create confusion. Too much nesting also adds unnecessary specificity, forcing us to add the same or greater specificity in overrides. We want to avoid selector nesting and overspecificity as much as possible.
 
 **Nesting is required** in the following cases, because it will make the code easier to read:
 
@@ -152,15 +152,15 @@ Prefer:
 }
 ```
 
-For components that could possibly conflicts with plugins or third-party library, use vendor prefixes. Don’t use names that can be blocked by adblockers (e.g. “advertisement”). When in doubt, you can check a class name against [this list](https://easylist-downloads.adblockplus.org/easylist.txt) to see if it's likely to be blocked.
+For components that could possibly conflict with plugins or third-party libraries, use vendor prefixes. Don’t use names that can be blocked by adblockers (e.g. “advertisement”). When in doubt, you can check a class name against [this list](https://easylist-downloads.adblockplus.org/easylist.txt) to see if it's likely to be blocked.
 
 <h3 id="documentation">Documentation {% include Util/top %}</h3>
 
-Code documentation serves two purposes: to make maintenance easier and to perform a self sanity check. If the explanation is too complex, maybe the code is overly complex too. Documenting helps keeping our code simple and maintainable.
+Code documentation serves two purposes: it makes maintenance easier and it makes us stop and think about our code. If the explanation is too complex, maybe the code is overly complex too. Documenting helps keep our code simple and maintainable.
 
 #### Commenting
 
-We follow WordPress official commenting standards. Do not hesitate to be very verbose with your comments, especially if this is to document a tricky hack. Use comment blocks to separate the different sections of a partial, and/or to describe what styles the partial covers:
+We follow WordPress official commenting standards. Do not hesitate to be very verbose with your comments, especially when documenting a tricky hack. Use comment blocks to separate the different sections of a partial, and/or to describe what styles the partial covers:
 
 ```css
 /**
@@ -187,7 +187,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 
 #### SassDoc
 
-We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’re familiar with PHPDoc, this should be familiar.
+We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’ve used PHPDoc, this should look familiar.
 
 Example:
 
@@ -222,20 +222,20 @@ Let's be honest, CSS "speed" and performance is not as important as PHP or JavaS
 
 Three areas of concern are [network requests](#user-content-network-requests), [CSS specificity](#user-content-css-specificity) and [animation](#user-content-animations) performance.
 
-Performance best practices are not only for the browser experience, but for the code maintenance as well.
+Performance best practices are not only for the browser experience, but for code maintenance as well.
 
 #### Network Requests
 
-* Limit number of requests by concatenating css files and encoding sprites and font files to the css file.
-* Minifying stylesheets
+* Limit the number of requests by concatenating css files and encoding sprites and font files to the css file.
+* Minify stylesheets
 * Use GZIP compression when possible
 Automate these tasks with a PHP or/and JavaScript build process.
 
 #### CSS Specificity
 
-Stylesheet should go from less specific rules to highly specific rules. We want our selectors specific enough so that we don't rely on code order, but not too specific so that they can be easily overridden.
+Stylesheets should go from less specific rules to highly specific rules. We want our selectors specific enough so that we don't rely on code order, but not too specific so that they can be easily overridden.
 
-For that purpose, **classes** will be our preferred selectors: pretty low specificity but high reusability.
+For that purpose, **classes** are our preferred selectors: pretty low specificity but high reusability.
 
 Avoid using `!important` at all costs.
 
@@ -281,11 +281,11 @@ Prefer:
 
 #### Reusable code
 
-Styles that can be shared should be shared (aka DRY, Don’t Repeat Yourself). This will make our stylesheets less bloated and prevent the browser from doing the same calculations several times. Make good use of Sass placeholders. (also see [Inheritance](#inheritance))
+Styles that can be shared, should be shared (aka DRY, Don’t Repeat Yourself). This will make our stylesheets less bloated and prevent the browser from doing the same calculations several times. Make good use of Sass placeholders. (also see [Inheritance](#inheritance))
 
 #### CSS over assets
 
-Don't add an extra asset if a design element can be translated in the browser using CSS only. We'll value graceful degradation over additional HTTP requests.
+Don't add an extra asset if a design element can be translated in the browser using CSS only. We value graceful degradation over additional HTTP requests.
 
 Very common examples include gradients and triangles.
 
@@ -322,15 +322,15 @@ Articles worth reading:
 
 <h3 id="responsive-websites">Responsive websites {% include Util/top %}</h3>
 
-We build our websites mobile first. Do not rely on `respond.js` as it does not work well in certain environments and use the benefits of Sass heavily to manipulate our breakpoints.
+We build our websites mobile first. We do not rely on `respond.js` as it does not work well in certain environments. Instead, we leverage the benefits of Sass to manipulate our breakpoints.
 
 #### Min-width media queries
 
 A responsive website should be built with min-width media queries.  This approach means that our media queries are consistent, readable and minimize selector overrides.
 
 * For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
-* It targets least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
-* It is a point of consistency. When all media queries "point" the same direction, it makes it easier to understand and maintain stylesheets.
+* It targets the least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
+* When media queries consistently "point" in the same direction, it makes it easier to understand and maintain stylesheets.
 
 Avoid mixing min-width and max-width media queries.
 
@@ -374,7 +374,7 @@ $devices: (
 
 #### Media queries placement
 
-In Sass files, nest the media query or media query mixin within the selector it modifies. **Do not** create size-based partials (e.g. `_1024px.scss`, `_480px.scss`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the selector will allow the developer to immediately see all the different styles applied to an element.
+In Sass files, nest the media query or media query mixin within the selector it modifies. **Do not** create size-based partials (e.g. `_1024px.scss`, `_480px.scss`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the selector will allow developers to immediately see all the different styles applied to an element.
 
 Avoid:
 
@@ -409,7 +409,7 @@ Prefer:
 }
 ```
 
-#### IE8 and older browsers support
+#### IE8 and older browser support
 
 We prefer showing a fixed-width non-responsive desktop version to older IE users rather than showing a mobile version.
 
@@ -422,14 +422,14 @@ We prefer showing a fixed-width non-responsive desktop version to older IE users
 
 If a simple grid is needed, define and document placeholders and mixins as needed in a _grid.scss partial. For an example of lightweight grid systems, see [Don’t Overthink It Grids](https://css-tricks.com/dont-overthink-it-grids/).
 
-Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example, fixed-width content areas to accommodate advertising.
+Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example: fixed-width content areas to accommodate advertising.
 
-Sometimes a more complex grid sytem is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system.For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
+Sometimes a more complex grid sytem is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system. For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
 
 #### Resets
 
 Please use [normalize.css](http://necolas.github.io/normalize.css/).
 
-### Further readings {% include Util/top %}
+### Further reading {% include Util/top %}
 
 [CSS: Just Try and Do a Good Job](http://css-tricks.com/just-try-and-do-a-good-job/)
