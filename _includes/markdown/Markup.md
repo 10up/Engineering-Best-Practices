@@ -256,7 +256,9 @@ Each form field should have its own ```<label>```. The label tag, along with the
 
 Form elements should also be logically grouped using the ```<fieldset>``` tag. Grouped form elements can be helpful for people who depend on screen readers or those with cognitive disabilities.
 
-Finally, we should ensure that forms are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. Use the ```tabindex``` attribute to control tab order; some elements shouldn't be tabbable. Set ```tabindex=-1``` to have tabbing skip an element.
+Finally, we should ensure that all interactive elements are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order.
+
+Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the taborder. In these cases, set ```tabindex="0"``` to allow an element (eg. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (eg. a modal dialog box).
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
