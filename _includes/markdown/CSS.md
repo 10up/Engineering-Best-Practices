@@ -273,6 +273,7 @@ Avoid:
 ```
 
 Prefer:
+
 ```css
 .parent {
 	font-family: Arial, sans-serif;
