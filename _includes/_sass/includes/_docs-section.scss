@@ -1,19 +1,19 @@
 .docs-section {
-	padding: $guaranteed-edge-standoff;
-	max-width: $single-max-width;
-	margin: 0 auto;
-	width: 75%;
+    padding: 3em $guaranteed-edge-standoff;
+    max-width: $single-max-width;
+    margin: 0 auto;
+    width: 95%;
 
-	@include breakpoint($breakpoint-alpha) {
-		width: 100%;
-	}
+    @include breakpoint($breakpoint-alpha) {
+        width: 100%;
+    }
 }
 
 .docs-section h3 {
-	padding-top:80px;
-	margin-top:-80px;
+    padding-top: 80px;
+    margin-top: -80px;
 }
 
 .back-to-top {
-	font-size: 0.5em;
+    font-size: 0.5em;
 }
