@@ -104,7 +104,7 @@
     font-size: 1.75rem;
     background-color: black;
 
-    @include breakpoint($breakpoint-bravo) {
+    @include breakpoint($breakpoint-echo) {
         display: none;
     }
 }
@@ -117,7 +117,7 @@
     background-color: black;
     right: 2.5em;
 
-    @include breakpoint($breakpoint-bravo) {
+    @include breakpoint($breakpoint-echo) {
         right: 0;
     }
 }
@@ -130,7 +130,7 @@
     padding: 0;
     padding-top: 1em;
 
-    @include breakpoint($breakpoint-bravo) {
+    @include breakpoint($breakpoint-echo) {
         @include inline-list;
         display: block !important;
         padding-right: $header-logo-small / 2;
