@@ -17,10 +17,10 @@ code {
 
 pre {
 	display: block;
-	margin: 0 0 1rem;
 	line-height: 1.4;
+	margin: 0 0 1rem;
+	overflow: auto;
 	white-space: pre;
-	white-space: pre-wrap;
 }
 
 pre code {

@@ -2,11 +2,7 @@
 	padding: $guaranteed-edge-standoff;
 	max-width: $single-max-width;
 	margin: 0 auto;
-	width: 75%;
-
-	@include breakpoint($breakpoint-alpha) {
-		width: 100%;
-	}
+	width: 100%;
 }
 
 .docs-section h3 {

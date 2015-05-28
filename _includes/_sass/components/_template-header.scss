@@ -10,7 +10,7 @@
   }
 
   .grid-inner {
-    padding: 0 $guaranteed-edge-standoff;
+    padding: 2em $guaranteed-edge-standoff;
     max-width: none;
     width: 100%;
     @include breakpoint($breakpoint-alpha) {
