@@ -173,7 +173,7 @@ We conform to the [WordPress JavaScript Documentation Standards](https://make.wo
 
 <h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](http://mochajs.org).
 
 <h3 id="libraries">Libraries {% include Util/top %}</h3>
 
