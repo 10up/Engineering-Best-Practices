@@ -66,7 +66,7 @@ The tag will allow us to easily return to the branch should we need to for any r
 
 #### Plugins
 
-Unlike theme development, the ```master``` branch represents a stable, released, versioned product. Ongoing development will happen on a ```develop``` branch, which it itself branched off ```master```.
+Unlike theme development, the ```master``` branch represents a stable, released, versioned product. Ongoing development will happen on a ```develop``` branch, which is itself branched off ```master```.
 
 ##### Branching
 
