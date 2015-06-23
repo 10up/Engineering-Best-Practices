@@ -1,5 +1,47 @@
 <h3 id="integrations">Third-Party Integrations</h3>
 
+Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered.
+
+For example:
+
+```
+## CrunchBase
+Remote service for fetching funding and other investment data related to tech startups.
+
+### Scheduling
+- The CrunchBase API is used via JS in a dynamic product/company search on post edit pages
+- Funding data is pulled every 6 hours by WP Cron to update cached data
+
+### Integration Points
+- /assets/js/src/crunchbase-autocomplete.js
+- /includes/classes/crunchbase.php
+- /includes/classes/cron.php
+
+### Development API
+- u/p: devuser/adfdlewrkw123
+```
+
+#### API Keys and Credentials
+
+Authentication credentials and API keys should _never_ be hard-coded into a project. Hard-coding production credentials leads to embarrassing eventualities like posting development content to Twitter or emailing such content to clients' mail lists.
+
+Where possible, the project should expose a UI for entering and managing third party credentials.
+
+If a management UI is impossible due to the nature of the project, credentials should be loaded via either PHP constants or WordPress filters. These options can - and should - default to developer credentials in the absence of production data.
+ 
+```php
+<?php
+// Production API keys should ideally be defined in wp-config.php
+// This section should default to a development or noop key instead.
+if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && ! ENV_DEVELOPMENT ) {
+	define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+}
+```
+
+The `ENV_DEVELOPMENT` constant should always be set to `true` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
+
+Developer API keys can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
+
 <h3 id="modular-code">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
