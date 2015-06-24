@@ -86,6 +86,23 @@ As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances,
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
 
+##### Use isset() instead of in_array()
+`isset()` should always be used instead of in_array() as
+
+ * It uses an `O(1)` hash search on the key whereas `in_array` must check every value until it finds a match, thus its complexity is `O(n)`
+ * Being an [opcode](http://3v4l.org/pIuZV/vld#tabs), it has less overhead than [calling the in_array](http://3v4l.org/S4YOA/vld#tabs) built-in function.
+
+    ```php
+    <?php
+    $array = array( 
+      'foo' => true,
+      'bar' => true,
+    );
+    echo isset( $array['bar'] );
+ 
+[`array_flip()`](http://php.net/manual/en/function.array-flip.php) can be used to flip an array so that you can use `isset()` instead of `in_array()`, but be aware that it [cycles all the values](http://lxr.php.net/xref/PHP_5_6/ext/standard/array.c#2616) in the array so it could be beneficial only if lots of `in_array` calls are made on the array. 
+
+
 #### Caching
 
 Caching is simply the act of storing computed data somewhere for later use, and is an incredibly important concept in WordPress. There are different ways to employ caching, and often multiple methods will be used.
