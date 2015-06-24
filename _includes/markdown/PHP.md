@@ -99,6 +99,8 @@ As noted in the [WordPress Codex (along with a useful query flow chart)](http://
       'bar' => true,
     );
     echo isset( $array['bar'] );
+    ```
+
  
 [`array_flip()`](http://php.net/manual/en/function.array-flip.php) can be used to flip an array so that you can use `isset()` instead of `in_array()`, but be aware that it [cycles all the values](http://lxr.php.net/xref/PHP_5_6/ext/standard/array.c#2616) in the array so it could be beneficial only if lots of `in_array` calls are made on the array. 
 
