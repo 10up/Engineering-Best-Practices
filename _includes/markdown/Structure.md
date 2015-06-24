@@ -18,7 +18,7 @@ Remote service for fetching funding and other investment data related to tech st
 - /includes/classes/cron.php
 
 ### Development API
-- u/p: devuser/adfdlewrkw123
+- See http://somesitethatrequireslogin.com/credentials-for-project
 ```
 
 #### API Keys and Credentials
@@ -40,7 +40,7 @@ if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && ! ENV_DEVELOPMENT ) {
 
 The `ENV_DEVELOPMENT` constant should always be set to `true` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
 
-Developer API keys can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
+The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
 <h3 id="modular-code">Modular Code</h3>
 
