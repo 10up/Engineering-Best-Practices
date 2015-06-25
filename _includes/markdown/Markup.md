@@ -43,9 +43,9 @@ Good:
 
 ```php
 <ul>
-  <?php foreach( $things as $thing ) : ?>
-    <li><?php echo esc_html( $thing ); ?></li>
-  <?php endforeach; ?>
+    <?php foreach( $things as $thing ) : ?>
+        <li><?php echo esc_html( $thing ); ?></li>
+    <?php endforeach; ?>
 </ul>
 ```
 
