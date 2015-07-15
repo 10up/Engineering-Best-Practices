@@ -350,14 +350,38 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 #### Namespacing
 
-All functional code should be properly namespaced. We do this to logically organize our code and to prevent collisions in the global namespace. Generally, this means using a PHP ```namespace``` identifier at the top of included files:
+We should properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
+
+Generally, this means using a PHP ```namespace``` identifier at the top of included files:
 
 ```php
 <?php
-namespace tenup\Utilities\API;
+namespace TenUp\Tyrell-Corporation\Nexus-6;
 
 function do_something() {
   // ...
+}
+```
+
+A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name, and then with the name of a particular site or high-level project we're building. Themes and plugins written for the same client should share a namespace. If we have two identically-name classes or functions in the same namespace, that's a sign there might be duplicate code we can get rid of.
+  
+When we manage multiple sites for a single client and create a _shared plugin_ for common functionality, it should have its own namespace named "Common" (example: TenUp\Tyrell-Corporation\Common").
+
+[```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read.
+
+```php
+<?php
+/**
+ * Example of a 'use' declaration
+ */
+namespace TenUp\Tyrell-Corporation\Nexus-6;
+use TenUp\Tyrell-Corporation\Common\TwitterAPI;
+
+function do_something() {
+  // Hard to read
+  $twitter_api = new TenUp\Tyrell-Corporation\Common\TwitterAPI();
+  // Preferred
+  $twitter_api = new TwitterAPI();
 }
 ```
 
@@ -377,7 +401,7 @@ class Tenup_Utilities_API {
 
 The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if and when WordPress raises its minimum version requirements).
 
-Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```tenup``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
+Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
 
 #### Object Design
 
