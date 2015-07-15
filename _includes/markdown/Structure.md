@@ -1,29 +1,48 @@
-### Templates
+<h3 id="integrations">Third-Party Integrations</h3>
 
-10up has developed two project templates for use with setting up new theme and plugin projects:
+Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered.
 
-1. [grunt-wp-theme](https://github.com/10up/grunt-wp-theme)
-1. [grunt-wp-plugin](https://github.com/10up/grunt-wp-plugin)
+For example:
 
-In addition, 10up is always working to iterate on these templates and is working on a unified [Yeoman](http://yeoman.io) generator for WordPress projects. When possible, one of these official templates should be used to bootstrap projects as they set a unified directory structure for projects.
+```
+## CrunchBase
+Remote service for fetching funding and other investment data related to tech startups.
 
-Concretely, all new projects should include:
+### Scheduling
+- The CrunchBase API is used via JS in a dynamic product/company search on post edit pages
+- Funding data is pulled every 6 hours by WP Cron to update cached data
 
-- A `.gitignore` file ignoring common directories like `.sass-cache`, `node_modules`, and `.idea`
-- A `.jshintrc` file defining JSHint standards
-- An `.editorconfig` file defining line-ending standards and common editor configurations
-- A `Gruntfile.js` file defining the Grunt build process
-- A `package.json` defining the project and its npm <a href="#dependencies">dependencies</a>
-- A [`composer.json`](#modular-code) defining the project at a minimum (so it can be included via Composer in other projects) and optionally any back-end dependencies
-- A `bower.json` (optional) defining the project's script dependencies
+### Integration Points
+- /assets/js/src/crunchbase-autocomplete.js
+- /includes/classes/crunchbase.php
+- /includes/classes/cron.php
 
-Styles should be placed in an `/assets/css` directory - raw files in either a `/src` or a `/sass` subdirectory, depending on the use of preprocessors and processed files in the root of the CSS directory.
+### Development API
+- See http://somesitethatrequireslogin.com/credentials-for-project
+```
 
-Scripts should be placed in an `/assets/js` directory - raw files in a `/src` subdirectory and concatenated/minified files in the root of the directory (ideally, minification will happen on the server and dynamically-generated files will be ignored by the repository).
+#### API Keys and Credentials
 
-Vendor scripts and style should be placed in their respective `/vendor` directories and ignored by linting tools.
+Authentication credentials and API keys should _never_ be hard-coded into a project. Hard-coding production credentials leads to embarrassing eventualities like posting development content to Twitter or emailing such content to clients' mail lists.
 
-<h3 id="modular-code">Modular Code {% include Util/top %}</h3>
+Where possible, the project should expose a UI for entering and managing third party credentials.
+
+If a management UI is impossible due to the nature of the project, credentials should be loaded via either PHP constants or WordPress filters. These options can - and should - default to developer credentials in the absence of production data.
+ 
+```php
+<?php
+// Production API keys should ideally be defined in wp-config.php
+// This section should default to a development or noop key instead.
+if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && ! ENV_DEVELOPMENT ) {
+	define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+}
+```
+
+The `ENV_DEVELOPMENT` constant should always be set to `true` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
+
+The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
+
+<h3 id="modular-code">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -71,3 +90,67 @@ Projects generally use three different classes of dependency management:
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the `.json` file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
+
+<h3 id="file-organization">File Organization {% include Util/top %}</h3>
+
+Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
+
+```
+|- bin/ __________________________________ # WP-CLI and other scripts
+|- node_modules/ _________________________ # npm/Grunt modules
+|- bower_components/ _____________________ # Frontend dependencies
+|- vendor/ _______________________________ # Composer dependencies
+|- assets/
+|  |- images/ ____________________________ # Theme images
+|  |- fonts/ _____________________________ # Custom/hosted fonts
+|  |- js/
+|    |- src/ _____________________________ # Source JavaScript
+|    |- project.js _______________________ # Concatenated JavaScript
+|    |- project.min.js ___________________ # Minified JavaScript
+|  |- css/
+|    |- scss/ ____________________________ # See below for details
+|    |- project.css
+|    |- project.min.css
+|    |- project-admin.css
+|    |- project-admin.min.css
+|    |- editor-style.css
+|- includes/ _____________________________ # PHP classes and files
+|- templates/ ____________________________ # Page templates
+|- partials/ _____________________________ # Template parts
+|- languages/ ____________________________ # Translations
+|- tests/
+|  |- php/ _______________________________ # PHP testing suite
+|  |- js/ ________________________________ # JavaScript testing suite
+```
+
+The `scss` folder is described seperately, below to improve readability:
+
+```
+|- assets/css/scss/
+|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
+|  |- base/
+|    |- reset, normalize, or sanitize
+|    |- typography
+|    |- icons
+|    |- wordpress ________________________ # Partial for WordPress default classes
+|  |- components/
+|    |- buttons
+|    |- callouts
+|    |- toggles
+|    |- all other modular reusable UI components
+|  |- layout/
+|    |- header
+|    |- footer
+|    |- sidebar
+|  |- templates/
+|    |- home page
+|    |- single
+|    |- archives
+|    |- blog
+|    |- all page, post, and custom post type specific styles
+|  |- admin/ _____________________________ # Admin specific partials
+|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
+|  |- admin.scss
+|  |- project.scss
+|  |- editor-styles.scss
+```

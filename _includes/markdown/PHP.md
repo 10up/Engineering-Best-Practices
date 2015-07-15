@@ -47,6 +47,45 @@ Here are a few key points:
     ?>
     ```
 
+* Avoid using ```post__not_in```.
+
+    In most cases it's quicker to filter out the posts you don't need in PHP instead of within the query. This also means it can take advantage of better caching. This won't work correctly (without additional tweaks) for pagination.
+
+    Use :
+
+    ```php
+    <?php
+    $foo_query = new WP_Query( array(
+        'post_type' => 'post',
+        'posts_per_page' => 30 + count( $posts_to_exclude )
+    ) );
+
+    if ( $foo_query->have_posts() ) :
+        while ( $foo_query->have_posts() ) :
+            $foo_query->the_post();
+            if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
+                continue;
+            }
+            the_title();
+        endwhile;
+    endif;
+    ?>
+    ```
+    
+    Instead of:
+
+    ```php
+    <?php
+    $foo_query = new WP_Query( array(
+        'post_type' => 'post',
+        'posts_per_page' => 30,
+        'post__not_in' => $posts_to_exclude
+    ) );
+    ?>
+    ```	
+    
+    See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
+    
 * A [taxonomy](http://codex.wordpress.org/Taxonomies) is a tool that lets us group or classify posts.
 
     [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
@@ -75,6 +114,16 @@ Here are a few key points:
     ));
     ?>
     ```
+
+##### WP\_Query vs. get\_posts() vs. query\_posts()
+As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
+
+[`query_posts()`](https://developer.wordpress.org/reference/functions/query_posts/), on the other hand, behaves quite differently than the other two and should almost never be used. Specifically:
+
+* It creates a new `WP_Query` object with the parameters you specify.
+* It replaces the existing main query loop with a new instance of `WP_Query`.
+
+As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
 
 #### Caching
 

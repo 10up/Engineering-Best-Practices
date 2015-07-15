@@ -3,15 +3,18 @@ page: structure
 title: Project Structure
 nav: Structure
 group: navigation
+weight: 2
 layout: default
 subnav:
-  - title: Templates
-    tag: templates
+  - title: Third-Party Integrations
+    tag: integrations
   - title: Modular Code
     tag: modular-code
   - title: Dependencies
     tag: dependencies
-updated: 6 Oct 2014
+  - title: File Organization
+    tag: file-organization
+updated: 23 June 2015
 ---
 
 <div class="docs-section">
