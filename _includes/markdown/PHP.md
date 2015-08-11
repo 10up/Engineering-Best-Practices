@@ -356,7 +356,7 @@ Generally, this means using a PHP ```namespace``` identifier at the top of inclu
 
 ```php
 <?php
-namespace TenUp\Tyrell-Corporation\Nexus-6;
+namespace TenUp\Buy_N_Large\Wall_E;
 
 function do_something() {
   // ...
@@ -374,12 +374,12 @@ When we manage multiple sites for a single client and create a _shared plugin_ f
 /**
  * Example of a 'use' declaration
  */
-namespace TenUp\Tyrell-Corporation\Nexus-6;
-use TenUp\Tyrell-Corporation\Common\TwitterAPI;
+namespace TenUp\Buy_N_Large\Wall_E;
+use TenUp\Buy_N_Large\Common\TwitterAPI;
 
 function do_something() {
   // Hard to read
-  $twitter_api = new TenUp\Tyrell-Corporation\Common\TwitterAPI();
+  $twitter_api = new TenUp\Buy_N_Large\Common\TwitterAPI();
   // Preferred
   $twitter_api = new TwitterAPI();
 }
