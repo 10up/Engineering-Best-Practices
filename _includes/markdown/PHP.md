@@ -370,7 +370,6 @@ When we manage multiple sites for a single client and create a _shared plugin_ f
 [```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read.
 
 ```php
-<?php
 /**
  * Example of a 'use' declaration
  */
