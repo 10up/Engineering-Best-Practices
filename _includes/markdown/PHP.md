@@ -686,7 +686,7 @@ Generally, we do not use PHP frameworks or libraries that do not live within Wor
 
 ### Avoid *Heredoc* and *Nowdoc*
 
-PHP's  *doc syntaxes* constructs large strings of HTML within code, without the hassle of concatenating a bunch of one-liners.
+PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners.
 
 ```php
 // It's probably funny, but the PHP is distracting.
