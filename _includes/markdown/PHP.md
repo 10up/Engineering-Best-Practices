@@ -689,12 +689,6 @@ Generally, we do not use PHP frameworks or libraries that do not live within Wor
 PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners.
 
 ```php
-// It's probably funny, but the PHP is distracting.
-$x = 'I told my doctor ';
-$x .= '"it hurts when I move my arm like this". ';
-$x .= 'He said, "<em>then stop moving it like that!</em>"';
-
-// This is much more readable.
 $y = <<<JOKE
 I told my doctor
 "it hurts when I move my arm like this".
