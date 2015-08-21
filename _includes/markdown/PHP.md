@@ -713,4 +713,14 @@ HTML;
 echo $x;
 ```
 
-We should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing. Even better, use WordPress's [```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template) or use a templating system like Mustache to completely separate logic and markup.
+We should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing.
+
+```php
+// Something naughty could happen to the string...
+$my_class_name .= 'something naughty';
+
+// But it doesn't matter if we're late escaping
+echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
+```
+
+Even better, use WordPress's [```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. 
