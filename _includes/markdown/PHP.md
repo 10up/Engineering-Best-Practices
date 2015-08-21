@@ -709,7 +709,7 @@ However, heredoc/nowdoc make it impossible to practice *late escaping*:
 $a = esc_attr( $my_class_name );
 
 // Something naughty could happen to the string after early escaping
-// $a .= 'something naughty';
+$a .= 'something naughty';
 
 $x = <<<HTML
 <div class="test {$a}">test</div>
