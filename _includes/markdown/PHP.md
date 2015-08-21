@@ -683,3 +683,40 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 <h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
+
+### Avoid *Heredoc* and *Nowdoc*
+
+PHP's  *doc syntaxes* constructs large strings of HTML within code, without the hassle of concatenating a bunch of one-liners.
+
+```php
+// It's probably funny, but the PHP is distracting.
+$x = 'I told my doctor ';
+$x .= '"it hurts when I move my arm like this". ';
+$x .= 'He said, "<em>then stop moving it like that!</em>"';
+
+// This is much more readable.
+$y = <<<JOKE
+I told my doctor
+"it hurts when I move my arm like this".
+He said, "<em>then stop moving it like that!</em>"
+JOKE;
+```
+
+However, heredoc/nowdoc make it impossible to practice *late escaping*:
+
+```php
+// Early escaping
+$a = esc_attr($my_attribute);
+
+// Something naughty could happen to the string after early escaping
+// $a .= 'something naughty';
+
+$x = <<<HTML
+<div class="test {$a}">test</div>
+HTML;
+
+// 10up prefers to escape right at the point of output, which would be here
+echo $x;
+```
+
+We should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing. Even better, use WordPress's [```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template) or use a templating system like Mustache to completely separate logic and markup.
