@@ -709,7 +709,7 @@ $x = <<<HTML
 <div class="test {$a}">test</div>
 HTML;
 
-// 10up prefers to escape right at the point of output, which would be here
+// 10up & VIP prefer to escape right at the point of output, which would be here
 echo $x;
 ```
 
