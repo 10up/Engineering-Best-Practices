@@ -705,12 +705,10 @@ $a = esc_attr( $my_class_name );
 // Something naughty could happen to the string after early escaping
 $a .= 'something naughty';
 
-$x = <<<HTML
+// 10up & VIP prefer to escape right at the point of output, which would be here
+echo <<<HTML
 <div class="test {$a}">test</div>
 HTML;
-
-// 10up & VIP prefer to escape right at the point of output, which would be here
-echo $x;
 ```
 
 We should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing.
