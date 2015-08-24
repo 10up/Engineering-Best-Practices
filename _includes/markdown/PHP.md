@@ -686,7 +686,7 @@ Generally, we do not use PHP frameworks or libraries that do not live within Wor
 
 ### Avoid *Heredoc* and *Nowdoc*
 
-PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners.
+PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
 
 ```php
 $y = <<<JOKE
@@ -711,7 +711,7 @@ echo <<<HTML
 HTML;
 ```
 
-We should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing.
+Engineers should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing instead. The HTML isn't as easy to read. But, we can be sure escaping happens right at the point of output, regardless of what happened to a variable beforehand.
 
 ```php
 // Something naughty could happen to the string...
@@ -721,4 +721,4 @@ $my_class_name .= 'something naughty';
 echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
 ```
 
-Even better, use WordPress's [```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. 
+Even better, [use WordPress's ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.
