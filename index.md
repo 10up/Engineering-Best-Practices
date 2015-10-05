@@ -37,7 +37,7 @@ updated: 6 Oct 2014
 		<ul>
 			<li><a href="{{ HOME_PATH }}markup/#philosophy">Philosophy</a></li>
 			<li><a href="{{ HOME_PATH }}markup/#html5-structural-elements">HTML5 Structural Elements</a></li>
-			<li><a href="{{ HOME_PATH }}markup/#classes-ids">Classes &amp; ID's</a></li>
+			<li><a href="{{ HOME_PATH }}markup/#classes-ids">Classes and ID's</a></li>
 			<li><a href="{{ HOME_PATH }}markup/#accessibility">Accessibility</a></li>
 			<li><a href="{{ HOME_PATH }}markup/#progressive-enhancement">Progressive Enhancement</a></li>
 		</ul>
@@ -62,8 +62,8 @@ updated: 6 Oct 2014
 			<li><a href="{{ HOME_PATH }}php/#performance">Performance</a></li>
 			<li><a href="{{ HOME_PATH }}php/#design-patterns">Design Patterns</a></li>
 			<li><a href="{{ HOME_PATH }}php/#security">Security</a></li>
-			<li><a href="{{ HOME_PATH }}php/#unit-testing">Unit and Integration Testing</a></li>
 			<li><a href="{{ HOME_PATH }}php/#code-style">Code Style & Documentation</a></li>
+			<li><a href="{{ HOME_PATH }}php/#unit-testing">Unit and Integration Testing</a></li>
 			<li><a href="{{ HOME_PATH }}php/#libraries">Libraries and Frameworks</a></li>
 		</ul>
 	</div>
@@ -103,6 +103,7 @@ updated: 6 Oct 2014
 	<div class="col">
 		<h3><a href="{{ HOME_PATH }}structure/#top">Project Structure</a></h3>
 		<ul>
+			<li><a href="{{ HOME_PATH }}structure/#integrations">Third-Party Integrations</a></li>
 			<li><a href="{{ HOME_PATH }}structure/#modular-code">Modular Code</a></li>
 			<li><a href="{{ HOME_PATH }}structure/#dependencies">Dependencies</a></li>
 			<li><a href="{{ HOME_PATH }}structure/#file-organization">File Organization</a></li>
