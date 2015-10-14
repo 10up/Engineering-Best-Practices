@@ -71,7 +71,7 @@ Here are a few key points:
     endif;
     ?>
     ```
-    
+
     Instead of:
 
     ```php
@@ -82,10 +82,10 @@ Here are a few key points:
         'post__not_in' => $posts_to_exclude
     ) );
     ?>
-    ```	
-    
+    ```
+
     See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
-    
+
 * A [taxonomy](http://codex.wordpress.org/Taxonomies) is a tool that lets us group or classify posts.
 
     [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
@@ -340,7 +340,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * When multiple threads (or page requests) read or write to a shared location in memory and the order of those read or writes is unknown, you have what is known as a [race condition](http://en.wikipedia.org/wiki/Race_condition).
 
-* Store information in the correct place. See the "Appropriate Data Storage" section.
+* Store information in the correct place. See the "[Appropriate Data Storage](#appropriate-data-storage)" section.
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
@@ -629,12 +629,12 @@ Example:
 /**
  * Hook into WordPress to mark specific post meta keys as protected
  *
- * Post meta can be either public or protected. Any post meta which holds 
+ * Post meta can be either public or protected. Any post meta which holds
  * **internal or read only** data should be protected via a prefixed underscore on
- * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
- * is_protected_meta filter. 
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the
+ * is_protected_meta filter.
  *
- * Note, a meta field that is intended to be a viewable component of the post 
+ * Note, a meta field that is intended to be a viewable component of the post
  * (Examples: event date, or employee title) should **not** be protected.
  */
 add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
@@ -642,7 +642,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
 /**
  * Protect non-public meta keys
  *
- * Flag some post meta keys as private so they're not exposed to the public 
+ * Flag some post meta keys as private so they're not exposed to the public
  * via the Custom Fields meta box or the JSON REST API.
  *
  * @internal                          Called via is_protected_meta filter.
@@ -651,7 +651,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
  * @return   bool   $protected        The (possibly) modified $protected variable
  */
 function protect_post_meta( $protected, $current_meta_key ) {
-    
+
     // Assemble an array of post meta keys to be protected
     $meta_keys_to_be_protected = array(
         'my_meta_key',
