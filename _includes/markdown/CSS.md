@@ -2,7 +2,7 @@
 
 At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
-Our websites are built mobile first, using performant CSS. Well structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
+Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
 <h3 id="syntax-formatting">Syntax and Formatting {% include Util/top %}</h3>
 
@@ -226,7 +226,7 @@ Performance best practices are not only for the browser experience, but for code
 
 #### Network Requests
 
-* Limit the number of requests by concatenating css files and encoding sprites and font files to the css file.
+* Limit the number of requests by concatenating CSS files and encoding sprites and font files to the CSS file.
 * Minify stylesheets
 * Use GZIP compression when possible
 Automate these tasks with a PHP or/and JavaScript build process.

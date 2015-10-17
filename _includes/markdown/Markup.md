@@ -13,7 +13,7 @@ Semantic elements are elements with clearly defined meaning to both the browser 
 
 
 #### Minimal &amp; Valid
-Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
+Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects, it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
 
 We test our markup against the [W3C validator](http://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
 
@@ -23,7 +23,7 @@ At 10up, we often work with large codebases. As such, it's important to optimize
 
 Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
 
-When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block. Similary, keep PHP blocks to a minimum inside markup. Doing this turns the PHP blocks into a type of tag themself. Use colon syntax for PHP loops and conditionals so that it's easier to see when a certain loop ends within the block of markup.
+When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block. Similarly, keep PHP blocks to a minimum inside markup. Doing this turns the PHP blocks into a type of tag themselves. Use colon syntax for PHP loops and conditionals so that it's easier to see when a certain loop ends within the block of markup.
 
 ##### Examples
 
@@ -97,7 +97,7 @@ Schema.org markup is intended to tell the search engines what your data *means*,
 
 To this end, we use Schema.org markup where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
 
-Schema markup should be validated against the the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
+Schema markup should be validated against the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
 
 ##### Examples
 
@@ -140,7 +140,7 @@ Good:
 <h3 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h3>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
-There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>``` . The element represents a generic document or application section and should contain a heading.
+There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>```. The element represents a generic document or application section and should contain a heading.
 
 Another misconception is that the ```<figure>``` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
 
@@ -258,7 +258,7 @@ Form elements should also be logically grouped using the ```<fieldset>``` tag. G
 
 Finally, we should ensure that all interactive elements are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order.
 
-Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the taborder. In these cases, set ```tabindex="0"``` to allow an element (eg. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (eg. a modal dialog box).
+Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the tab order. In these cases, set ```tabindex="0"``` to allow an element (eg. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (eg. a modal dialog box).
 
 <h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
