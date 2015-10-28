@@ -616,6 +616,29 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 ?>
 ```
 
+#### Internationalization
+
+All text strings in a project should be internationalized using core localization functions. Even if the project does not currently dictate a need for translatable strings, this practice ensures translation-readiness should a future need arise.
+
+Localizing a project differs from the core approach in two distinct ways:
+* A unique text domain should be used with all localization functions
+* Internationalized output should always be escaped
+
+##### Text Domains
+
+Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
+
+Text domains should never be stored in a variable or constant when used with core localization functions, as this practice can often produce unexpected results.
+
+{Stub}
+If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. he text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively.
+
+##### Escaping Strings
+
+WordPress provides a myriad of localization functionality defined in wp-includes/l10n.php.  
+
+{Stub}
+
 <h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
 
 We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
