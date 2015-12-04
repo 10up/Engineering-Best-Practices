@@ -684,3 +684,79 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 <h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
+
+### Imports & long-running processes
+
+Long-running tasks should be written as [custom WP-CLI commands](https://github.com/wp-cli/wp-cli/wiki/Commands-Cookbook). This bypasses the web server and its timeout limits. It's also [how WordPress VIP prefers to receive scripts](https://vip.wordpress.com/documentation/writing-bin-scripts/). Commands should implement a ```--dry-run``` command-line option that doesn't actually perform any updates but still reports how many records *would have* been updated without that switch.
+
+When running on a distributed architecture like WordPress VIP's, it's important to ```sleep()``` every once in a while to give their infrastructure time to replicate your updates across servers.
+
+We see a lot of memory exhaustion issues when long-running tasks create or update a lot of posts. For example, this tends to happen when migrating thousands of posts from a client's old CMS to WordPress. WordPress does a lot of housekeeping ever time a post is saved. It updates caches, it tracks revisions, it queues up cron tasks, and so on. We can a lot of time and RAM by disabling these updates:
+* ```define( 'WP_POST_REVISIONS', 0 );``` which disables post revisions. In addition to doing fewer database updates, this prevents WordPress from instantiating WP_Post objects that PHP needs to garbage collect later on.
+* ```define( 'WP_IMPORTING', true );``` which disables XML-RPC pingbacks, query logging, and some cache updates
+
+```php
+<?php
+
+// Disable post revisions
+define( 'WP_POST_REVISIONS', 0 );
+// Disable XML-RPC pingbacks, query logging, and some cache updates
+define( 'WP_IMPORTING', true );
+
+...
+
+class Example_Command extends WP_CLI_Command {
+
+  /**
+   * Updates posts for the new foobar feature
+   *
+   * ## OPTIONS
+   *
+   * <dry-run>
+   * : Runs script without updating any records
+   *
+   * ## EXAMPLES
+   *
+   *     wp example run --dry-run
+   *
+   * @synopsis <dry-run>
+   */
+  function run( $args, $assoc_args ) {
+
+    $records_read = 0;
+    $posts_updated = 0;
+
+    $dry_mode = ! empty ( $assoc_args['dry-run'] );
+
+    foreach ( ... ) {
+
+      $records_read += 1;
+
+      ...
+
+      if ( ! $dry_mode ) {
+        wp_update_post( $post );
+        $posts_updated += 1;
+      }
+
+      // Clear the action history
+      stop_the_insanity();
+
+      // Give VIP's infrastructure time to catch up
+      if ( 0 === $posts_updated % 50 ) {
+        sleep( 5 );
+      }
+
+    }
+
+    ...
+
+    WP_CLI::success( sprintf( "%d records read" ), $records_read );
+    WP_CLI::success( sprintf( "%d posts updated", $posts_updated ) );
+
+  }
+
+}
+
+WP_CLI::add_command( 'example', 'Example_Command' );
+```
