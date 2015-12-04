@@ -123,7 +123,7 @@ Project structure unity across projects improves engineering efficiency and main
 |  |- js/ ________________________________ # JavaScript testing suite
 ```
 
-The `scss` folder is described seperately, below to improve readability:
+The `scss` folder is described separately, below to improve readability:
 
 ```
 |- assets/css/scss/

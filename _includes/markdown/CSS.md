@@ -2,7 +2,7 @@
 
 At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
-Our websites are built mobile first, using performant CSS. Well structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
+Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
 <h3 id="syntax-formatting">Syntax and Formatting {% include Util/top %}</h3>
 
@@ -226,7 +226,7 @@ Performance best practices are not only for the browser experience, but for code
 
 #### Network Requests
 
-* Limit the number of requests by concatenating css files and encoding sprites and font files to the css file.
+* Limit the number of requests by concatenating CSS files and encoding sprites and font files to the CSS file.
 * Minify stylesheets
 * Use GZIP compression when possible
 Automate these tasks with a PHP or/and JavaScript build process.
@@ -429,7 +429,7 @@ Sometimes a more complex grid sytem is warranted and leveraging a 3rd party libr
 
 #### Resets
 
-Please use [normalize.css](http://necolas.github.io/normalize.css/).
+As of [August 13th, 2015](http://10up.com/blog/2015/sponsoring-sanitize-css/) 10up has taken stewardship of [sanitize.css](https://github.com/10up/sanitize.css), making it our primary tool for resets. Although we can still consider using [normalize.css](http://necolas.github.io/normalize.css/).
 
 ### Further reading {% include Util/top %}
 

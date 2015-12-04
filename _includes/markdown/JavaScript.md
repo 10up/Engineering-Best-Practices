@@ -213,7 +213,7 @@ if( div.classList.contains( 'foo' ) ) {
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
-We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/inline-documentation-standards/javascript-documentation-standards/).
+We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
 <h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
