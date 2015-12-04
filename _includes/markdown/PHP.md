@@ -550,7 +550,7 @@ document.getElementById( 'test' ).getAttribute( 'href' ) = <?php echo wp_json_en
 </script>
 ```
 
-[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe and returns a JSON encoded string to be used in your JavaScript code. 
+[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe to be printed in your JavaScript code. It returns a JSON encoded string. 
 
 Note that ```wp_json_encode()``` includes the string-delimiting quotes for you.
 
