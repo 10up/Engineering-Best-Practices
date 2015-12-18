@@ -578,25 +578,24 @@ There are many escaping situations not covered in this section. Everyone should 
 
 #### Nonces
 
-In programming, a nonce, or number used only once, is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) or cross-site request forgery.
+In programming, a nonce, or number used only once, is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) or cross-site request forgeries, and [replay attacks](http://en.wikipedia.org/wiki/Replay_attack).
 
-The purpose of a nonce is to make each request unique so an action cannot be replayed.
+WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonces are not strictly numbers used once, and thus don't necessarily prevent replay attacks, however they do prevent CSRFs.
 
-WordPress' [implementation](http://codex.wordpress.org/WordPress_Nonces) of nonces are not strictly numbers used once, though they serve an equal purpose.
-
-The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time for which it was generated.
+The WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, it *does* exhibit some desirable characteristics of nonces, namely CSRF prevention and limited windows for replay attacks.
 
 Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL: ```http://example.com/wp-admin/post.php?post=1&action=trash```
 
-Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this: ```http://example.com/wp-admin/post.php?post=2&action=trash```
+Since you are authenticated and authorized, an attacker could trick you into visiting a URL to perform a malicious action. This can be achieved by inserting a fake image on a page they control:
+```<img src="http://example.com/wp-admin/post.php?post=2&action=trash" width="0" height="0" border="0">```
 
-For this reason, the trash action requires a valid WordPress nonce.
+For this reason, the trash action requires a valid WordPress nonce. Since a WordPress nonce isn't strictly one-time use only, it's important to decide whether or not your nonce should be unique for each unique ID.
 
-After visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
+If the nonce is unique for each ID, after visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid for any other IDs in a replay attack, such as ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
 
 Update and delete actions (like trashing a post) should require a valid nonce.
 
-Here is some example code for creating a nonce:
+Here is some example code for creating a nonce. This one is unique to the action:
 
 ```php
 <form method="post" action="">
@@ -605,13 +604,34 @@ Here is some example code for creating a nonce:
 </form>
 ```
 
+This one is unique to the action and the post ID
+
+```php
+<form method="post" action="">
+    <?php wp_nonce_field( 'my_action_name_' . absint( $post_id ) ); ?>
+    <input type="hidden" name="post_id" value="<?php echo absint( $post_id ); ?>" />
+    ...
+</form>
+```
+
 When the form request is processed, the nonce must be verified:
 
+Verifying the action only:
 ```php
 <?php
 // Verify the nonce to continue.
 if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name' ) ) {
     // Nonce is valid!
+}
+?>
+```
+
+Verifying the action for the supplied post ID:
+```php
+<?php
+// Verify the nonce to continue.
+if ( ! empty( $_POST['_wpnonce'] ) && ! empty( $_POST['post_id'] && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name_' . absint( $_POST['post_id'] ) ) ) {
+    // Nonce is valid for $_POST['post_id'] only!
 }
 ?>
 ```
