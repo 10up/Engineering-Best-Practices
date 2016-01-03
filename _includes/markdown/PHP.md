@@ -86,15 +86,20 @@ As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances,
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
 
-##### Use isset() instead of in_array()
-[`isset()`](http://php.net/manual/it/function.isset.php) should always be used instead of [`in_array()`](http://php.net/manual/it/function.in-array.php) as
+##### Build arrays that encourage lookup by key instead of search by value
 
- * It uses an `O(1)` hash search on the key whereas `in_array` must check every value until it finds a match, thus its complexity is `O(n)`
- * Being an [opcode](http://3v4l.org/pIuZV/vld#tabs), it has less overhead than [calling the in_array](http://3v4l.org/S4YOA/vld#tabs) built-in function.
+[`in_array()`](http://php.net/manual/it/function.in-array.php) is not an efficient way to find if a given value is present in an array.
+The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
+
+The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](http://php.net/manual/it/function.isset.php).  
+`isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
+
+Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
 
 ```php
 <?php
-$array = array( 
+
+$array = array(
  'foo' => true,
  'bar' => true,
 );
@@ -102,10 +107,8 @@ if ( isset( $array['bar'] ) ) {
   // value is present in the array
 };
 ```
- 
-[`array_flip()`](http://php.net/manual/en/function.array-flip.php) can be used to flip an array so that you can use `isset()` instead of `in_array()`, but be aware that it [cycles all the values](http://lxr.php.net/xref/PHP_5_6/ext/standard/array.c#2616) in the array so it could be beneficial only if lots of `in_array` calls are made on the array.
- 
-In case you have to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
+
+In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
 
 
 #### Caching
@@ -611,12 +614,12 @@ Example:
 /**
  * Hook into WordPress to mark specific post meta keys as protected
  *
- * Post meta can be either public or protected. Any post meta which holds 
+ * Post meta can be either public or protected. Any post meta which holds
  * **internal or read only** data should be protected via a prefixed underscore on
- * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
- * is_protected_meta filter. 
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the
+ * is_protected_meta filter.
  *
- * Note, a meta field that is intended to be a viewable component of the post 
+ * Note, a meta field that is intended to be a viewable component of the post
  * (Examples: event date, or employee title) should **not** be protected.
  */
 add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
@@ -624,7 +627,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
 /**
  * Protect non-public meta keys
  *
- * Flag some post meta keys as private so they're not exposed to the public 
+ * Flag some post meta keys as private so they're not exposed to the public
  * via the Custom Fields meta box or the JSON REST API.
  *
  * @internal                          Called via is_protected_meta filter.
@@ -633,7 +636,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
  * @return   bool   $protected        The (possibly) modified $protected variable
  */
 function protect_post_meta( $protected, $current_meta_key ) {
-    
+
     // Assemble an array of post meta keys to be protected
     $meta_keys_to_be_protected = array(
         'my_meta_key',
