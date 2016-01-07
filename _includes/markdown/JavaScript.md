@@ -169,11 +169,11 @@ Another example in JavaScript is ```escape()``` and ```unescape()```. These func
 
 We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
-In the absence of an adopted core standard for JavaScript documentation, we follow the [JSDoc3](http://usejsdoc.org/) standards.
+We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
 <h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [QUnit](http://qunitjs.com) which is a WordPress standard.
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](http://mochajs.org).
 
 <h3 id="libraries">Libraries {% include Util/top %}</h3>
 

@@ -17,10 +17,10 @@ code {
 
 pre {
 	display: block;
-	margin: 0 0 1rem;
 	line-height: 1.4;
+	margin: 0 0 1rem;
+	overflow: auto;
 	white-space: pre;
-	white-space: pre-wrap;
 }
 
 pre code {
@@ -28,10 +28,6 @@ pre code {
 	color: inherit;
 	background-color: transparent;
 	border: 0;
-}
-
-pre code span {
-	white-space: nowrap;
 }
 
 .highlight {

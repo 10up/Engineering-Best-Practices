@@ -47,6 +47,45 @@ Here are a few key points:
     ?>
     ```
 
+* Avoid using ```post__not_in```.
+
+    In most cases it's quicker to filter out the posts you don't need in PHP instead of within the query. This also means it can take advantage of better caching. This won't work correctly (without additional tweaks) for pagination.
+
+    Use :
+
+    ```php
+    <?php
+    $foo_query = new WP_Query( array(
+        'post_type' => 'post',
+        'posts_per_page' => 30 + count( $posts_to_exclude )
+    ) );
+
+    if ( $foo_query->have_posts() ) :
+        while ( $foo_query->have_posts() ) :
+            $foo_query->the_post();
+            if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
+                continue;
+            }
+            the_title();
+        endwhile;
+    endif;
+    ?>
+    ```
+
+    Instead of:
+
+    ```php
+    <?php
+    $foo_query = new WP_Query( array(
+        'post_type' => 'post',
+        'posts_per_page' => 30,
+        'post__not_in' => $posts_to_exclude
+    ) );
+    ?>
+    ```
+
+    See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
+
 * A [taxonomy](http://codex.wordpress.org/Taxonomies) is a tool that lets us group or classify posts.
 
     [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
@@ -85,6 +124,31 @@ As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances,
 * It replaces the existing main query loop with a new instance of `WP_Query`.
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
+
+##### Build arrays that encourage lookup by key instead of search by value
+
+[`in_array()`](http://php.net/manual/it/function.in-array.php) is not an efficient way to find if a given value is present in an array.
+The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
+
+The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](http://php.net/manual/it/function.isset.php).  
+`isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
+
+Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
+
+```php
+<?php
+
+$array = array(
+ 'foo' => true,
+ 'bar' => true,
+);
+if ( isset( $array['bar'] ) ) {
+  // value is present in the array
+};
+```
+
+In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
+
 
 #### Caching
 
@@ -199,7 +263,7 @@ Page caching in the context of web development refers to storing a requested loc
 
 [Batcache](https://wordpress.org/plugins/batcache) is a WordPress plugin that uses the object cache (often Memcache in the context of WordPress) to store and serve rendered pages. It can also optionally cache redirects. It's not as fast as some other caching plugins, but it can be used where file-based caching is not practical or desired.
 
-Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age by default, but adjustable) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
+Batcache is aimed at preventing a flood of traffic from breaking your site. It does this by serving old (5 minute max age by default, but adjustable) pages to new users. This reduces the demand on the web server CPU and the database. It also means some people may see a page that is a few minutes old. However, this only applies to people who have not interacted with your website before. Once they have logged-in or left a comment, they will always get fresh pages.
 
 Although this plugin has a lot of benefits, it also has a couple of code design requirements:
 
@@ -301,7 +365,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * When multiple threads (or page requests) read or write to a shared location in memory and the order of those read or writes is unknown, you have what is known as a [race condition](http://en.wikipedia.org/wiki/Race_condition).
 
-* Store information in the correct place. See the "Appropriate Data Storage" section.
+* Store information in the correct place. See the "[Appropriate Data Storage](#appropriate-data-storage)" section.
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
@@ -311,21 +375,47 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 #### Namespacing
 
-All functional code should be properly namespaced. We do this to logically organize our code and to prevent collisions in the global namespace. Generally, this means using a PHP ```namespace``` identifier at the top of included files:
+We properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
+
+Generally, this means including a PHP ```namespace``` identifier at the top of included files:
 
 ```php
 <?php
-namespace tenup\Utilities\API;
+namespace TenUp\Buy_N_Large\Wall_E;
 
 function do_something() {
   // ...
 }
 ```
 
+A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name. ex: ```TenUp\Buy_N_Large;```
+  
+Additional levels of namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
+
+When 10up works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
+
+The engineering leads document this strategy so it can be shared with engineers brought onto the project throughout its lifecycle.
+  
+[```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read. It also documents a file's dependencies for future developers.
+
+```php
+/**
+ * Example of a 'use' declaration
+ */
+namespace TenUp\Buy_N_Large\Wall_E;
+use TenUp\Buy_N_Large\Common\TwitterAPI;
+
+function do_something() {
+  // Hard to read
+  $twitter_api = new TenUp\Buy_N_Large\Common\TwitterAPI();
+  // Preferred
+  $twitter_api = new TwitterAPI();
+}
+```
+
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
-<?php
 /**
  * Namespaced class name example.
  */
@@ -338,7 +428,7 @@ class Tenup_Utilities_API {
 
 The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if and when WordPress raises its minimum version requirements).
 
-Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```tenup``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
+Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
 
 #### Object Design
 
@@ -397,6 +487,7 @@ In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-or
 * Class inheritance should be used where possible to produce [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself) code and share previously-developed components throughout the application.
 * Global variables should be avoided. If objects need to be passed throughout the theme or plugin, those objects should either be passed as parameters or referenced through an object factory.
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
+* Avoid registering hooks in the __construct method. Doing so tightly couples the hooks to the instantiation of the class and is less flexible than registering the hooks via a separate method. Unit testing becomes much more difficult as well.
 
 <h3 id="security">Security {% include Util/top %}</h3>
 
@@ -404,7 +495,7 @@ Security in the context of web development is a huge topic. This section only ad
 
 #### Input Validation and Sanitization
 
-To validate is to ensure the data you've requested of the user matches what they've submitted. Sanitization is a broader approach ensuring data conforms to certain standards such as an integer or HTML-less text. The difference between validating and sanitizing data can be subtle at times and context-dependant.
+To validate is to ensure the data you've requested of the user matches what they've submitted. Sanitization is a broader approach ensuring data conforms to certain standards such as an integer or HTML-less text. The difference between validating and sanitizing data can be subtle at times and context-dependent.
 
 Validation is always preferred to sanitization. Any non-static data that is stored in the database must be validated or sanitized. Not doing so can result in creating potential security vulnerabilities.
 
@@ -493,14 +584,26 @@ Here is another example:
 Here is another example:
 
 ```php
+<input type="text" onfocus="if( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
+```
+
+[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute  (onfocus="...", for example).
+
+We should not be writing JavaScript inside tag attributes anymore, this means that ```esc_js()``` should never be used. To escape strings for JS another function should be used.
+
+Here is another example:
+
+```php
 <script>
 if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
-    document.getElementById( 'test' ).getAttribute( 'href' ) = '<?php echo esc_js( get_post_meta( $post_id, 'key', true ) ); ?>';
+document.getElementById( 'test' ).getAttribute( 'href' ) = <?php echo wp_json_encode( get_post_meta( $post_id, 'key', true ) ); ?>;
 }
 </script>
 ```
 
-[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string.
+[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe to be printed in your JavaScript code. It returns a JSON encoded string. 
+
+Note that ```wp_json_encode()``` includes the string-delimiting quotes for you.
 
 Sometimes you need to escape data that is meant to serve as an attribute. For that, you can use ```esc_attr()``` to ensure output only contains characters appropriate for an attribute:
 
@@ -589,12 +692,12 @@ Example:
 /**
  * Hook into WordPress to mark specific post meta keys as protected
  *
- * Post meta can be either public or protected. Any post meta which holds 
+ * Post meta can be either public or protected. Any post meta which holds
  * **internal or read only** data should be protected via a prefixed underscore on
- * the meta key (ex: _my_post_meta) or by indicating it's protected via the 
- * is_protected_meta filter. 
+ * the meta key (ex: _my_post_meta) or by indicating it's protected via the
+ * is_protected_meta filter.
  *
- * Note, a meta field that is intended to be a viewable component of the post 
+ * Note, a meta field that is intended to be a viewable component of the post
  * (Examples: event date, or employee title) should **not** be protected.
  */
 add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
@@ -602,7 +705,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
 /**
  * Protect non-public meta keys
  *
- * Flag some post meta keys as private so they're not exposed to the public 
+ * Flag some post meta keys as private so they're not exposed to the public
  * via the Custom Fields meta box or the JSON REST API.
  *
  * @internal                          Called via is_protected_meta filter.
@@ -611,7 +714,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
  * @return   bool   $protected        The (possibly) modified $protected variable
  */
 function protect_post_meta( $protected, $current_meta_key ) {
-    
+
     // Assemble an array of post meta keys to be protected
     $meta_keys_to_be_protected = array(
         'my_meta_key',

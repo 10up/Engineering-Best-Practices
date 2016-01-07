@@ -2,18 +2,22 @@
 	padding: $guaranteed-edge-standoff;
 	max-width: $single-max-width;
 	margin: 0 auto;
-	width: 75%;
+	width: 100%;
 
-	@include breakpoint($breakpoint-alpha) {
-		width: 100%;
+	h3 {
+		border-bottom: 1px solid $dark-grey;
+		font-weight: 600;
+		padding-bottom: 0.25em;
 	}
-}
 
-.docs-section h3 {
-	padding-top:80px;
-	margin-top:-80px;
+	h4 {
+		font-weight: 600;
+		margin-bottom: 0;
+	}
 }
 
 .back-to-top {
 	font-size: 0.5em;
+	float: right;
+	padding-top: 1.2em;
 }

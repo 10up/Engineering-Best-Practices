@@ -41,7 +41,7 @@
 		top: 6rem;
 		z-index: 5; /* higher than normal so it overlays content elements */
 		background-color: #303030;
-		padding: 0;
+		padding: 0 30px;
 		height: 0;
 		position: relative;
 
@@ -69,6 +69,17 @@
 
 			@include breakpoint($breakpoint-bravo) {
 				background-color: transparent;
+				text-align: center;
+				display: block;
+				padding-left: 40px;
+
+				li:nth-child(4) {
+					margin-right: 80px;
+				}
+			}
+
+			.subnav li {
+				margin-right: 0;
 				text-align: left;
 			}
 		}
@@ -81,7 +92,7 @@
 			background-color: transparent;
 			position: relative;
 			top: auto;
-			width: 48%;
+			width: 100%;
 		}
 	}
 }
@@ -130,7 +141,6 @@
 	@include breakpoint($breakpoint-bravo) {
 		@include inline-list();
 		display: block !important;
-		padding-right: $header-logo-small /2;
 		padding-top: 0;
 	}
 
@@ -169,6 +179,13 @@
 				// border-top-color: transparent;
 			}
 		}
+	}
+
+	&.is-open {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
 	}
 }
 
