@@ -162,6 +162,8 @@ In WordPress, the object cache functionality provided by [```WP_Object_Cache```]
 
 On a regular WordPress install, the difference between transients and the object cache is that transients are persistent and would write to the options table, while the object cache only persists for the particular page load.
 
+It is possible to create a transient that will never expire but omitting the third parameter, this should be avoided as any non-expiring transients are autoloaded on every page and you may actually decrease performance by doing so.
+
 On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/), [Redis](http://redis.io/), or similar) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
 Note: as the objects are stored in memory, you need to consider that these objects can be cleared at any time and that your code must be constructed in a way that it would not rely on the objects being in place.
