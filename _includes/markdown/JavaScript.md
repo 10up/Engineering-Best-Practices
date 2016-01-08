@@ -171,6 +171,34 @@ We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/
 
 We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
+<h3 id="code-quality">Code Quality {% include Util/top %}</h3>
+At 10up, we use [JSHint](http://jshint.com/) to detect errors and potential problems in our code. JSHint allows us to automate error detection and conformity to the WordPress JavaScript coding standards. We use [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint) to integrate JSHint into a project's Grunt configuration, which tests the project's JavaScript files. JSHint's configuration specifications can be included in a special file called `.jshintrc` or included as a property in the Grunt configuration. Additional details on integrating JSHint into Grunt can be found on the [grunt-contrib-jshint GitHub page](https://github.com/gruntjs/grunt-contrib-jshint#jshint-task).
+
+Example JSHint configuration that conforms to the WordPress JavaScript coding standards:
+
+```javascript
+{
+	"boss": true,
+	"curly": true,
+	"eqeqeq": true,
+	"eqnull": true,
+	"esversion": 3,
+	"expr": true,
+	"noarg": true,
+	"nonbsp": true,
+	"undef": true,
+	"unused": true,
+	"browser": true,
+	"globals": {
+		"_": false,
+		"Backbone": false,
+		"jQuery": false,
+		"JSON": false,
+		"wp": false
+	}
+}
+```
+
 <h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
 
 At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](http://mochajs.org).
@@ -190,4 +218,3 @@ There are many JavaScript libraries available today. Many of them directly compe
 #### Frameworks
 
 [Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library (jQuery)
-

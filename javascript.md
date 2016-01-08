@@ -12,6 +12,8 @@ subnav:
     tag: design-patterns
   - title: Code Style & Documentation
     tag: code-style
+  - title: Code Quality
+    tag: code-quality
   - title: Unit and Integration Testing
     tag: unit-and-integration-testing
   - title: Libraries and Frameworks
