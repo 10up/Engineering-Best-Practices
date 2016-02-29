@@ -64,12 +64,16 @@ h5 {
 	font-weight: 300;
 }
 
-p, ul {
+p, ul, ol {
 	text-indent: 0em;
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 	font-weight: 300;
 	line-height: 1.7;
 	margin: 14px 0px 18px 0px;
+
+	@include breakpoint($breakpoint-bravo) {
+		font-size: 1.8rem;
+	}
 }
 
 p.intro {

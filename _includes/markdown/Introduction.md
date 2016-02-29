@@ -26,4 +26,4 @@ We are constantly challenging ourselves and learning. Knowledge gives us a compe
 
 <h3 id="contributing">Contributing {% include Util/top %}</h3>
 
-Please contribute via [pull requests on Github](https://github.com/10up/Engineering-Best-Practices).
+Please contribute via [pull requests on GitHub](https://github.com/10up/Engineering-Best-Practices).
