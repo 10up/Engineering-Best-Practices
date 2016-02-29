@@ -166,9 +166,11 @@ Another example in JavaScript is ```escape()``` and ```unescape()```. These func
 
 <h3 id="dom-api">Use the DOM API to Insert HTML {% include Util/top %}</h3>
 
-When adding elements to the page in JavaScript, create new DOMElement objects using document.createElement(), then set their properties using setAttribute() and the className property. This ensures that the attribute values you set are used literally, even if they contain markup. jQuery's html() function doesn't perform any sanitization on the string passed to it, so it's not secure to build your HTML as a string and inject it into the page this way.
+It's critical that we perform sanitization on a string before passing it to jQuery's html() function, as the function doesn't perform any sanitization on its own.
 
-Direct DOM manipulation is [significantly faster](http://jsperf.com/native-appendchild-vs-jquery-append/12) than making the browser parse an HTML string. And, the code used to build it is easier to read compared to line after line of string concatenation.
+Direct DOM manipulation is [significantly faster](http://jsperf.com/native-appendchild-vs-jquery-append/12) than making jQuery or the browser parse an HTML string. And, the code used to build a tree of DOM nodes is often easier to read compared to line after line of string concatenation.
+
+When adding elements to the page in JavaScript, create new DOMElement objects using document.createElement(), then set their properties using setAttribute() and the className property. This ensures that the attribute values you set are used literally, even if they contain markup.
 
 ```javascript
 
