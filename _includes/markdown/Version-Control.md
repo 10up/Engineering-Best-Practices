@@ -12,7 +12,42 @@ At 10up we consider standardizing a workflow to be a very important part of the 
 
 #### Commits
 
-Commits should be small and independent items of work. Distinct items of work are essential in keeping features separate, which will aid in reversing or rolling back commits if necessary or pushing specific features forward.
+Commits should be small and independent items of work, containing changes limited to a distinct idea. Distinct commits are essential in keeping features separate, pushing specific features forward, or reversing or rolling back code if necessary.
+
+##### Commit Messages
+
+The first line of a commit message is a brief summary of the changeset, describing the expected result of the change or what is done to affect change.
+
+```sh
+git log --oneline -5
+
+# fca8925 Update commit message best practices
+# 19188a0 Add a note about autoloading transients
+# 9630552 Fix a typo in PHP.md
+# 2309e04 Remove extra markdown header hash
+# 5cd2604 Add h3 and h4 styling
+```
+
+This brief summary is always required. It is around 50 characters or less, always stopping at 70. The high visibility of the first line makes it critical to craft something that is as descriptive as possible within space limits.
+
+```sh
+git commit -m "Add an #Element.matches polyfill to support old IE"
+```
+
+Separated from the summary by a blank line is the longer description. It is optional and includes more details about the commit and its repercussions for developers. It may include links to the related issue, side effects, other solutions that were considered, or backstory. A longer description may be useful during the merge of a feature branch, for example.
+
+```sh
+git commit
+
+# Merge 'feature/polyfill' into gh-pages
+#
+# matches and closest are used to simplify event delegation:
+# http://caniuse.com/#feat=matchesselector
+# http://caniuse.com/#feat=element-closest
+# Promise and fetch are used to simplify async/ajax functionality:
+# http://caniuse.com/#feat=promises
+# http://caniuse.com/#feat=fetch
+```
 
 #### Merges
 
