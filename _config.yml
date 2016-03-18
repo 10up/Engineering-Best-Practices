@@ -17,7 +17,5 @@ kramdown:
 sass:
   sass_dir: _includes/_sass
 CONFIG:
-#  BASE_PATH: https://10up.github.io/Engineering-Best-Practices
-  BASE_PATH: http://127.0.0.1:4000
-
+  BASE_PATH: https://10up.github.io/Engineering-Best-Practices
   ASSET_PATH: false
