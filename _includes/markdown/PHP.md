@@ -21,14 +21,14 @@ Here are a few key points:
 
     This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
 
-    ```php
-    <?php
-    // Query for 500 posts.
-    new WP_Query( array(
-      'posts_per_page' => 500,
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Query for 500 posts.
+  new WP_Query( array(
+    'posts_per_page' => 500,
+  ));
+  ?>
+  ```
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
@@ -38,14 +38,14 @@ Here are a few key points:
 
     This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
-    ```php
-    <?php
-    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
-    new WP_Query( array(
-      'no_found_rows' => true,
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
+  new WP_Query( array(
+    'no_found_rows' => true,
+  ));
+  ?>
+  ```
 
 * Avoid using ```post__not_in```.
 
@@ -53,36 +53,36 @@ Here are a few key points:
 
     Use :
 
-    ```php
-    <?php
-    $foo_query = new WP_Query( array(
-        'post_type' => 'post',
-        'posts_per_page' => 30 + count( $posts_to_exclude )
-    ) );
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'posts_per_page' => 30 + count( $posts_to_exclude )
+  ) );
 
-    if ( $foo_query->have_posts() ) :
-        while ( $foo_query->have_posts() ) :
-            $foo_query->the_post();
-            if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
-                continue;
-            }
-            the_title();
-        endwhile;
-    endif;
-    ?>
-    ```
+  if ( $foo_query->have_posts() ) :
+      while ( $foo_query->have_posts() ) :
+          $foo_query->the_post();
+          if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
+              continue;
+          }
+          the_title();
+      endwhile;
+  endif;
+  ?>
+  ```
 
     Instead of:
 
-    ```php
-    <?php
-    $foo_query = new WP_Query( array(
-        'post_type' => 'post',
-        'posts_per_page' => 30,
-        'post__not_in' => $posts_to_exclude
-    ) );
-    ?>
-    ```
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'posts_per_page' => 30,
+      'post__not_in' => $posts_to_exclude
+  ) );
+  ?>
+  ```
 
     See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
 
@@ -105,15 +105,15 @@ Here are a few key points:
 
     Here is an example of a 2-dimensional query:
 
-    ```php
-    <?php
-    // Query for posts with both a particular category and tag.
-    new WP_Query( array(
-      'category_name' => 'cat-slug',
-      'tag' => 'tag-slug',
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Query for posts with both a particular category and tag.
+  new WP_Query( array(
+    'category_name' => 'cat-slug',
+    'tag' => 'tag-slug',
+  ));
+  ?>
+  ```
 
 ##### WP\_Query vs. get\_posts() vs. query\_posts()
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
@@ -137,7 +137,6 @@ Here is an example of an array that encourages lookup by key by using the intend
 
 ```php
 <?php
-
 $array = array(
  'foo' => true,
  'bar' => true,
@@ -401,6 +400,7 @@ The engineering leads document this strategy so it can be shared with engineers 
 [```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read. It also documents a file's dependencies for future developers.
 
 ```php
+<?php
 /**
  * Example of a 'use' declaration
  */
@@ -418,6 +418,7 @@ function do_something() {
 If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
 
 ```php
+<?php
 /**
  * Namespaced class name example.
  */
