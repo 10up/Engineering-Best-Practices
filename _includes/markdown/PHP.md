@@ -752,3 +752,42 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 <h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
+
+### Avoid *Heredoc* and *Nowdoc*
+
+PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
+
+```php
+$y = <<<JOKE
+I told my doctor
+"it hurts when I move my arm like this".
+He said, "<em>then stop moving it like that!</em>"
+JOKE;
+```
+
+However, heredoc/nowdoc make it impossible to practice *late escaping*:
+
+```php
+// Early escaping
+$a = esc_attr( $my_class_name );
+
+// Something naughty could happen to the string after early escaping
+$a .= 'something naughty';
+
+// 10up & VIP prefer to escape right at the point of output, which would be here
+echo <<<HTML
+<div class="test {$a}">test</div>
+HTML;
+```
+
+As convenient as they are, engineers should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing instead. The HTML isn't as easy to read. But, we can be sure escaping happens right at the point of output, regardless of what happened to a variable beforehand.
+
+```php
+// Something naughty could happen to the string...
+$my_class_name .= 'something naughty';
+
+// But it doesn't matter if we're late escaping
+echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
+```
+
+Even better, [use WordPress's ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.
