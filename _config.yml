@@ -8,15 +8,14 @@ author:
   github:  10up
   twitter: 10up
 
-markdown:      redcarpet
+markdown:      kramdown
 permalink:     pretty
-highlighter:   pygments
+highlighter:   rouge
 encoding:      utf-8
-redcarpet:
-  extensions: [with_toc_data]
+kramdown:
+  input: GFM
 sass:
   sass_dir: _includes/_sass
 CONFIG:
   BASE_PATH: https://10up.github.io/Engineering-Best-Practices
-
   ASSET_PATH: false
