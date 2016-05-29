@@ -85,7 +85,6 @@ updated: 6 Oct 2014
 				<a href="{{ HOME_PATH }}javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
 			<li><a href="{{ HOME_PATH }}javascript/#code-style">Code Style & Documentation</a></li>
-			<li><a href="{{ HOME_PATH }}javascript/#js-linting">Linting</a></li>
 			<li><a href="{{ HOME_PATH }}javascript/#libraries">Libraries</a></li>
 		</ul>
 	</div>
