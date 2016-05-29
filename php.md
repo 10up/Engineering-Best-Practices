@@ -3,7 +3,7 @@ page: php
 title: PHP
 nav: PHP
 group: navigation
-weight: 2
+weight: 5
 layout: default
 subnav:
   - title: Performance
@@ -18,7 +18,7 @@ subnav:
     tag: unit-testing
   - title: Libraries and Frameworks
     tag: libraries
-updated: 6 Oct 2014
+updated: 29 May 2016
 ---
 
 <div class="docs-section">

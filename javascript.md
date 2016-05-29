@@ -3,7 +3,7 @@ page: javascript
 title: JavaScript
 nav: JS
 group: navigation
-weight: 2
+weight: 4
 layout: default
 subnav:
   - title: Performance
@@ -18,7 +18,7 @@ subnav:
     tag: unit-and-integration-testing
   - title: Libraries and Frameworks
     tag: libraries
-updated: 6 Oct 2014
+updated: 29 May 2016
 ---
 
 <div class="docs-section">

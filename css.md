@@ -3,7 +3,7 @@ page: css
 title: CSS
 nav: CSS
 group: navigation
-weight: 2
+weight: 3
 layout: default
 subnav:
   - title: Philosophy
@@ -18,7 +18,7 @@ subnav:
     tag: responsive-websites
   - title: Frameworks
     tag: frameworks
-updated: 2 September 2015
+updated: 29 May 2016
 ---
 
 <div class="docs-section">

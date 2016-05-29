@@ -3,7 +3,7 @@ page: tools
 title: Tools
 nav: Tools
 group: navigation
-weight: 2
+weight: 7
 layout: default
 subnav:
   - title: Local Development Environments
@@ -16,7 +16,7 @@ subnav:
     tag: version-control
   - title: Command Line Tools
     tag: command-line
-updated: 6 Oct 2014
+updated: 29 May 2016
 ---
 
 <div class="docs-section">
