@@ -93,13 +93,14 @@ document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
     var target = event.target;
 
     if ( currentTarget && target ) {
+      if ( 'LI' === target.nodeName ) {
+        // Do stuff with target!
+      } else {
         while ( currentTarget.contains( target ) ) {
-            if ( target.nodeName === 'LI' ) {
-                // Do stuff with target!
-            } else {
-                target = target.parentNode;
-            }
+          // Do stuff with a parent.
+          target = target.parentNode;
         }
+      }
     }
 });
 ```
