@@ -130,7 +130,7 @@ As noted in the [WordPress Codex (along with a useful query flow chart)](http://
 [`in_array()`](http://php.net/manual/it/function.in-array.php) is not an efficient way to find if a given value is present in an array.
 The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
 
-The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](http://php.net/manual/it/function.isset.php).  
+The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](http://php.net/manual/it/function.isset.php).
 `isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
 
 Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
@@ -390,13 +390,13 @@ function do_something() {
 ```
 
 A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name. ex: ```TenUp\Buy_N_Large;```
-  
+
 Additional levels of namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
 
 When 10up works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
 
 The engineering leads document this strategy so it can be shared with engineers brought onto the project throughout its lifecycle.
-  
+
 [```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read. It also documents a file's dependencies for future developers.
 
 ```php
@@ -606,7 +606,7 @@ document.getElementById( 'test' ).getAttribute( 'href' ) = <?php echo wp_json_en
 </script>
 ```
 
-[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe to be printed in your JavaScript code. It returns a JSON encoded string. 
+[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe to be printed in your JavaScript code. It returns a JSON encoded string.
 
 Note that ```wp_json_encode()``` includes the string-delimiting quotes for you.
 
@@ -682,6 +682,35 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
     // Nonce is valid!
 }
 ?>
+```
+
+#### Decouple Plugin and Theme using add_theme_support
+
+The implementation of a custom plugin should be decoupled from its use
+in a Theme. Disabling the plugin should not result in any errors in the
+Theme code. Similarly switching the Theme should not result in any
+errors in the Plugin code.
+
+The best way to implement this is with the use of [add_theme_support](https://developer.wordpress.org/reference/functions/add_theme_support/) and [current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports).
+
+Consider a plugin that adds a custom javascript file to the `page` post
+type. The Theme should register support for this feature using
+`add_theme_support`,
+
+```php
+<?php
+add_theme_support( 'custom-js-feature' );
+```
+
+And the plugin should check that the current theme has indicated support
+for this feature before adding the script to the page, using
+[current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports),
+
+```php
+<?php
+if ( current_theme_supports( 'custom-js-feature' ) ) {
+	// ok to add custom js
+}
 ```
 
 <h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
