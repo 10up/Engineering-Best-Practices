@@ -237,14 +237,22 @@ ARIA to the rescue!
 ARIA attributes can be added with JavaScript to help dynamically add context to your content. Thinking about the tabbed content example, it might look something like this:
 
 ```html
-<ul role="tabs">
-    <li>
-        <a href="#first-tab" role="tab" aria-active="true">Panel 1</a>
+<ul role="tablist">
+    <li role="presentation">
+        <a href="#first-tab" role="tab" aria-selected="true" id="tab-panel-1">Panel 1</a>
     </li>
-    <li>
-        <a href="#second-tab" role="tab" aria-active="false" aria-controls="second-tab">Panel 2</a>
+    <li role="presentation">
+        <a href="#second-tab" role="tab" aria-selected="false" id="tab-panel-2>Panel 2</a>
     </li>
 </ul>
+
+<div role="tabpanel" aria-hidden="false" aria-labelledby="tab-panel-1">
+    <h2 id="first-tab">Tab Panel Heading</h2>
+</div>
+
+<div role="tabpanel" aria-hidden="true" aria-labelledby="tab-panel-2">
+    <h2 id="second-tab">Second Tab Panel Heading</h2>
+</div>
 ```
 
 You can see how effortless it is to make our tabbed interface accessible to screen readers. All we need to do is add context.
