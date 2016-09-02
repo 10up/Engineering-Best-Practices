@@ -4,21 +4,21 @@ Data migrations are a necessary but often feared part of building things on the 
 
 The first step in any migration should be to create a migration plan. This plan will be built on information obtained from analyzing the site you're migrating. This could be a migration from one WordPress site to another, with minimal data changes, or it could be from a completely custom CMS into WordPress. In any case, we need to figure out where the data lives, how it's currently stored, and how that data is going to map into the new site. In almost all cases, this will involve getting the actual data to be migrated (usually a database dump).
 
-Once the data has been analyzed, we can use that information to start writing our migration plan. This plan will contain things like what steps we will be running, how long we expect the migration to take, a mapping of the data from the old site to the new one (custom post types, custom taxonomies, how much data there is, etc) and any gotchas we want to keep an eye on (expounded upon below). This migration plan will heavily influence the next steps. Make sure this migration plan is reviewed by at least one other engineer, incorporating any feedback they might have.
+Once the data has been analyzed, we can use that information to start writing our migration plan. This plan will contain things like what steps we will be running, how long we expect the migration to take, a mapping of the data from the old site to the new one (custom post types, custom taxonomies, how much data there is, etc) and any gotchas we want to keep an eye on (expounded upon below). This migration plan will heavily influence the next steps. Make sure this migration plan is reviewed by at least one other engineer, incorporating any feedback they might have. At 10up, plans are required for every migration.
 
 ### Writing Migration Scripts
 
-Now that we have a solid migration plan in place, we are ready to actually write the scripts that will handle the migration. All migrations will vary heavily at this step. Sometimes we can get WXR files and just use the WordPress importer (typically using [WP CLI](http://wp-cli.org/commands/import/)) to handle everything we need. Other times we'll use the WordPress Importer then write a script to modify data once it's in WordPress. And other times we'll write scripts that handle the entire migration process for us.
+Now that we have a solid migration plan in place, we are ready to actually write the scripts that will handle the migration. All migrations will vary heavily at this step. Sometimes we can get WXR files and just use the WordPress importer (typically using [WP CLI](http://wp-cli.org/commands/import/)) to handle everything we need. Other times we'll use the WordPress Importer then write a script to modify data once it's in WordPress. Other times we'll write scripts that handle the entire migration process for us.
 
-All of these decisions should be part of the migration plan we put together, so at this point, we know exactly what we are going to do and we can start work accordingly. 10up will generally use [WP CLI](http://wp-cli.org/) to power these scripts, which gives us great flexibility on what we can do, what output we can show and typically you'll have a lot less issues with performance, like memory limits and timeouts.
+All of these decisions should be part of the migration plan we put together, so at this point, we know exactly what we are going to do, and we can start work accordingly. 10up will generally use [WP CLI](http://wp-cli.org/) to power these scripts, which gives us great flexibility on what we can do, what output we can show, and typically you'll have a lot less issues with performance, like memory limits and timeouts.
 
-### Things To Be Aware Of
+### Thou Shalt Not Forget
 
 The following are some general things to keep in mind when doing these migrations. Note that not all will apply in every scenario and there are items missing from this list, but this gives a good general overview of things to keep in mind.
 
 * Test all migration scripts
 
-	This probably goes without saying but migrations should be run multiple times: locally, staging, preprod if available, before it's ever run on production. There will inevitably be issues that need to be fixed, so the more the migration process is tested, the more likely these issues are found and fixed before it's run on production. It's always better to write and test iteratively, so any potentially issues can be found and fixed sooner.
+	This probably goes without saying but migrations should be run multiple times: locally, staging, preproduction (if available), before it's ever run on production. There will inevitably be issues that need to be fixed, so the more the migration process is tested, the more likely these issues are found and fixed before it's run on production. It's always better to write and test iteratively, so any potentially issues can be found and fixed sooner.
 
 	 * In the same vein as this, make sure all scripts are code reviewed before running on stage/preprod/prod.
 
@@ -28,27 +28,27 @@ The following are some general things to keep in mind when doing these migration
 
 * Schedule with host
 
-	When running a migration on a hosted server, make sure the host is aware when these are going to be run. Most migrations take up quite a few resources, so planning this in advance, and making sure the host is okay with it, is always a good idea.
+	When running a migration on a hosted server, make sure the host is aware when these are going to be run. Most migrations take up quite a few resources, so planning this in advance, and making sure the host is okay with it, is always a good idea. It's good to work with a host weeks in advance to plan a migration.
 
 * Images (and other media)
 
-	Media, usually images will be the main thing but could also be videos or audio, should be thought through when putting together your migration plan. These types of items typically take longer to migrate, as they have to be downloaded to the new site. Having a plan in place to handle this is important.
+	Media, usually images but also videos or audio, should be considered when putting together your migration plan. These types of items typically take longer to migrate, as they have to be downloaded to the new site. Having a plan in place to handle this is important.
 
-	Sometimes media can be left as-is, meaning, for instance, any image that's referenced somewhere can stay as-is and doesn't need to be moved over. But more often we'll want all media brought over to the new site. In this case, if the amount of total media items is small, this can be done using core WordPress functions. If the amount of media is great, this can significantly slow down the migration process and sometimes crash it all together. In this scenario, looking into options to offload this processing is usually the way to go (something like using [Gearman](http://gearman.org/) to process multiple media items at once).
+	Sometimes media can be left as-is, meaning, for instance, any image that's referenced somewhere can stay as-is and doesn't need to be moved over. But often we'll want all media brought over to the new site. In this case, if the amount of total media items is small, this can be done using core WordPress functions. If the amount of media is great, this can significantly slow down the migration process and sometimes crash it all together. In this scenario, looking into options to offload this processing is usually the way to go (something like using [Gearman](http://gearman.org/) to process multiple media items at once).
 
 * Redirects
 
-	In some cases, the data structure from the old site to the new changes in such a way that new URL's are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for so we can add proper redirects, so any links to the old content will redirect to the new content.
+	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disasterous search engine indexing consequences. Always work with the client closely on redirect plans.
 	
 	There are multiple ways to handle redirects, whether these are set on the server level, whether they are set using a [plugin](https://wordpress.org/plugins/safe-redirect-manager/) or sometimes a custom approach is needed. Generally it's good practice to keep track of all needed redirects as the migration runs, so by the time the migration is done, we have a list of all needed redirects. This can be achieved multiple ways but one way would be a custom mapping table, that maps old content to new content. However these are saved though, these then can be implemented with our chosen approach.
 
 * Authors
 
-	Need to make sure authors are brought over and assigned correctly. When creating authors, only create them once, so we don't end up with duplicate authors. Once an author has been brought over the first time, check for and re-use that author each time we need it in the future. Some platforms have the ability to set multiple authors on a post, so make sure there's a solution figured out for that if needed.
+	We always need to make sure authors are brought over and assigned correctly. When creating authors, only create them once, so we don't end up with duplicate authors. Once an author has been brought over the first time, check for and re-use that author each time we need it in the future. Some platforms have the ability to set multiple authors on a post, so make sure there's a solution figured out for that if needed.
 
 ### Potential Side Effects
 
-Even the most carefully planned migration can have issues. The following are some things that might occur if they're not planned for.
+Even the most carefully planned migration can have issues. The following are some things that might occur if they're not planned for and tested.
 
 * Missing data
 
@@ -87,7 +87,7 @@ As mentioned above, migrations tend to take a long time to run. The following ar
 * Free up memory
 
 	If iterating through lots of items, which is typically done in most migrations, make sure to periodically free up memory. A typical function used at 10up looks like this:
-```
+```php
 function stop_the_insanity() {
 	global $wpdb, $wp_object_cache;
 
