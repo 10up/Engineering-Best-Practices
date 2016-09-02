@@ -6,12 +6,12 @@
       {% else %}
       <li>
       {% endif %}
-      	<a href="{{ BASE_PATH }}{{ node.url }}">{{ node.nav }}</a>
+      	<a href="{{ site.baseurl }}{{ node.url }}">{{ node.nav }}</a>
       	{% if node.subnav %}
       	{% assign subnav_list = node.subnav %}
       	<ul class="subnav">
       	  {% for subnav in subnav_list %}
-		      <li><a href="{{ BASE_PATH }}{{ node.url }}#{{ subnav.tag }}">{{ subnav.title }}</a></li>
+		      <li><a href="{{ site.baseurl }}{{ node.url }}#{{ subnav.tag }}">{{ subnav.title }}</a></li>
           {% endfor %}
       	</ul>
       	{% assign subnav_list = nil %}
