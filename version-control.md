@@ -3,14 +3,14 @@ page: version-control
 title: Version Control
 nav: VCS
 group: navigation
-weight: 2
+weight: 8
 layout: default
 subnav:
   - title: Structure
     tag: structure
   - title: Workflows
     tag: workflows
-updated: 6 Oct 2014
+updated: 29 May 2016
 ---
 
 <div class="docs-section">

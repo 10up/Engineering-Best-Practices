@@ -16,7 +16,7 @@ subnav:
     tag: accessibility
   - title: Progressive Enhancement
     tag: progressive-enhancement
-updated: 23 April 2015
+updated: 29 May 2016
 ---
 
 <div class="docs-section">

@@ -3,7 +3,7 @@ page: structure
 title: Project Structure
 nav: Structure
 group: navigation
-weight: 2
+weight: 6
 layout: default
 subnav:
   - title: Third-Party Integrations
@@ -14,7 +14,7 @@ subnav:
     tag: dependencies
   - title: File Organization
     tag: file-organization
-updated: 23 June 2015
+updated: 29 May 2016
 ---
 
 <div class="docs-section">
