@@ -492,7 +492,7 @@ In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-or
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 * Avoid registering hooks in the __construct method. Doing so tightly couples the hooks to the instantiation of the class and is less flexible than registering the hooks via a separate method. Unit testing becomes much more difficult as well.
 
-<h3 id="security">Security {% include Util/top %}</h3>
+<h2 id="security">Security {% include Util/top %}</h2>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 

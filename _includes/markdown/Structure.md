@@ -5,19 +5,19 @@ Any and all third-party integrations need to be documented in an `INTEGRATIONS.m
 For example:
 
 ```
-# CrunchBase
+## CrunchBase
 Remote service for fetching funding and other investment data related to tech startups.
 
-## Scheduling
+### Scheduling
 - The CrunchBase API is used via JS in a dynamic product/company search on post edit pages
 - Funding data is pulled every 6 hours by WP Cron to update cached data
 
-## Integration Points
+### Integration Points
 - /assets/js/src/crunchbase-autocomplete.js
 - /includes/classes/crunchbase.php
 - /includes/classes/cron.php
 
-## Development API
+### Development API
 - See http://somesitethatrequireslogin.com/credentials-for-project
 ```
 
@@ -42,7 +42,7 @@ The `ENV_DEVELOPMENT` constant should always be set to `true` for local developm
 
 The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
-<h3 id="modular-code">Modular Code</h3>
+<h2 id="modular-code">Modular Code</h2>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -79,7 +79,7 @@ Every project, whether it includes Composer-managed dependencies or not, _must_ 
 
 When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
 
-<h3 id="dependencies">Dependencies {% include Util/top %}</h3>
+<h2 id="dependencies">Dependencies {% include Util/top %}</h2>
 
 Projects generally use three different classes of dependency management:
 
@@ -91,7 +91,7 @@ Generally, dependencies pulled in via a manager are _not_ committed to the repos
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
 
-<h3 id="file-organization">File Organization {% include Util/top %}</h3>
+<h2 id="file-organization">File Organization {% include Util/top %}</h2>
 
 Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
 
