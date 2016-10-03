@@ -259,16 +259,18 @@ You can see how effortless it is to make our tabbed interface accessible to scre
 
 #### Skip to Content Links
 
-Skip to content links allow screen readers and assistive technologies to skip directly to content. Skip to content links, or "skip links", are a WordPress Core standard that 10up aims to implement across all projects.
+Skip to content links, also known as "skip links", allow screen readers and assistive technologies to skip directly to content. Skip links are a WordPress Core standard that 10up aims to implement across all projects.
 
-Skip Links are usually placed in the header of a WordPress theme, before the site navigation. While they usually skip to the main content of the site, they can also skip to other navigations or the footer as well. Skip Links make use of the ```screen-reader-text``` class to position the links off the screen, and on ```:focus```, the links become visible for sighted keyboard users. The CSS technique used to show and hide these links, while hiding them for sighted users, still keep them accessible for screen readers. Here's what a skip link looks like:
+Skip Links are usually placed in the header of a WordPress theme, before the site navigation. While they usually skip to the main content of the site, they can also skip to other navigations as well as the footer. Skip Links make use of the ```screen-reader-text``` class to position the links off the screen, and on ```:focus```, the links become visible for sighted keyboard users. The CSS technique used to show and hide these links, hide them from sighted users, but will still keep them accessible for screen readers. Here's what a skip link looks like:
 
 ```html
 <a class="skip-link screen-reader-text" href="#content">
   <?php _e( 'Skip to content', 'my-domain' ); ?>
 </a>
-
 ```
+
+The latest [CSS technique](https://make.wordpress.org/accessibility/handbook/for-theme-developers/keeping-links-accessible/#skip-links) for positioning skip links can be found in the WordPress accessibility handbook.
+
 
 #### Accessible Forms
 Forms are one of the biggest areas of failure when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards.
