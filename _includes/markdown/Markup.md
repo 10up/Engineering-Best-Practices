@@ -259,13 +259,13 @@ You can see how effortless it is to make our tabbed interface accessible to scre
 
 #### Skip to Content Links
 
-Skip to content links, also known as "skip links", allow screen readers and assistive technologies to skip directly to content. Skip links are a WordPress Core standard that 10up aims to implement across all projects.
+[Skip to content links](https://developer.wordpress.org/themes/functionality/accessibility/#skip-links), also known as "skip links", allow screen readers and assistive technologies to skip directly to content. Skip links are a WordPress Core standard that 10up aims to implement across all projects.
 
 Skip Links are usually placed in the header of a WordPress theme, before the site navigation. While they usually skip to the main content of the site, they can also skip to other navigations as well as the footer. Skip Links make use of the ```screen-reader-text``` class to position the links off the screen, and on ```:focus```, the links become visible for sighted keyboard users. The CSS technique used to show and hide these links, hide them from sighted users, but will still keep them accessible for screen readers. Here's what a skip link looks like:
 
 ```html
 <a class="skip-link screen-reader-text" href="#content">
-  <?php _e( 'Skip to content', 'my-domain' ); ?>
+  <?php esc_html_e( 'Skip to content', 'my-domain' ); ?>
 </a>
 ```
 
