@@ -39,7 +39,7 @@ The following are some general things to keep in mind when doing these migration
 * *Redirects*
 
 	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disasterous search engine indexing consequences. Always work with the client closely on redirect plans.
-	
+
 	There are multiple ways to handle redirects, whether these are set on the server level, whether they are set using a [plugin](https://wordpress.org/plugins/safe-redirect-manager/) or sometimes a custom approach is needed. Generally it's good practice to keep track of all needed redirects as the migration runs, so by the time the migration is done, we have a list of all needed redirects. This can be achieved multiple ways but one way would be a custom mapping table, that maps old content to new content. However these are saved though, these then can be implemented with our chosen approach.
 
 * *Authors*
@@ -69,7 +69,7 @@ Even the most carefully planned migration can have issues. The following are som
 * *Backups*
 
 	As has been hinted at a few times in this guide, migrations tend to never work right the very first time, and they end up needing to be run over and over, with tweaks in between to get to the end goal. Always keep a backup of the original data, so at any point we can re-run a migration with a fresh data set. Also, usually it's a good idea to save a piece of meta with any content that gets migrated. This allows us at any point to find all migrated content and do something with that data (a typical use-case would be deleting all migrated content to be able to re-run the migration).
-	
+
 	Also, inevitably there will come a time when after a successful production migration has been done, some other piece of data is found that wasn't originally thought of and now needs to be brought over. As long as an original data source was kept (typically a database backup), new migration scripts can be written and run to get the missing content.
 
 ### Tips to speed up migrations
@@ -94,7 +94,7 @@ function stop_the_insanity() {
 	global $wpdb, $wp_object_cache;
 
 	$wpdb->queries = array();
-	
+
 	if ( is_object( $wp_object_cache ) ) {
 		$wp_object_cache->group_ops      = array();
 		$wp_object_cache->stats          = array();
@@ -114,6 +114,6 @@ function stop_the_insanity() {
 
 * Helpful constants
 
-	Setting `define( 'WP_POST_REVISIONS', 0 )` can cut down significantly on memory usage. Setting `define( 'WP_IMPORTING', true )` can also decrease memory usage slightly, and is often used in various plugins to stop functionality from running, like mentioned in the Social section above. 
+	Setting `define( 'WP_POST_REVISIONS', 0 )` can cut down significantly on memory usage. Setting `define( 'WP_IMPORTING', true )` can also decrease memory usage slightly, and is often used in various plugins to stop functionality from running, like mentioned in the Social section above.
 
 * Use PHP7 when possible
