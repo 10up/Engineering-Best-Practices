@@ -1,4 +1,4 @@
-<h3 id="integrations">Third-Party Integrations</h3>
+<h3 id="integrations" class="anchor-heading">Third-Party Integrations</h3>
 
 Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered.
 
@@ -42,7 +42,7 @@ The `ENV_DEVELOPMENT` constant should always be set to `true` for local developm
 
 The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
-<h3 id="modular-code">Modular Code</h3>
+<h3 id="modular-code" class="anchor-heading">Modular Code</h3>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
@@ -116,7 +116,7 @@ end_of_line = crlf
 
 Developers may extend and/or customize these rules as new file formats are added to the project.
 
-<h3 id="dependencies">Dependencies {% include Util/top %}</h3>
+<h3 id="dependencies" class="anchor-heading">Dependencies {% include Util/top %}</h3>
 
 Projects generally use three different classes of dependency management:
 
@@ -128,7 +128,7 @@ Generally, dependencies pulled in via a manager are _not_ committed to the repos
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
 
-<h3 id="file-organization">File Organization {% include Util/top %}</h3>
+<h3 id="file-organization" class="anchor-heading">File Organization {% include Util/top %}</h3>
 
 Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
 

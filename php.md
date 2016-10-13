@@ -18,6 +18,8 @@ subnav:
     tag: unit-testing
   - title: Libraries and Frameworks
     tag: libraries
+  - title: Avoid Heredoc and Nowdoc
+    tag: avoid-heredoc-nowdoc
 updated: 6 Oct 2014
 ---
 

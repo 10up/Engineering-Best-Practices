@@ -1,4 +1,4 @@
-### Performance
+<h3 id="performance" class="anchor-heading">Performance</h3>
 
 Writing performant code is absolutely critical, especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
@@ -370,7 +370,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
-<h3 id="design-patterns">Design Patterns {% include Util/top %}</h3>
+<h3 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h3>
 
 Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
 
@@ -521,7 +521,7 @@ if ( current_theme_supports( 'custom-js-feature' ) ) {
 }
 ```
 
-<h3 id="security">Security {% include Util/top %}</h3>
+<h3 id="security" class="anchor-heading">Security {% include Util/top %}</h3>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 
@@ -713,7 +713,7 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 ?>
 ```
 
-<h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
+<h3 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h3>
 
 We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
@@ -768,7 +768,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
 ?>
 ```
 
-<h3 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h3>
+<h3 id="unit-testing" class="anchor-heading">Unit and Integration Testing {% include Util/top %}</h3>
 
 Unit testing is the automated testing of units of source code against certain assertions. The goal of unit testing is to write test cases with assertions that test if a unit of code is truly working as intended. If an assertion fails, a potential issue is exposed, and code needs to be revised.
 
@@ -778,11 +778,11 @@ At 10up, we generally employ unit and integration tests only when building appli
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](http://make.wordpress.org/core/handbook/automated-testing/)
 
-<h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
+<h3 id="libraries" class="anchor-heading">Libraries and Frameworks {% include Util/top %}</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
 
-### Avoid *Heredoc* and *Nowdoc*
+<h3 id="avoid-heredoc-nowdoc" class="anchor-heading">Avoid Heredoc and Nowdoc {% include Util/top %}</h3>
 
 PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
 

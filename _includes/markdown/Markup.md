@@ -1,4 +1,4 @@
-### Philosophy
+<h3 id="philosophy" class="anchor-heading">Philosophy</h3>
 At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
 #### Principles
@@ -137,7 +137,7 @@ Good:
 </div>
 ```
 
-<h3 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h3>
+<h3 id="html5-structural-elements" class="anchor-heading">HTML5 Structural Elements {% include Util/top %}</h3>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
 There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>```. The element represents a generic document or application section and should contain a heading.
@@ -197,7 +197,7 @@ Good example:
 <script src="script/scripts.js"></script>
 ```
 
-<h3 id="classes-ids">Classes &amp; IDs {% include Util/top %}</h3>
+<h3 id="classes-ids" class="anchor-heading">Classes &amp; IDs {% include Util/top %}</h3>
 In order to create more maintainable projects, developers should use classes for CSS and IDs for JavaScript. Separating concerns allows markup to be more flexible without risking breaking both styles and any JavaScript that may be attached to the element on which someone is working.
 
 When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
@@ -211,7 +211,7 @@ Example:
 #### Avoid using inline styles or JavaScript
 These are not easily maintainable and can be easily lost or cause unforeseen conflicts.
 
-<h3 id="accessibility">Accessibility {% include Util/top %}</h3>
+<h3 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h3>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
@@ -268,7 +268,7 @@ Finally, we should ensure that all interactive elements are keyboard (or tab) na
 
 Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the tab order. In these cases, set ```tabindex="0"``` to allow an element (eg. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (eg. a modal dialog box).
 
-<h3 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h3>
+<h3 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h3>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
 At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
