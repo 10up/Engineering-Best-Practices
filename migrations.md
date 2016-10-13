@@ -3,7 +3,7 @@ page: migrations
 title: Migrations
 nav: Migrations
 group: navigation
-weight: 2
+weight: 8
 layout: default
 updated: 1 Sep 2016
 ---

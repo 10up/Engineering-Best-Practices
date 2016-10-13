@@ -41,7 +41,7 @@
 		top: 6rem;
 		z-index: 5; /* higher than normal so it overlays content elements */
 		background-color: #303030;
-		padding: 0 30px;
+		padding: 0;
 		height: 0;
 		position: relative;
 
@@ -73,7 +73,7 @@
 				display: block;
 				padding-left: 6px;
 
-				li:nth-child(4) {
+				li:nth-child(5) {
 					margin-right: 80px;
 				}
 			}
