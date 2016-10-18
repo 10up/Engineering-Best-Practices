@@ -36,6 +36,18 @@ The following are some general things to keep in mind when doing these migration
 
 	Sometimes media can be left as-is, meaning, for instance, any image that's referenced somewhere can stay as-is and doesn't need to be moved over. But often we'll want all media brought over to the new site. In this case, if the amount of total media items is small, this can be done using core WordPress functions. If the amount of media is great, this can significantly slow down the migration process and sometimes crash it all together. In this scenario, looking into options to offload this processing is usually the way to go (something like using [Gearman](http://gearman.org/) to process multiple media items at once).
 
+* *External integrations*
+
+	A very important thing to always keep in mind when running migrations is to make sure you're not triggering any external integrations (unless they should be triggered). A very common thing to see in WordPress is functionality tied to hooks around creating/saving content. For instance, having functionality that will send a post to Facebook when it is first saved.
+
+	Running a migration will typically trigger the same hooks that fire when content is saved normally. This means any external integrations that are tied to those hooks can and probably will run and that isn't usually desired. There's various integrations that could be run here, like sending content to social services (Facebook, Twitter, etc).
+
+	There might also be some sort of subscriptions service set up, where emails or other notifications are sent anytime new content is published. In that case, we could end up sending hundreds, if not thousands of emails out to subscribers as content is migrated over, which is not a good idea. The main idea here is we normally do not want to trigger any of these services as old content is migrated in.
+
+	There are multiple ways to prevent this from happening and how this is done will depend heavily on how the site is set up (i.e. how these social services are powered). The main idea is to make sure as part of the migration plan you account for this. This includes vetting the theme and/or plugins that are running to see what functionality is tied to content creation/saving/publishing and putting together a plan on how to not trigger those items.
+
+	Note: a common way that you might see this dealt with is by checking the `WP_IMPORTING` constant. It's a very good idea for a migration script to set that constant: `define( 'WP_IMPORTING', true )`, as that will stop some of the more common items from firing without having to do any other work.
+
 * *Redirects*
 
 	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disasterous search engine indexing consequences. Always work with the client closely on redirect plans.
@@ -57,10 +69,6 @@ Even the most carefully planned migration can have issues. The following are som
 * *SEO*
 
 	When making changes to data structure, there's always a possibility to negatively impact SEO. If proper thought is put into redirects, as mentioned above, that should help mitigate most of this. But definitely something that should be thought through and accounted for.
-
-* *Social*
-
-	One thing to make sure of when running migrations is to not trigger any social services that might be set up. This includes sending posts to Facebook, Twitter or email. We don't want to spam subscribers with hundreds, if not thousands of items all in a row, as those items are migrated in. There are multiple ways to prevent this from happening and will depend heavily on how the site is set up (i.e. how these social services are powered). Make sure as part of the migration plan you account for this.
 
 * *Time*
 
@@ -114,6 +122,6 @@ function stop_the_insanity() {
 
 * Helpful constants
 
-	Setting `define( 'WP_POST_REVISIONS', 0 )` can cut down significantly on memory usage. Setting `define( 'WP_IMPORTING', true )` can also decrease memory usage slightly, and is often used in various plugins to stop functionality from running, like mentioned in the Social section above.
+	Setting `define( 'WP_POST_REVISIONS', 0 )` can cut down significantly on memory usage. Setting `define( 'WP_IMPORTING', true )` can also decrease memory usage slightly, and is often used in various plugins to stop functionality from running, like mentioned in the External Integrations section above.
 
 * Use PHP7 when possible
