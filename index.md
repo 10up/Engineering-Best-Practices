@@ -97,6 +97,7 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#command-line">Command Line Tools</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#a11y-testing">Accessibility Tools</a></li>
 		</ul>
 	</div>
 
