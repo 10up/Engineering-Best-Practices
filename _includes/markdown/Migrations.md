@@ -22,6 +22,18 @@ The following are some general things to keep in mind when doing these migration
 
 	 * In the same vein as this, make sure all scripts are code reviewed before running on stage/preprod/prod.
 
+* *External integrations*
+
+	A very important thing to always keep in mind when running migrations is to make sure you're not triggering any external integrations (unless they should be triggered). A common thing to see in WordPress is functionality tied to hooks around creating/saving content. For instance, having functionality that will send a post to Facebook when it is first saved.
+
+	Running a migration will typically trigger the same hooks that fire when content is saved normally. This means any external integrations that are tied to those hooks can and probably will run and that isn't usually desired. There's various integrations that could be run here, like sending content to social services (Facebook, Twitter, etc).
+
+	There might also be some sort of subscriptions service set up, where emails or other notifications are sent anytime new content is published. In that case, we could end up sending hundreds, if not thousands of emails out to subscribers as content is migrated over, which is not a good idea. The main idea here is we normally do not want to trigger any of these services as old content is migrated in.
+
+	There are multiple ways to prevent this from happening and how this is done will depend heavily on how the site is set up (i.e. how these social services are powered). *The most important thing is to make sure as part of the migration plan you account for this. This includes vetting the theme and/or plugins that are running to see what functionality is tied to content creation/saving/publishing and putting together a plan on how to not trigger those items.*
+
+	Note: a common way that you might see this dealt with is by checking the `WP_IMPORTING` constant. It's a very good idea for a migration script to set that constant: `define( 'WP_IMPORTING', true )`, as that will stop some of the more common items from firing without having to do any other work.
+
 * *Review data*
 
 	Once data has been migrated to an accessible server (typically stage), all data should be heavily reviewed to make sure it was migrated correctly. This means checking to make sure posts have correct titles, correct content, correct authors, correct dates, etc. Normally the client will be helping significantly with this step, as they are the ones most familiar with the content.
@@ -35,18 +47,6 @@ The following are some general things to keep in mind when doing these migration
 	Media, usually images but also videos or audio, should be considered when putting together your migration plan. These types of items typically take longer to migrate, as they have to be downloaded to the new site. Having a plan in place to handle this is important.
 
 	Sometimes media can be left as-is, meaning, for instance, any image that's referenced somewhere can stay as-is and doesn't need to be moved over. But often we'll want all media brought over to the new site. In this case, if the amount of total media items is small, this can be done using core WordPress functions. If the amount of media is great, this can significantly slow down the migration process and sometimes crash it all together. In this scenario, looking into options to offload this processing is usually the way to go (something like using [Gearman](http://gearman.org/) to process multiple media items at once).
-
-* *External integrations*
-
-	A very important thing to always keep in mind when running migrations is to make sure you're not triggering any external integrations (unless they should be triggered). A very common thing to see in WordPress is functionality tied to hooks around creating/saving content. For instance, having functionality that will send a post to Facebook when it is first saved.
-
-	Running a migration will typically trigger the same hooks that fire when content is saved normally. This means any external integrations that are tied to those hooks can and probably will run and that isn't usually desired. There's various integrations that could be run here, like sending content to social services (Facebook, Twitter, etc).
-
-	There might also be some sort of subscriptions service set up, where emails or other notifications are sent anytime new content is published. In that case, we could end up sending hundreds, if not thousands of emails out to subscribers as content is migrated over, which is not a good idea. The main idea here is we normally do not want to trigger any of these services as old content is migrated in.
-
-	There are multiple ways to prevent this from happening and how this is done will depend heavily on how the site is set up (i.e. how these social services are powered). The main idea is to make sure as part of the migration plan you account for this. This includes vetting the theme and/or plugins that are running to see what functionality is tied to content creation/saving/publishing and putting together a plan on how to not trigger those items.
-
-	Note: a common way that you might see this dealt with is by checking the `WP_IMPORTING` constant. It's a very good idea for a migration script to set that constant: `define( 'WP_IMPORTING', true )`, as that will stop some of the more common items from firing without having to do any other work.
 
 * *Redirects*
 
