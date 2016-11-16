@@ -275,7 +275,7 @@ Batcache does not cache logged in users (based on WordPress login cookies), so k
 
 There are other popular page caching solutions such as the W3 Total Cache plugin, though we generally do not use them for a variety of reasons.
 
-#### AJAX Endpoints
+##### AJAX Endpoints
 
 AJAX stands for Asynchronous JavaScript and XML. Often, we use JavaScript on the client-side to ping endpoints for things like infinite scroll.
 
@@ -520,6 +520,20 @@ if ( current_theme_supports( 'custom-js-feature' ) ) {
 	// ok to add custom js
 }
 ```
+
+### Asset Versioning
+It's always a good idea to keep assets versioned, to make cache busting a simpler process when deploying new code. Fortunately, [wp_register_script](https://developer.wordpress.org/reference/functions/wp_register_script/) and [wp_register_style](https://developer.wordpress.org/reference/functions/wp_register_style/) provide a built-in API that allows engineers to declare an asset version, which is then appended to the file name as a query string when the asset is loaded.
+
+It is recommended that engineers use a constant to define their theme or plugin version, then reference that constant when using registering scripts or styles. For example:
+
+```php
+<?php
+define( 'THEME_VERSION', '0.1.0' );
+
+wp_register_script( 'custom-script', get_template_directory_uri() . '/js/asset.js', array(), THEME_VERSION );
+```
+
+Remember to increment the version in the defined constant prior to deployment.
 
 <h2 id="security">Security {% include Util/top %}</h2>
 
