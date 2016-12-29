@@ -242,7 +242,7 @@ ARIA attributes can be added with JavaScript to help dynamically add context to 
         <a href="#first-tab" role="tab" aria-selected="true" id="tab-panel-1">Panel 1</a>
     </li>
     <li role="presentation">
-        <a href="#second-tab" role="tab" aria-selected="false" id="tab-panel-2>Panel 2</a>
+        <a href="#second-tab" role="tab" aria-selected="false" id="tab-panel-2">Panel 2</a>
     </li>
 </ul>
 
