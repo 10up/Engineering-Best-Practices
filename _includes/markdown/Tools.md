@@ -16,7 +16,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 <h3 id="package-managers">Package/Dependency Managers</h3>
 
-[Bower](http://bower.io/) - A good tool to manage front end packages. Usually everything we need is bundled with WordPress. Sometimes we need something like "Chosen.js" that isn’t included. Bower is a good way to manage external libraries like that but is not necessary on most projects.
+[NPM](https://www.npmjs.com/) - NPM is a great tool to manage front end dependencies. Usually everything we need is bundled with WordPress, but sometimes we need something like "Chosen.js" or [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) support for all browsers. NPM is a good way to manage external libraries or polyfills like these but are not necessary on most projects.
 
 [Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress. Sometimes we need external libraries like "Patchwork". Composer is a great way to manage those external libraries but is not necessary on most projects
 
