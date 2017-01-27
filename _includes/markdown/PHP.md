@@ -21,14 +21,14 @@ Here are a few key points:
 
     This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
 
-    ```php
-    <?php
-    // Query for 500 posts.
-    new WP_Query( array(
-      'posts_per_page' => 500,
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Query for 500 posts.
+  new WP_Query( array(
+    'posts_per_page' => 500,
+  ));
+  ?>
+  ```
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
@@ -38,14 +38,14 @@ Here are a few key points:
 
     This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
-    ```php
-    <?php
-    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
-    new WP_Query( array(
-      'no_found_rows' => true,
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
+  new WP_Query( array(
+    'no_found_rows' => true,
+  ));
+  ?>
+  ```
 
 * Avoid using ```post__not_in```.
 
@@ -53,36 +53,36 @@ Here are a few key points:
 
     Use :
 
-    ```php
-    <?php
-    $foo_query = new WP_Query( array(
-        'post_type' => 'post',
-        'posts_per_page' => 30 + count( $posts_to_exclude )
-    ) );
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'posts_per_page' => 30 + count( $posts_to_exclude )
+  ) );
 
-    if ( $foo_query->have_posts() ) :
-        while ( $foo_query->have_posts() ) :
-            $foo_query->the_post();
-            if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
-                continue;
-            }
-            the_title();
-        endwhile;
-    endif;
-    ?>
-    ```
+  if ( $foo_query->have_posts() ) :
+      while ( $foo_query->have_posts() ) :
+          $foo_query->the_post();
+          if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
+              continue;
+          }
+          the_title();
+      endwhile;
+  endif;
+  ?>
+  ```
 
     Instead of:
 
-    ```php
-    <?php
-    $foo_query = new WP_Query( array(
-        'post_type' => 'post',
-        'posts_per_page' => 30,
-        'post__not_in' => $posts_to_exclude
-    ) );
-    ?>
-    ```
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'posts_per_page' => 30,
+      'post__not_in' => $posts_to_exclude
+  ) );
+  ?>
+  ```
 
     See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
 
@@ -105,15 +105,15 @@ Here are a few key points:
 
     Here is an example of a 2-dimensional query:
 
-    ```php
-    <?php
-    // Query for posts with both a particular category and tag.
-    new WP_Query( array(
-      'category_name' => 'cat-slug',
-      'tag' => 'tag-slug',
-    ));
-    ?>
-    ```
+  ```php
+  <?php
+  // Query for posts with both a particular category and tag.
+  new WP_Query( array(
+    'category_name' => 'cat-slug',
+    'tag' => 'tag-slug',
+  ));
+  ?>
+  ```
 
 ##### WP\_Query vs. get\_posts() vs. query\_posts()
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
@@ -124,6 +124,30 @@ As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances,
 * It replaces the existing main query loop with a new instance of `WP_Query`.
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
+
+##### Build arrays that encourage lookup by key instead of search by value
+
+[`in_array()`](http://php.net/manual/it/function.in-array.php) is not an efficient way to find if a given value is present in an array.
+The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
+
+The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](http://php.net/manual/it/function.isset.php).
+`isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
+
+Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
+
+```php
+<?php
+$array = array(
+ 'foo' => true,
+ 'bar' => true,
+);
+if ( isset( $array['bar'] ) ) {
+  // value is present in the array
+};
+```
+
+In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
+
 
 #### Caching
 
@@ -136,6 +160,8 @@ Object caching is the act of caching data or objects for later use. In the conte
 In WordPress, the object cache functionality provided by [```WP_Object_Cache```](https://developer.wordpress.org/reference/classes/wp_object_cache/), and the [Transient API](https://codex.wordpress.org/Transients_API) are great solutions for improving performance on long-running queries, complex functions, or similar.
 
 On a regular WordPress install, the difference between transients and the object cache is that transients are persistent and would write to the options table, while the object cache only persists for the particular page load.
+
+It is possible to create a transient that will never expire by omitting the third parameter, this should be avoided as any non-expiring transients are autoloaded on every page and you may actually decrease performance by doing so.
 
 On environments with a persistent caching mechanism (i.e. [Memcache](http://memcached.org/), [Redis](http://redis.io/), or similar) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
@@ -350,36 +376,40 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 #### Namespacing
 
-We should properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
+We properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
 
-Generally, this means using a PHP ```namespace``` identifier at the top of included files:
+Generally, this means including a PHP ```namespace``` identifier at the top of included files:
 
 ```php
 <?php
-namespace TenUp\Tyrell-Corporation\Nexus-6;
+namespace TenUp\Buy_N_Large\Wall_E;
 
 function do_something() {
   // ...
 }
 ```
 
-A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name, and then with the name of a particular site or high-level project we're building. Themes and plugins written for the same client should share a namespace. If we have two identically-name classes or functions in the same namespace, that's a sign there might be duplicate code we can get rid of.
-  
-When we manage multiple sites for a single client and create a _shared plugin_ for common functionality, it should have its own namespace named "Common" (example: TenUp\Tyrell-Corporation\Common").
+A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name. ex: ```TenUp\Buy_N_Large;```
 
-[```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read.
+Additional levels of namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
+
+When 10up works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
+
+The engineering leads document this strategy so it can be shared with engineers brought onto the project throughout its lifecycle.
+
+[```use``` declarations](http://php.net/manual/en/language.namespaces.importing.php) should be used for classes outside a file's namespace. By declaring the full namespace of a class we want to use *once* at the top of the file, we can refer to it by just its class name, making code easier to read. It also documents a file's dependencies for future developers.
 
 ```php
 <?php
 /**
  * Example of a 'use' declaration
  */
-namespace TenUp\Tyrell-Corporation\Nexus-6;
-use TenUp\Tyrell-Corporation\Common\TwitterAPI;
+namespace TenUp\Buy_N_Large\Wall_E;
+use TenUp\Buy_N_Large\Common\TwitterAPI;
 
 function do_something() {
   // Hard to read
-  $twitter_api = new TenUp\Tyrell-Corporation\Common\TwitterAPI();
+  $twitter_api = new TenUp\Buy_N_Large\Common\TwitterAPI();
   // Preferred
   $twitter_api = new TwitterAPI();
 }
@@ -462,6 +492,49 @@ In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-or
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 * Avoid registering hooks in the __construct method. Doing so tightly couples the hooks to the instantiation of the class and is less flexible than registering the hooks via a separate method. Unit testing becomes much more difficult as well.
 
+#### Decouple Plugin and Theme using add_theme_support
+
+The implementation of a custom plugin should be decoupled from its use
+in a Theme. Disabling the plugin should not result in any errors in the
+Theme code. Similarly switching the Theme should not result in any
+errors in the Plugin code.
+
+The best way to implement this is with the use of [add_theme_support](https://developer.wordpress.org/reference/functions/add_theme_support/) and [current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports).
+
+Consider a plugin that adds a custom javascript file to the `page` post
+type. The Theme should register support for this feature using
+`add_theme_support`,
+
+```php
+<?php
+add_theme_support( 'custom-js-feature' );
+```
+
+And the plugin should check that the current theme has indicated support
+for this feature before adding the script to the page, using
+[current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports),
+
+```php
+<?php
+if ( current_theme_supports( 'custom-js-feature' ) ) {
+	// ok to add custom js
+}
+```
+
+#### Asset Versioning
+It's always a good idea to keep assets versioned, to make cache busting a simpler process when deploying new code. Fortunately, [wp_register_script](https://developer.wordpress.org/reference/functions/wp_register_script/) and [wp_register_style](https://developer.wordpress.org/reference/functions/wp_register_style/) provide a built-in API that allows engineers to declare an asset version, which is then appended to the file name as a query string when the asset is loaded.
+
+It is recommended that engineers use a constant to define their theme or plugin version, then reference that constant when using registering scripts or styles. For example:
+
+```php
+<?php
+define( 'THEME_VERSION', '0.1.0' );
+
+wp_register_script( 'custom-script', get_template_directory_uri() . '/js/asset.js', array(), THEME_VERSION );
+```
+
+Remember to increment the version in the defined constant prior to deployment.
+
 <h3 id="security">Security {% include Util/top %}</h3>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
@@ -481,7 +554,9 @@ Here's an example of validating an integer stored in post meta:
 ```php
 <?php
 if ( ! empty( $_POST['user_id'] ) ) {
-    update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
+    if ( absint( $_POST['user_id'] ) === $_POST['user_id'] ) {
+        update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
+    }
 }
 ?>
 ```
@@ -557,14 +632,26 @@ Here is another example:
 Here is another example:
 
 ```php
+<input type="text" onfocus="if( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
+```
+
+[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute  (onfocus="...", for example).
+
+We should not be writing JavaScript inside tag attributes anymore, this means that ```esc_js()``` should never be used. To escape strings for JS another function should be used.
+
+Here is another example:
+
+```php
 <script>
 if ( document.cookie.indexOf( 'cookie_key' ) >= 0 ) {
-    document.getElementById( 'test' ).getAttribute( 'href' ) = '<?php echo esc_js( get_post_meta( $post_id, 'key', true ) ); ?>';
+document.getElementById( 'test' ).getAttribute( 'href' ) = <?php echo wp_json_encode( get_post_meta( $post_id, 'key', true ) ); ?>;
 }
 </script>
 ```
 
-[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string.
+[```wp_json_encode()```](https://developer.wordpress.org/reference/functions/wp_json_encode/) ensures that whatever is returned is safe to be printed in your JavaScript code. It returns a JSON encoded string.
+
+Note that ```wp_json_encode()``` includes the string-delimiting quotes for you.
 
 Sometimes you need to escape data that is meant to serve as an attribute. For that, you can use ```esc_attr()``` to ensure output only contains characters appropriate for an attribute:
 
@@ -708,3 +795,42 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 <h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
+
+### Avoid *Heredoc* and *Nowdoc*
+
+PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
+
+```php
+$y = <<<JOKE
+I told my doctor
+"it hurts when I move my arm like this".
+He said, "<em>then stop moving it like that!</em>"
+JOKE;
+```
+
+However, heredoc/nowdoc make it impossible to practice *late escaping*:
+
+```php
+// Early escaping
+$a = esc_attr( $my_class_name );
+
+// Something naughty could happen to the string after early escaping
+$a .= 'something naughty';
+
+// 10up & VIP prefer to escape right at the point of output, which would be here
+echo <<<HTML
+<div class="test {$a}">test</div>
+HTML;
+```
+
+As convenient as they are, engineers should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing instead. The HTML isn't as easy to read. But, we can be sure escaping happens right at the point of output, regardless of what happened to a variable beforehand.
+
+```php
+// Something naughty could happen to the string...
+$my_class_name .= 'something naughty';
+
+// But it doesn't matter if we're late escaping
+echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
+```
+
+Even better, [use WordPress's ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.

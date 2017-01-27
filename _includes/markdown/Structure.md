@@ -1,6 +1,6 @@
 <h3 id="integrations">Third-Party Integrations</h3>
 
-Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered.
+Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered. An integration that could result in unexpected consequences during something like a migration (such as sending out a tweet) should be clearly documented (see [Migration](/Engineering-Best-Practices/migrations/) section).
 
 For example:
 
@@ -28,7 +28,7 @@ Authentication credentials and API keys should _never_ be hard-coded into a proj
 Where possible, the project should expose a UI for entering and managing third party credentials.
 
 If a management UI is impossible due to the nature of the project, credentials should be loaded via either PHP constants or WordPress filters. These options can - and should - default to developer credentials in the absence of production data.
- 
+
 ```php
 <?php
 // Production API keys should ideally be defined in wp-config.php
@@ -79,6 +79,43 @@ Every project, whether it includes Composer-managed dependencies or not, _must_ 
 
 When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
 
+#### Editor Config
+
+Every project should include an Editor Config file, `.editorconfig` in the root directory.
+This file will define and maintain consistent coding styles between the different IDEs and Code Editors used on the project.
+
+All developers should install the corresponding Editor Config plugin for their
+preferred development editor from [EditorConfig.org](http://editorconfig.org/#download).
+
+The editor config file with standard settings for commonly used files is shown below.
+
+```ini
+# This file is for unifying the coding style for different editors and IDEs
+# editorconfig.org
+
+# Rules adapted from WordPress Coding Standards
+# https://make.wordpress.org/core/handbook/coding-standards/
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 4
+
+[{.jshintrc,*.json,*.yml}]
+indent_style = space
+indent_size = 2
+
+[{*.txt,wp-config-sample.php}]
+end_of_line = crlf
+```
+
+Developers may extend and/or customize these rules as new file formats are added to the project.
+
 <h3 id="dependencies">Dependencies {% include Util/top %}</h3>
 
 Projects generally use three different classes of dependency management:
@@ -121,6 +158,7 @@ Project structure unity across projects improves engineering efficiency and main
 |- tests/
 |  |- php/ _______________________________ # PHP testing suite
 |  |- js/ ________________________________ # JavaScript testing suite
+|- .editorconfig _________________________ # Editor Config settings
 ```
 
 The `scss` folder is described separately, below to improve readability:

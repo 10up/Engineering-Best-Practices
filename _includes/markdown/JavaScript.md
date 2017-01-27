@@ -89,8 +89,18 @@ Without jQuery:
 
 ```javascript
 document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
-    if( event.target && event.target.nodeName === 'LI' ) {
-        // Do stuff!
+    var currentTarget = event.currentTarget;
+    var target = event.target;
+
+    if ( currentTarget && target ) {
+      if ( 'LI' === target.nodeName ) {
+        // Do stuff with target!
+      } else {
+        while ( currentTarget.contains( target ) ) {
+          // Do stuff with a parent.
+          target = target.parentNode;
+        }
+      }
     }
 });
 ```
