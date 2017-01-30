@@ -29,3 +29,23 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 <h2 id="command-line">Command Line Tools</h2>
 
 [WP-CLI](http://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WPEngine). This tool is installed by default on VVV and VIP Quickstart.
+
+<h3 id="a11y-testing">Accessibility Testing</h3>
+
+We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources for [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
+
+* [Using VoiceOver](http://webaim.org/articles/voiceover/)
+* [Using NVDA](http://webaim.org/articles/nvda/)
+* [Using JAWS](http://webaim.org/articles/jaws/)
+
+We're also a fan of a few browser tools that lend us a hand when it comes to testing areas like color contrast, heading heirarchy, and ARIA application.
+
+* [Headings Map for Chrome](https://chrome.google.com/webstore/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi?hl=es) or [Headings Map for Firefox](https://addons.mozilla.org/en-us/firefox/addon/headingsmap/) - A browser extension that allows you to see the heading structure of a webpage.
+* [The Visual ARIA Bookmarklet](http://whatsock.com/training/matrices/visual-aria.htm) - A bookmarklet that can be run on a webpage and color codes ARIA roles.
+* [WAVE](http://wave.webaim.org/) - A toolkit from WebAIM, that also has an extension for Chrome/Firefox. It evaluates a webpage and returns accessibility errors.
+* [Accessibility Developer Tools](https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb) - A Chrome extension that adds an "Audit" tab in Chrome's developer tools that can scan a webpage for accessibility issues.
+* [Tota11y](http://khan.github.io/tota11y/) - A visualization toolkit that can be used as a bookmarklet, and reveals accessibility errors on a webpage.
+* [Contrast Ratio](http://leaverou.github.io/contrast-ratio/) - A color contrast tool to compare two colors against [levels of conformance](https://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html) and see if they pass.
+* [Tanagaru Contrast Finder](http://contrast-finder.tanaguru.com/?lang=en) - Another color contrast tool that tests colors against the levels of conformance, but also provides you with alternatives should your provided colors fail.
+
+
