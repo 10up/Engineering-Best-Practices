@@ -16,8 +16,6 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 [Gulp](http://gulpjs.com/) - Gulp is also a task runner build on Node that offers a similar suite of plugins and solutions to Grunt. The biggest difference is Gulp allows you direct access to the [stream](https://nodejs.org/api/stream.html) of information from your source files and allows you to modify this data directly.
 
-[Browserify](http://browserify.org/) - Browserify is a bundler that allows us to include Node modules in our JavaScript files. This tool speeds up development and can reduce the amount of WordPress enqueue's we need for different vendor files or other JavaScript requirements.
-
 [Webpack](https://webpack.github.io/) - Webpack is a bundler/task manager - the next generation of JavaScript/CSS development tools. At 10up we are actively building new projects with this library to expand our internal knowledge and find the best use cases. Webpack allows us to combine all of good parts of the above mentioned tools into a single file/command.
 
 <h3 id="package-managers">Package/Dependency Managers</h3>
