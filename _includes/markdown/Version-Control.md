@@ -118,3 +118,21 @@ git tag -a <version> -m "Tagging <version>"
 > **Note:** Once a version is tagged and released, the tag must never be removed. If there is a problem with the project requiring a re-deployment, create a new version and tag to reflect the change.
 
 Finally, merge `master` into `develop` so that `develop` includes all of the work that was done in your release branch and is aware of the current state of `master`.
+
+##### Semantic Versioning
+
+As we assign version numbers to our software, we follow [the Semantic Versioning pattern](http://semver.org/), wherein each version follows a MAJOR.MINOR.PATCH scheme:
+
+* **MAJOR** versions are incremented when breaking changes are introduced, such as functionality being removed or otherwise major changes to the codebase.
+* **MINOR** versions are incremented when new functionality is added in a backwards-compatible manner.
+* **PATCH** versions are incremented for backwards-compatible bugfixes.
+
+Imagine Jake has written a new plugin: 10upalooza. He might give his first public release version **1.0.0.** After releasing the plugin, Jake decides to add some new (backwards-compatible) features, and subsequently releases version **1.1.0**. Later, Taylor finds a bug and reports it to Jake via GitHub; no functionality is added or removed, but Jake fixes the bug and releases version **1.1.1**.
+
+Down the road, Jake decides to remove some functionality or change the way some functions are used. Since this would change how others interact with his code, he would declare this new release to be version **2.0.0**, hinting to consumers that there are breaking changes in the new version of his plugin.
+
+##### Change Logs
+
+If your plugin is being distributed, it's strongly recommended that your repository contains a `CHANGELOG.md` file, written around [the Keep A Changelog standard](http://keepachangelog.com/).
+
+Maintaining an accurate, up-to-date change log makes it easy to see – in human-friendly terms – what has changed between releases without having to read through the entire Git history. As a general rule, every merge into the `develop` branch should contain at least one line in the change log, describing the feature or fix.
