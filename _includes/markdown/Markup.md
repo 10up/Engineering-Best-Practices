@@ -214,7 +214,7 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 <h3 id="accessibility">Accessibility {% include Util/top %}</h3>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
-At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
+At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, skip to content links, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
 
 We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](http://www.w3.org/WAI/intro/wcag) and [Section 508](http://www.section508.gov/).
 
@@ -256,6 +256,21 @@ ARIA attributes can be added with JavaScript to help dynamically add context to 
 ```
 
 You can see how effortless it is to make our tabbed interface accessible to screen readers. All we need to do is add context.
+
+#### Skip to Content Links
+
+[Skip to content links](https://developer.wordpress.org/themes/functionality/accessibility/#skip-links), also known as "skip links", allow screen readers and assistive technologies to skip directly to content. Skip links are a WordPress Core standard that 10up aims to implement across all projects.
+
+Skip Links are usually placed in the header of a WordPress theme, before the site navigation. While they usually skip to the main content of the site, they can also skip to other navigations as well as the footer. Skip Links make use of the ```screen-reader-text``` class to position the links off the screen, and on ```:focus```, the links become visible for sighted keyboard users. The CSS technique used to show and hide these links, hide them from sighted users, but will still keep them accessible for screen readers. Here's what a skip link looks like:
+
+```html
+<a class="skip-link screen-reader-text" href="#content">
+  <?php esc_html_e( 'Skip to content', 'my-domain' ); ?>
+</a>
+```
+
+The latest [CSS technique](https://make.wordpress.org/accessibility/handbook/for-theme-developers/keeping-links-accessible/#skip-links) for positioning skip links can be found in the WordPress accessibility handbook.
+
 
 #### Accessible Forms
 Forms are one of the biggest areas of failure when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards.
