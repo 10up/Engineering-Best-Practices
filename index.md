@@ -7,13 +7,13 @@ weight: 1
 layout: default
 subnav:
   - title: Audience
-    tag: audience
+	tag: audience
   - title: Goal
-    tag: goal
+	tag: goal
   - title: Philosophy
-    tag: philosophy
+	tag: philosophy
   - title: Contributing
-    tag: contributing
+	tag: contributing
 updated: 6 Oct 2014
 ---
 
@@ -32,7 +32,7 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
-    <div class="col">
+	<div class="col">
 		<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
@@ -43,18 +43,18 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
-	    <div class="col">
-  		<h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
+		<div class="col">
+		  <h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
 
-  		<ul>
-  			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#responsive-websites">Responsive Websites</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
-  		</ul>
-  	</div>
+		  <ul>
+			  <li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
+			  <li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
+			  <li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
+			  <li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
+			  <li><a href="{{ site.baseurl }}/css/#responsive-websites">Responsive Websites</a></li>
+			  <li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
+		  </ul>
+	  </div>
 
 	<div class="col">
 		<h3><a href="{{ site.baseurl }}/php/#top">PHP</a></h3>
@@ -96,6 +96,7 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#deployments">Deployments</a></li>			
 			<li><a href="{{ site.baseurl }}/tools/#command-line">Command Line Tools</a></li>
 		</ul>
 	</div>
