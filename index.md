@@ -7,13 +7,13 @@ weight: 1
 layout: default
 subnav:
   - title: Audience
-	tag: audience
+    tag: audience
   - title: Goal
-	tag: goal
+    tag: goal
   - title: Philosophy
-	tag: philosophy
+    tag: philosophy
   - title: Contributing
-	tag: contributing
+    tag: contributing
 updated: 6 Oct 2014
 ---
 

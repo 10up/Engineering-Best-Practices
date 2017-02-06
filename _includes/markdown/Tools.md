@@ -31,7 +31,7 @@ The best deployment is quick and requires no site down time: At 10up we’ve spe
 * Atomic
 * Webhooks
 * SFTP uploads
-All of these deployment tools are utilizing a third party VCS repository - Beanstalk, Github, Gitlab, etc... .
+All of these deployment tools are utilizing a third party VCS repository - Beanstalk, Github, Gitlab, etc...
 
 10up's recommended deployment cycle is get really outlined below
 
