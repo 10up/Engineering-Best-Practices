@@ -16,7 +16,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 <h3 id="package-managers">Package/Dependency Managers</h3>
 
-[NPM](https://www.npmjs.com/) - NPM is 10up's preferred tool for managing JavaScript frontend dependencies and development dependencies. For frontend dependencies, usually everything we need is bundled with WordPress, but sometimes we need something like [MomentJS](http://momentjs.com/) or [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) polyfill support for all browsers. NPM helps us fill in the gaps and is a great tool for adding these dependencies to our frontend development. NPM also allows us to manage dependencies for our development - to speed up our engineering, enhance our understanding of our code, or allow for better error reporting during development. Dependencies should always be installed alongside a project whenever it gets used (ex. a WordPress plugin, a NPM module, or custom library). Development dependencies are installed when you’re actively working (developing) on the project and not using it as a 3rd party library. When managing dependencies for both frontend and development it's important to separate these [dependencies](https://docs.npmjs.com/files/package.json#dependencies) necessary for production and the development dependencies ([devDependencies](https://docs.npmjs.com/files/package.json#devdependencies)). Before using NPM, it's suggested to review the [Deployment](#deployments) section below. 10up follows strict development practices for dependency management and encourages developers to review the NPM docs to thoroughly understand these concepts.
+[NPM](https://www.npmjs.com/) - NPM is 10up's preferred tool for managing JavaScript frontend dependencies and development dependencies. For frontend dependencies, usually everything we need is bundled with WordPress, but sometimes we need something like [MomentJS](http://momentjs.com/) or [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) polyfill support for all browsers. NPM helps us fill in the gaps and is a great tool for adding these dependencies to our frontend development. NPM also allows us to manage dependencies for our development - to speed up our engineering, enhance our understanding of our code, or allow for better error reporting during development. Dependencies should always be installed alongside a project whenever it gets used (ex. a WordPress plugin, a NPM module, or custom library). Development dependencies are installed when you’re actively working (developing) on the project and not using it as a 3rd party library. When managing dependencies for both frontend and development it's important to separate these [dependencies](https://docs.npmjs.com/files/package.json#dependencies) necessary for production and the development dependencies ([devDependencies](https://docs.npmjs.com/files/package.json#devdependencies)). Because NPM might complicate your deployments, it's suggested to review the [Deployment](#deployments) section below. 10up follows strict development practices for dependency management and encourages developers to review the NPM docs to thoroughly understand these concepts.
 
 [Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress. Sometimes we need external libraries like "Patchwork". Composer is a great way to manage those external libraries but is not necessary on most projects
 
@@ -33,25 +33,14 @@ The best deployment is quick and requires no site down time. At 10up we’ve spe
 * Webhooks
 * SFTP uploads
 
-All of these deployment tools are utilizing a third party VCS repository - Beanstalk, Github, Gitlab, etc... . 10up's recommended deployment cycle is generally outlined below.
-
-* Create new feature in feature branch
-* (Do not include compiled files, dependency files, or vendor directories!)
-* Have branch approved/ reviewed by a peer
-* Merge feature branch into master/deploy branch and push to the remote repository
-At this point the deployment environment takes over
-* Repository receives new code and prepares deployment
-* Any pre-deployment commands are run
-	* Install any new dependencies for production (Note: devDependencies should not be installed)
-	* Run any build commands that produce necessary compiled files
-* Push all code to production environment excluding vendors directories and dependency files
-	* Note: These files will (or should) be represented in your compiled file
+All of these deployment tools are utilizing a remote VCS repository - Beanstalk, Github, Gitlab, etc... 10up's recommended deployment cycle is to trigger deployments on updates to a remote repository. This trigger will start the deployment commands. It's helpful to have an environment already setup to run your build commands. If this is not the case, you will need to install your development dependencies to run your commands at this time, which will slow down your deployment. After you have the development dependencies installed, run your build commands. Once the correct files have been compiled, remove any dependencies. Build dependencies are no longer needed and dependencies are now represented in your compiled files.
 
 While 10up doesn't recommend one solution or company over another, we do recommend using the best tools and solutions for the job, and that can vary between projects.
 
-For security of your deployment, it's imperative to follow the above recommendations for dependency management during deployments. When using an SFTP solution, don't use the root user - create a custom ftp user with clearly defined access. You shouldn't share this access with other users. Finally, only give deployment access to those who need it. Not every developer on a team will need access to deployments or the ability to modify those deployments, limiting access to those who absolutely need it.
+For security of your deployment, it's important to follow the above recommendations for dependency management during deployments. When using an SFTP solution, don't use the root user - create a custom ftp user with clearly defined access. You shouldn't share this access with other users. Finally, only give deployment access to those who need it. Not every developer on a team will need access to deployments or the ability to modify those deployments, limiting access to those who absolutely need it.
 
 When deploying code and using the WordPress enqueue system, it's imperative to only have relevant code on the page. Sometimes there is a special page or feature that uses an extra library and instead of requiring this on every page, rely on WordPress to enqueue the file for you. Instead of compiling all your dependencies needed by any feature on your site into one file, compile a few core libraries or tools for use on every page and only enqueue what you need on any given page. This will reduce page load, simplify architecture by making it clear where dependencies get used, and avoid conflict with other plugins or themes on your site.
+
 <h3 id="command-line">Command Line Tools</h3>
 
 [WP-CLI](http://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WPEngine). This tool is installed by default on VVV and VIP Quickstart.
