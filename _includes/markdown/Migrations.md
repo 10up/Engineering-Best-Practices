@@ -29,7 +29,7 @@ The following are some general things to keep in mind when doing these migration
 
 * *Test all migration scripts*
 
-	This probably goes without saying but migrations should be run multiple times: locally, staging, preproduction (if available), before it's ever run on production. There will inevitably be issues that need to be fixed, so the more the migration process is tested, the more likely these issues are found and fixed before it's run on production. It's always better to write and test iteratively, so any potentially issues can be found and fixed sooner.
+	This probably goes without saying but migrations should be run multiple times: locally, staging, preproduction (if available), before it's ever run on production. There will inevitably be issues that need to be fixed, so the more the migration process is tested, the more likely these issues are found and fixed before it's run on production. It's always better to write and test iteratively, so any potential issues can be found and fixed sooner.
 
 	 * In the same vein as this, make sure all scripts are code reviewed before running on stage/preprod/prod.
 
@@ -155,7 +155,7 @@ function stop_the_insanity() {
 
 * __Doublecheck author metadata.__
 
-	Always make sure that authors are fully migrated and assigned to the correct content. Ensure only a single account is made per author.Be careful to consider whether the site supports assigning multiple authors to a single post.
+	Always make sure that authors are fully migrated and assigned to the correct content. Ensure only a single account is made per author. Be careful to consider whether the site supports assigning multiple authors to a single post.
 
 * __Save a piece of meta with each migrated piece of content referring back to the original content.__
 
