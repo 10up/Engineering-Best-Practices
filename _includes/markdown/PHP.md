@@ -697,13 +697,13 @@ WordPress' [implementation](https://codex.wordpress.org/WordPress_Nonces) of non
 
 The literal WordPress definition of nonces is "A cryptographic token tied to a specific action, user, and window of time.". This means that while the number is not a true nonce, the resulting number *is* specifically tied to the action, user, and window of time for which it was generated.
 
-Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL: ```http://example.com/wp-admin/post.php?post=1&action=trash```
+Let's say you want to trash a post with `ID` 1. To do that, you might visit this URL: ```https://example.com/wp-admin/post.php?post=1&action=trash```
 
-Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this: ```http://example.com/wp-admin/post.php?post=2&action=trash```
+Since you are authenticated and authorized, an attacker could trick you into visiting a URL like this: ```https://example.com/wp-admin/post.php?post=2&action=trash```
 
 For this reason, the trash action requires a valid WordPress nonce.
 
-After visiting ```http://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```http://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
+After visiting ```https://example.com/wp-admin/post.php?post=1&action=trash&_wpnonce=b192fc4204```, the same nonce will not be valid in ```https://example.com/wp-admin/post.php?post=2&action=trash&_wpnonce=b192fc4204```.
 
 Update and delete actions (like trashing a post) should require a valid nonce.
 
