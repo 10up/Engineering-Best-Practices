@@ -9,7 +9,7 @@ At 10up, our projects are often large and ongoing. As such, it's imperative that
 ### Semantic
 At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
 
-Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```'s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
+Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
 
 ### Minimal &amp; Valid
@@ -182,7 +182,7 @@ Good:
 ```
 
 ### Type attribute on script and style elements is not necessary in HTML5
-Since all browsers expect scripts to be JavaScript and styles to be CSS, you don't need to include type attribute. While it isn't really a mistake, it's a best practice to avoid this pattern.
+Since all browsers expect scripts to be JavaScript and styles to be CSS, you don't need to include a type attribute. While it isn't really a mistake, it's a best practice to avoid this pattern.
 
 Bad example:
 
@@ -234,7 +234,7 @@ ARIA also allows us to describe certain inherent properties of elements, as well
 
 ARIA to the rescue!
 
-ARIA attributes can be added with JavaScript to help dynamically add context to your content. Thinking about the tabbed content example, it might look something like this:
+ARIA attributes can be added dynamically with JavaScript to help add context to your content. Thinking about the tabbed content example, it might look something like this:
 
 ```html
 <ul role="tablist">
@@ -266,7 +266,7 @@ Form elements should also be logically grouped using the ```<fieldset>``` tag. G
 
 Finally, we should ensure that all interactive elements are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order.
 
-Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the tab order. In these cases, set ```tabindex="0"``` to allow an element (eg. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (eg. a modal dialog box).
+Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the tab order. In these cases, set ```tabindex="0"``` to allow an element (e.g. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (e.g. a modal dialog box).
 
 <h2 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.

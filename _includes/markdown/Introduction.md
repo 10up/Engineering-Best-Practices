@@ -4,7 +4,7 @@ The 10up Engineering Best Practices are not geared to teach anyone to become an 
 
 <h2 id="goal">Goal {% include Util/top %}</h2>
 
-As a company, we strive to provide websites and components that yield a top-notch user experience. In order to improve efficiency, we need to standardize what we use and how we use it. Standardizing our tools, frameworks, libraries, style, version control, and even languages will allow us to understand better the inner workings of someone else’s project and produce better solutions ourselves.
+As a company, we strive to provide websites and components that yield a top-notch user experience. In order to improve efficiency, we need to standardize what we use and how we use it. Standardizing our tools, frameworks, libraries, style, version control, and even languages will allow us to better understand the inner workings of someone else’s project and produce better solutions ourselves.
 
 As such, 10up engineers should follow these best practices in all their work. Our best practices are not meant to be restrictive or comprehensive; we value creativity at 10up. The aim is for this document to provide a strong guidance, not an authoritative direction. It's our hope that these best practices will not only influence 10uppers but community members as well.
 
