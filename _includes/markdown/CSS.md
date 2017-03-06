@@ -134,7 +134,7 @@ Sass nesting has changed the lives of many, but like everything in life, abusing
 
 ### Selectors naming
 
-Selectors should be lowercase, and words should be separated with hyphens. Please avoid camelcase. Underscores are acceptable if they’re being used for [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) syntax. The naming of selectors should be consistent and describe the functional purpose of the styles they’re applying.
+Selectors should be lowercase, and words should be separated with hyphens. Please avoid camelcase. Underscores are acceptable if they’re being used for [BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) syntax. The naming of selectors should be consistent and describe the functional purpose of the styles they’re applying.
 
 Avoid:
 
@@ -220,7 +220,7 @@ Read more at [SassDoc official documentation](http://sassdoc.com/getting-started
 
 Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
 
-Three areas of concern are [network requests](#user-content-network-requests), [CSS specificity](#user-content-css-specificity) and [animation](#user-content-animations) performance.
+Three areas of concern are [network requests](#network-requests), [CSS specificity](#css-specificity) and [animation](#animations) performance.
 
 Performance best practices are not only for the browser experience, but for code maintenance as well.
 
@@ -239,7 +239,7 @@ For that purpose, **classes** are our preferred selectors: pretty low specificit
 
 Avoid using `!important` at all costs.
 
-Use [efficient selectors](http://csswizardry.com/2011/09/writing-efficient-css-selectors/).
+Use [efficient selectors](https://csswizardry.com/2011/09/writing-efficient-css-selectors/).
 
 Avoid:
 
@@ -259,7 +259,7 @@ Overqualified:
 
 ### Inheritance
 
-Fortunately, many CSS properties can be inherited from the parent. Take advantage of inheritance to avoid bloating your stylesheet but keep [specificity](#user-content-css-specificity) in mind.
+Fortunately, many CSS properties can be inherited from the parent. Take advantage of inheritance to avoid bloating your stylesheet but keep [specificity](#css-specificity) in mind.
 
 Avoid:
 
@@ -314,10 +314,10 @@ Avoid:
 Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site.
 
 Articles worth reading:
-* [CSS animations performance: the untold story](http://greensock.com/css-performance)
+* [CSS animations performance: the untold story](https://greensock.com/css-performance)
 * [Myth Busting: CSS Animations vs. JavaScript](https://css-tricks.com/myth-busting-css-animations-vs-javascript/)
-* [CSS vs. JS Animation: Which is Faster?](http://davidwalsh.name/css-js-animation)
-* [Why Moving Elements With Translate() Is Better Than Pos:abs Top/left](http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
+* [CSS vs. JS Animation: Which is Faster?](https://davidwalsh.name/css-js-animation)
+* [Why Moving Elements With Translate() Is Better Than Pos:abs Top/left](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
@@ -429,8 +429,8 @@ Sometimes a more complex grid sytem is warranted and leveraging a 3rd party libr
 
 ### Resets
 
-As of [August 13th, 2015](http://10up.com/blog/2015/sponsoring-sanitize-css/) 10up has taken stewardship of [sanitize.css](https://github.com/10up/sanitize.css), making it our primary tool for resets. Although we can still consider using [normalize.css](http://necolas.github.io/normalize.css/).
+As of [August 13th, 2015](https://10up.com/blog/2015/sponsoring-sanitize-css/) 10up has taken stewardship of [sanitize.css](https://github.com/10up/sanitize.css), making it our primary tool for resets. Although we can still consider using [normalize.css](https://necolas.github.io/normalize.css/).
 
 ## Further reading {% include Util/top %}
 
-[CSS: Just Try and Do a Good Job](http://css-tricks.com/just-try-and-do-a-good-job/)
+[CSS: Just Try and Do a Good Job](https://css-tricks.com/just-try-and-do-a-good-job/)

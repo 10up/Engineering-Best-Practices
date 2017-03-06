@@ -8,7 +8,7 @@ JavaScript libraries should only be loaded on the page when needed. jquery-1.11.
 
 ### Use jQuery Wisely
 
-[jQuery](http://jquery.com/) is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+[jQuery](https://jquery.com/) is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
 
 ```javascript
 document.getElementById( 'element' ).style.display = 'none';
@@ -20,7 +20,7 @@ vs.
 jQuery( '#element' ).hide();
 ```
 
-The non-jQuery version is [much faster](http://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
+The non-jQuery version is [much faster](https://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
 
 ### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
 
@@ -30,7 +30,7 @@ When we create a new jQuery object by passing it a selection string, jQuery uses
 jQuery( '#menu' );
 ```
 
-We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](https://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
 jQuery( document.getElementById( 'menu' ) );
@@ -79,7 +79,7 @@ $hideButton.on( 'click', function() {
 	$menu.hide();
 });
 ```
-Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
+Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
 
 #### Event Delegation
 
@@ -113,7 +113,7 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 });
 ```
 
-The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+The non-jQuery method is as usual [more performant](https://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
 <h2 id="design-patterns">Design Patterns {% include Util/top %}</h2>
 
@@ -177,13 +177,13 @@ Another example in JavaScript is ```escape()``` and ```unescape()```. These func
 
 <h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
 
-We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
+We conform to [WordPress JavaScript Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
 We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
 <h2 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h2>
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](http://mochajs.org).
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](https://mochajs.org).
 
 <h2 id="libraries">Libraries {% include Util/top %}</h2>
 
@@ -191,7 +191,7 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 ### DOM Manipulation
 
-[jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
+[jQuery](https://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
 
 ### Utility
 
