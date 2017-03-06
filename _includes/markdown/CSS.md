@@ -245,7 +245,7 @@ Avoid:
 
 ```css
 div {
-  background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+	background: radial-gradient(ellipse at center, #a90329 0%,#8f0222 44%,#6d0019 100%);
 }
 ```
 
@@ -253,7 +253,7 @@ Overqualified:
 
 ```css
  div div header#header div ul.nav-menu li a.black-background {
-  background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+	background: radial-gradient(ellipse at center, #a90329 0%,#8f0222 44%,#6d0019 100%);
 }
 ```
 

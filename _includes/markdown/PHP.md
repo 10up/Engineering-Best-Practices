@@ -17,7 +17,7 @@ Here are a few key points:
     * ```'update_post_term_cache' => false```: useful when taxonomy terms will not be utilized.
     * ```'fields' => 'ids'```: useful when only the post IDs are needed (less typical).
 
-* Do not use ```posts_per_page => -1```.
+* Do not use ```'posts_per_page' => -1```.
 
     This is a performance hazard. What if we have 100,000 posts? This could crash the site. If you are writing a widget, for example, and just want to grab all of a custom post type, determine a reasonable upper limit for your situation.
 
@@ -27,14 +27,13 @@ Here are a few key points:
   new WP_Query( array(
     'posts_per_page' => 500,
   ));
-  ?>
   ```
 
 * Do not use ```$wpdb``` or ```get_posts()``` unless you have good reason.
 
     ```get_posts()``` actually calls ```WP_Query```, but calling ```get_posts()``` directly bypasses a number of filters by default. Not sure whether you need these things or not? You probably don't.
 
-* If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```.
+* If you don't plan to paginate query results, always pass ```'no_found_rows' => true``` to ```WP_Query```.
 
     This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
@@ -44,7 +43,6 @@ Here are a few key points:
   new WP_Query( array(
     'no_found_rows' => true,
   ));
-  ?>
   ```
 
 * Avoid using ```post__not_in```.
@@ -57,7 +55,7 @@ Here are a few key points:
   <?php
   $foo_query = new WP_Query( array(
       'post_type' => 'post',
-      'posts_per_page' => 30 + count( $posts_to_exclude )
+	'posts_per_page' => 30 + count( $posts_to_exclude ),
   ) );
 
   if ( $foo_query->have_posts() ) :
@@ -69,7 +67,6 @@ Here are a few key points:
           the_title();
       endwhile;
   endif;
-  ?>
   ```
 
     Instead of:
@@ -79,9 +76,8 @@ Here are a few key points:
   $foo_query = new WP_Query( array(
       'post_type' => 'post',
       'posts_per_page' => 30,
-      'post__not_in' => $posts_to_exclude
+	'post__not_in' => $posts_to_exclude,
   ) );
-  ?>
   ```
 
     See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
@@ -90,9 +86,9 @@ Here are a few key points:
 
     [Post meta](http://codex.wordpress.org/Custom_Fields) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
 
-* Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea.
+* Passing ```'cache_results' => false``` to ```WP_Query``` is usually not a good idea.
 
-    If ```cache_results => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```cache_results => false``` in rare situations (possibly WP-CLI commands).
+    If ```'cache_results' => true``` (which is true by default if you have caching enabled and an object cache setup), ```WP_Query``` will cache the posts found among other things. It makes sense to use ```'cache_results' => false``` in rare situations (possibly WP-CLI commands).
 
 * Multi-dimensional queries should be avoided.
 
@@ -111,8 +107,7 @@ Here are a few key points:
   new WP_Query( array(
     'category_name' => 'cat-slug',
     'tag' => 'tag-slug',
-  ));
-  ?>
+  ) );
   ```
 
 #### WP\_Query vs. get\_posts() vs. query\_posts()
@@ -143,7 +138,7 @@ $array = array(
 );
 if ( isset( $array['bar'] ) ) {
   // value is present in the array
-};
+}
 ```
 
 In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
@@ -193,7 +188,6 @@ function prefix_get_top_commented_posts() {
     }
     return $top_commented_posts;
 }
-?>
 ```
 
 In the above example, the cache is checked for an object with the 10 most commented posts and would generate the list in case the object is not in the cache yet. Generally, calls to ```WP_Query``` other than the main query should be cached.
@@ -229,7 +223,7 @@ add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10,
  * Retrieve top 10 most-commented posts and cache the results.
  *
  * @param bool $force_refresh Optional. Whether to force the cache to be refreshed.
-                              Default false.
+ *                            Default false.
  * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
  *                        WP_Error object otherwise.
  */
@@ -249,7 +243,6 @@ function prefix_get_top_commented_posts( $force_refresh = false ) {
     }
     return $top_commented_posts;
 }
-?>
 ```
 
 With this implementation, you can keep the cache object forever and don't need to add an expiration for the object as you would create a new cache entry whenever it is required. Just keep in mind that some external caches (like Memcache) can invalidate cache objects without any input from WordPress.
@@ -313,7 +306,6 @@ function prefix_do_api() {
 	}
 }
 add_action( 'template_redirect', 'prefix_do_api' );
-?>
 ```
 
 #### Cache Remote Requests
@@ -330,7 +322,7 @@ Here is a quick code example for caching a third-party request:
  * @return string Body of the response. Empty string if no body or incorrect parameter given.
  */
 function prefix_get_posts_from_other_blog() {
-    if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
+	if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) ) {
 
         $request = wp_remote_get( ... );
         $posts = wp_remote_retrieve_body( $request );
@@ -339,7 +331,6 @@ function prefix_get_posts_from_other_blog() {
     }
     return $posts;
 }
-?>
 ```
 
 ```prefix_get_posts_from_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
@@ -402,7 +393,7 @@ The engineering leads document this strategy so it can be shared with engineers 
 ```php
 <?php
 /**
- * Example of a 'use' declaration
+ * Example of a 'use' declaration.
  */
 namespace TenUp\Buy_N_Large\Wall_E;
 use TenUp\Buy_N_Large\Common\TwitterAPI;
@@ -410,6 +401,7 @@ use TenUp\Buy_N_Large\Common\TwitterAPI;
 function do_something() {
   // Hard to read
   $twitter_api = new TenUp\Buy_N_Large\Common\TwitterAPI();
+
   // Preferred
   $twitter_api = new TwitterAPI();
 }
@@ -558,7 +550,6 @@ if ( ! empty( $_POST['user_id'] ) ) {
         update_post_meta( $post_id, 'key', absint( $_POST['user_id'] ) );
     }
 }
-?>
 ```
 
 ```$_POST['user_id']``` is validated using [```absint()```](https://developer.wordpress.org/reference/functions/absint/) which ensures an integer >= 0. Without validation (or sanitization), ```$_POST['user_id']``` could be used maliciously to inject harmful code or data into the database.
@@ -570,7 +561,6 @@ Here is an example of sanitizing a text field value that will be stored in the d
 if ( ! empty( $_POST['special_heading'] ) ) {
     update_option( 'option_key', sanitize_text_field( $_POST['special_heading'] ) );
 }
-?>
 ```
 
 Since ```update_option()``` is storing in the database, the value must be sanitized (or validated). The example uses the [```sanitize_text_field()```](https://developer.wordpress.org/reference/functions/sanitize_text_field/) function, which is appropriate for sanitizing general text fields.
@@ -585,8 +575,7 @@ Special care must be taken to ensure queries are properly prepared and sanitized
 <?php
 global $wpdb;
 
-$wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE ID='%d'", absint( $post_id ) ) );
-?>
+$wpdb->get_results( $wpdb->prepare( "SELECT id, name FROM $wpdb->posts WHERE id='%d'", absint( $post_id ) ) );
 ```
 
 ```$wpdb->prepare()``` behaves like ```sprintf()``` and essentially calls ```mysqli_real_escape_string()``` on each argument. ```mysqli_real_escape_string()``` escapes characters like ```'``` and ```"``` which prevents many SQL injection attacks.
@@ -599,8 +588,7 @@ Here is another example:
 <?php
 global $wpdb;
 
-$wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_content ), array( '%s' ) );
-?>
+$wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_content ), array( '%s' ) ) );
 ```
 
 ```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injection attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_content``` as someone could inject harmful JavaScript otherwise.
@@ -632,7 +620,7 @@ Here is another example:
 Here is another example:
 
 ```php
-<input type="text" onfocus="if( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
+<input type="text" onfocus="if ( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
 ```
 
 [```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute (onfocus="...", for example).
@@ -679,7 +667,7 @@ Here's an example:
 
 ```php
 <div>
-    <?php esc_html_e( 'An example localized string.', 'my-domain' ) ?>
+	<?php esc_html_e( 'An example localized string.', 'my-domain' ); ?>
 </div>
 ```
 
@@ -724,7 +712,6 @@ When the form request is processed, the nonce must be verified:
 if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_action_name' ) ) {
     // Nonce is valid!
 }
-?>
 ```
 
 <h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
@@ -738,7 +725,7 @@ Example:
 ```php
 <?php
 /**
- * Hook into WordPress to mark specific post meta keys as protected
+ * Hook into WordPress to mark specific post meta keys as protected.
  *
  * Post meta can be either public or protected. Any post meta which holds
  * **internal or read only** data should be protected via a prefixed underscore on
@@ -751,7 +738,7 @@ Example:
 add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
 
 /**
- * Protect non-public meta keys
+ * Protect non-public meta keys.
  *
  * Flag some post meta keys as private so they're not exposed to the public
  * via the Custom Fields meta box or the JSON REST API.
@@ -763,7 +750,7 @@ add_filter( 'is_protected_meta', 'protect_post_meta', 10, 2 );
  */
 function protect_post_meta( $protected, $current_meta_key ) {
 
-    // Assemble an array of post meta keys to be protected
+	// Assemble an array of post meta keys to be protected.
     $meta_keys_to_be_protected = array(
         'my_meta_key',
         'my_other_meta_key',
@@ -771,7 +758,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
     );
 
     // Set the protected var to true when the current meta key matches
-    // one of the meta keys in our array of keys to be protected
+	// one of the meta keys in our array of keys to be protected.
     if ( in_array( $current_meta_key, $meta_keys_to_be_protected ) ) {
         $protected = true;
     }
@@ -779,7 +766,6 @@ function protect_post_meta( $protected, $current_meta_key ) {
     // Return the (possibly) modified $protected variable
     return $protected;
 }
-?>
 ```
 
 <h2 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h2>
@@ -801,6 +787,7 @@ Generally, we do not use PHP frameworks or libraries that do not live within Wor
 PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
 
 ```php
+<?php
 $y = <<<JOKE
 I told my doctor
 "it hurts when I move my arm like this".
@@ -811,13 +798,14 @@ JOKE;
 However, heredoc/nowdoc make it impossible to practice *late escaping*:
 
 ```php
-// Early escaping
+<?php
+// Early escaping.
 $a = esc_attr( $my_class_name );
 
-// Something naughty could happen to the string after early escaping
+// Something naughty could happen to the string after early escaping.
 $a .= 'something naughty';
 
-// 10up & VIP prefer to escape right at the point of output, which would be here
+// 10up & VIP prefer to escape right at the point of output, which would be here.
 echo <<<HTML
 <div class="test {$a}">test</div>
 HTML;
@@ -826,10 +814,11 @@ HTML;
 As convenient as they are, engineers should avoid heredoc/nowdoc syntax and use traditional string concatenation & echoing instead. The HTML isn't as easy to read. But, we can be sure escaping happens right at the point of output, regardless of what happened to a variable beforehand.
 
 ```php
+<?php
 // Something naughty could happen to the string...
 $my_class_name .= 'something naughty';
 
-// But it doesn't matter if we're late escaping
+// But it doesn't matter if we're late escaping.
 echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
 ```
 
