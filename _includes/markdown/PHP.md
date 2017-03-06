@@ -503,7 +503,7 @@ The best way to implement this is with the use of [add_theme_support](https://de
 
 Consider a plugin that adds a custom javascript file to the `page` post
 type. The Theme should register support for this feature using
-`add_theme_support`,
+`add_theme_support`:
 
 ```php
 <?php
@@ -512,7 +512,7 @@ add_theme_support( 'custom-js-feature' );
 
 And the plugin should check that the current theme has indicated support
 for this feature before adding the script to the page, using
-[current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports),
+[current_theme_supports](https://codex.wordpress.org/Function_Reference/current_theme_supports):
 
 ```php
 <?php

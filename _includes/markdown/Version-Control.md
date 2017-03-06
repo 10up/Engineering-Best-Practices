@@ -57,7 +57,7 @@ In order to avoid large merge conflicts, merges should occur early and often. Do
 
 All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge (```--no-ff``` flag) from that branch to ```staging``` to verify the feature or fix on the stage environment.
 
-When things are absolutely ready to go, we'll deploy the feature or fix by performing a non-fast-forward merge from that branch to ```master```
+When things are absolutely ready to go, we'll deploy the feature or fix by performing a non-fast-forward merge from that branch to ```master```.
 
 #### Branching
 
