@@ -42,7 +42,7 @@ The `ENV_DEVELOPMENT` constant should always be set to `true` for local developm
 
 The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
-<h2 id="modular-code">Modular Code</h2>
+<h2 id="modular-code">Modular Code {% include Util/top %}</h2>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 

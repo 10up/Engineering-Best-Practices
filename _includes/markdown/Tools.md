@@ -14,7 +14,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 [Grunt](http://gruntjs.com/) - Grunt is a task runner built on Node that lets you automate tasks like Sass preprocessing and JS minification. Grunt is the only task runner we currently use on company and client projects.
 
-<h2 id="package-managers">Package/Dependency Managers</h2>
+<h2 id="package-managers">Package/Dependency Managers {% include Util/top %}</h2>
 
 [Bower](http://bower.io/) - A good tool to manage front end packages. Usually everything we need is bundled with WordPress. Sometimes we need something like "Chosen.js" that isn’t included. Bower is a good way to manage external libraries like that but is not necessary on most projects.
 
@@ -26,11 +26,11 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 [SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUI's internally.
 
-<h2 id="command-line">Command Line Tools</h2>
+<h2 id="command-line">Command Line Tools {% include Util/top %}</h2>
 
 [WP-CLI](http://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WPEngine). This tool is installed by default on VVV and VIP Quickstart.
 
-<h3 id="a11y-testing">Accessibility Testing</h3>
+<h2 id="a11y-testing">Accessibility Testing {% include Util/top %}</h2>
 
 We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources on [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
 

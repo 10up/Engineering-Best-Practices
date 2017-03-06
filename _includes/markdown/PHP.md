@@ -1,4 +1,4 @@
-## Performance
+<h2 id="performance">Performance</h2>
 
 Writing performant code is absolutely critical, especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
@@ -522,6 +522,7 @@ if ( current_theme_supports( 'custom-js-feature' ) ) {
 ```
 
 ### Asset Versioning
+
 It's always a good idea to keep assets versioned, to make cache busting a simpler process when deploying new code. Fortunately, [wp_register_script](https://developer.wordpress.org/reference/functions/wp_register_script/) and [wp_register_style](https://developer.wordpress.org/reference/functions/wp_register_style/) provide a built-in API that allows engineers to declare an asset version, which is then appended to the file name as a query string when the asset is loaded.
 
 It is recommended that engineers use a constant to define their theme or plugin version, then reference that constant when using registering scripts or styles. For example:
@@ -796,7 +797,7 @@ Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing 
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
 
-## Avoid *Heredoc* and *Nowdoc*
+<h2 id="avoid-heredoc-and-nowdoc">Avoid *Heredoc* and *Nowdoc* {% include Util/top %}</h2>
 
 PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
 
