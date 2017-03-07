@@ -226,9 +226,10 @@ Performance best practices are not only for the browser experience, but for code
 
 ### Network Requests
 
-* Limit the number of requests by concatenating CSS files and encoding sprites and font files to the CSS file.
+* Limit the number of requests by concatenating CSS files and encoding sprites and font files to the CSS file
 * Minify stylesheets
 * Use GZIP compression when possible
+
 Automate these tasks with a PHP or/and JavaScript build process.
 
 ### CSS Specificity
@@ -330,7 +331,7 @@ We build our websites mobile first. We do not rely on `respond.js` as it does no
 A responsive website should be built with min-width media queries. This approach means that our media queries are consistent, readable and minimize selector overrides.
 
 * For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
-* It targets the least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
+* It targets the least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites.
 * When media queries consistently "point" in the same direction, it makes it easier to understand and maintain stylesheets.
 
 Avoid mixing min-width and max-width media queries.
