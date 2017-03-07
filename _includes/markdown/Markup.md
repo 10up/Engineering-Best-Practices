@@ -97,7 +97,7 @@ Schema.org markup is intended to tell the search engines what your data *means*,
 
 To this end, we use Schema.org markup where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
 
-Schema markup should be validated against the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
+Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
 
 #### Examples
 
@@ -214,7 +214,7 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 <h2 id="accessibility">Accessibility {% include Util/top %}</h2>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
-At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending upon the project.
+At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending on the project.
 
 We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](http://www.w3.org/WAI/intro/wcag) and [Section 508](http://www.section508.gov/).
 

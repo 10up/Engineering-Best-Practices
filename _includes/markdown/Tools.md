@@ -32,7 +32,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 <h3 id="a11y-testing">Accessibility Testing</h3>
 
-We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources for [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
+We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources on [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
 
 * [Using VoiceOver](http://webaim.org/articles/voiceover/)
 * [Using NVDA](http://webaim.org/articles/nvda/)
