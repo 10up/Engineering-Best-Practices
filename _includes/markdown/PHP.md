@@ -1,8 +1,8 @@
-### Performance
+## Performance
 
 Writing performant code is absolutely critical, especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
-#### Efficient Database Queries
+### Efficient Database Queries
 
 When querying the database in WordPress, you should generally use a [```WP_Query```](http://codex.wordpress.org/Class_Reference/WP_Query) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as [```get_posts()```](https://developer.wordpress.org/reference/functions/get_posts/) do not.
 
@@ -115,7 +115,7 @@ Here are a few key points:
   ?>
   ```
 
-##### WP\_Query vs. get\_posts() vs. query\_posts()
+#### WP\_Query vs. get\_posts() vs. query\_posts()
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
 
 [`query_posts()`](https://developer.wordpress.org/reference/functions/query_posts/), on the other hand, behaves quite differently than the other two and should almost never be used. Specifically:
@@ -125,7 +125,7 @@ As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances,
 
 As noted in the [WordPress Codex (along with a useful query flow chart)](http://codex.wordpress.org/Function_Reference/query_posts), `query_posts()` isn't meant to be used by plugins or themes. Due to replacing and possibly re-running the main query, `query_posts()` is not performant and certainly not an acceptable way of changing the main query.
 
-##### Build arrays that encourage lookup by key instead of search by value
+#### Build arrays that encourage lookup by key instead of search by value
 
 [`in_array()`](http://php.net/manual/it/function.in-array.php) is not an efficient way to find if a given value is present in an array.
 The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
@@ -149,15 +149,15 @@ if ( isset( $array['bar'] ) ) {
 In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
 
 
-#### Caching
+### Caching
 
 Caching is simply the act of storing computed data somewhere for later use, and is an incredibly important concept in WordPress. There are different ways to employ caching, and often multiple methods will be used.
 
-##### The "Object Cache"
+#### The "Object Cache"
 
 Object caching is the act of caching data or objects for later use. In the context of WordPress, objects are cached in memory so they can be retrieved quickly.
 
-In WordPress, the object cache functionality provided by [```WP_Object_Cache```](https://developer.wordpress.org/reference/classes/wp_object_cache/), and the [Transient API](https://codex.wordpress.org/Transients_API) are great solutions for improving performance on long-running queries, complex functions, or similar.
+In WordPress, the object cache functionality provided by [```WP_Object_Cache```](https://developer.wordpress.org/reference/classes/wp_object_cache/), and the [Transients API](https://codex.wordpress.org/Transients_API) are great solutions for improving performance on long-running queries, complex functions, or similar.
 
 On a regular WordPress install, the difference between transients and the object cache is that transients are persistent and would write to the options table, while the object cache only persists for the particular page load.
 
@@ -258,7 +258,7 @@ For that reason, it's best to make the code that repopulates the cache available
 
 In some cases, it might be necessary to create multiple objects depending on the parameters a function is called with. In these cases, it's usually a good idea to create a cache key which includes a representation of the variable parameters. A simple solution for this would be appending an md5 hash of the serialized parameters to the key name.
 
-##### Page Caching
+#### Page Caching
 
 Page caching in the context of web development refers to storing a requested location's entire output to serve in the event of subsequent requests to the same location.
 
@@ -316,7 +316,7 @@ add_action( 'template_redirect', 'prefix_do_api' );
 ?>
 ```
 
-##### Cache Remote Requests
+#### Cache Remote Requests
 
 Requests made to third-parties, whether synchronous or asynchronous, should be cached. Not doing so will result in your site's load time depending on an unreliable third-party!
 
@@ -344,7 +344,7 @@ function prefix_get_posts_from_other_blog() {
 
 ```prefix_get_posts_from_other_blog()``` can be called to get posts from a third-party and will handle caching internally.
 
-#### Appropriate Data Storage
+### Appropriate Data Storage
 
 Utilizing built-in WordPress APIs we can store data in a number of ways.
 
@@ -358,7 +358,7 @@ There are a number of performance considerations for each WordPress storage vehi
 * [Custom Post Types](http://codex.wordpress.org/Post_Types) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
 * [Object Cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache) - See caching section.
 
-#### Database Writes
+### Database Writes
 
 Writing information to the database is at the core of any website you build. Here are some tips:
 
@@ -370,11 +370,11 @@ Writing information to the database is at the core of any website you build. Her
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](http://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
 
-<h3 id="design-patterns">Design Patterns {% include Util/top %}</h3>
+<h2 id="design-patterns">Design Patterns {% include Util/top %}</h2>
 
 Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
 
-#### Namespacing
+### Namespacing
 
 We properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
 
@@ -433,11 +433,11 @@ The similar structure of the namespace and the static class will allow for simpl
 
 Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
 
-#### Object Design
+### Object Design
 
 Firstly, if a function is not specific to an object, it should be included in a functional <a href="#namespacing">namespace</a> as referenced above.
 
-Objects should be well-defined, atomic, and fully documented in the leading docblock for the file. Every method and property within the object must themselves be fully-documented, and relate to the object itself.
+Objects should be well-defined, atomic, and fully documented in the leading docblock for the file. Every method and property within the object must themselves be fully documented, and relate to the object itself.
 
 ```php
 <?php
@@ -480,11 +480,11 @@ class Prefix_Video {
 }
 ```
 
-#### Visibility
+### Visibility
 
 In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-oriented_programming) (OOP), public properties and methods should obviously be `public`. Anything intended to be private should actually be specified as `protected`. There should be no `private` fields or properties without well-documented and agreed-upon rationale.
 
-#### Structure and Patterns
+### Structure and Patterns
 
 * Singletons are not advised. There is little justification for this pattern in practice and they cause more maintainability problems than they fix.
 * Class inheritance should be used where possible to produce [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself) code and share previously-developed components throughout the application.
@@ -492,7 +492,7 @@ In terms of [Object-Oriented Programming](http://en.wikipedia.org/wiki/Object-or
 * Hidden dependencies (API functions, super-globals, etc) should be documented in the docblock of every function/method or property.
 * Avoid registering hooks in the __construct method. Doing so tightly couples the hooks to the instantiation of the class and is less flexible than registering the hooks via a separate method. Unit testing becomes much more difficult as well.
 
-#### Decouple Plugin and Theme using add_theme_support
+### Decouple Plugin and Theme using add_theme_support
 
 The implementation of a custom plugin should be decoupled from its use
 in a Theme. Disabling the plugin should not result in any errors in the
@@ -521,7 +521,7 @@ if ( current_theme_supports( 'custom-js-feature' ) ) {
 }
 ```
 
-#### Asset Versioning
+### Asset Versioning
 It's always a good idea to keep assets versioned, to make cache busting a simpler process when deploying new code. Fortunately, [wp_register_script](https://developer.wordpress.org/reference/functions/wp_register_script/) and [wp_register_style](https://developer.wordpress.org/reference/functions/wp_register_style/) provide a built-in API that allows engineers to declare an asset version, which is then appended to the file name as a query string when the asset is loaded.
 
 It is recommended that engineers use a constant to define their theme or plugin version, then reference that constant when using registering scripts or styles. For example:
@@ -535,11 +535,11 @@ wp_register_script( 'custom-script', get_template_directory_uri() . '/js/asset.j
 
 Remember to increment the version in the defined constant prior to deployment.
 
-<h3 id="security">Security {% include Util/top %}</h3>
+<h2 id="security">Security {% include Util/top %}</h2>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 
-#### Input Validation and Sanitization
+### Input Validation and Sanitization
 
 To validate is to ensure the data you've requested of the user matches what they've submitted. Sanitization is a broader approach ensuring data conforms to certain standards such as an integer or HTML-less text. The difference between validating and sanitizing data can be subtle at times and context-dependent.
 
@@ -575,7 +575,7 @@ if ( ! empty( $_POST['special_heading'] ) ) {
 
 Since ```update_option()``` is storing in the database, the value must be sanitized (or validated). The example uses the [```sanitize_text_field()```](https://developer.wordpress.org/reference/functions/sanitize_text_field/) function, which is appropriate for sanitizing general text fields.
 
-##### Raw SQL Preparation and Sanitization
+#### Raw SQL Preparation and Sanitization
 
 There are times when dealing directly with SQL can't be avoided. WordPress provides us with [```$wpdb```](http://codex.wordpress.org/Class_Reference/wpdb).
 
@@ -603,9 +603,9 @@ $wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_conten
 ?>
 ```
 
-```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injections attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_content``` as someone could inject harmful JavaScript otherwise.
+```$wpdb->insert()``` creates a new row in the database. ```$post_content``` is being passed into the ```post_content``` column. The third argument lets us specify a format for our values ```sprintf()``` style. Forcing the value to be a string using the ```%s``` specifier prevents many SQL injection attacks. However, ```wp_kses_post()``` still needs to be called on ```$post_content``` as someone could inject harmful JavaScript otherwise.
 
-#### Escape or Validate Output
+### Escape or Validate Output
 
 To escape is to ensure data conforms to specific standards before being passed off. Validation, again, ensures that data matches what is to be expected in a much stricter way. Any non-static data outputted to the browser must be escaped or validated.
 
@@ -635,7 +635,7 @@ Here is another example:
 <input type="text" onfocus="if( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
 ```
 
-[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute  (onfocus="...", for example).
+[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute (onfocus="...", for example).
 
 We should not be writing JavaScript inside tag attributes anymore, this means that ```esc_js()``` should never be used. To escape strings for JS another function should be used.
 
@@ -687,7 +687,7 @@ Instead of using the generic [```__()```](https://developer.wordpress.org/refere
 
 There are many escaping situations not covered in this section. Everyone should explore the [WordPress codex article](http://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data#Escaping:_Securing_Output) on escaping output to learn more.
 
-#### Nonces
+### Nonces
 
 In programming, a nonce, or number used only once, is a tool used to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) or cross-site request forgery.
 
@@ -727,7 +727,7 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 ?>
 ```
 
-<h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
+<h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
 
 We follow the official WordPress [coding](http://make.wordpress.org/core/handbook/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
@@ -767,7 +767,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
     $meta_keys_to_be_protected = array(
         'my_meta_key',
         'my_other_meta_key',
-        'and_another_keta_key',
+		'and_another_meta_key',
     );
 
     // Set the protected var to true when the current meta key matches
@@ -782,7 +782,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
 ?>
 ```
 
-<h3 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h3>
+<h2 id="unit-testing">Unit and Integration Testing {% include Util/top %}</h2>
 
 Unit testing is the automated testing of units of source code against certain assertions. The goal of unit testing is to write test cases with assertions that test if a unit of code is truly working as intended. If an assertion fails, a potential issue is exposed, and code needs to be revised.
 
@@ -792,11 +792,11 @@ At 10up, we generally employ unit and integration tests only when building appli
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](http://make.wordpress.org/core/handbook/automated-testing/)
 
-<h3 id="libraries">Libraries and Frameworks {% include Util/top %}</h3>
+<h2 id="libraries">Libraries and Frameworks {% include Util/top %}</h2>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
 
-### Avoid *Heredoc* and *Nowdoc*
+## Avoid *Heredoc* and *Nowdoc*
 
 PHP's *doc syntaxes* construct large strings of HTML within code, without the hassle of concatenating a bunch of one-liners. They tend to be easier to read, and are easier for inexperienced front-end developers to edit without accidentally breaking PHP code.
 
@@ -834,3 +834,13 @@ echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
 ```
 
 Even better, [use WordPress's ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.
+
+### Avoid Sessions
+
+Sessions add extra complexity to web sites and extra burden on hosting setups. Avoid using sessions to store individual users' preferences or other data. WordPress VIP [explicitly forbids sessions in their code reviews](https://vip.wordpress.com/documentation/vip/code-review-what-we-look-for/#session_start-and-other-session-related-functions).
+
+Instead of sessions, use cookies or client-side storage APIs if possible. In addition to keeping this data off the web servers, they empower site visitors to view and delete the data tied to their activity. Systems Engineers can configure full-page caches to ignore custom cookies so they don't interfere with caching.
+
+If sessions must be used, create them conservatively. Don't create sessions for every visitor. Limit sessions to the smallest group that needs them: logged-in editors and admins, or visitors using a particular feature.
+
+Sessions should never be stored in the database. This introduces extra data into a storage system that's not meant for that volume. Database session libraries also rely on PHP code which can't match the performance of PHP's native session handlers. PHP extensions for Memcache and Redis allow sessions to be stored in these in-memory datastores and are a good solution for sessions when multiple webservers are present.
