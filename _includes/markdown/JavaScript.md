@@ -174,6 +174,50 @@ jQuery( '.menu' ).on( 'click', function() {
 
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
+<h3 id="dom-api">Use the DOM API to Insert HTML {% include Util/top %}</h3>
+
+When adding elements to the page in JavaScript, create new DOMElement objects using document.createElement(), then set their properties using setAttribute() and the className property. This ensures that the attribute values you set are used literally, even if they contain markup. jQuery's html() function doesn't perform any sanitization on the string passed to it, so it's not secure to build your HTML as a string and inject it into the page this way.
+
+Direct DOM manipulation is [significantly faster](http://jsperf.com/native-appendchild-vs-jquery-append/12) than making the browser parse an HTML string. And, the code used to build it is easier to read compared to line after line of string concatenation.
+
+```javascript
+
+// This exposes you to cross-site-scripting (XSS)
+var elem = jQuery( document.getElementById( 'test' ) );
+elem.html( '<div id="' + some_string + '"></div>' );
+
+// id is literally set to the value of some_string, even if it contains XSS
+var new_div = document.createElement( 'div' );
+new_div.setAttribute( 'id', some_string );
+document.getElementById( 'test' ).appendChild( new_div );
+
+```
+
+When just adding or changing text inside an element, createTextNode() creates the same DOM text nodes the browser builds when you use other methods. It's faster to create these nodes directly. It also helps avoid cross-site-scripting vulnerabilities when the text is in a variable other code has touched and which might not contain plain text.
+
+```javascript
+
+var new_div = document.createElement( 'div' );
+var new_div_content = document.createTextNode( 'Hello World' );
+new_div.appendChild( new_div_content );
+document.getElementById( 'test' ).appendChild( new_div );
+
+
+```
+
+If your project only supports [modern browsers](http://caniuse.com/#feat=classlist), you can use the classList API to manipulate the class attribute. This makes code easier to read, and has [performance advantages](http://jsperf.com/jquery-addclass-vs-dom-classlist/31) over jQuery's addClass() method.
+
+```javascript
+
+var div = document.createElement( 'div' );
+div.classList.add( 'foo' );
+div.classList.remove('foo');
+div.classList.toggle( 'foo' );
+if( div.classList.contains( 'foo' ) ) {
+    // do something
+}
+
+```
 
 <h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
 
