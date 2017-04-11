@@ -1,4 +1,4 @@
-We version control all projects at 10up using [Git](http://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
+We version control all projects at 10up using [Git](https://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
 
 ## Structure
 
@@ -85,23 +85,16 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 * Merging the branch to ```staging```, using a non-fast-forward merge
 * Merging the branch back to ```master```, again using a non-fast-forward merge
 
-#### Archiving Branches
+#### Deleting Branches
 
-This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll archive them after feature development is complete.
+This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete them after feature development is complete.
 
-After a branch has been merged back to both ```staging``` and ```master``` (i.e. it's been deployed to the production site), we will:
-
-* Check out the head of the branch
-* Tag the branch as ```archive/{branch-name}```
-* Push tags to Beanstalk
 * Move to another branch (doesn't matter which)
 * Delete the branch (both on local and Beanstalk)
 
-The tag will allow us to easily return to the branch should we need to for any reason.
-
 ### Plugins
 
-Unlike theme development, the `master` branch represents a stable, released, versioned product. Ongoing development will happen in feature branches branched off a `develop` branch, which is itself branched off `master`. This pattern is commonly referred to as [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+Unlike theme development, the `master` branch represents a stable, released, versioned product. Ongoing development will happen in feature branches branched off a `develop` branch, which is itself branched off `master`. This pattern is commonly referred to as [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow).
 
 #### Branching
 
