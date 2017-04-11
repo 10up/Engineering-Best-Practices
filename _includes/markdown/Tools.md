@@ -8,7 +8,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 [VIP Quickstart](https://github.com/Automattic/vip-quickstart) - A Vagrant setup meant to closely match the WordPress.com VIP environment. If you are working on a VIP project, it is good to have this installed to effectively test your website locally. We only recommend this Vagrant setup for VIP projects.
 
-[Variable VVV - a VVV Site Creation Wizard](https://github.com/bradp/vv) - vv makes it extremely easy to create a new WordPress site using Varying Vagrant Vagrants. vv supports site creation with many different options, including multisite, loading images from live site, and an initial database import.
+[Variable VVV - a VVV Site Creation Wizard](https://github.com/bradp/vv) - vv makes it extremely easy to create a new WordPress site using Varying Vagrant Vagrants. vv supports site creation with many different options, including multisite, loading images from the live site, and an initial database import.
 
 <h2 id="task-runners">Task Runners {% include Util/top %}</h2>
 
@@ -24,7 +24,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with
 
 [Git](https://git-scm.com) - At 10up we use Git for version control. We encourage people to use the command line for interacting with Git. GUIs are permitted but will not be supported internally.
 
-[SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUI's internally.
+[SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUIs internally.
 
 <h2 id="command-line">Command Line Tools</h2>
 

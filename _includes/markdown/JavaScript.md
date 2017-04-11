@@ -8,7 +8,8 @@ JavaScript libraries should only be loaded on the page when needed. jquery-1.11.
 
 ### Use jQuery Wisely
 
-[jQuery](https://jquery.com/) is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+[jQuery](http://jquery.com/) is a JavaScript framework that allows us to easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+
 
 ```javascript
 document.getElementById( 'element' ).style.display = 'none';
@@ -83,7 +84,7 @@ Notice how in cached versions we are pulling the menu selection out of the event
 
 #### Event Delegation
 
-Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from children. This is much more performant than adding one event listener for each child element. Here is an example:
+Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
 Without jQuery:
 
@@ -154,7 +155,7 @@ Notice how ```i``` was not exposed to the ```window``` object.
 
 ### Use Modern Functions, Methods, and Properties
 
-It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
 For example, in jQuery ```jQuery.live()``` is a deprecated method:
 
@@ -177,7 +178,7 @@ Another example in JavaScript is ```escape()``` and ```unescape()```. These func
 
 <h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
 
-We conform to [WordPress JavaScript Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/javascript/).
+We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
 We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 

@@ -36,7 +36,7 @@ Here are a few key points:
 
 * If you don't plan to paginate query results, always pass ```no_found_rows => true``` to ```WP_Query```.
 
-    This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
+    This will tell WordPress not to run ```SQL_CALC_FOUND_ROWS``` on the SQL query, drastically speeding up your query. ```SQL_CALC_FOUND_ROWS``` calculates the total number of rows in your query which is required to know the total amount of "pages" for pagination.
 
   ```php
   <?php
@@ -268,10 +268,10 @@ Batcache is aimed at preventing a flood of traffic from breaking your site. It d
 
 Although this plugin has a lot of benefits, it also has a couple of code design requirements:
 
-* As the rendered HTML of your pages might be cached you cannot rely on server side logic related to ```$_SERVER```, ```$_COOKIE``` or other values that are unique to a particular user.
-* You can however implement cookie or other user based logic on the front-end (eg. with JavaScript)
+* As the rendered HTML of your pages might be cached, you cannot rely on server side logic related to ```$_SERVER```, ```$_COOKIE``` or other values that are unique to a particular user.
+* You can however implement cookie or other user based logic on the front-end (e.g. with JavaScript)
 
-Batcache does not cache logged in users (based on WordPress login cookies), so keep this in mind the performance implications for subscription sites (like BuddyPress). Batcache also treats the query string as part of the URL which means the use of query strings for tracking campaigns (common with Google Analytics) can render page caching ineffective.  Also beware that while WordPress VIP uses batcache, there are specific rules and conditions on VIP that do not apply to the open source version of the plugin.
+Batcache does not cache logged in users (based on WordPress login cookies), so keep in mind the performance implications for subscription sites (like BuddyPress). Batcache also treats the query string as part of the URL which means the use of query strings for tracking campaigns (common with Google Analytics) can render page caching ineffective.  Also beware that while WordPress VIP uses batcache, there are specific rules and conditions on VIP that do not apply to the open source version of the plugin.
 
 There are other popular page caching solutions such as the W3 Total Cache plugin, though we generally do not use them for a variety of reasons.
 
@@ -281,7 +281,7 @@ AJAX stands for Asynchronous JavaScript and XML. Often, we use JavaScript on the
 
 WordPress [provides an API](https://codex.wordpress.org/AJAX_in_Plugins) to register AJAX endpoints on ```wp-admin/admin-ajax.php```. However, WordPress does not cache queries within the administration panel for obvious reasons. Therefore, if you send requests to an admin-ajax.php endpoint, you are bootstrapping WordPress and running un-cached queries. Used properly, this is totally fine. However, this can take down a website if used on the frontend.
 
-For this reason, front-facing endpoints should written by using the [Rewrite Rules API](https://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process.
+For this reason, front-facing endpoints should be written by using the [Rewrite Rules API](http://codex.wordpress.org/Rewrite_API) and hooking early into the WordPress request process.
 
 Here is a simple example of how to structure your endpoints:
 
@@ -389,9 +389,9 @@ function do_something() {
 }
 ```
 
-A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name. ex: ```TenUp\Buy_N_Large;```
+A namespace identifier consists of a _top-level_ namespace or "Vendor Name", which is usually ```TenUp``` for our projects. We follow the top-level name with a project name, usually a client's name. e.g. ```TenUp\Buy_N_Large;```
 
-Additional levels of namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
+Additional levels of the namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
 
 When 10up works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
 
@@ -431,7 +431,7 @@ class Tenup_Utilities_API {
 
 The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if and when WordPress raises its minimum version requirements).
 
-Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with unique prefix.
+Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with a unique prefix.
 
 ### Object Design
 
@@ -667,7 +667,7 @@ If you need to escape such that HTML is permitted (but not harmful JavaScript), 
 </div>
 ```
 
-```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as whole.
+```wp_kses_*``` functions should be used sparingly as they have bad performance due to a large number of regular expression matching attempts. If you find yourself using ```wp_kses_*```, it's worth evaluating what you are doing as a whole.
 
 Are you providing a meta box for users to enter arbitrary HTML? Perhaps you can generate the HTML programmatically and provide the user with a few options to customize.
 
@@ -742,7 +742,7 @@ Example:
  *
  * Post meta can be either public or protected. Any post meta which holds
  * **internal or read only** data should be protected via a prefixed underscore on
- * the meta key (ex: _my_post_meta) or by indicating it's protected via the
+ * the meta key (e.g. _my_post_meta) or by indicating it's protected via the
  * is_protected_meta filter.
  *
  * Note, a meta field that is intended to be a viewable component of the post
@@ -776,7 +776,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
         $protected = true;
     }
 
-    // Return the (possibly) modified $protected variable
+	// Return the (possibly modified) $protected variable.
     return $protected;
 }
 ?>
@@ -788,7 +788,7 @@ Unit testing is the automated testing of units of source code against certain as
 
 By definition, unit tests do not have dependencies on outside systems; in other words, only your code (a single unit of code) is being tested. Integration testing works similarly to unit tests but assumptions are tested against systems of code, moving parts, or an entire application. The phrases unit testing and integration testing are often misused to reference one another especially in the context of WordPress.
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Building tests for client themes does usually not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Building tests for client themes doesn't usually offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](https://make.wordpress.org/core/handbook/testing/automated-testing/).
 
@@ -833,7 +833,7 @@ $my_class_name .= 'something naughty';
 echo '<div class="test ' . esc_attr( $my_class_name ) . '">test</div>';
 ```
 
-Even better, [use WordPress's ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.
+Even better, [use WordPress' ```get_template_part()``` function as a basic template engine](http://codex.wordpress.org/Function_Reference/get_template_part#Passing_Variables_to_Template). Make your template file consist mostly of HTML, with ```<?php ?>``` tags just where you need to escape and output. The resulting file will be as readable as a heredoc/nowdoc block, but can still perform late escaping within the template itself.
 
 ### Avoid Sessions
 
