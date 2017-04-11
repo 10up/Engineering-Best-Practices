@@ -629,10 +629,19 @@ Samuel Wood (Otto) put together a guide to WordPress internationalization best p
 
 Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
 
-Text domains should never be stored in a variable or constant when used with core localization functions, as this practice can often produce unexpected results.
+Text domains should never be stored in a variable or named constant when used with core localization functions, as this practice can often produce unexpected results. Most tools used to create translation rely on [GNU gettext](https://www.gnu.org/software/gettext/) scanning source code for translation functions. PHP code won't be interpreted, only scanned like it was a block of plain text, and translation tools won't be able to assign the text domain correctly if it's not there in plain text.
 
-{Stub}
-If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. The text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively.
+```php
+// Always this
+$string = __('Hello World', 'plugin-domain');
+// Never this
+$string = __('Hello World', $plugin_domain);
+// Or this
+define( 'PLUGIN_DOMAIN', 'plugin-domain');
+$string = __('Hello World', PLUGIN_DOMAIN);
+```
+
+If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. The text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively, so the community can use [GlotPress](https://wordpress.org/plugins/glotpress/) to provide new translations.
 
 ##### Escaping Strings
 
