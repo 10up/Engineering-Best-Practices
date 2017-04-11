@@ -620,11 +620,13 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 
 All text strings in a project should be internationalized using core localization functions. Even if the project does not currently dictate a need for translatable strings, this practice ensures translation-readiness should a future need arise.
 
+WordPress provides a myriad of [localization functionality](https://codex.wordpress.org/I18n_for_WordPress_Developers). Engineers should familiarize themselves with features such as [pluralization](https://codex.wordpress.org/I18n_for_WordPress_Developers#Plurals) and [disambiguation](https://codex.wordpress.org/I18n_for_WordPress_Developers#Disambiguation_by_context) so translations are flexible and translators have the information they need to work accurately.
+
+Samuel Wood (Otto) put together a guide to WordPress internationalization best practices, and engineers should take time to familiarize themselves with its guidance: [Internationalization: You’re probably doing it wrong](http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/)
+
 Localizing a project differs from the core approach in two distinct ways:
 * A unique text domain should be used with all localization functions
 * Internationalized output should always be escaped
-
-Samuel Wood (Otto) put together a guide to WordPress internationalization best practices, and engineers should take time to familiarize themselves with its guidance: [Internationalization: You’re probably doing it wrong](http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/)
 ##### Text Domains
 
 Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
@@ -645,9 +647,19 @@ If the code is for release as a plugin or theme in the WordPress.org repositorie
 
 ##### Escaping Strings
 
-WordPress provides a myriad of localization functionality defined in wp-includes/l10n.php.  
+Most of WordPress's translation functions don't escape output by default. So, it's important to escape the translated strings like any other content.
 
-{Stub}
+To make this easier, the WordPress API includes functions that translate and escape in a single step. Engineers are encouraged to use these functions to simplify their code: 
+
+**For use in HTML**
+1. [esc_html__](https://codex.wordpress.org/Function_Reference/esc_html_2): Returns a translated and escaped string
+1. [esc_html_e](https://codex.wordpress.org/Function_Reference/esc_html_e): Echoes a translated and escaped string
+1. [esc_html_x](https://codex.wordpress.org/Function_Reference/esc_html_x): Returns a translated and escaped string, *passing a context* to the translation function
+
+**For use in attributes**
+1. [esc_attr__](https://codex.wordpress.org/Function_Reference/esc_attr_2): Returns a translated and escaped string
+1. [esc_attr_e](https://codex.wordpress.org/Function_Reference/esc_attr_e): Echoes a translated and escaped string
+1. [esc_attr_x](https://codex.wordpress.org/Function_Reference/esc_attr_x): Returns a translated and escaped string, *passing a context* to the translation function
 
 <h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
 
