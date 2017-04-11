@@ -631,7 +631,7 @@ Each project should leverage a unique text domain for its strings. Text domains 
 Text domains should never be stored in a variable or constant when used with core localization functions, as this practice can often produce unexpected results.
 
 {Stub}
-If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. he text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively.
+If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. The text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively.
 
 ##### Escaping Strings
 
