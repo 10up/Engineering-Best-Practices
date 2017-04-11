@@ -18,7 +18,7 @@ Remote service for fetching funding and other investment data related to tech st
 - /includes/classes/cron.php
 
 ### Development API
-- See http://somesitethatrequireslogin.com/credentials-for-project
+- See https://somesitethatrequireslogin.com/credentials-for-project
 ```
 
 ### API Keys and Credentials
@@ -120,9 +120,9 @@ Developers may extend and/or customize these rules as new file formats are added
 
 Projects generally use three different classes of dependency management:
 
-- [npm](http://npmjs.org) is used to manage build dependencies like Grunt and its related plugins
-- [Composer](http://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
-- [Bower](http://bower.io) is used to manage front-end (i.e. script and style framework) dependencies
+- [npm](https://npmjs.org) is used to manage build dependencies like Grunt and its related plugins
+- [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
+- [Bower](https://bower.io) is used to manage front-end (i.e. script and style framework) dependencies
 
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the `.json` file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
 

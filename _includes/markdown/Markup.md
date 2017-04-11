@@ -7,7 +7,7 @@ Markup is intended to define the structure and outline of a document and to offe
 At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
 
 ### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[http://en.wikipedia.org/wiki/Semantic_HTML](http://en.wikipedia.org/wiki/Semantic_HTML)).
+At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[https://en.wikipedia.org/wiki/Semantic_HTML](https://en.wikipedia.org/wiki/Semantic_HTML)).
 
 Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```'s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
@@ -15,7 +15,7 @@ Semantic elements are elements with clearly defined meaning to both the browser 
 ### Minimal &amp; Valid
 Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects, it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
 
-We test our markup against the [W3C validator](http://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
+We test our markup against the [W3C validator](https://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
 
 
 ### Optimize Readability
@@ -89,7 +89,7 @@ Good:
 ```
 
 ### Schema.org Markup
-[Schema.org](http://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema markup to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
+[Schema.org](https://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema.org markup to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
 
 For example, if you've ever searched for a restaurant and found that it had star reviews in its search results, this is a product of Schema.org and rich snippets.
 
@@ -107,7 +107,7 @@ Bad:
 <div>
   <div>
     <span>The Catcher in the Rye</span> (
-    <a href="http://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
+    <a href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
   </div>
   <span>4 stars</span>
   <b>"A good read."</b>
@@ -124,7 +124,7 @@ Good:
 <div itemscope itemtype="http://schema.org/Review">
   <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/Book">
     <span itemprop="name">The Catcher in the Rye</span> (
-    <a itemprop="sameAs" href="http://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
+    <a itemprop="sameAs" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
   </div>
   <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
     <span itemprop="ratingValue">4</span>
@@ -216,7 +216,7 @@ It's important that our clients and their customers are able to use the products
 
 At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending on the project.
 
-We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](http://www.w3.org/WAI/intro/wcag) and [Section 508](http://www.section508.gov/).
+We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](https://www.w3.org/WAI/intro/wcag) and [Section 508](https://www.section508.gov/).
 
 ### ARIA Landmark Roles
 ARIA (Assistive Rich Internet Applications) is a spec from the W3C. It was created to improve accessibility of applications by providing extra information to screen readers via HTML attributes. Screen readers can already read HTML, but ARIA can help add context to content and make it easier for screen readers to interact with content.
