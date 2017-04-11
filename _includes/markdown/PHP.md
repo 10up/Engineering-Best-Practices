@@ -624,6 +624,7 @@ Localizing a project differs from the core approach in two distinct ways:
 * A unique text domain should be used with all localization functions
 * Internationalized output should always be escaped
 
+Samuel Wood (Otto) put together a guide to WordPress internationalization best practices, and engineers should take time to familiarize themselves with its guidance: [Internationalization: You’re probably doing it wrong](http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/)
 ##### Text Domains
 
 Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
