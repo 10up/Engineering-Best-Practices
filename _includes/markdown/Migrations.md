@@ -5,7 +5,7 @@ Data migrations are a necessary but often feared part of building applications o
 The first step in any migration project is to document a detailed plan. A typical migration plan is expected to outline:
 
 * How the content and data will be “pulled” out of the originating site (direct database connection, XML or WXR export, flat files such as SQL scripts, scraper, etc.). For many migrations, a SQL dump is used to move the data to a migration server where we can more easily handle it;
-* Scripting requirements. Many migrations need [WP-CLI](http://wp-cli.org/) scripts for mapping data;
+* Scripting requirements. Many migrations need [WP-CLI](https://wp-cli.org/) scripts for mapping data;
 * How long the migration is expected to run;
 * How the data and content will be mapped to the new site’s information architecture;
 * The impact of the migration on any production editorial processes (i.e. content freezes, differential migration requirements);
@@ -19,9 +19,9 @@ Make sure to have the plan peer reviewed by *at least* one other engineer.
 
 ## Writing Migration Scripts
 
-Now that we have a solid migration plan in place, we are ready to actually write the scripts that will handle the migration. All migrations will vary heavily at this step. Sometimes we can get WXR files and just use the WordPress importer (typically using [WP CLI](http://wp-cli.org/commands/import/)) to handle everything we need. Other times we'll use the WordPress Importer then write a script to modify data once it's in WordPress. Other times we'll write scripts that handle the entire migration process for us.
+Now that we have a solid migration plan in place, we are ready to actually write the scripts that will handle the migration. All migrations will vary heavily at this step. Sometimes we can get WXR files and just use the WordPress importer (typically using [WP CLI](https://wp-cli.org/commands/import/)) to handle everything we need. Other times we'll use the WordPress Importer then write a script to modify data once it's in WordPress. Other times we'll write scripts that handle the entire migration process for us.
 
-All of these decisions should be part of the migration plan we put together, so at this point, we know exactly what we are going to do, and we can start work accordingly. 10up will generally use [WP CLI](http://wp-cli.org/) to power these scripts, which gives us great flexibility on what we can do, what output we can show, and typically you'll have a lot less issues with performance, like memory limits and timeouts.
+All of these decisions should be part of the migration plan we put together, so at this point, we know exactly what we are going to do, and we can start work accordingly. 10up will generally use [WP CLI](https://wp-cli.org/) to power these scripts, which gives us great flexibility on what we can do, what output we can show, and typically you'll have a lot less issues with performance, like memory limits and timeouts.
 
 ## Thou Shalt Not Forget
 
@@ -51,7 +51,7 @@ The following are some general things to keep in mind when doing these migration
 
 	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disasterous search engine indexing consequences. Always work with the client closely on redirect plans.
 
-	There are multiple ways to handle redirects, whether these are set on the server level, whether they are set using a [plugin](https://wordpress.org/plugins/safe-redirect-manager/) or sometimes a custom approach is needed. Generally it's good practice to keep track of all needed redirects as the migration runs, so by the time the migration is done, we have a list of all needed redirects. This can be achieved multiple ways but one way would be a custom mapping table, that maps old content to new content. However these are saved though, these then can be implemented with our chosen approach.
+	There are multiple ways to handle redirects, whether these are set on the server level, whether they are set using a [plugin](https://wordpress.org/plugins/safe-redirect-manager/) or sometimes a custom approach is needed. Generally it's good practice to keep track of all needed redirects as the migration runs, so by the time the migration is done, we have a list of all needed redirects. This can be achieved in multiple ways but one way would be a custom mapping table, that maps old content to new content. However these are saved though, they can then be implemented with our chosen approach.
 
 * *Authors*
 
