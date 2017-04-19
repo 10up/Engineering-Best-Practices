@@ -635,12 +635,12 @@ Text domains should never be stored in a variable or named constant when used wi
 
 ```php
 // Always this
-$string = __('Hello World', 'plugin-domain');
+$string = __( 'Hello World', 'plugin-domain' );
 // Never this
-$string = __('Hello World', $plugin_domain);
+$string = __( 'Hello World', $plugin_domain );
 // Or this
-define( 'PLUGIN_DOMAIN', 'plugin-domain');
-$string = __('Hello World', PLUGIN_DOMAIN);
+define( 'PLUGIN_DOMAIN', 'plugin-domain' );
+$string = __( 'Hello World', PLUGIN_DOMAIN );
 ```
 
 If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. The text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively, so the community can use [GlotPress](https://wordpress.org/plugins/glotpress/) to provide new translations.
