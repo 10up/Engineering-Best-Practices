@@ -2,13 +2,11 @@ The following are the tools we use at 10up. This list will grow and change over 
 
 <h2 id="local-development">Local Development Environments</h2>
 
-At 10up, we use [Vagrant](https://www.vagrantup.com/) to build and interact with virtual environments that match production as closely as possible. There are many different Vagrant setups and configurations available. The following setups are the only ones we support internally.
+At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
 
 [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project and something with which we have a lot of familiarity.
 
-[VIP Quickstart](https://github.com/Automattic/vip-quickstart) - A Vagrant setup meant to closely match the WordPress.com VIP environment. If you are working on a VIP project, it is good to have this installed to effectively test your website locally. We only recommend this Vagrant setup for VIP projects.
-
-[Variable VVV - a VVV Site Creation Wizard](https://github.com/bradp/vv) - vv makes it extremely easy to create a new WordPress site using Varying Vagrant Vagrants. vv supports site creation with many different options, including multisite, loading images from the live site, and an initial database import.
+[WP Docker](https://github.com/10up/wp-docker) - A simple Docker based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standarizing on package versions (i.e. PHP) extremely easy.
 
 <h2 id="task-runners">Task Runners {% include Util/top %}</h2>
 
