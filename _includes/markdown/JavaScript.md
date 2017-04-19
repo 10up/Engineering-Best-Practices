@@ -1,14 +1,15 @@
-### Performance
+## Performance
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
-#### Only Load Libraries You Need
+### Only Load Libraries You Need
 
-JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflictions.
+JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflicts.
 
-#### Use jQuery Wisely
+### Use jQuery Wisely
 
-[jQuery](http://jquery.com/) is a JavaScript framework that allows us easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+[jQuery](http://jquery.com/) is a JavaScript framework that allows us to easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+
 
 ```javascript
 document.getElementById( 'element' ).style.display = 'none';
@@ -20,9 +21,9 @@ vs.
 jQuery( '#element' ).hide();
 ```
 
-The non-jQuery version is [much faster](http://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
+The non-jQuery version is [much faster](https://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
 
-#### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
+### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
 
 When we create a new jQuery object by passing it a selection string, jQuery uses its selection engine to select those element(s) in the DOM:
 
@@ -30,13 +31,13 @@ When we create a new jQuery object by passing it a selection string, jQuery uses
 jQuery( '#menu' );
 ```
 
-We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](http://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
+We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](https://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
 
 ```javascript
 jQuery( document.getElementById( 'menu' ) );
 ```
 
-#### Cache DOM Selections
+### Cache DOM Selections
 
 It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache its selector. This applies whether you are using jQuery or not. For example:
 
@@ -79,18 +80,28 @@ $hideButton.on( 'click', function() {
 	$menu.hide();
 });
 ```
-Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](http://jsperf.com/dom-selection-caching).
+Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
 
 #### Event Delegation
 
-Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from children. This is much more performant than adding one event listener for each child element. Here is an example:
+Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
 Without jQuery:
 
 ```javascript
 document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
-    if( event.target && event.target.nodeName === 'LI' ) {
-        // Do stuff!
+    var currentTarget = event.currentTarget;
+    var target = event.target;
+
+    if ( currentTarget && target ) {
+      if ( 'LI' === target.nodeName ) {
+        // Do stuff with target!
+      } else {
+        while ( currentTarget.contains( target ) ) {
+          // Do stuff with a parent.
+          target = target.parentNode;
+        }
+      }
     }
 });
 ```
@@ -103,13 +114,13 @@ jQuery( '#menu' ).on( 'click', 'li', function() {
 });
 ```
 
-The non-jQuery method is as usual [more performant](http://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](http://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+The non-jQuery method is as usual [more performant](https://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
-<h3 id="design-patterns">Design Patterns {% include Util/top %}</h3>
+<h2 id="design-patterns">Design Patterns {% include Util/top %}</h2>
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
-#### Don't Pollute the Window Object
+### Don't Pollute the Window Object
 
 Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` decisively.
 
@@ -142,9 +153,9 @@ window.console.log( typeof window.i !== 'undefined' ); // false
 
 Notice how ```i``` was not exposed to the ```window``` object.
 
-#### Use Modern Functions, Methods, and Properties
+### Use Modern Functions, Methods, and Properties
 
-It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using a JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
 For example, in jQuery ```jQuery.live()``` is a deprecated method:
 
@@ -164,30 +175,74 @@ jQuery( '.menu' ).on( 'click', function() {
 
 Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
 
+<h3 id="dom-api">Use the DOM API to Insert HTML {% include Util/top %}</h3>
 
-<h3 id="code-style">Code Style & Documentation {% include Util/top %}</h3>
+When adding elements to the page in JavaScript, create new DOMElement objects using document.createElement(), then set their properties using setAttribute() and the className property. This ensures that the attribute values you set are used literally, even if they contain markup. jQuery's html() function doesn't perform any sanitization on the string passed to it, so it's not secure to build your HTML as a string and inject it into the page this way.
 
-We conform to [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
+Direct DOM manipulation is [significantly faster](http://jsperf.com/native-appendchild-vs-jquery-append/12) than making the browser parse an HTML string. And, the code used to build it is easier to read compared to line after line of string concatenation.
+
+```javascript
+
+// This exposes you to cross-site-scripting (XSS)
+var elem = jQuery( document.getElementById( 'test' ) );
+elem.html( '<div id="' + some_string + '"></div>' );
+
+// id is literally set to the value of some_string, even if it contains XSS
+var new_div = document.createElement( 'div' );
+new_div.setAttribute( 'id', some_string );
+document.getElementById( 'test' ).appendChild( new_div );
+
+```
+
+When just adding or changing text inside an element, createTextNode() creates the same DOM text nodes the browser builds when you use other methods. It's faster to create these nodes directly. It also helps avoid cross-site-scripting vulnerabilities when the text is in a variable other code has touched and which might not contain plain text.
+
+```javascript
+
+var new_div = document.createElement( 'div' );
+var new_div_content = document.createTextNode( 'Hello World' );
+new_div.appendChild( new_div_content );
+document.getElementById( 'test' ).appendChild( new_div );
+
+
+```
+
+If your project only supports [modern browsers](http://caniuse.com/#feat=classlist), you can use the classList API to manipulate the class attribute. This makes code easier to read, and has [performance advantages](http://jsperf.com/jquery-addclass-vs-dom-classlist/31) over jQuery's addClass() method.
+
+```javascript
+
+var div = document.createElement( 'div' );
+div.classList.add( 'foo' );
+div.classList.remove('foo');
+div.classList.toggle( 'foo' );
+if( div.classList.contains( 'foo' ) ) {
+    // do something
+}
+
+```
+
+<h2 id="code-style">Code Style & Documentation {% include Util/top %}</h2>
+
+We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
 We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
-<h3 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h3>
+<h2 id="unit-and-integration-testing">Unit and Integration Testing {% include Util/top %}</h2>
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](http://mochajs.org).
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](https://mochajs.org).
 
-<h3 id="libraries">Libraries {% include Util/top %}</h3>
+<h2 id="libraries">Libraries {% include Util/top %}</h2>
 
 There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of primary libraries used by 10up.
 
-#### DOM Manipulation
+### DOM Manipulation
 
-[jQuery](http://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
+[jQuery](https://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
 
-#### Utility
+### Utility
 
 [Underscore](http://underscorejs.org) - Provides a number of useful utility functions such as ```clone()```, ```each()```, and ```extend()```. WordPress core uses this library quite a bit.
 
-#### Frameworks
+### Frameworks
 
 [Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library (jQuery)
 
