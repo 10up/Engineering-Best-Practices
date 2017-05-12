@@ -4,9 +4,9 @@ The following are the tools we use at 10up. This list will grow and change over 
 
 At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
 
-[Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project and something with which we have a lot of familiarity.
+[Varying Vagrant Vagrants (VVV)](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project (now open-sourced) and something with which we have a lot of familiarity.
 
-[WP Docker](https://github.com/10up/wp-docker) - A simple Docker based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standarizing on package versions (i.e. PHP) extremely easy.
+[WP Docker](https://github.com/10up/wp-docker) - A simple Docker-based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standardizing package versions (i.e. PHP) extremely easy.
 
 <h2 id="task-runners">Task Runners {% include Util/top %}</h2>
 
@@ -20,7 +20,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://ww
 
 [Bower](https://bower.io/) - A good tool to manage front end packages. Usually everything we need is bundled with WordPress. Sometimes we need something like "Chosen.js" that isn’t included. Bower is a good way to manage external libraries like that but is not necessary on most projects.
 
-[Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress. Sometimes we need external libraries like "Patchwork". Composer is a great way to manage those external libraries but is not necessary on most projects
+[Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress. Sometimes we need external libraries like "Patchwork". Composer is a great way to manage those external libraries but is not necessary on most projects.
 
 <h2 id="version-control">Version Control {% include Util/top %}</h2>
 
@@ -30,7 +30,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://ww
 
 <h2 id="command-line">Command Line Tools</h2>
 
-[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WPEngine). This tool is installed by default on VVV and VIP Quickstart.
+[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on VVV and VIP Quickstart.
 
 <h3 id="a11y-testing">Accessibility Testing</h3>
 
@@ -40,7 +40,7 @@ We use a variety of tools to test our sites for accessibility issues. WebAim has
 * [Using NVDA](http://webaim.org/articles/nvda/)
 * [Using JAWS](http://webaim.org/articles/jaws/)
 
-We're also a fan of a few browser tools that lend us a hand when it comes to testing areas like color contrast, heading heirarchy, and ARIA application.
+We're also a fan of a few browser tools that lend us a hand when it comes to testing areas like color contrast, heading hierarchy, and ARIA application.
 
 * [Headings Map for Chrome](https://chrome.google.com/webstore/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi?hl=es) or [Headings Map for Firefox](https://addons.mozilla.org/en-us/firefox/addon/headingsmap/) - A browser extension that allows you to see the heading structure of a webpage.
 * [The Visual ARIA Bookmarklet](http://whatsock.com/training/matrices/visual-aria.htm) - A bookmarklet that can be run on a webpage and color codes ARIA roles.
