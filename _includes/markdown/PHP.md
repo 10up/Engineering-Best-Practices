@@ -148,6 +148,9 @@ if ( isset( $array['bar'] ) ) {
 
 In case you don't have control over the array creation process and are forced to use `in_array()`, to improve the performance slightly, you should always set the third parameter to `true` to force use of strict comparison.
 
+#### Never use switch_to_blog on the front-end
+
+The switch_to_blog function is far to expensive a query to use on the front end.  As a general rule, multi-site setups should not need to access other site data from a different site in the multi site.  If there is no other way, consider using Elastic Search and do an ElasticPress query.  
 
 ### Caching
 
