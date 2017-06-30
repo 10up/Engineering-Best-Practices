@@ -756,7 +756,7 @@ Localizing a project differs from the core approach in two distinct ways:
 
 Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
 
-Like the translated strings they accompany, text domains should never be stored in a variable or named constant when used with core localization functions, as this practice can often produce unexpected results. Most tools used to create translation rely on [GNU gettext](https://www.gnu.org/software/gettext/) scanning source code for translation functions. PHP code won't be interpreted, only scanned like it was a block of plain text, and translation tools won't be able to assign the text domain correctly if it's not there in plain text.
+Like the translated strings they accompany, text domains should never be stored in a variable or named constant when used with core localization functions, as this practice can often produce unexpected results. Translation tools won't interpret PHP code, only scan it like it was plain text. They won't be able to assign the text domain correctly if it's not there in plain text.
 
 ```php
 // Always this
