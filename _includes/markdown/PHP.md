@@ -726,7 +726,8 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 }
 ?>
 ```
-#### Internationalization
+
+### Internationalization
 
 All text strings in a project should be internationalized using core localization functions. Even if the project does not currently dictate a need for translatable strings, this practice ensures translation-readiness should a future need arise.
 
