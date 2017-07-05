@@ -755,7 +755,8 @@ $string = sprintf( _n( '%d minute left', '%d minutes left',  $number, 'plugin-do
 Localizing a project differs from the core approach in two distinct ways:
 * A unique text domain should be used with all localization functions
 * Internationalized output should always be escaped
-##### Text Domains
+
+#### Text Domains
 
 Each project should leverage a unique text domain for its strings. Text domains should be lowercase, alphanumeric, and use hyphens to separate multiple words: `tenup-project-name`.
 
@@ -775,7 +776,7 @@ $string = __( 'Hello World', PLUGIN_DOMAIN );
 
 If the code is for release as a plugin or theme in the WordPress.org repositories, the text domain *must* match the directory slug for the project in order to ensure compatibility with the WordPress language pack delivery system. The text domain should be defined in the "Text Domain" header in the plugin or stylesheet headers, respectively, so the community can use [GlotPress](https://wordpress.org/plugins/glotpress/) to provide new translations.
 
-##### Escaping Strings
+#### Escaping Strings
 
 Most of WordPress's translation functions don't escape output by default. So, it's important to escape the translated strings like any other content.
 
