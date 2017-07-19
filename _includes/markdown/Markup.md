@@ -89,17 +89,18 @@ Good:
 ```
 
 ### Schema.org Markup
-[Schema.org](https://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema.org markup to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
+[Schema.org](https://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema.org data to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
 
 For example, if you've ever searched for a restaurant and found that it had star reviews in its search results, this is a product of Schema.org and rich snippets.
 
-Schema.org markup is intended to tell the search engines what your data *means*, not just what it says.
+Schema.org data is intended to tell the search engines what your data *means*, not just what it says.
 
-To this end, we use Schema.org markup where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
+To this end, we use Schema.org data where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
 
-Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
+Schema.org data can be provided in two forms: "microdata" markup added to a page's structure or a JSON-LD format. Google prefers developers adopt JSON-LD, which isolates the data provided for search engines from the markup meant for user agents.
 
 Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
+
 #### Examples
 
 Bad:
@@ -119,7 +120,7 @@ Bad:
 </div>
 ```
 
-Good:
+Good (microdata markup):
 
 ```html
 <div itemscope itemtype="http://schema.org/Review">
@@ -136,6 +137,69 @@ Good:
   </span>
   <span itemprop="reviewBody">Catcher in the Rye is a fun book. It's a good book to read.</span>
 </div>
+```
+
+Better (JSON-LD):
+
+```html
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "Review",
+	"itemReviewed": {
+		"@context": "http://schema.org",
+		"@type": "Book",
+		"name": "The Catcher in the Rye",
+		"sameAs": "https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye"
+	},
+	"reviewRating": {
+		"@context": "http://schema.org",
+		"@type": "Rating",
+		"ratingValue": 4
+	},
+	"name": "A good read.",
+	"author": {
+		"@context": "http://schema.org",
+		"@type": "Person",
+		"name": "Bob Smith"
+	},
+	"reviewBody": "Catcher in the Rye is a fun book. It's a good book to read."
+}
+</script>
+```
+#### JSON-LD Breadcrumbs
+
+Google supports structured page hierarchy data ("breadcrumbs") expressed in JSON-LD, even when that data isn't visible on the page. This data should be provided so search engines can locate additional related content and display the hierarchy in their search results.
+##### Example
+
+```
+<script type="application/ld+json">
+{
+ "@context": "http://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement":
+ [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "item":
+   {
+    "@id": "https://example.com/dresses",
+    "name": "Dresses"
+    }
+  },
+  {
+   "@type": "ListItem",
+  "position": 2,
+  "item":
+   {
+     "@id": "https://example.com/dresses/real",
+     "name": "Real Dresses"
+   }
+  }
+ ]
+}
+</script>
 ```
 
 <h2 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h2>
