@@ -99,6 +99,7 @@ To this end, we use Schema.org markup where relevant and reasonable to ensure th
 
 Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/).
 
+Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
 #### Examples
 
 Bad:
