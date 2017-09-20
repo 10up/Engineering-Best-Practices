@@ -358,6 +358,8 @@ There are a number of performance considerations for each WordPress storage vehi
 * [Custom Post Types](https://codex.wordpress.org/Post_Types) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
 * [Object Cache](https://codex.wordpress.org/Class_Reference/WP_Object_Cache) - See the "[Caching](#caching)" section.
 
+While it is possible to use WordPress' [Filesystem API](https://codex.wordpress.org/Filesystem_API) to interact with a huge variety of storage endpoints, using the filesystem to store and deliver data outside of regular asset uploads should be avoided as this methods conflict with most modern / secure hosting solutions.
+
 ### Database Writes
 
 Writing information to the database is at the core of any website you build. Here are some tips:
