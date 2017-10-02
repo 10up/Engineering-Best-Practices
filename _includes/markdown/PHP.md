@@ -370,7 +370,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Store information in the correct place. See the "[Appropriate Data Storage](#appropriate-data-storage)" section.
 
-* Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](https://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. Unfortunately, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) automatically sets ```autoload``` to ```true``` so you have to use a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to accomplish this.
+* Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](https://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. As of WordPress 4.2, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) supports configuring autoloading directly by passing an optional ```$autoload``` argument. Using this third parameter is preferable to using a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to disable autoloading for existing options.
 
 <h2 id="design-patterns">Design Patterns {% include Util/top %}</h2>
 
@@ -747,7 +747,7 @@ $string = __( "$number minutes left", 'plugin-domain' );
 // So will this
 define( 'MINUTES_LEFT', '%d minutes left' );
 $string = __( MINUTES_LEFT, 'plugin-domain' );
-// Correct way to do a simple translation 
+// Correct way to do a simple translation
 $string = sprintf( __( '%d minutes left', 'plugin-domain' ), $number );
 // A more complex translation using _n() for plurals
 $string = sprintf( _n( '%d minute left', '%d minutes left',  $number, 'plugin-domain' ), $number );
@@ -782,7 +782,7 @@ If the code is for release as a plugin or theme in the WordPress.org repositorie
 
 Most of WordPress's translation functions don't escape output by default. So, it's important to escape the translated strings like any other content.
 
-To make this easier, the WordPress API includes functions that translate and escape in a single step. Engineers are encouraged to use these functions to simplify their code: 
+To make this easier, the WordPress API includes functions that translate and escape in a single step. Engineers are encouraged to use these functions to simplify their code:
 
 **For use in HTML**
 1. [esc_html__](https://codex.wordpress.org/Function_Reference/esc_html_2): Returns a translated and escaped string
