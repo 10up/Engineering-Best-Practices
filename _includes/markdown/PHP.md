@@ -188,7 +188,7 @@ function prefix_get_top_commented_posts() {
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // Cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs).
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS );
         }
     }
     return $top_commented_posts;
@@ -228,10 +228,8 @@ add_action( 'wp_update_comment_count', 'prefix_refresh_top_commented_posts', 10,
 /**
  * Retrieve top 10 most-commented posts and cache the results.
  *
- * @param bool $force_refresh Optional. Whether to force the cache to be refreshed.
-                              Default false.
- * @return array|WP_Error Array of WP_Post objects with the highest comment counts,
- *                        WP_Error object otherwise.
+ * @param bool $force_refresh Optional. Whether to force the cache to be refreshed. Default false.
+ * @return array|WP_Error Array of WP_Post objects with the highest comment counts, WP_Error object otherwise.
  */
 function prefix_get_top_commented_posts( $force_refresh = false ) {
     // Check for the top_commented_posts key in the 'top_posts' group.
@@ -244,7 +242,7 @@ function prefix_get_top_commented_posts( $force_refresh = false ) {
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // In this case we don't need a timed cache expiration.
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' )
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' );
         }
     }
     return $top_commented_posts;
@@ -601,7 +599,7 @@ Here is another example:
 <?php
 global $wpdb;
 
-$wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_content ), array( '%s' ) );
+$wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_content ), array( '%s' ) ) );
 ?>
 ```
 
