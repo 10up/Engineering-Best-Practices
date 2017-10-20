@@ -1,0 +1,5 @@
+current directory: /Applications/MAMP/htdocs/Engineering-Best-Practices/vendor/bundle/ruby/2.0.0/gems/ffi-1.9.18/ext/ffi_c
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby -r ./siteconf20171020-31170-9nxs44.rb extconf.rb
+mkmf.rb can't find header files for ruby at /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/include/ruby.h
+
+extconf failed, exit code 1

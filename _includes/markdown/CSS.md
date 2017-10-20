@@ -1,12 +1,12 @@
 <h2 id="philosophy">Philosophy</h2>
 
-At 10up, we value content and the experience one will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
+At 10up, we value content and the experience users will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
 Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
 <h2 id="syntax-formatting">Syntax and Formatting {% include Util/top %}</h2>
 
-Syntax and formatting are keys to a maintainable project. By keeping our code style consistent, we not only help ourselves debug faster but we're also lessening the burden on those who will have to maintain our code (maybe ourselves too!)
+Syntax and formatting are keys to a maintainable project. By keeping our code style consistent, we not only help ourselves debug faster but we're also lessening the burden on those who will have to maintain our code (maybe ourselves too!).
 
 ### CSS Syntax
 
@@ -110,31 +110,27 @@ Prefer:
 
 Declarations should be ordered alphabetically or by type (Positioning, Box model, Typography, Visual). Whichever order is chosen, it should be consistent across all files in the project.
 
-Sass ordering:
+If you're using Sass, use this ordering:
 
 1. @extend
 2. Regular styles (allows overriding extended styles)
 3. @include (to visually separate mixins and placeholders) and media queries
 4. Nested selectors
 
-### Nesting in Sass
+### Nesting
 
-Sass nesting has changed the lives of many, but like everything in life, abusing good things will ultimately be bad. Nesting makes the code more difficult to read and can create confusion. Too much nesting also adds unnecessary specificity, forcing us to add the same or greater specificity in overrides. We want to avoid selector nesting and overspecificity as much as possible.
+Nesting has changed the lives of many, but like everything in life, abusing good things will ultimately be bad. Nesting makes the code more difficult to read and can create confusion. Too much nesting also adds unnecessary specificity, forcing us to add the same or greater specificity in overrides. We want to avoid selector nesting and over-specificity as much as possible.
 
-**Nesting is required** in the following cases, because it will make the code easier to read:
+If you're using PostCSS or Sass **nesting is required** in the following cases, because it will make the code easier to read:
 
 * pseudo-classes
 * pseudo-elements
 * component states
 * media queries
 
-**Nesting is accepted** in the following cases:
+### Selector Naming
 
-* some coding styles like [RSCSS](https://github.com/rstacruz/rscss)
-
-### Selectors naming
-
-Selectors should be lowercase, and words should be separated with hyphens. Please avoid camelcase. Underscores are acceptable if they’re being used for [BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) syntax. The naming of selectors should be consistent and describe the functional purpose of the styles they’re applying.
+Selectors should be lowercase, and words should be separated with hyphens. Please avoid camelcase, but underscores are acceptable if they’re being used for [BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) or another syntax pattern that requires them. The naming of selectors should be consistent and describe the functional purpose of the styles they’re applying.
 
 Avoid:
 
@@ -160,7 +156,7 @@ Code documentation serves two purposes: it makes maintenance easier and it makes
 
 ### Commenting
 
-We follow WordPress official commenting standards. Do not hesitate to be very verbose with your comments, especially when documenting a tricky hack. Use comment blocks to separate the different sections of a partial, and/or to describe what styles the partial covers:
+We follow WordPress official commenting standards. Do not hesitate to be very verbose with your comments, especially when documenting a tricky part of your CSS. Use comment blocks to separate the different sections of a partial, and/or to describe what styles the partial covers:
 
 ```css
 /**
@@ -185,37 +181,6 @@ li:nth-child(n+4):nth-child(-n+8) {
 }
 ```
 
-### SassDoc
-
-We use [SassDoc](http://sassdoc.com/getting-started/) to generate documentation for variables, functions, mixins and placeholders. If you’ve used PHPDoc, this should look familiar.
-
-Example:
-
-```scss
-/// Convert Photoshop tracking value to letter-spacing
-///
-/// @author Your Name
-///
-/// @param {Integer} $psvalue - The value should be the same value as in Photoshop, required
-///
-/// @group helpers
-///
-/// @example scss - Usage
-/// 	.wide-tracking {
-///			@include tracking(50);
-///		}
-///
-/// @example css - CSS output
-/// 	.wide-tracking {
-///			letter-spacing: .05em;
-/// 	}
-@mixin tracking($psvalue) {
-  letter-spacing: $psvalue / 1000 + em;
-}
-```
-
-Read more at [SassDoc official documentation](http://sassdoc.com/getting-started/).
-
 <h2 id="performance">Performance {% include Util/top %}</h2>
 
 Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
@@ -237,19 +202,11 @@ Stylesheets should go from less specific rules to highly specific rules. We want
 
 For that purpose, **classes** are our preferred selectors: pretty low specificity but high reusability.
 
-Avoid using `!important` at all costs.
+Avoid using `!important` whenever you can.
 
 Use [efficient selectors](https://csswizardry.com/2011/09/writing-efficient-css-selectors/).
 
 Avoid:
-
-```css
-div {
-  background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%);
-}
-```
-
-Overqualified:
 
 ```css
  div div header#header div ul.nav-menu li a.black-background {
@@ -323,7 +280,7 @@ Articles worth reading:
 
 <h2 id="responsive-websites">Responsive websites {% include Util/top %}</h2>
 
-We build our websites mobile first. We do not rely on `respond.js` as it does not work well in certain environments. Instead, we leverage the benefits of Sass to manipulate our breakpoints.
+We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, movile-first build process and allow sites gracefully degrade.
 
 ### Min-width media queries
 
@@ -337,45 +294,11 @@ Avoid mixing min-width and max-width media queries.
 
 ### Breakpoints
 
-Working with Sass, we can take advantages of mixins and avoid having a ton of different breakpoints. Example of a basic media query mixin with a function to check if the breakpoint we want to use has been defined before:
-
-```scss
-/// Register devices widths
-$devices: (
-	mobile-landscape: 480px,
-	tablet: 768px,
-	tablet-landscape: 1024px,
-	laptop: 1280px,
-	desktop: 1440px
-) !default;
-
-/// Verify that the breakpoint width is listed
-///
-/// @param {string} $breakpoint - breakpoint name
-/// @group mediaqueries
-@function get-breakpoint-width($breakpoint) {
-	@if map-has-key($devices, $breakpoint) {
-		@return map-get($devices, $breakpoint);
-	} @else {
-		@warn "Breakpoint #{$breakpoint} wasn't found in $devices.";
-	}
-}
-
-/// Min-width media query
-///
-/// @param {string} $breakpoint - breakpoint name
-/// @group mediaqueries
-@mixin at-least($breakpoint) {
-	$device-width: get-breakpoint-width($breakpoint);
-	@media screen and (min-width: $device-width) {
-		@content;
-	}
-}
-```
+Working with build tools that utilize Sass or PostCSS processing, we can take advantages of reusability and avoid having an unmaintainable number of breakpoints. Using variables and reusable code blocks we can lighten the CSS load and ease maintainability.
 
 ### Media queries placement
 
-In Sass files, nest the media query or media query mixin within the selector it modifies. **Do not** create size-based partials (e.g. `_1024px.scss`, `_480px.scss`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the selector will allow developers to immediately see all the different styles applied to an element.
+In your stylesheet files, nest the media query within the component it modifies. **Do not** create size-based partials (e.g. `_1024px.(s)css`, `_480px.(s)css`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the component will allow developers to immediately see all the different styles applied to an element.
 
 Avoid:
 
@@ -414,18 +337,16 @@ Prefer:
 
 We prefer showing a fixed-width non-responsive desktop version to older IE users rather than showing a mobile version.
 
-* Use a breakpoint mixin to target older browsers (See [sass-mq](https://github.com/sass-mq/sass-mq) and similar).
+* Use a feature detection to target older browsers.
 * Load a different stylesheet for older browsers.
 
 <h2 id="frameworks">Frameworks {% include Util/top %}</h2>
 
 ### Grids
 
-If a simple grid is needed, define and document placeholders and mixins as needed in a _grid.scss partial. For an example of lightweight grid systems, see [Don’t Overthink It Grids](https://css-tricks.com/dont-overthink-it-grids/).
+Our preference is not to use a 3rd party grid system, use your best judgement and keep them simple! All too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example: fixed-width content areas to accommodate advertising.
 
-Our preference is not to use a 3rd party grid system. Too often we are faced with a design that isn’t built on a grid or purposefully breaks a loosely defined grid. Even if the designer had a grid in mind, there are often needs that require more creative solutions. For example: fixed-width content areas to accommodate advertising.
-
-Sometimes a more complex grid sytem is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system. For some sites we will consider the use of popular and well supported grid systems, such as [Bourbon Neat](http://neat.bourbon.io/) or [Susy](http://susydocs.oddbird.net/).
+Sometimes a more complex grid system is warranted and leveraging a 3rd party library will gain some efficiency. However, keep in mind that by adopting a grid system you are forcing all future collaborators on the project to learn this system.
 
 ### Resets
 
