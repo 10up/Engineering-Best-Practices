@@ -90,7 +90,7 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete them after feature development is complete.
 
 * Move to another branch (doesn't matter which)
-* Delete the branch (both on local and Beanstalk)
+* Delete the branch (both on local and remote)
 
 ### Plugins
 
