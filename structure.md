@@ -3,7 +3,7 @@ page: structure
 title: Project Structure
 nav: Structure
 group: navigation
-weight: 2
+weight: 7
 layout: default
 subnav:
   - title: Third-Party Integrations
