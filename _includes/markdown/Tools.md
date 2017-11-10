@@ -22,7 +22,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://ww
 
 [Composer](https://getcomposer.org) - We use Composer for managing PHP dependencies. Usually everything we need is bundled with WordPress, but sometimes we need external PHP libraries like "Patchwork". Composer is a great way to manage those external libraries.
 
-WordPress plugins in a project should be managed by Composer. Plugin versions can be easily managed in a single composer.json file and provides a central way to keep plugin versions between environments in sync. [WordPress Packagist](https://wpackagist.org/) provides a Composer repository that mirrors all public WordPress plugins and themes.
+WordPress plugins in a project should be managed by Composer. Plugin versions can be easily managed in a single composer.json, helping ensure plugin versions between environments are in sync. [WordPress Packagist](https://wpackagist.org/) provides a Composer repository that mirrors all public WordPress plugins and themes.
 
 <h2 id="version-control">Version Control {% include Util/top %}</h2>
 
