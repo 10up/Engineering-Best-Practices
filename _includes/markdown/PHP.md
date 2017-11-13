@@ -165,6 +165,8 @@ It is possible to create a transient that will never expire by omitting the thir
 
 On environments with a persistent caching mechanism (i.e. [Memcache](https://memcached.org/), [Redis](https://redis.io/), or similar) enabled, the transient functions become wrappers for the normal ```WP_Object_Cache``` functions. The objects are identically stored in the object cache and will be available across page loads.
 
+High-traffic environments *not* using a persistent caching mechanism should be wary of using transients and filling the wp_options table with an excessive amount of data. See the "[Appropriate Data Storage](#appropriate-data-storage)" section for details.
+
 Note: as the objects are stored in memory, you need to consider that these objects can be cleared at any time and that your code must be constructed in a way that it would not rely on the objects being in place.
 
 This means you always need to ensure you check for the existence of a cached object and be ready to generate it in case it's not available. Here is an example:
@@ -351,6 +353,11 @@ We can store data using options, post meta, post types, object cache, and taxono
 There are a number of performance considerations for each WordPress storage vehicle:
 
 * [Options](https://codex.wordpress.org/Options_API) - The options API is a simple key-value storage system backed by a MySQL table. This API is meant to store things like settings and not variable amounts of data.
+
+  Site performance, especially on large websites, can be negatively affected by a large options table. It's recommended to regularly monitor and keep this table under 500 rows. The "autoload" field should only be set to 'yes' for values that need to be loaded into memory on each page load.
+
+  Caching plugins can also be negatively affected by a large wp_options table. Popular caching plugins such as [Memcached](https://wordpress.org/plugins/memcached/) place a 1MB limit on individual values stored in cache. A large options table can easily exceed this limit, severely slowing each page load.
+
 * [Post Meta or Custom Fields](https://codex.wordpress.org/Custom_Fields) - Post meta is an API meant for storing information specific to a post. For example, if we had a custom post type, "Product", "serial number" would be information appropriate for post meta. Because of this, it usually doesn't make sense to search for groups of posts based on post meta.
 * [Taxonomies and Terms](https://codex.wordpress.org/Taxonomies) - Taxonomies are essentially groupings. If we have a classification that spans multiple posts, it is a good fit for a taxonomy term. For example, if we had a custom post type, "Car", "Nissan" would be a good term since multiple cars are made by Nissan. Taxonomy terms can be efficiently searched across as opposed to post meta.
 * [Custom Post Types](https://codex.wordpress.org/Post_Types) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
@@ -368,7 +375,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Store information in the correct place. See the "[Appropriate Data Storage](#appropriate-data-storage)" section.
 
-* Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](https://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it probably shouldn't be autoloaded. As of WordPress 4.2, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) supports configuring autoloading directly by passing an optional ```$autoload``` argument. Using this third parameter is preferable to using a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to disable autoloading for existing options.
+* Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](https://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it shouldn't be autoloaded. As of WordPress 4.2, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) supports configuring autoloading directly by passing an optional ```$autoload``` argument. Using this third parameter is preferable to using a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to disable autoloading for existing options.
 
 <h2 id="design-patterns">Design Patterns {% include Util/top %}</h2>
 
