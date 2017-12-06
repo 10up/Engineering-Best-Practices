@@ -11,15 +11,8 @@ File structure unity across themes and plugins improves engineering efficiency a
 |  |- fonts/ _____________________________ # Custom/hosted fonts
 |  |- js/
 |    |- src/ _____________________________ # Source JavaScript
-|    |- project.js _______________________ # Concatenated JavaScript
-|    |- project.min.js ___________________ # Minified JavaScript
 |  |- css/
 |    |- scss/ ____________________________ # See below for details
-|    |- project.css
-|    |- project.min.css
-|    |- project-admin.css
-|    |- project-admin.min.css
-|    |- editor-style.css
 |- includes/ _____________________________ # PHP classes and files
 |    |- classes/ _________________________ # PHP classes
 |- templates/ ____________________________ # Page templates
