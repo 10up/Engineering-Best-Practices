@@ -1,3 +1,119 @@
+<h2 id="file-organization">Theme and Plugin File Organization {% include Util/top %}</h2>
+
+File structure unity across themes and plugins improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All themes and plugins should derive from this structure:
+
+```
+|- bin/ __________________________________ # WP-CLI and other scripts
+|- node_modules/ _________________________ # npm modules
+|- vendor/ _______________________________ # Composer dependencies
+|- assets/
+|  |- images/ ____________________________ # Theme images
+|  |- fonts/ _____________________________ # Custom/hosted fonts
+|  |- js/
+|    |- src/ _____________________________ # Source JavaScript
+|    |- project.js _______________________ # Concatenated JavaScript
+|    |- project.min.js ___________________ # Minified JavaScript
+|  |- css/
+|    |- scss/ ____________________________ # See below for details
+|    |- project.css
+|    |- project.min.css
+|    |- project-admin.css
+|    |- project-admin.min.css
+|    |- editor-style.css
+|- includes/ _____________________________ # PHP classes and files
+|    |- classes/ _________________________ # PHP classes
+|- templates/ ____________________________ # Page templates
+|- partials/ _____________________________ # Template parts
+|- languages/ ____________________________ # Translations
+|- tests/
+|  |- php/ _______________________________ # PHP testing suite
+|  |- js/ ________________________________ # JavaScript testing suite
+|- .editorconfig _________________________ # Editor Config settings
+|- composer.json _________________________ # Composer package file
+```
+
+The `scss` folder is described separately, below to improve readability:
+
+```
+|- assets/css/scss/
+|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
+|  |- base/
+|    |- reset, normalize, or sanitize
+|    |- typography
+|    |- icons
+|    |- wordpress ________________________ # Partial for WordPress default classes
+|  |- components/
+|    |- buttons
+|    |- callouts
+|    |- toggles
+|    |- all other modular reusable UI components
+|  |- layout/
+|    |- header
+|    |- footer
+|    |- sidebar
+|  |- templates/
+|    |- home page
+|    |- single
+|    |- archives
+|    |- blog
+|    |- all page, post, and custom post type specific styles
+|  |- admin/ _____________________________ # Admin specific partials
+|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
+|  |- admin.scss
+|  |- project.scss
+|  |- editor-styles.scss
+```
+
+<h2 id="dependencies">Dependencies {% include Util/top %}</h2>
+
+Projects generally use two different types of dependency management:
+
+- [npm](https://npmjs.org) is used to manage JavaScript dependencies.
+- [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
+
+Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
+
+With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
+
+## Composer Based Project Structure
+
+Here's how we might structure a project with Composer:
+
+```
+|- composer.json ____________________________ # Define third party depedencies
+|- wp-config.php ____________________________ # WordPress configuration
+|- wp/ ______________________________________ # Composer install WordPress here
+|- wp-content/ ______________________________ # Composer dependencies
+|  |- themes/ _______________________________ # Themes directory
+|    |- custom-theme/ _______________________ # Custom theme
+|  |- plugins/ ______________________________ # Plugins directory
+|    |- custom-plugin/ ______________________ # Custom plugin
+```
+
+Here's what `composer.json` might look like with some example plugins:
+
+```json
+{
+  "name": "10up/project-slug",
+  "description": "Project description",
+  "repositories":[
+    {
+      "type":"composer",
+      "url":"https://wpackagist.org"
+    }
+  ],
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "require": {
+    "johnpbloch/wordpress": "4.9",
+    "wpackagist-plugin/wordpress-importer": "dev-trunk",
+    "wpackagist-plugin/debug-bar": "dev-trunk",
+    "wpackagist-plugin/debug-bar-extender": "dev-trunk",
+  }
+}
+```
+
 <h2 id="integrations">Third-Party Integrations</h2>
 
 Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered. An integration that could result in unexpected consequences during something like a migration (such as sending out a tweet) should be clearly documented (see [Migrations](/Engineering-Best-Practices/migrations/) section).
@@ -40,7 +156,7 @@ if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && ! ENV_DEVELOPMENT ) {
 
 The `ENV_DEVELOPMENT` constant should always be set to `true` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
 
-The location where other engineers can retrieve developer API keys (i.e. Basecamp thread) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
+The location where other engineers can retrieve developer API keys (i.e. project management tool) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
 <h2 id="modular-code">Modular Code</h2>
 
@@ -60,24 +176,7 @@ Any functions the plugin exposes for use in a theme should be done so through ac
 
 ### General Notes
 
-Every project, whether it includes Composer-managed dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.  For example:
-
-```json
-{
-	"name": "10up/{project name}",
-	"type": "wordpress-plugin",
-	"minimum-stability": "dev",
-	"require-dev": {},
-	"require": {},
-	"version": "1.0.1",
-	"dist": {
-		"url": "... stable archive package URI ...",
-		"type": "zip"
-	}
-}
-```
-
-When code is being reused between projects, it should be abstracted into a standalone library that those projects can pull in through Composer. Generally, code is client- or project-specific, but if it's abstract enough to be reused we want to capture that and maintain the code in one place rather than copy-pasting it between repositories.
+Every project, whether it includes Composer-managed dependencies or not, _must_ contain a `composer.json` file defining the project so it can in turn be pulled in to _other_ projects via Composer.
 
 ### Editor Config
 
@@ -90,105 +189,18 @@ preferred development editor from [EditorConfig.org](http://editorconfig.org/#do
 The editor config file with standard settings for commonly used files is shown below.
 
 ```ini
-# This file is for unifying the coding style for different editors and IDEs
-# editorconfig.org
-
-# Rules adapted from WordPress Coding Standards
-# https://make.wordpress.org/core/handbook/coding-standards/
-
 root = true
 
 [*]
-charset = utf-8
-end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
-indent_style = tab
-indent_size = 4
-
-[{.jshintrc,*.json,*.yml}]
 indent_style = space
 indent_size = 2
+trim_trailing_whitespace = true
 
-[{*.txt,wp-config-sample.php}]
-end_of_line = crlf
+[*.{php,js,css,scss}]
+end_of_line = lf
+insert_final_newline = true
+indent_style = tab
+indent_size = 4
 ```
 
 Developers may extend and/or customize these rules as new file formats are added to the project.
-
-<h2 id="dependencies">Dependencies {% include Util/top %}</h2>
-
-Projects generally use three different classes of dependency management:
-
-- [npm](https://npmjs.org) is used to manage build dependencies like Grunt and its related plugins
-- [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
-- [Bower](https://bower.io) is used to manage front-end (i.e. script and style framework) dependencies
-
-Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the `.json` file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
-
-With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
-
-<h2 id="file-organization">File Organization {% include Util/top %}</h2>
-
-Project structure unity across projects improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All projects should derive from this structure:
-
-```
-|- bin/ __________________________________ # WP-CLI and other scripts
-|- node_modules/ _________________________ # npm/Grunt modules
-|- bower_components/ _____________________ # Frontend dependencies
-|- vendor/ _______________________________ # Composer dependencies
-|- assets/
-|  |- images/ ____________________________ # Theme images
-|  |- fonts/ _____________________________ # Custom/hosted fonts
-|  |- js/
-|    |- src/ _____________________________ # Source JavaScript
-|    |- project.js _______________________ # Concatenated JavaScript
-|    |- project.min.js ___________________ # Minified JavaScript
-|  |- css/
-|    |- scss/ ____________________________ # See below for details
-|    |- project.css
-|    |- project.min.css
-|    |- project-admin.css
-|    |- project-admin.min.css
-|    |- editor-style.css
-|- includes/ _____________________________ # PHP classes and files
-|- templates/ ____________________________ # Page templates
-|- partials/ _____________________________ # Template parts
-|- languages/ ____________________________ # Translations
-|- tests/
-|  |- php/ _______________________________ # PHP testing suite
-|  |- js/ ________________________________ # JavaScript testing suite
-|- .editorconfig _________________________ # Editor Config settings
-```
-
-The `scss` folder is described separately, below to improve readability:
-
-```
-|- assets/css/scss/
-|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
-|  |- base/
-|    |- reset, normalize, or sanitize
-|    |- typography
-|    |- icons
-|    |- wordpress ________________________ # Partial for WordPress default classes
-|  |- components/
-|    |- buttons
-|    |- callouts
-|    |- toggles
-|    |- all other modular reusable UI components
-|  |- layout/
-|    |- header
-|    |- footer
-|    |- sidebar
-|  |- templates/
-|    |- home page
-|    |- single
-|    |- archives
-|    |- blog
-|    |- all page, post, and custom post type specific styles
-|  |- admin/ _____________________________ # Admin specific partials
-|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
-|  |- admin.scss
-|  |- project.scss
-|  |- editor-styles.scss
-```
