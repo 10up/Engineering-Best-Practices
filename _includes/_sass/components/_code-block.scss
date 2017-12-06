@@ -30,23 +30,19 @@ pre code {
 	border: 0;
 }
 
-.highlight {
-	margin: 0;
-	font-size: 1.6rem;
-}
-
 .highlight pre {
 	margin-bottom: 0;
+	font-size: 1.6rem;
 }
 
 .highlight + .highlight {
 	margin-top: 1rem;
 }
 
-.highlight {
+div.highlight {
 	background-color: #efefef;
 	margin: 0 0 1rem;
-	padding: .75rem;
+	padding: 1.25rem;
 	border-left: 20px solid #ddd;
 	overflow-x: auto;
 }
