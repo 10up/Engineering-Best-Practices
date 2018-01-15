@@ -1,4 +1,4 @@
-## Performance
+<h2 id="performance">Performance</h2>
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 

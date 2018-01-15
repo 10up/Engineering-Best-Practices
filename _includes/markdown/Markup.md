@@ -1,4 +1,5 @@
-## Philosophy
+<h2 id="philosophy">Philosophy</h2>
+
 At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
 ### Principles
