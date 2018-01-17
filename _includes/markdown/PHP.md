@@ -190,7 +190,7 @@ function prefix_get_top_commented_posts() {
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // Cache the whole WP_Query object in the cache and store it for 5 minutes (300 secs).
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts', 5 * MINUTE_IN_SECONDS );
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts->posts, 'top_posts', 5 * MINUTE_IN_SECONDS );
         }
     }
     return $top_commented_posts;
@@ -244,7 +244,7 @@ function prefix_get_top_commented_posts( $force_refresh = false ) {
 
         if ( ! is_wp_error( $top_commented_posts ) && $top_commented_posts->have_posts() ) {
             // In this case we don't need a timed cache expiration.
-            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts, 'top_posts' );
+            wp_cache_set( 'prefix_top_commented_posts', $top_commented_posts->posts, 'top_posts' );
         }
     }
     return $top_commented_posts;
