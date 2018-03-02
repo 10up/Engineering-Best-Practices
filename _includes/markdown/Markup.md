@@ -101,106 +101,7 @@ Schema.org data can be provided in two forms: "microdata" markup added to a page
 
 Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
 
-#### Examples
-
-Bad:
-
-```html
-<div>
-  <div>
-    <span>The Catcher in the Rye</span> (
-    <a href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
-  </div>
-  <span>4 stars</span>
-  <b>"A good read."</b>
-  <span>
-    <span>Bob Smith</span>
-  </span>
-  <span>Catcher in the Rye is a fun book. It's a good book to read.</span>
-</div>
-```
-
-Good (microdata markup):
-
-```html
-<div itemscope itemtype="http://schema.org/Review">
-  <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/Book">
-    <span itemprop="name">The Catcher in the Rye</span> (
-    <a itemprop="sameAs" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">wikipedia</a>)
-  </div>
-  <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-    <span itemprop="ratingValue">4</span>
-  </span> stars -
-  <strong>"<span itemprop="name">A good read.</span>"</strong>
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <span itemprop="name">Bob Smith</span>
-  </span>
-  <span itemprop="reviewBody">Catcher in the Rye is a fun book. It's a good book to read.</span>
-</div>
-```
-
-Better (JSON-LD):
-
-```html
-<script type="application/ld+json">
-{
-	"@context": "http://schema.org",
-	"@type": "Review",
-	"itemReviewed": {
-		"@context": "http://schema.org",
-		"@type": "Book",
-		"name": "The Catcher in the Rye",
-		"sameAs": "https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye"
-	},
-	"reviewRating": {
-		"@context": "http://schema.org",
-		"@type": "Rating",
-		"ratingValue": 4
-	},
-	"name": "A good read.",
-	"author": {
-		"@context": "http://schema.org",
-		"@type": "Person",
-		"name": "Bob Smith"
-	},
-	"reviewBody": "Catcher in the Rye is a fun book. It's a good book to read."
-}
-</script>
-```
-#### JSON-LD Breadcrumbs
-
-Google supports structured page hierarchy data ("breadcrumbs") expressed in JSON-LD, even when that data isn't visible on the page. This data should be provided so search engines can locate additional related content and display the hierarchy in their search results.
-##### Example
-
-```
-<script type="application/ld+json">
-{
- "@context": "http://schema.org",
- "@type": "BreadcrumbList",
- "itemListElement":
- [
-  {
-   "@type": "ListItem",
-   "position": 1,
-   "item":
-   {
-    "@id": "https://example.com/dresses",
-    "name": "Dresses"
-    }
-  },
-  {
-   "@type": "ListItem",
-  "position": 2,
-  "item":
-   {
-     "@id": "https://example.com/dresses/real",
-     "name": "Real Dresses"
-   }
-  }
- ]
-}
-</script>
-```
+For examples of Schema markup on components, check out the [10up WordPress Component Library](https://10up.github.io/wp-component-library/)
 
 <h2 id="html5-structural-elements">HTML5 Structural Elements {% include Util/top %}</h2>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
@@ -279,9 +180,12 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 <h2 id="accessibility">Accessibility {% include Util/top %}</h2>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
-At minimum, every 10up project should make use of ARIA Landmark roles, semantic headings, and alt text on images. Compliance with Section 508, or other international accessibility laws and guidelines, may be required depending on the project.
+### Accessibility Standards
+At a minimum, all 10up projects should pass [WCAG 2.0 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
 
-We draw much of our information from two prominent accessibility guides: [WCAG (Web Content Accessibility Guidelines)](https://www.w3.org/WAI/intro/wcag) and [Section 508](https://www.section508.gov/).
+For design projects and projects with a global marketplace (companies with entities outside the US), Level AA should be the baseline goal. The accessibility level is elevated for global markets to properly comply with [EU Functional Accessibility Requirements](http://mandate376.standards.eu/standard/technical-requirements/#9), which aligns closely with WCAG 2.0 Level AA. Having direct access to the designer also allows for greater accessibility standards to be achieved.
+
+While [Section 508](https://www.section508.gov/) is the US standard, following the guidance of WCAG 2.0 will help a project pass Section 508 and also maintain a consistent internal standard. If a project specifically requires Section 508, additional confirmation testing can be done.
 
 ### ARIA Landmark Roles
 ARIA (Assistive Rich Internet Applications) is a spec from the W3C. It was created to improve accessibility of applications by providing extra information to screen readers via HTML attributes. Screen readers can already read HTML, but ARIA can help add context to content and make it easier for screen readers to interact with content.
@@ -296,8 +200,6 @@ Example:
 
 ### States and Properties
 ARIA also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
-
-ARIA to the rescue!
 
 ARIA attributes can be added dynamically with JavaScript to help add context to your content. Thinking about the tabbed content example, it might look something like this:
 
@@ -320,18 +222,31 @@ ARIA attributes can be added dynamically with JavaScript to help add context to 
 </div>
 ```
 
-You can see how effortless it is to make our tabbed interface accessible to screen readers. All we need to do is add context.
+You can see how effortless it is to make our tabbed interface accessible to screen readers. Be sure to add visibility attributes like ```aria-hidden``` with JavaScript. If it is added manually in HTML and JavaScript doesn't load, the content will be completely removed from screen readers.
 
 ### Accessible Forms
-Forms are one of the biggest areas of failure when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards.
+Forms are one of the biggest challenges when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards:
 
-Each form field should have its own ```<label>```. The label tag, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability to the form element for screen readers.
+Each form field should have its own ```<label>```. The label element, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability screen readers and assistive technology.
 
-Form elements should also be logically grouped using the ```<fieldset>``` tag. Grouped form elements can be helpful for people who depend on screen readers or those with cognitive disabilities.
+Form elements should also be logically grouped using the ```<fieldset>``` element. Grouped form elements can be helpful for users who depend on screen readers or those with cognitive disabilities.
 
-Finally, we should ensure that all interactive elements are keyboard (or tab) navigable, providing easy use for people with vision or mobility disabilities. In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order.
+Finally, we should ensure that all interactive elements are keyboard navigable, providing easy use for people with vision or mobility disabilities (or those not able to use a mouse). In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order or have a conversation with the designer about updates that can be made to the layout to improve accessibility.
 
-Adding ```tabindex``` to elements to force a different tab order can become confusing to users and a maintenance issue to developers if/when they have to make changes to the markup. There are cases, however, when we need to add or remove certain elements from the tab order. In these cases, set ```tabindex="0"``` to allow an element (e.g. a ```<div>```) to receive focus in its natural order, or set ```tabindex="-1"``` to skip an element (e.g. a modal dialog box).
+### Automated Testing
+In most cases, maintaining baseline accessibility requirements for a project can be an automated process. While we can't test everything, and we still need some manual testing, there are certain tools that allow us to keep our finger on the pulse of a project's accessibility compliance.
+
+Automating accessibility tests is easy with a tool like [pa11y](https://github.com/pa11y/pa11y), which is a command line tool that runs [HTML Code Sniffer](http://squizlabs.github.io/HTML_CodeSniffer/) over a URL.
+
+It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate NPM script as to not collide with other build processes that may be running on a project:
+
+```
+"scripts": {
+    "pa11y": "pa11y --ignore notice https://projectname.test"
+},
+```
+
+Running this process allows the engineer to be alerted if a code-level or design change violates the project's accessibility standards.
 
 <h2 id="progressive-enhancement">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
