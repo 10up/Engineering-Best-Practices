@@ -736,7 +736,7 @@ if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_a
 
 ### Internationalization
 
-All text strings in a project should be internationalized using core localization functions. Even if the project does not currently dictate a need for translatable strings, this practice ensures translation-readiness should a future need arise.
+Do not internationalize a project if it does not currently dictate a need for translatable strings. Premature optimization in this context won't give you any benefit, it will just spend server resources on doing redundant translations and will make templates less readable. Even if the project declares a need for translatable strings in the future, it will require making lots of decisions and doing lots of other changes to make the project multilingual. So, there will be enough time to update the project to use core localization functions.
 
 WordPress provides a myriad of [localization functionality](https://codex.wordpress.org/I18n_for_WordPress_Developers). Engineers should familiarize themselves with features such as [pluralization](https://codex.wordpress.org/I18n_for_WordPress_Developers#Plurals) and [disambiguation](https://codex.wordpress.org/I18n_for_WordPress_Developers#Disambiguation_by_context) so translations are flexible and translators have the information they need to work accurately.
 
