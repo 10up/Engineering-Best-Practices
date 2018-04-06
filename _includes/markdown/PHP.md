@@ -759,6 +759,17 @@ $string = sprintf( _n( '%d minute left', '%d minutes left',  $number, 'plugin-do
 ?>
 ```
 
+Also, pay attention that all punctuation marks must be included in a translatable string. It is very important because different languages use different approaches and rules for punctuation.
+
+For example:
+```php
+// Incorrect
+<h1><?php esc_html_e( 'Latest Articles', 'plugin-domain' ); ?>:</h1>
+
+// Correct
+<h1><?php esc_html_e( 'Latest Articles:', 'plugin-domain' ); ?></h1>
+```
+
 Localizing a project differs from the core approach in two distinct ways:
 * A unique text domain should be used with all localization functions
 * Internationalized output should always be escaped
