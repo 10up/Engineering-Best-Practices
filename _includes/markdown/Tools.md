@@ -8,6 +8,10 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://ww
 
 [WP Local Docker](https://github.com/10up/wp-local-docker) - A simple Docker-based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standardizing package versions (i.e. PHP) extremely easy.
 
+<h2 id="scaffolding">Scaffolding {% include Util/top %}</h2>
+
+[10up Project Scaffold](https://github.com/10up/project-scaffold) - Developers can use 10up Project Scaffold to quickly create themes and plugins with our recommended tools and many of our best practices already in place.
+
 <h2 id="task-runners">Task Runners {% include Util/top %}</h2>
 
 [Grunt](http://gruntjs.com/) - Grunt is a task runner built on Node that lets you automate tasks like Sass preprocessing and JS minification. Grunt is our default task runner and has a great community of plugins and solutions we use for on company and client projects.
