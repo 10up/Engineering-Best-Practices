@@ -1,6 +1,6 @@
 The following are tools we use at 10up. This list will grow and change over time and is not meant to be comprehensive. Generally, we encourage or require these tools to be used in favor of other ones. Rules governing tools to be used and packaged with a client site will be much stricter than those used on internal projects.
 
-<h2 id="local-development">Local Development Environments</h2>
+<h2 id="local-development">Local Development Environments {% include Util/top %}</h2>
 
 At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
 
@@ -16,7 +16,7 @@ At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://ww
 
 [Webpack](https://webpack.github.io/) - Webpack is a bundler for JS/CSS. It's extremely useful when building larger JavaScript applications (i.e. React.js).
 
-<h2 id="package-managers">Package/Dependency Managers</h2>
+<h2 id="package-managers">Package/Dependency Managers {% include Util/top %}</h2>
 
 [Bower](https://bower.io/) - A good tool to manage front end packages. Usually everything we need is bundled with WordPress. Sometimes we need something like "Chosen.js" that isn’t included. Bower is a good way to manage external libraries like that but is not necessary on most projects.
 
@@ -30,7 +30,7 @@ When a WordPress install is managed and maintained by an engineering team, and w
 
 [SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUIs internally.
 
-<h2 id="command-line">Command Line Tools</h2>
+<h2 id="command-line">Command Line Tools {% include Util/top %}</h2>
 
 [WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on VVV and VIP Quickstart.
 
