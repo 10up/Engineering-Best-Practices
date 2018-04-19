@@ -49,7 +49,7 @@ The following are some general things to keep in mind when doing these migration
 
 * *Redirects*
 
-	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disasterous search engine indexing consequences. Always work with the client closely on redirect plans.
+	In some cases, the data structure from the old site to the new changes in such a way that new URLs are needed. Sometimes this is on purpose, sometimes it's necessary because of some data changes. In any case, these need to be accounted for and the client consulted so we can add proper redirects, so any links to the old content will redirect to the new content. Failure to properly handle redirects can have disastrous search engine indexing consequences. Always work with the client closely on redirect plans.
 
 	There are multiple ways to handle redirects, whether these are set on the server level, whether they are set using a [plugin](https://wordpress.org/plugins/safe-redirect-manager/) or sometimes a custom approach is needed. Generally it's good practice to keep track of all needed redirects as the migration runs, so by the time the migration is done, we have a list of all needed redirects. This can be achieved in multiple ways but one way would be a custom mapping table, that maps old content to new content. However these are saved though, they can then be implemented with our chosen approach.
 
@@ -126,19 +126,19 @@ function stop_the_insanity() {
 	Setting `define( 'WP_POST_REVISIONS', 0 )` can cut down significantly on memory usage.
 
 * __Use PHP7__
-	
+
 	If PHP 7 is an option, use it.
 
 ### Requirements for a successful migration
 
 * __Test all migration scripts.__
-	
+
 	Migration scripts must be tested repeatedly on a local development environment, staging, and pre-production (if available) before being run on production, so that issues can be safely corrected. It’s always better to write and test scripts iteratively, to minimize the complexity involved in troubleshooting and fix bad assumptions or dependencies early in the process. As with the migration plan, have another engineer review all script code before running.
 
 * __Be mindful of external integrations.__
 
 	It’s *critically important* to make sure migration scripts don’t trigger unintended external integrations. It’s common in WordPress development to tie functionality to hooks that fire when content is created and/or saved, which is part of almost every data migration. A migration script that triggers these hooks might trigger a variety of unintended actions, like publishing content to Facebook or Twitter, or firing off emails to site subscribers. In this latter case, hundreds, if not thousands, of emails could flood subscribers’ inboxes as content is migrated, possibly even during a test migration to a development site. *At best, this can be extremely embarrassing; at worst, this could do harm to a customer and even be considered negligent.*
-	
+
 	One way to prevent some unintended triggers is by checking the `WP_IMPORTING` constant. A migration script *must* set this constant, `define( 'WP_IMPORTING', true )`, as well engineered integrations will check for that before executing.
 
 * __Editorial data review.__

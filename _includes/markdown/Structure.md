@@ -73,7 +73,7 @@ With some projects, using an automated dependency manager won't make sense. In s
 Here's how we might structure a project with Composer:
 
 ```
-|- composer.json ____________________________ # Define third party depedencies
+|- composer.json ____________________________ # Define third party dependencies
 |- wp-config.php ____________________________ # WordPress configuration
 |- wp/ ______________________________________ # Composer install WordPress here
 |- wp-content/ ______________________________ # Composer dependencies
