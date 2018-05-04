@@ -280,7 +280,7 @@ Articles worth reading:
 
 <h2 id="responsive-websites">Responsive websites {% include Util/top %}</h2>
 
-We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, movile-first build process and allow sites gracefully degrade.
+We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
 
 ### Min-width media queries
 

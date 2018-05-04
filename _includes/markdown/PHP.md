@@ -839,7 +839,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
     $meta_keys_to_be_protected = array(
         'my_meta_key',
         'my_other_meta_key',
-		'and_another_meta_key',
+        'and_another_meta_key',
     );
 
     // Set the protected var to true when the current meta key matches
@@ -848,7 +848,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
         $protected = true;
     }
 
-	// Return the (possibly modified) $protected variable.
+    // Return the (possibly modified) $protected variable.
     return $protected;
 }
 ?>
