@@ -1,4 +1,4 @@
-<h2 id="file-organization">Theme and Plugin File Organization {% include Util/top %}</h2>
+<h2 id="file-organization" class="anchor-heading">Theme and Plugin File Organization {% include Util/top %}</h2>
 
 File structure unity across themes and plugins improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All themes and plugins should derive from this structure:
 
@@ -57,7 +57,7 @@ The `scss` folder is described separately, below to improve readability:
 |  |- editor-styles.scss
 ```
 
-<h2 id="dependencies">Dependencies {% include Util/top %}</h2>
+<h2 id="dependencies" class="anchor-heading">Dependencies {% include Util/top %}</h2>
 
 Projects generally use two different types of dependency management:
 
@@ -107,7 +107,7 @@ Here's what `composer.json` might look like with some example plugins:
 }
 ```
 
-<h2 id="integrations">Third-Party Integrations</h2>
+<h2 id="integrations" class="anchor-heading">Third-Party Integrations</h2>
 
 Any and all third-party integrations need to be documented in an `INTEGRATIONS.md` file at the root of the project repository. This file includes a list of third-party services, which components of the project those services power, how the project interacts with the remote APIs, and when the interaction is triggered. An integration that could result in unexpected consequences during something like a migration (such as sending out a tweet) should be clearly documented (see [Migrations](/Engineering-Best-Practices/migrations/) section).
 
@@ -151,7 +151,7 @@ The `ENV_DEVELOPMENT` constant should always be set to `true` for local developm
 
 The location where other engineers can retrieve developer API keys (i.e. project management tool) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
-<h2 id="modular-code">Modular Code</h2>
+<h2 id="modular-code" class="anchor-heading">Modular Code</h2>
 
 Every project, whether a plugin a theme or a standalone library, should be coded to be reusable and modular.
 
