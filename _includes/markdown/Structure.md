@@ -3,58 +3,55 @@
 File structure unity across themes and plugins improves engineering efficiency and maintainability. We believe the following structure is segmented enough to keep projects organized—and thus maintainable—but also flexible and open ended enough to enable engineers to comfortably modify as necessary. All themes and plugins should derive from this structure:
 
 ```
-|- bin/ __________________________________ # WP-CLI and other scripts
-|- node_modules/ _________________________ # npm modules
-|- vendor/ _______________________________ # Composer dependencies
 |- assets/
-|  |- images/ ____________________________ # Theme images
+|  |- css/ _______________________________ # See below for details
 |  |- fonts/ _____________________________ # Custom/hosted fonts
-|  |- js/
-|    |- src/ _____________________________ # Source JavaScript
-|  |- css/
-|    |- scss/ ____________________________ # See below for details
+|  |- images/ ____________________________ # Theme images
+|  |- js/ ________________________________ # See below for details
+|  |- svg/ _______________________________ # Vector images that will be processed into icons
+|- bin/ __________________________________ # WP-CLI and other scripts
+|- gulp-tasks/ ___________________________ # Individual Gulp tasks
 |- includes/ _____________________________ # PHP classes and files
 |    |- classes/ _________________________ # PHP classes
-|- templates/ ____________________________ # Page templates
-|- partials/ _____________________________ # Template parts
 |- languages/ ____________________________ # Translations
+|- node_modules/ _________________________ # npm modules
+|- partials/ _____________________________ # Template parts
+|- templates/ ____________________________ # Page templates
 |- tests/
 |  |- php/ _______________________________ # PHP testing suite
 |  |- js/ ________________________________ # JavaScript testing suite
-|- .editorconfig _________________________ # Editor Config settings
+|- vendor/ _______________________________ # Composer dependencies
+|- .babelrc ______________________________ # Babel config settings
+|- .editorconfig _________________________ # Editor config settings
+|- .eslintrc _____________________________ # ESLint config settings
 |- composer.json _________________________ # Composer package file
+|- gulpfile.babel.js _____________________ # Gulp config settings
+|- package.json __________________________ # NPM package file
+|- webpack.config.babel.js _______________ # Webpack config settings
 ```
 
-The `scss` folder is described separately, below to improve readability:
+The `CSS` folder is described separately, below to improve readability:
 
 ```
-|- assets/css/scss/
-|  |- global/ ____________________________ # Functions, mixins, placeholders, and variables
-|  |- base/
-|    |- reset, normalize, or sanitize
-|    |- typography
-|    |- icons
-|    |- wordpress ________________________ # Partial for WordPress default classes
-|  |- components/
-|    |- buttons
-|    |- callouts
-|    |- toggles
-|    |- all other modular reusable UI components
-|  |- layout/
-|    |- header
-|    |- footer
-|    |- sidebar
-|  |- templates/
-|    |- home page
-|    |- single
-|    |- archives
-|    |- blog
-|    |- all page, post, and custom post type specific styles
-|  |- admin/ _____________________________ # Admin specific partials
-|  |- editor/ ____________________________ # Editor specific partials (leverage placeholders to use in front-end and admin area)
-|  |- admin.scss
-|  |- project.scss
-|  |- editor-styles.scss
+|- assets/css/
+|    |- admin/ ___________________________ # CSS for the admin
+|    |- frontend/ ________________________ # CSS for the front end
+|       |- base/ _________________________ # CSS at the top of the cascade
+|       |- components/ ___________________ # Component-level CSS
+|       |- global/ _______________________ # Variables and configs
+|       |- layout/ _______________________ # Layout and helper classes
+|       |- templates/ ____________________ # CSS for specific templates
+|    |- shared/ __________________________ # Shared CSS between the admin and front end
+```
+
+The `JS` folder is described separately, below to improve readability:
+
+```
+|- assets/js/
+|    |- admin/ ___________________________ # JS for the admin
+|    |- frontend/ ________________________ # JS for the front end
+|       |- components/ ___________________ # Component-level JS
+|    |- shared/ __________________________ # Shared JS between the admin and front end
 ```
 
 <h2 id="dependencies" class="anchor-heading">Dependencies {% include Util/top %}</h2>
