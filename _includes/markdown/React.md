@@ -16,7 +16,7 @@ React is easily integrated into specific parts of the front-end or admin of an e
 
 There are a number of ways to get up and running with React in a project. The deciding factor is based on the context of your project and how you plan to implement React. The following subsections will outline instructions that are specific to installing React on a per project basis:
 
-### Script element
+### Script Element
 
 Including React via a script element in your HTML is a pretty quick and standard way of including the library. To do this you can either [download the library directly](https://react-cn.github.io/react/downloads.html), use the [CDN](https://reactjs.org/docs/cdn-links.html), or install through [NPM](https://www.npmjs.com/package/react) and direct-link into your `node_modules` directory.
 
@@ -41,7 +41,7 @@ The most popular routing library for React is [React Router](https://github.com/
 *Best practice recommendation:* Build the app components without routing first, then add routing once the navigation structure is clear, so that you’re not locked into a routing configuration at the outset which might not match your application’s final structure.
 To read more about the concept of dynamic routing, with plenty of code examples to follow along with, refer to the [React Router documentation](https://reacttraining.com/react-router/web/guides/philosophy).
 
-## Managing State
+## State Management
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
 
@@ -125,5 +125,6 @@ Here are three topics to consider when looking at server-side rendering:
 ### Prerendering
 If you're only investigating SSR to improve the SEO of a handful of marketing pages, you probably want [prerendering](https://github.com/geelen/react-snapshot) instead. Rather than using a web server to compile HTML on-the-fly, prerendering simply generates static HTML files for specific routes at build time. The advantage is setting up prerendering is much simpler and allows you to keep your frontend as a fully static site.
 
-
+## Debugging
+React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
 
