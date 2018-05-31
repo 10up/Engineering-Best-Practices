@@ -14,7 +14,7 @@ File structure unity across themes and plugins improves engineering efficiency a
 |- includes/ _____________________________ # PHP classes and files
 |    |- classes/ _________________________ # PHP classes
 |- languages/ ____________________________ # Translations
-|- node_modules/ _________________________ # npm modules
+|- node_modules/ _________________________ # NPM modules
 |- partials/ _____________________________ # Template parts
 |- templates/ ____________________________ # Page templates
 |- tests/
@@ -58,12 +58,14 @@ The `JS` folder is described separately, below to improve readability:
 
 Projects generally use two different types of dependency management:
 
-- [npm](https://npmjs.org) is used to manage JavaScript dependencies.
+- [NPM](https://npmjs.org) is used to manage front-end dependencies.
 - [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
 
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
 
 With some projects, using an automated dependency manager won't make sense. In server environments like VIP, running dependency software on the server is impossible. If required repositories are private (i.e. invisible to the clients' in-house developers), expecting the entire team to use a dependency manager is unreasonable. In these cases, the dependency, its version, and the reason for its inclusion in the project outside of a dependency manager should be documented.
+
+If you are using a package where the naming and usage isn't obvious to the average engineer, be sure to document its purpose in the README, style guide, or project documentation.
 
 ## Composer Based Project Structure
 
