@@ -58,7 +58,7 @@ The `JS` folder is described separately, below to improve readability:
 
 Projects generally use two different types of dependency management:
 
-- [npm](https://npmjs.org) is used to manage front-end dependencies.
+- [npm](https://npmjs.org) is used to manage relevant dependencies.
 - [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
 
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
