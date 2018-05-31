@@ -14,7 +14,7 @@ File structure unity across themes and plugins improves engineering efficiency a
 |- includes/ _____________________________ # PHP classes and files
 |    |- classes/ _________________________ # PHP classes
 |- languages/ ____________________________ # Translations
-|- node_modules/ _________________________ # NPM modules
+|- node_modules/ _________________________ # npm modules
 |- partials/ _____________________________ # Template parts
 |- templates/ ____________________________ # Page templates
 |- tests/
@@ -26,7 +26,7 @@ File structure unity across themes and plugins improves engineering efficiency a
 |- .eslintrc _____________________________ # ESLint config settings
 |- composer.json _________________________ # Composer package file
 |- gulpfile.babel.js _____________________ # Gulp config settings
-|- package.json __________________________ # NPM package file
+|- package.json __________________________ # npm package file
 |- webpack.config.babel.js _______________ # Webpack config settings
 ```
 
@@ -58,7 +58,7 @@ The `JS` folder is described separately, below to improve readability:
 
 Projects generally use two different types of dependency management:
 
-- [NPM](https://npmjs.org) is used to manage front-end dependencies.
+- [npm](https://npmjs.org) is used to manage front-end dependencies.
 - [Composer](https://getcomposer.org) is used primarily for back-end (i.e. admin or PHP-based) dependencies
 
 Generally, dependencies pulled in via a manager are _not_ committed to the repository, just the file defining the dependencies. This allows all developers involved to pull down local copies of each library as needed, and keeps the repository fairly clean.
