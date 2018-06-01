@@ -238,7 +238,7 @@ In most cases, maintaining baseline accessibility requirements for a project can
 
 Automating accessibility tests is easy with a tool like [pa11y](https://github.com/pa11y/pa11y), which is a command line tool that runs [HTML Code Sniffer](http://squizlabs.github.io/HTML_CodeSniffer/) over a URL.
 
-It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate NPM script as to not collide with other build processes that may be running on a project:
+It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
 
 ```
 "scripts": {
