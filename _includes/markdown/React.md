@@ -2,6 +2,8 @@ The purpose of this document is to help guide you through working with a potenti
 
 ## Figuring Out If React Is Right For Your Project
 
+Using the right tool for the job is critical in navigating a successful project. Will React always be the answer? Of course not. But there are some instances where you may want to use this library over something like (for example) a collection of plugins, custom JavaScript, or another framework.
+
 When deciding whether React is the right tool for your project, it might help to ask the following questions:
 
 * Will this project involve building a user interface that requires statefulness? In other words, will your user interface need to...react...in real time to user actions or changeable data coming from an API?
