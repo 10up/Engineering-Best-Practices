@@ -5,9 +5,8 @@ The purpose of this document is to help guide you through working with a potenti
 When deciding whether React is the right tool for your project, it might help to ask the following questions:
 
 * Will this project involve building a user interface that requires statefulness? In other words, will your user interface need to...react...in real time to user actions or changeable data coming from an API?
-* Does your project require greater flexibility than a full-fledged MVC or MV(star) framework would allow? For example: does your application need to exist within a larger site context, rather than forming the basis for the entire site?
 * Does your project need enough reusable components to make it worth using React? React is a fairly heavy library compared with the similar Vue.
-* Is performance a primary concern? Will your project need to render large amounts of data in real time while remaining performant for the browser?
+* Will your project need to render large amounts of data in real time while remaining performant for the browser?
 * Are you building a native mobile app for iOS and/or Android? The React team also maintains React Native, a subset of React which makes it possible to write applications in JavaScript using React components that compile to native Swift and Java.
 
 React is easily integrated into specific parts of the front-end or admin of an existing site, but it can also be used to render entire sites, effectively replacing traditional WordPress templates—although doing so requires a lot more planning and scaffolding of features (such as routing) that would normally be handled by the CMS out of the box.
@@ -73,7 +72,7 @@ Redux is based almost completely on 3 main principles:
 
 ### When to use Redux
 
-As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, Dan Abramov: You might not need Redux. The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
+As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
 
 ## Accessibility
 
