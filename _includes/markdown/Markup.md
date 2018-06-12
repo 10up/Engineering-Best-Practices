@@ -233,6 +233,26 @@ Form elements should also be logically grouped using the ```<fieldset>``` elemen
 
 Finally, we should ensure that all interactive elements are keyboard navigable, providing easy use for people with vision or mobility disabilities (or those not able to use a mouse). In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order or have a conversation with the designer about updates that can be made to the layout to improve accessibility.
 
+### Bypass Blocks
+
+[Bypass blocks](https://developer.wordpress.org/themes/functionality/accessibility/#skip-links), sometimes knows as 'skip to content links' - or simply 'skip links' - are links in a document to allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease.
+
+In most situations these links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
+
+While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several bypass blocks can be added if multiple areas of interest are in the page.
+
+An example of what a skip link might look like in a template file:
+
+```html
+<a class="skip-link screen-reader-text" href="#content">
+  <?php esc_html_e( 'Skip to content', 'my-domain' ); ?>
+</a>
+```
+
+Bypass blocks make use of CSS to hide them from sighted users and keep them accessible for screen readers. Usually the styles are attached to a ```screen-reader-text``` class of some kind. This CSS is used to position the links off the screen then use ```:focus``` styles to make the link visible for sighted keyboard users. 
+
+The latest [CSS technique](https://make.wordpress.org/accessibility/handbook/for-theme-developers/keeping-links-accessible/#skip-links) for positioning skip links can be found in the WordPress accessibility handbook.
+
 ### Automated Testing
 In most cases, maintaining baseline accessibility requirements for a project can be an automated process. While we can't test everything, and we still need some manual testing, there are certain tools that allow us to keep our finger on the pulse of a project's accessibility compliance.
 
