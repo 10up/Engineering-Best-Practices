@@ -1,6 +1,6 @@
 The purpose of this document is to help guide you through working with a potential project using the JavaScript framework, Vue. Outside of The [Official Vue Documentation](https://vuejs.org/), you should find here personalized recommendations for using the framework based on the types of projects we typically see at 10up. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [Official Vue Documentation](https://vuejs.org/v2/guide/).
 
-For general coding style recommendations please see the official [Vue style guide](https://vuejs.org/v2/style-guide/).
+For Vue-specific coding style and pattern recommendations please see the official [Vue style guide](https://vuejs.org/v2/style-guide/).
 
 ## Figuring Out If Vue Is Right For Your Project
 
@@ -12,7 +12,7 @@ Some questions you may want to ask yourself:
 * Will the addition of a framework save time and performance versus creating a custom solution? 
 * Do your client side templates need to be accessible to a back end technology (like PHP in a WordPress template)?
 
-If you find yourself answering, “Yes,” to those questions, Vue may be a great fit for your project! If not, a more traditional WordPress theme build may be the best.
+If you find yourself answering, “Yes,” to those questions, Vue may be a great fit for your project or component! If not, a more traditional build may be the best.
 
 ## Implementing Vue on a Project
 
@@ -27,13 +27,13 @@ If you are using Vue for isolated components within a single WordPress template 
 
 ### Including with NPM
 
-[NPM](https://vuejs.org/v2/guide/installation.html#NPM) is the recommended installation method when building large scale applications with Vue. You can tweak your settings to either use Webpack or Browserify for module bundling. This method of installation is recommended for Vue-based applications when you want more custom and fine-grained control over the dependencies being used. You might also consider using this method when a project is taking advantage of NPM as a front-end package manager.
+[NPM](https://vuejs.org/v2/guide/installation.html#NPM) is the recommended installation method when building large scale applications with Vue. You can always tweak your settings to use Webpack for module bundling. This method of installation is recommended for Vue-based applications when you want more custom and fine-grained control over the dependencies being used. You might also consider using this method when a project is taking advantage of NPM as a front-end package manager.
 
 ### Installing with a CLI
 
 The [Vue CLI](https://vuejs.org/v2/guide/installation.html#CLI) provides us a quick way to setup and scaffold a Vue project. It makes use of the modern frontend workflows and out of the box, vue-CLI provides hot reloading, minification, asset management, module bundling, linting and a development server to test your application under realistic circumstances. It works with zero configuration from your part as everything is already set up in the [vue-CLI templates](https://github.com/vuejs-templates/). 
 
-The CLI caters from the most simple app ([the simple template](https://github.com/vuejs-templates/simple)), to the most complex one ([Webpack](https://github.com/vuejs-templates/webpack) or [Browserify](https://github.com/vuejs-templates/browserify) template). This is the recommended way to install Vue when you’re building a single page application that runs off an API and will be using the Vue framework exclusively. The CLI will likely need to be used and implemented at the beginning of a project.
+The CLI caters from the most simple app ([the simple template](https://github.com/vuejs-templates/simple)), to the most complex one ([Webpack](https://github.com/vuejs-templates/webpack) ). This is the recommended way to install Vue when you’re building a single page application (not a WordPress theme) that runs off an API and will be using the Vue framework exclusively. The CLI will likely need to be used and implemented at the beginning of a project.
 
 ## State Management
 
