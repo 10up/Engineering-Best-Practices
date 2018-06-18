@@ -2,96 +2,55 @@
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
+We have a published [.eslint](https://www.npmjs.com/package/@10up/eslint-config) configuration that's used on 10up projects. This linting is included in our [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) and should help you adhere to our coding standards.
+
 ### Only Load Libraries You Need
 
-JavaScript libraries should only be loaded on the page when needed. jquery-1.11.1.min.js is 96 KB. This isn't a huge deal on desktop but can add up quickly on mobile when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflicts.
+JavaScript libraries should only be loaded on the page when needed. React + React DOM are around 650 KB together. This isn't a huge deal on a fast connection but can add up quickly in a constrained bandwidth situation when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflicts.
 
-### Use jQuery Wisely
+### Use Libraries and Frameworks Wisely
 
-[jQuery](http://jquery.com/) is a JavaScript framework that allows us to easily accomplish complex tasks such as AJAX and animations. jQuery is great for certain situations but overkill for others. For example, let's say we want to hide an element:
+With the influx of JavaScript upgrades in recent years, the need for a third-party library to polyfill functionality is becoming more and more rare (outside of a build script). Don't load in extensions unless the benefit outweighs the size of and added load-time of using it. While it is often more efficient for coding to use a quick jQuery method, it is rarely worth bringing in an entire library for one-off instances. [Read our section on Libraries and Frameworks for more specific information](#libraries).
 
-
-```javascript
-document.getElementById( 'element' ).style.display = 'none';
-```
-
-vs.
-
-```javascript
-jQuery( '#element' ).hide();
-```
-
-The non-jQuery version is [much faster](https://jsperf.com/hide-with-and-without-jquery) and is still only one line of code.
-
-### Try to Pass an HTMLElement or HTMLCollection to jQuery Instead of a Selection String
-
-When we create a new jQuery object by passing it a selection string, jQuery uses its selection engine to select those element(s) in the DOM:
-
-```javascript
-jQuery( '#menu' );
-```
-
-We can pass our own [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) or [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) to jQuery to create the same object. Since jQuery does a lot of magic behind the scenes on each selection, [this will be faster](https://jsperf.com/wrap-an-element-or-html-collection-in-jquery):
-
-```javascript
-jQuery( document.getElementById( 'menu' ) );
-```
+If you are working on a legacy project that already contains a library, make sure you're still evaluating the need for it as you build out features to best set up clients for the future.
 
 ### Cache DOM Selections
 
-It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache its selector. This applies whether you are using jQuery or not. For example:
+It's a common JavaScript mistake to reselect something unnecessarily. For example, every time a menu button is clicked, we do not need to reselect the menu. Rather, we select the menu once and cache its selector. This applies whether you are using a library or not. For example:
 
-non-jQuery Uncached:
+Uncached:
 
 ```javascript
-var hideButton = document.getElementsByClassName( 'hide-button' )[0];
-hideButton.onclick = function() {
-    var menu = document.getElementById( 'menu' );
+const hideButton = document.querySelector( '.hide-button' );
+
+hideButton.addEventListener( 'click', () => {
+    const menu = document.getElementById( 'menu' );
+    menu.style.display = 'none';
+} );
+```
+
+Cached:
+
+```javascript
+const menu = document.getElementById( 'menu' );
+const hideButton = document.querySelector( '.hide-button' );
+
+hideButton.addEventListener( 'click', () => {
     menu.style.display = 'none';
 }
 ```
 
-non-jQuery Cached:
-
-```javascript
-var menu = document.getElementById( 'menu' );
-var hideButton = document.getElementsByClassName( 'hide-button' )[0];
-hideButton.onclick = function() {
-    menu.style.display = 'none';
-}
-```
-
-jQuery Uncached:
-
-```javascript
-var $hideButton = jQuery( '.hide-button' );
-$hideButton.on( 'click', function() {
-    var $menu = jQuery( '#menu' );
-    $menu.hide();
-});
-```
-
-jQuery Cached:
-
-```javascript
-var $menu = jQuery( '#menu' );
-var $hideButton = jQuery( '.hide-button' );
-$hideButton.on( 'click', function() {
-	$menu.hide();
-});
-```
-Notice how in cached versions we are pulling the menu selection out of the event handler so it only happens once. Non-jQuery cached is not surprisingly the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
+Notice how, in cached versions, we are pulling the menu selection out of the event listener so it only happens once. The cached version is, not surprisingly, the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
 
 #### Event Delegation
 
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
-Without jQuery:
-
 ```javascript
-document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
-    var currentTarget = event.currentTarget;
-    var target = event.target;
+document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
+
+    const currentTarget = e.currentTarget;
+    let target = event.target;
 
     if ( currentTarget && target ) {
       if ( 'LI' === target.nodeName ) {
@@ -103,18 +62,10 @@ document.getElementById( 'menu' ).addEventListener( 'click', function( event ) {
         }
       }
     }
-});
+
+} );
 ```
-
-With jQuery:
-
-```javascript
-jQuery( '#menu' ).on( 'click', 'li', function() {
-    // Do stuff!
-});
-```
-
-The non-jQuery method is as usual [more performant](https://jsperf.com/jquery-vs-non-jquery-event-delegation). You may be wondering why we don't just add one listener to ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+You may be wondering why we don't just add one listener to the ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
 <h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
 
@@ -122,77 +73,67 @@ Standardizing the way we structure our JavaScript allows us to collaborate more 
 
 ### Don't Pollute the Window Object
 
-Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` decisively.
+Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` with caution.
 
 When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
 
 ```javascript
-window.console.log( this === window ); // true
+console.log( this === window ); // true
+
 for ( var i = 0; i < 9; i++ ) {
     // Do stuff
 }
-var result = true;
-window.console.log( window.result === result ); // true
-window.console.log( window.i === i ); // true
+
+const result = true;
+
+console.log( window.result === result ); // true
+console.log( window.i === i ); // true
 ```
 
 When we put our code inside a closure, our variables are private to that closure unless we expose them:
 
 ```javascript
 ( function() {
+
     for ( var i = 0; i < 9; i++ ) {
         // Do stuff
     }
 
     window.result = true;
-})();
 
-window.console.log( typeof window.result !== 'undefined' ); // true
-window.console.log( typeof window.i !== 'undefined' ); // false
+} )();
+
+console.log( typeof window.result !== 'undefined' ); // true
+console.log( typeof window.i !== 'undefined' ); // false
 ```
 
 Notice how ```i``` was not exposed to the ```window``` object.
 
 ### Use Modern Functions, Methods, and Properties
 
-It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library such as jQuery or Underscore, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
-For example, in jQuery ```jQuery.live()``` is a deprecated method:
+On all new projects you should be using up to date JavaScript methodologies combined with a build process tool like [Babel](https://babeljs.io/) to ensure browser compatibility. This allows us to utilize modern techniques while being certain our code will not break in older systems. The [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) have this functionality built in.
 
-```javascript
-jQuery( '.menu' ).live( 'click', function() {
-    // Clicked!
-});
-```
-
-We should use ```jQuery.on()``` instead:
-
-```javascript
-jQuery( '.menu' ).on( 'click', function() {
-    // Clicked!
-});
-```
-
-Another example in JavaScript is ```escape()``` and ```unescape()```. These functions were deprecated. Instead we should use ```encodeURI()```, ```encodeURIComponent()```, ```decodeURI()```, and ```decodeURIComponent()```.
+Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
 
 
 <h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
 
 We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
-We conform to the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
+We conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
 <h2 id="unit-and-integration-testing" class="anchor-heading">Unit and Integration Testing {% include Util/top %}</h2>
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use [Mocha](https://mochajs.org).
+At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When writing tests, it's important to use the framework that best fits the situation and make sure it is well documented for future engineers coming onto the project.
 
 <h2 id="libraries" class="anchor-heading">Libraries {% include Util/top %}</h2>
 
 There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of primary libraries used by 10up.
 
-### DOM Manipulation
-
-[jQuery](https://jquery.com/) - Our and WordPress's library of choice for DOM manipulation.
+### Components
+[WP Component Library](https://10up.github.io/wp-component-library/) - Provides us with a vetted, accessible, and standardized collection of UI component and Schema snippets we can use on projects.
 
 ### Utility
 
@@ -202,4 +143,4 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 [React](https://reactjs.org/) - Using React provides a library to create large-scale, stateful JavaScript applications. It aims to provide a flexible system of creating highly componentized user interfaces. [Learn more about how we use React]({{ site.baseurl }}/react).
 
-[Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library (jQuery)
+[Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library.
