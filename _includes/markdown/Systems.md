@@ -153,9 +153,9 @@ For best performance OPcache should never be 100% full. When the maximum memory 
 
 When you want to squeeze all the performance possible out of PHP, there is another OPcache setting to pay attention to, ```opcache.validate_timestamps```. This default setting of 1 has OPcache frequently checking the timestamps (how frequently is configured with ```opcache.revalidate_freq```) for each PHP file to determine if the cache needs to be updated. For maximum performance this can be set to 0, eliminating unnecessary file system calls. However, when new code is deployed to the server, OPcache will have no way of knowing that the cache should be updated and will continue to serve the outdated cached version. In this case manual purging of the OpCode cache is required. This can be accomplished by restarting php-fpm, or by using a tool such as [cachetool](http://gordalina.github.io/cachetool/) to send commands directly to the PHP listener, over FastCGI, and instruct it to clear the OPcache:
 
-```$ php cachetool.phar opcache:reset --fcgi=127.0.0.1:9000
+```$ php cachetool.phar opcache:reset --fcgi=127.0.0.1:9000```
 
-$ php cachetool.phar opcache:reset --fcgi=/var/run/php5-fpm.sock```
+```$ php cachetool.phar opcache:reset --fcgi=/var/run/php5-fpm.sock```
 
 ### PHP Sessions
 
