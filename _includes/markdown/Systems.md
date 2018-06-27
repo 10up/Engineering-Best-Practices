@@ -89,7 +89,7 @@ There are a number of places PHP can be configured. The main configuration file 
 
 The following are settings in the ```php.ini``` file that commonly are adjusted for WordPress sites. 
 
-* **upload_max_filesize**: This will be the largest file size that can be uploaded to WordPress, usually through the media library. While a large value can increase the risk of certain type of flood attacks, these are uncommon and uploading media is a core business requirement of many sites, so it is generally considered safe to increase this as high as needed.  Consider all media types when setting this value as audio and video can be several hundred megabytes. 
+* **upload_max_filesize**: This will be the largest file size that can be uploaded to WordPress, usually through the media library. While a large value can increase the risk of certain type of flood attacks, these are uncommon and uploading media is a core business requirement of many sites, so it is generally considered safe to increase this as high as needed. When using Nginx, the ```client_max_body_size``` should be set to the same size as ```upload_max_filesize```.  Additionally, CDNs such as Cloudflare can have an adjustable upload limit as well. Consider all media types when setting this value as audio and video can be several hundred megabytes. 
 
 * **max_post_size**: Needs to be as large or larger than ```upload_max_filesize```. This will be the maximum size of data sent through the POST method.
 
