@@ -20,7 +20,7 @@ Nginx has a number of modules that provide Web Application Firewall (WAF) style 
 
 Even without a security module compiled in, Nginx can be used to block some common exploit requests. The basic strategy is to know what kind of traffic you are expecting and would be legitimate, and block everything else. This way, a file snuck onto the server cannot be exploited. The [wordpress_security.inc](https://github.com/10up/nginx_configs/blob/master/security/wordpress_security.inc) file in our Nginx template provides some examples of this. 
 
-If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/10up/nginx_configs/blob/master/security/block_xmlrpc.inc), but accounts for sites using Jetpack with a few ways to whitelist the connection from Automattic.
+If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/10up/nginx_configs/blob/master/security/block_xmlrpc.inc) but allows for connections from Jetpack or whitelisted IP addresses.
 
 ### Performance
 
