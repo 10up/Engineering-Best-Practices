@@ -115,8 +115,8 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/systems/#top">Systems</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/systems/#nginx">Nginx</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#php-fpm">PHP-FPM</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#mysql">MySQL</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
 		</ul>
 	</div>
 
