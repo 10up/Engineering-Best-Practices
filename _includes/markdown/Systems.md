@@ -1,6 +1,6 @@
 <h2 id="nginx" class="anchor-heading">Nginx{% include Util/top %}</h2>
 
-[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at 10up. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweigh, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  10up maintains a public set of [Nginx configuration templates](https://github.com/10up/nginx_configs "10up Nginx Configuration Template for WordPress") that apply these best practices. 
+[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at 10up. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  10up maintains a public set of [Nginx configuration templates](https://github.com/10up/nginx_configs "10up Nginx Configuration Template for WordPress") that apply these best practices. 
 
 ### Installation
 
@@ -31,6 +31,8 @@ There are some basic settings that can be adjusted in Nginx to improve the perfo
 * Add [upstream response timing to the Nginx access logs](https://github.com/10up/nginx_configs/blob/master/template/nginx.conf#L20) to monitor PHP performance and cache hit status
 
 * Set appropriate [expires headers for static assets](https://github.com/10up/nginx_configs/blob/master/includes/expires.inc).  The expires header should be set to as far in the future as possible.  Keep in mind that a method to deal with cache invalidation at the CDN and in the browser cache should be utilized for assets (like css and js) that occasionally will change. 
+
+* Always enable [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) on SSL sites to take advantage of the improved header compression, pipelining, and multiplexing.  All major browsers support HTTP/2.
 
 ### Caching
 
