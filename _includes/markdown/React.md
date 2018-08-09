@@ -33,6 +33,18 @@ If you already have a Node / NPM / Yarn project that you wish to include React a
 
 Using the CLI tool is ideal if you are creating a full React App with an API backend.
 
+## Project Folder Organisation
+
+There are many guides on optimal folder organisations for a project. Dan Abramov, creator of Redux and React core team member has [advised the following practise](https://mobile.twitter.com/dan_abramov/status/1027245759232651270):
+
+> move files around until it feels right
+
+with [a clarification of](https://mobile.twitter.com/dan_abramov/status/1027248875072114689):
+
+> It means literally “start by putting everything in one file; when it feels like it’s annoying, start splitting them up; what THAT gets annoying, maybe add some folders”
+
+This may seem like a cavalier attitude, but the reality is that every project has it's own needs and priorities. Overengineering an overly optimal organisational approach at the beginning of a project can slow you down and introduce unnecessary complexity.
+
 ## Routing
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
