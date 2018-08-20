@@ -188,9 +188,9 @@ For design projects and projects with a global marketplace (companies with entit
 While [Section 508](https://www.section508.gov/) is the US standard, following the guidance of WCAG 2.0 will help a project pass Section 508 and also maintain a consistent internal standard. If a project specifically requires Section 508, additional confirmation testing can be done.
 
 ### States and Properties
-ARIA also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
+<abbr title="Accessible Rich Internet Applications">ARIA</abbr> also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
 
-ARIA attributes can be added dynamically with JavaScript to help add context to your content. Thinking about the tabbed content example, it might look something like this:
+<abbr>ARIA</abbr> attributes can be added dynamically with JavaScript to help add context to your content. Thinking about the tabbed content example, it might look something like this:
 
 ```html
 <ul role="tablist">
@@ -243,9 +243,9 @@ Skip links make use of CSS to hide them from sighted users while keeping them ac
 
 #### ARIA Landmark Roles
 
-ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities. Landmark role are another type of bypass block. Screen readers can see these as major document regions and navigate to them directly without having to parse through all the content in between.
+<abbr>ARIA</abbr> is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these <abbr>ARIA</abbr> Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities. Landmark roles are another type of bypass block. Screen readers can see these as major document regions and navigate to them directly without having to parse through all the content in between.
 
-Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assitive technology platforms that may not yet support the specification.
+Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assistive technology platforms that may not yet support the specification.
 
 Example:
 
