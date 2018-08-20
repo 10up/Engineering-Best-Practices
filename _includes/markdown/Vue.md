@@ -19,7 +19,7 @@ If you find yourself answering, “Yes,” to those questions, Vue may be a grea
 There are several ways to include Vue.js in your project. From the inclusion of [Vue in your HTML page](https://vuejs.org/v2/guide/installation.html#CDN) via a script tag, to [installing via NPM](https://vuejs.org/v2/guide/installation.html#NPM) and through the [Vue CLI](https://vuejs.org/v2/guide/installation.html#CLI). We will take a look at the different methods and explain when to use them.
 
 ### Script Element
-The standard way to include Vue in your application is by using a `<script>` tag in your HTML/PHP file just like any other JavaScript file. The Vue documentation recommends using the [official CDN](https://vuejs.org/v2/guide/installation.html#CDN) to make sure your Vue version is always up to date. 
+The standard way to include Vue in your application is by using a `<script>` element in your HTML/PHP file just like any other JavaScript file. The Vue documentation recommends using the [official CDN](https://vuejs.org/v2/guide/installation.html#CDN) to make sure your Vue version is always up to date. 
 
 This is the easiest way to get started and perfect for learning the framework. This is a great option if you’re building within a WordPress environment and only have a few small components to create. You may also consider this method if Vue is not the primary framework used on the project. As with any third party JavaScript inclusion, be sure to evaluate the cost/benefit of using the library/framework before starting.
 
@@ -27,7 +27,7 @@ If you are using Vue for isolated components within a single WordPress template 
 
 ### Including with NPM
 
-[NPM](https://vuejs.org/v2/guide/installation.html#NPM) is the recommended installation method when building large scale applications with Vue. You can always tweak your settings to use Webpack for module bundling. This method of installation is recommended for Vue-based applications when you want more custom and fine-grained control over the dependencies being used. You might also consider using this method when a project is taking advantage of NPM as a front-end package manager.
+[NPM](https://vuejs.org/v2/guide/installation.html#NPM) is the recommended installation method when building NPM-enabled applications with Vue. This method of installation is recommended for Vue-based applications when you want more custom and fine-grained control over the dependencies being used. You might also consider using this method when a project is taking advantage of NPM as a front-end package manager.
 
 ### Installing with a CLI
 
@@ -35,11 +35,6 @@ The [Vue CLI](https://vuejs.org/v2/guide/installation.html#CLI) provides us a qu
 
 The CLI caters from the most simple app ([the simple template](https://github.com/vuejs-templates/simple)), to the most complex one ([Webpack](https://github.com/vuejs-templates/webpack) ). This is the recommended way to install Vue when you’re building a single page application (not a WordPress theme) that runs off an API and will be using the Vue framework exclusively. The CLI will likely need to be used and implemented at the beginning of a project.
 
-## State Management
-
-Vue recommends utilizing a state management library called VueX. VueX is similar to other libraries (such as Redux) in that it helps you manage state as your application grows. The most prominent difference being that VueX is aware that it is running within a Vue application.
-
-Redux can also be used with Vue by adding some [simple bindings](https://github.com/revue/revue) into your build, but because VueX was built specifically for Vue, we recommend using it for any Vue application that requires state management. Note that smaller implementations may not require an official state management library, but it will help if your project needs to work on a larger scale.
 
 ## Events
 
@@ -52,17 +47,6 @@ Vue provides us with an easy way to react to user interaction and DOM events on 
 ### Key Events
 
 When binding to a key event such as keyup, Vue gives us key modifiers to specify which key to listen for through their key code or shorthand name. For instance `<input type="text" v-on:keypress.enter="addItem">` will run the addItem method each time the enter key is pressed. This should be used with Key events so this information can stay out of the JavaScript methods.
-
-### Event Data
-
-When responding to an event, Vue gives you an object with all of the related event data. When declaring your method, add event as a parameter and that data can be access within the method.
-```
-methods: {
-    addItem: function( event ) {
-        console.log( event );
-    }
-}
-```
 
 ### Shorthand Syntax
 
@@ -93,10 +77,6 @@ If you are using Vue outside of the SPA context make sure all your features have
 
 [Read more about choosing the right template style in Vue](https://sebastiandedeyne.com/posts/2016/dealing-with-templates-in-vue-20)
 
-
-## Debugging
-
-Vue provides a Chrome & Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your Vue instance. Whenever you encounter a new concept in Vue, it’s generally a good idea to open up the dev tool, and observe your application state.
 
 ## Resources and Official Documentation
 
