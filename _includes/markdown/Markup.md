@@ -187,17 +187,6 @@ For design projects and projects with a global marketplace (companies with entit
 
 While [Section 508](https://www.section508.gov/) is the US standard, following the guidance of WCAG 2.0 will help a project pass Section 508 and also maintain a consistent internal standard. If a project specifically requires Section 508, additional confirmation testing can be done.
 
-### ARIA Landmark Roles
-ARIA (Assistive Rich Internet Applications) is a spec from the W3C. It was created to improve accessibility of applications by providing extra information to screen readers via HTML attributes. Screen readers can already read HTML, but ARIA can help add context to content and make it easier for screen readers to interact with content.
-
-ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities.
-
-Example:
-
-```html
-<header id="masthead" class="site-header" role="banner"></header>
-```
-
 ### States and Properties
 ARIA also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
 
@@ -235,23 +224,40 @@ Finally, we should ensure that all interactive elements are keyboard navigable, 
 
 ### Bypass Blocks
 
-[Bypass blocks](https://developer.wordpress.org/themes/functionality/accessibility/#skip-links), sometimes knows as 'skip to content links' - or simply 'skip links' - are links in a document to allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease.
+[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html), are HTML flags within in a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
 
-In most situations these links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
+#### Skip Links
+Skip links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
 
-While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several bypass blocks can be added if multiple areas of interest are in the page.
+While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several links can be added if multiple areas of interest are in the page.
 
 An example of what a skip link might look like in a template file:
 
 ```html
-<a class="skip-link screen-reader-text" href="#content">
+<a class="skip-link screen-reader-text" href="#main">
   <?php esc_html_e( 'Skip to content', 'my-domain' ); ?>
 </a>
 ```
 
-Bypass blocks make use of CSS to hide them from sighted users and keep them accessible for screen readers. Usually the styles are attached to a ```screen-reader-text``` class of some kind. This CSS is used to position the links off the screen then use ```:focus``` styles to make the link visible for sighted keyboard users. 
+Skip links make use of CSS to hide them from sighted users while keeping them accessible for screen readers. Usually the styles are attached to a `screen-reader-text` class of some kind. This CSS is used to position the links off the screen then use `:focus` styles to make the link visible for sighted keyboard users. 
 
-The latest [CSS technique](https://make.wordpress.org/accessibility/handbook/for-theme-developers/keeping-links-accessible/#skip-links) for positioning skip links can be found in the WordPress accessibility handbook.
+#### ARIA Landmark Roles
+
+ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities. Landmark role are another type of bypass block. Screen readers can see these as major document regions and navigate to them directly without having to parse through all the content in between.
+
+Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assitive technology platforms that may not yet support the specification.
+
+Example:
+
+```html
+<header role="banner">
+  { Site Banner }
+  <nav role="navigation">{ Main Navigation }</nav>
+</header>
+<main role="main">{ Main content }</main>
+<footer role="contentinfo">{ Site Footer }</header>
+```
+
 
 ### Automated Testing
 In most cases, maintaining baseline accessibility requirements for a project can be an automated process. While we can't test everything, and we still need some manual testing, there are certain tools that allow us to keep our finger on the pulse of a project's accessibility compliance.
