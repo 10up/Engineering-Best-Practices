@@ -350,7 +350,7 @@ Sometimes a more complex grid system is warranted and leveraging a 3rd party lib
 
 ### Resets
 
-As of [August 13th, 2015](https://10up.com/blog/2015/sponsoring-sanitize-css/) 10up has taken stewardship of [sanitize.css](https://github.com/10up/sanitize.css), making it our primary tool for resets. Although we can still consider using [normalize.css](https://necolas.github.io/normalize.css/).
+[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets. 
 
 ## Further reading {% include Util/top %}
 

@@ -282,7 +282,5 @@ At 10up, we employ progressive enhancement to ensure that the sites we build for
 ### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
 
-### Modernizr
-At 10up, we use Modernizr to test browser support for new features that do not yet have full support across the board. Note that you should never use the Development build of Modernizr on a Production site. Create a custom build of Modernizr that features only the tests that are necessary.
-
-Included in Modernizr is HTML5Shiv. HTML5Shiv is important because HTML5 elements are not natively recognized by IE8 and other older browsers. Thus scripting support for older browsers can be provided with this fairly lightweight JavaScript library.
+### Feature Detection
+At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
