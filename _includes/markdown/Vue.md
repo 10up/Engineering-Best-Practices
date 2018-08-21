@@ -4,7 +4,7 @@ For Vue-specific coding style and pattern recommendations please see the officia
 
 ## Figuring Out If Vue Is Right For Your Project
 
-Using the right tool for the job is critical in navigating a successful project. Will Vue always be the answer? Of course not. But there are some instances where you may want to use this framework over something like (for example) a collection of plugins, custom JavaScript, or another framework.
+Using the right tool for the job is critical in navigating a successful project. Will Vue always be the answer? Of course not. But there are some instances where you may want to use this framework over something like (for example) a collection of plugins, custom JavaScript, or another framework. For instance, if you're building a larger-scale application that you feel needs a stateful system, we've found that [React]({{ site.baseurl }}/react) is a often a better option when compared to Vue.
 
 Some questions you may want to ask yourself:
 * Will this project contain a lot of components that need to interact with an API?
