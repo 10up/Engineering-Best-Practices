@@ -260,7 +260,6 @@ Example:
 <footer role="contentinfo">{ Site Footer }</header>
 ```
 
-
 ### Automated Testing
 In most cases, maintaining baseline accessibility requirements for a project can be an automated process. While we can't test everything, and we still need some manual testing, there are certain tools that allow us to keep our finger on the pulse of a project's accessibility compliance.
 
@@ -275,6 +274,13 @@ It is easily installed through npm: ```npm install pa11y --save-dev``` and can b
 ```
 
 Running this process allows the engineer to be alerted if a code-level or design change violates the project's accessibility standards.
+
+### Manual Testing
+Automated testing will often only get you so far; that is why we also recommend getting a human's eye on the accessibility in a project and executing manual tests alongside any automation. This process is largely done by an engineer reviewing the interface in a browser or screen reader and involves running your project through all of the WCAG guidelines at the compliance level that is applicable to your specific project (A, AA, or AAA). The [WCAG Quickref](https://www.w3.org/WAI/WCAG20/quickref/) is a great place to see all these guidelines in one place, internally, we also have a spreadsheet template to help manage this process.
+
+Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process. 
+
+Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
 
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
