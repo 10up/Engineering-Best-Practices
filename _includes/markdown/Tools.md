@@ -34,7 +34,7 @@ When a WordPress install is managed and maintained by an engineering team, and w
 
 <h2 id="command-line" class="anchor-heading">Command Line Tools {% include Util/top %}</h2>
 
-[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on VVV and VIP Quickstart.
+[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) and [WP Local Docker](https://github.com/10up/wp-local-docker).
 
 <h3 id="a11y-testing" class="anchor-heading">Accessibility Testing</h3>
 
