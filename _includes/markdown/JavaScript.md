@@ -67,6 +67,44 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 ```
 You may be wondering why we don't just add one listener to the ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
+<h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/top %}</h2>
+
+When dealing with client-side data requests (Ajax calls), there are a lot of different methods to consider. This portion of the document will walk you through various situations and talk about the different technologies and patterns you may encounter along the way.
+
+### Using Fetch and Promises for Modern Environments
+The Fetch API is a modern replacement for the XMLHttpRequest. It is [generally well supported](https://caniuse.com/#search=fetch), having features present in all evergreen browsers (browsers that auto-update). Fetch is recommended to be used in all modern environments when making Ajax calls or dealing with client-side data requests. Visit the [MDN Fetch documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) for a basic example of how to use this API.
+
+To properly use fetch, support for Promises also needs to be present (Promises and Fetch have the same [browser support](https://caniuse.com/#search=promise)). The support requirement for both is an important distinction when your project needs to support non-evergreen browsers (IE 11 and under), because both APIs will need to be polyfilled to get Fetch working.
+
+To polyfill with NPM, we recommend adding the following packages to your dependencies: [promise-polyfill](https://www.npmjs.com/package/promise-polyfill) and [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch). They are both applicable at different points in the build process. Promises are polyfilled at the file-level with an import and fetch is polyfilled at the build level in your task runner. Please see the [official whatwg-fetch documentation](https://www.npmjs.com/package/whatwg-fetch) for detailed installation instructions.
+
+If you are unable to process the polyfills in a modern workflow, the files can also be downloaded and enqueued separately ([fetch](https://cdnjs.com/libraries/fetch), [promise](https://cdn.jsdelivr.net/npm/promise-polyfill@8/)), but if possible, they should be implemented at the build level.
+
+### Using A Normal Ajax Call for Older Environments
+For various reasons on a project, you may not be able to use a modern technique for dealing with client-side data requests. If you find yourself in that situation, it usually isn’t necessary to load an entire library like jQuery for a single feature. If you find yourself in this situation try writing a vanilla ajax call instead. Basic ajax calls do not require any pollyfills or fallbacks, with the exception of providing support on very old browsers like, Internet Explorer 6. You can reference the [XMLHttpRequest Browser Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Browser_compatibility) on MDN for specific feature support.
+
+Please see the [MDN XMLHttpRequest documentation](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) for an example of a basic Ajax call.
+
+### When to Use a Client-side Data Request Library
+Sometimes a project may require a more robust solution for managing your requests, especially if you will be making many requests to various endpoints. While Fetch can do most (and someday all) of the things we need, there may be a few areas where it could fall short in your project. The a few main items where Fetch may fall short:
+
+- Cancelable requests
+- Timeout requests
+- Request progress
+
+It should be noted that these are in [active development](https://github.com/github/fetch#aborting-requests) and timeout requests can also be handled by using a [wrapper function](https://davidwalsh.name/fetch-timeout).
+
+Certain libraries have these built in already and are still promised-based, but can also come with a few other advantages that Fetch doesn’t have like: [transformers](https://github.com/axios/axios), [interceptors](https://github.com/axios/axios), and built-in [XSRF protection](https://en.wikipedia.org/wiki/Cross-site_request_forgery). If you find yourself needing these features that are outside the scope of native JavaScript you may want to evaluate the benefit of using a library.
+
+If you plan on making many requests over the lifetime of the application and you don’t need the features listed above, you should consider making a [helper function or module](https://medium.com/@shahata/why-i-wont-be-using-fetch-api-in-my-apps-6900e6c6fe78) that will handle all of your application’s Fetch calls so you can easily include things like: expected error handling, a common URL base, any cookies you may need, any mode changes like CORS, etc.. Overall, you should be able to accomplish what you need to with Fetch in the majority of cases.
+
+Certain codebases may already have such libraries in place. Many legacy projects use [jQuery.ajax()](http://api.jquery.com/jquery.ajax/) to make their requests. If possible, attempt to phase out jQuery for a vanilla solution where appropriate. In many cases, replacing with Fetch or XMLHttpRequest will be possible.
+
+### Concatenating Requests
+When constructing a page that contains a lot of client-side data requests you will want to consider concatenating your requests into a single Ajax call. This will help you avoid piling up requests or sending them through callbacks and nested promises when parts of the data depend on other parts.
+
+[GraphQL](https://graphql.org/) is an open source query language that can help with this situation by allowing you to combine multiple API requests into a single call. In a WordPress environment, the [WPGraphQL](https://github.com/wp-graphql/wp-graphql) plugin will let you directly access the WordPress JSON API.
+
 <h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
