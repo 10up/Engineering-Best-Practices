@@ -115,7 +115,7 @@ If you are choosing to use GraphQL on a Wordpress project, it is recommended to 
 fetch( '/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ [insert your query here] }),
+    body: JSON.stringify({ query: "[your query string goes here]" }),
 } ).then( res => res.json() );
 ```
 
