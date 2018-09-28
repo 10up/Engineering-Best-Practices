@@ -181,22 +181,11 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 ### Accessibility Standards
-At a minimum, all 10up projects should pass [WCAG 2.0 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
+At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
 
 For design projects and projects with a global marketplace (companies with entities outside the US), Level AA should be the baseline goal. The accessibility level is elevated for global markets to properly comply with [EU Functional Accessibility Requirements](http://mandate376.standards.eu/standard/technical-requirements/#9), which aligns closely with WCAG 2.0 Level AA. Having direct access to the designer also allows for greater accessibility standards to be achieved.
 
 While [Section 508](https://www.section508.gov/) is the US standard, following the guidance of WCAG 2.0 will help a project pass Section 508 and also maintain a consistent internal standard. If a project specifically requires Section 508, additional confirmation testing can be done.
-
-### ARIA Landmark Roles
-ARIA (Assistive Rich Internet Applications) is a spec from the W3C. It was created to improve accessibility of applications by providing extra information to screen readers via HTML attributes. Screen readers can already read HTML, but ARIA can help add context to content and make it easier for screen readers to interact with content.
-
-ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities.
-
-Example:
-
-```html
-<header id="masthead" class="site-header" role="banner"></header>
-```
 
 ### States and Properties
 ARIA also allows us to describe certain inherent properties of elements, as well as their various states. Imagine you've designed a site where the main content area is split into three tabs. When the user first visits the site, the first tab will be the primary one, but how does a screen reader get to the second tab? How does it know which tab is active? How does it know which element is a tab in the first place?
@@ -233,6 +222,44 @@ Form elements should also be logically grouped using the ```<fieldset>``` elemen
 
 Finally, we should ensure that all interactive elements are keyboard navigable, providing easy use for people with vision or mobility disabilities (or those not able to use a mouse). In general, the tab order should be dictated by a logical source order of elements. If you feel the need to change the tab order of certain elements, it likely indicates that you should rework the markup to flow in a logical order or have a conversation with the designer about updates that can be made to the layout to improve accessibility.
 
+### Bypass Blocks
+
+[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html), are HTML flags within in a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
+
+#### Skip Links
+Skip links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
+
+While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several links can be added if multiple areas of interest are in the page.
+
+An example of what a skip link might look like in a template file:
+
+```html
+<a class="skip-link screen-reader-text" href="#main">
+  <?php esc_html_e( 'Skip to content', 'my-domain' ); ?>
+</a>
+```
+
+Skip links make use of CSS to hide them from sighted users while keeping them accessible for screen readers. Usually the styles are attached to a `screen-reader-text` class of some kind. This CSS is used to position the links off the screen then use `:focus` styles to make the link visible for sighted keyboard users.
+
+Due to some browsers [not moving keyboard focus when they move visual focus](https://axesslab.com/skip-links/), it is essential to also enhance this feature with JavaScript. The popular Underscores starter theme [comes bundled with a good option](https://github.com/Automattic/_s/blob/master/js/skip-link-focus-fix.js) that can be used as a starting point.
+
+#### ARIA Landmark Roles
+
+ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities. Landmark role are another type of bypass block. Screen readers can see these as major document regions and navigate to them directly without having to parse through all the content in between.
+
+Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assitive technology platforms that may not yet support the specification.
+
+Example:
+
+```html
+<header role="banner">
+  { Site Banner }
+  <nav role="navigation">{ Main Navigation }</nav>
+</header>
+<main role="main">{ Main content }</main>
+<footer role="contentinfo">{ Site Footer }</header>
+```
+
 ### Automated Testing
 In most cases, maintaining baseline accessibility requirements for a project can be an automated process. While we can't test everything, and we still need some manual testing, there are certain tools that allow us to keep our finger on the pulse of a project's accessibility compliance.
 
@@ -247,6 +274,13 @@ It is easily installed through npm: ```npm install pa11y --save-dev``` and can b
 ```
 
 Running this process allows the engineer to be alerted if a code-level or design change violates the project's accessibility standards.
+
+### Manual Testing
+Automated testing will often only get you so far; that is why we also recommend getting a human's eye on the accessibility in a project and executing manual tests alongside any automation. This process is largely done by an engineer reviewing the interface in a browser or screen reader and involves running your project through all of the WCAG guidelines at the compliance level that is applicable to your specific project (A, AA, or AAA). The [WCAG Quickref](https://www.w3.org/WAI/WCAG20/quickref/) is a great place to see all these guidelines in one place. Internally, we also have a spreadsheet template to help manage this process.
+
+Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process. 
+
+Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
 
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
