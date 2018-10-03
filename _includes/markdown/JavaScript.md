@@ -175,8 +175,6 @@ There are several measures you can take to circumvent this XSS vulnerability:
 
 When setting the human-readable content of a single element, using ```textContent``` is safer than using ```innerHTML``` because it does not parse strings as HTML—meaning any malicious code passed to it will not be executed. Refer to [MDN's documentation on ```textContent```](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) for more info.
 
-```
-
 #### Use the ```Element``` API to create and add elements
 
 When you need to create multiple DOM elements, use JavaScript's ```Element``` API to create elements, set attributes and append them to the document. Creating your own elements and attributes will ensure that only those you explicitly define will make their way into the DOM.
