@@ -165,7 +165,7 @@ const myElement = document.getElementById( 'myElement' );
 myElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
 ```
 
-However, passing HTML strings to ```innerHTML``` and methods like it (including jQuery's commonly used ```append``` and ```html``` methods) can expose your code to cross-site scripting, also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For example, what happens if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked' ) />```? The JavaScript in the ```onerror``` attribute is executed.
+However, passing HTML strings to ```innerHTML``` and methods like it (including jQuery's commonly used ```append``` and ```html``` methods) can expose your code to cross-site scripting, also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For example, what happens if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked' )" />```? The JavaScript in the ```onerror``` attribute is executed.
 
 There are several measures you can take to circumvent this XSS vulnerability:
 
