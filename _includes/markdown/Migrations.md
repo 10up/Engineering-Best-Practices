@@ -73,6 +73,10 @@ Even the most carefully planned migration can have issues. The following are som
 
 	One thing to make sure of when running migrations is to not trigger any social services that might be set up. This includes sending posts to Facebook, Twitter or email. We don't want to spam subscribers with hundreds, if not thousands of items all in a row, as those items are migrated in. There are multiple ways to prevent this from happening and will depend heavily on how the site is set up (i.e. how these social services are powered). Make sure as part of the migration plan you account for this.
 
+* *Test Users on Production*
+
+	If you are importing a SQL dump, remember users come with it as well. If you created the dump from a local environment that had test users, those will be imported. Make sure to verify users after completing a migration.
+
 * *Time*
 
 	Migrations tend to take a lot of time, from putting together a good migration plan, writing the migration scripts, testing those scripts, fixing issues found and then finally running the migration on production. Always make sure there's enough time estimated for this in a project and enough time set aside to get all this done within the required time frame.
