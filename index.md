@@ -93,6 +93,7 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/tools/#local-development">Local Development Environments</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#scaffolding">Scaffolding</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
