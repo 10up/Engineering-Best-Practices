@@ -67,6 +67,44 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 ```
 You may be wondering why we don't just add one listener to the ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
+<h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/top %}</h2>
+
+When dealing with client-side data requests (Ajax calls), there are a lot of different methods to consider. This portion of the document will walk you through various situations and talk about the different technologies and patterns you may encounter along the way.
+
+### Using Fetch and Promises for Modern Environments
+The Fetch API is a modern replacement for the XMLHttpRequest. It is [generally well supported](https://caniuse.com/#search=fetch), having features present in all evergreen browsers (browsers that auto-update). Fetch is recommended to be used in all modern environments when making Ajax calls or dealing with client-side data requests. Visit the [MDN Fetch documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) for a basic example of how to use this API.
+
+To properly use fetch, support for Promises also needs to be present (Promises and Fetch have the same [browser support](https://caniuse.com/#search=promise)). The support requirement for both is an important distinction when your project needs to support non-evergreen browsers (IE 11 and under), because both APIs will need to be polyfilled to get Fetch working.
+
+To polyfill with NPM, we recommend adding the following packages to your dependencies: [promise-polyfill](https://www.npmjs.com/package/promise-polyfill) and [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch). They are both applicable at different points in the build process. Promises are polyfilled at the file-level with an import and fetch is polyfilled at the build level in your task runner. Please see the [official whatwg-fetch documentation](https://www.npmjs.com/package/whatwg-fetch) for detailed installation instructions.
+
+If you are unable to process the polyfills in a modern workflow, the files can also be downloaded and enqueued separately ([fetch](https://cdnjs.com/libraries/fetch), [promise](https://cdn.jsdelivr.net/npm/promise-polyfill@8/)), but if possible, they should be implemented at the build level.
+
+### Using A Normal Ajax Call for Older Environments
+For various reasons on a project, you may not be able to use a modern technique for dealing with client-side data requests. If you find yourself in that situation, it usually isn’t necessary to load an entire library like jQuery for a single feature. If you find yourself in this situation try writing a vanilla ajax call instead. Basic ajax calls do not require any pollyfills or fallbacks, with the exception of providing support on very old browsers like, Internet Explorer 6. You can reference the [XMLHttpRequest Browser Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Browser_compatibility) on MDN for specific feature support.
+
+Please see the [MDN XMLHttpRequest documentation](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) for an example of a basic Ajax call.
+
+### When to Use a Client-side Data Request Library
+Sometimes a project may require a more robust solution for managing your requests, especially if you will be making many requests to various endpoints. While Fetch can do most (and someday all) of the things we need, there may be a few areas where it could fall short in your project. The a few main items where Fetch may fall short:
+
+- Cancelable requests
+- Timeout requests
+- Request progress
+
+It should be noted that these are in [active development](https://github.com/github/fetch#aborting-requests) and timeout requests can also be handled by using a [wrapper function](https://davidwalsh.name/fetch-timeout).
+
+Certain libraries have these built in already and are still promised-based, but can also come with a few other advantages that Fetch doesn’t have like: [transformers](https://github.com/axios/axios), [interceptors](https://github.com/axios/axios), and built-in [XSRF protection](https://en.wikipedia.org/wiki/Cross-site_request_forgery). If you find yourself needing these features that are outside the scope of native JavaScript you may want to evaluate the benefit of using a library.
+
+If you plan on making many requests over the lifetime of the application and you don’t need the features listed above, you should consider making a [helper function or module](https://medium.com/@shahata/why-i-wont-be-using-fetch-api-in-my-apps-6900e6c6fe78) that will handle all of your application’s Fetch calls so you can easily include things like: expected error handling, a common URL base, any cookies you may need, any mode changes like CORS, etc.. Overall, you should be able to accomplish what you need to with Fetch in the majority of cases.
+
+Certain codebases may already have such libraries in place. Many legacy projects use [jQuery.ajax()](http://api.jquery.com/jquery.ajax/) to make their requests. If possible, attempt to phase out jQuery for a vanilla solution where appropriate. In many cases, replacing with Fetch or XMLHttpRequest will be possible.
+
+### Concatenating Requests
+When constructing a page that contains a lot of client-side data requests you will want to consider concatenating your requests into a single Ajax call. This will help you avoid piling up requests or sending them through callbacks and nested promises when parts of the data depend on other parts.
+
+[GraphQL](https://graphql.org/) is an open source query language that can help with this situation by allowing you to combine multiple API requests into a single call. In a WordPress environment, the [WPGraphQL](https://github.com/wp-graphql/wp-graphql) plugin will let you directly access the WordPress JSON API.
+
 <h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
@@ -117,6 +155,41 @@ On all new projects you should be using up to date JavaScript methodologies comb
 
 Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
 
+### Secure Your Code
+
+In JavaScript, we often have to insert new elements with dynamic attributes and content into the DOM. A common way to do this is to use the [```innerHTML```](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) method like so:
+
+```javascript
+const someElement = document.getElementById( 'someElement' );
+const someUrl = 'https://someurl.com/';
+const someContent = 'Some content';
+
+someElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
+```
+
+However, passing HTML strings to ```innerHTML``` and methods like it can expose your code to [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting), also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For instance, if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked!' )" />```, the JavaScript in the ```onerror``` attribute will be executed.
+
+There are several measures you can take to circumvent this XSS vulnerability:
+
+#### Use ```textContent``` instead of ```innerHTML```
+
+When setting the human-readable content of a single element, using ```textContent``` is safer than using ```innerHTML``` because it does not parse strings as HTML—meaning any malicious code passed to it will not be executed. Refer to [MDN's documentation on ```textContent```](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) for more info.
+
+#### Use the ```DOM``` API to create and add elements
+
+When you need to create multiple DOM elements, use the ```document.createElement``` method to create new elements and the ```Element``` API to set attributes and append them to the document. Creating your own elements and attributes will ensure that only those you explicitly define will make their way into the DOM.
+
+Note that appending new elements to the DOM is a relatively expensive operation, so in general you'll want to build out the structure of new elements _before_ adding them to the DOM, preferably within a single container element, then append them to the document all at once.
+
+Refer to MDN's documentation on [```document.createElement```](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) and the [```Element``` API](https://developer.mozilla.org/en-US/docs/Web/API/Element) for more info.
+
+#### Sanitize HTML strings before adding to the DOM
+
+In general, using the ```Element``` API is the preferred best practice to safely create and add DOM elements. However, it tends to result in much more verbose code compared to HTML-parsing methods like ```innerHTML```. This can become painful if you need to dynamically create a large number of new elements. In these cases, the convenience of methods like ```innerHTML``` can be extremely tempting. 
+
+If you need to generate a large amount of HTML dynamically, consider using a ```DOMParser``` to parse and sanitize HTML strings before adding the HTML to the DOM with a method like ```innerHTML```. Parsing HTML strings with a ```DOMParser``` will not automatically make the code any safer, but it will allow you to access the elements from the string and strip potentially unsafe tags and attributes before they have a chance to get executed. Refer to [MDN's documentation on ```DOMParser```](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser) for more info.
+
+Alternatively, you may consider adding a client-side sanitization library to your project so you can strip potentially malicious code from your HTML before you add it to the DOM. Passing your HTML strings through a sanitizer can help prevent XSS attacks when using methods like ```innerHTML```. However, no library is perfect, so be aware that you are relying on the security of the sanitizer you choose. Also remember to consider the effect on [performance](#performance) when deciding whether to add any large library to your project.
 
 <h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
 
