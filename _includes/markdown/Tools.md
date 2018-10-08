@@ -36,7 +36,7 @@ When a WordPress install is managed and maintained by an engineering team, and w
 
 [WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on VVV and VIP Quickstart.
 
-<h3 id="a11y-testing" class="anchor-heading">Accessibility Testing</h3>
+<h2 id="a11y-testing" class="anchor-heading">Accessibility Testing {% include Util/top %}</h2>
 
 We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources on [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
 
