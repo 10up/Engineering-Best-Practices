@@ -218,23 +218,25 @@ Another feature to keep an eye on is the REST API, in particular any meta added 
 
 ### Privacy Development Best Practices
 
-- Projects should document user data that is collected and stored.
-  - What data is collected and what is stored?
-  - How and where is the data stored?
-  - How and why is the data being collected?
-  - Where did the data come from?
-- Data capture should respect individual rights.
-  - Capture as little data as possible
-  - All data collection is encrypted via https.
-  - Ensure data storage is encrypted and secure.
-  - Consent must be given before the collection of personal data, both for the type of data and the purpose. Make sure consent is clear and not opted-in by default.
-  - Data Breaches: make sure there are processes in place to manage and report any data breaches.
-- Only share what's necessary and always use encrypted communication when sharing data.
-- Data should be anonymized when possible.
-- Data should only be stored as long as necessary and should be kept up to date.
-- Ensure the site includes a clear, easy to understand, and easily accessible privacy policy that complies with any applicable guidelines. All collection, retention, sharing and use of personal data should be described in the site privacy policy.
-- Ensure there is a process in place to let users easily request access to their data.
-- Third party services and advertisements used should also be compliant with any regulations - any service or scripts running on the site should be evaluated for compliance.
+#### Projects should document user data that is collected and stored.
+
+What data is collected and what is stored? How and where is the data stored? How and why is the data being collected? Where did the data come from?
+
+#### Data capture should be secure and respect individual rights.
+
+Consent must be given before the collection of personal data, both for the type of data and the purpose. Make sure consent is clear and not opted-in by default.
+
+Capture as little data and anonymize it as much as possible. All data collection should be encrypted via https and data storage must be encrypted and secure. Data should only be stored as long as necessary and should be kept up to date.
+
+#### Sites should have clear and accessible privacy policies and data request features.
+
+Ensure the site includes a clear, easy to understand, and easily accessible privacy policy that complies with any applicable guidelines. All collection, retention, sharing and use of personal data should be described in the site privacy policy.
+
+Ensure there is a process in place to let users easily request access to their data and to manage and report any data breaches.
+
+#### Pay attention to third-party services.
+
+Third-party services and advertisements used should also be compliant with any regulations - any service or scripts running on the site should be evaluated for compliance.
 
 #### Resources
 - [Privacy Policy Snippets](https://github.com/gdpr-compliance/info/blob/master/Privacy-policy-snippets.md)
