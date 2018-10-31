@@ -17,3 +17,5 @@ kramdown:
   input: GFM
 sass:
   sass_dir: _includes/_sass
+
+theme: jekyll-theme-cayman
