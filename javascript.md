@@ -10,6 +10,8 @@ subnav:
     tag: performance
   - title: Design Patterns
     tag: design-patterns
+  - title: Client-Side Data
+    tag: client-side-data
   - title: Code Style & Documentation
     tag: code-style
   - title: Unit and Integration Testing
