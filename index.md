@@ -80,11 +80,12 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/javascript/#top">JavaScript</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/javascript/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#client-side-data">Client-side Data</a></li>
 			<li><a href="{{ site.baseurl }}/javascript/#design-patterns">Design Patterns</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
 			<li>
 				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
-			<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
 			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
 		</ul>
 	</div>
@@ -93,6 +94,7 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/tools/#local-development">Local Development Environments</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#scaffolding">Scaffolding</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>

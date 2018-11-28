@@ -171,6 +171,41 @@ On all new projects you should be using up to date JavaScript methodologies comb
 
 Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
 
+### Secure Your Code
+
+In JavaScript, we often have to insert new elements with dynamic attributes and content into the DOM. A common way to do this is to use the [```innerHTML```](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) method like so:
+
+```javascript
+const someElement = document.getElementById( 'someElement' );
+const someUrl = 'https://someurl.com/';
+const someContent = 'Some content';
+
+someElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
+```
+
+However, passing HTML strings to ```innerHTML``` and methods like it can expose your code to [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting), also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For instance, if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked!' )" />```, the JavaScript in the ```onerror``` attribute will be executed.
+
+There are several measures you can take to circumvent this XSS vulnerability:
+
+#### Use ```textContent``` instead of ```innerHTML```
+
+When setting the human-readable content of a single element, using ```textContent``` is safer than using ```innerHTML``` because it does not parse strings as HTML—meaning any malicious code passed to it will not be executed. Refer to [MDN's documentation on ```textContent```](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) for more info.
+
+#### Use the ```DOM``` API to create and add elements
+
+When you need to create multiple DOM elements, use the ```document.createElement``` method to create new elements and the ```Element``` API to set attributes and append them to the document. Creating your own elements and attributes will ensure that only those you explicitly define will make their way into the DOM.
+
+Note that appending new elements to the DOM is a relatively expensive operation, so in general you'll want to build out the structure of new elements _before_ adding them to the DOM, preferably within a single container element, then append them to the document all at once.
+
+Refer to MDN's documentation on [```document.createElement```](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) and the [```Element``` API](https://developer.mozilla.org/en-US/docs/Web/API/Element) for more info.
+
+#### Sanitize HTML strings before adding to the DOM
+
+In general, using the ```Element``` API is the preferred best practice to safely create and add DOM elements. However, it tends to result in much more verbose code compared to HTML-parsing methods like ```innerHTML```. This can become painful if you need to dynamically create a large number of new elements. In these cases, the convenience of methods like ```innerHTML``` can be extremely tempting. 
+
+If you need to generate a large amount of HTML dynamically, consider using a ```DOMParser``` to parse and sanitize HTML strings before adding the HTML to the DOM with a method like ```innerHTML```. Parsing HTML strings with a ```DOMParser``` will not automatically make the code any safer, but it will allow you to access the elements from the string and strip potentially unsafe tags and attributes before they have a chance to get executed. Refer to [MDN's documentation on ```DOMParser```](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser) for more info.
+
+Alternatively, you may consider adding a client-side sanitization library to your project so you can strip potentially malicious code from your HTML before you add it to the DOM. Passing your HTML strings through a sanitizer can help prevent XSS attacks when using methods like ```innerHTML```. However, no library is perfect, so be aware that you are relying on the security of the sanitizer you choose. Also remember to consider the effect on [performance](#performance) when deciding whether to add any large library to your project.
 
 <h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
 
@@ -196,5 +231,7 @@ There are many JavaScript libraries available today. Many of them directly compe
 ### Frameworks
 
 [React](https://reactjs.org/) - Using React provides a library to create large-scale, stateful JavaScript applications. It aims to provide a flexible system of creating highly componentized user interfaces. [Learn more about how we use React]({{ site.baseurl }}/react).
+
+[Vue](https://vuejs.org/) - Implementing Vue on a project allows us to take advantage of the statefulness built into something like React, but apply it on a much more lightweight and smaller scale as to not bog down performance by loading in a heavy library. [Learn more about how we use Vue]({{ site.baseurl }}/vue).
 
 [Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library.

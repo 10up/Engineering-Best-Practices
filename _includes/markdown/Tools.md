@@ -2,11 +2,9 @@ The following are tools we use at 10up. This list will grow and change over time
 
 <h2 id="local-development" class="anchor-heading">Local Development Environments {% include Util/top %}</h2>
 
-At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
+At 10up, we use [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available, but the following setup is supported internally:
 
-[Varying Vagrant Vagrants (VVV)](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project (now open-sourced) and something with which we have a lot of familiarity.
-
-[WP Local Docker](https://github.com/10up/wp-local-docker) - A simple Docker-based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standardizing package versions (i.e. PHP) extremely easy.
+* [WP Local Docker](https://10up.github.io/wp-local-docker-docs/) - An easy-to-use Docker-based local development environment for WordPress development that works on Mac, Windows, and Linux. Each environment within WP Local Docker is powered by Nginx, PHP-FPM, Memcached, and if desired, ElasticSearch.
 
 <h2 id="scaffolding" class="anchor-heading">Scaffolding {% include Util/top %}</h2>
 
@@ -34,9 +32,9 @@ When a WordPress install is managed and maintained by an engineering team, and w
 
 <h2 id="command-line" class="anchor-heading">Command Line Tools {% include Util/top %}</h2>
 
-[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) and [WP Local Docker](https://github.com/10up/wp-local-docker).
+[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on [WP Local Docker](https://10up.github.io/wp-local-docker-docs/).
 
-<h3 id="a11y-testing" class="anchor-heading">Accessibility Testing</h3>
+<h2 id="a11y-testing" class="anchor-heading">Accessibility Testing {% include Util/top %}</h2>
 
 We use a variety of tools to test our sites for accessibility issues. WebAim has some great resources on [how to evaluate sites](http://webaim.org/articles/screenreader_testing/) with a screen reader.
 
