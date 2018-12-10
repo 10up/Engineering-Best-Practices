@@ -1,3 +1,203 @@
+<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
+
+Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
+
+### Use Modern Functions, Methods, and Properties
+
+It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
+
+On all new projects you should be using up to date JavaScript methodologies combined with a build process tool like [Babel](https://babeljs.io/) to ensure browser compatibility. This allows us to utilize modern techniques while being certain our code will not break in older systems. The [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) have this functionality built in.
+
+Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
+
+#### Classes
+Before ES6, classes in JavaScript were created by building a constructor function
+and adding properties by extending the prototype object. This created a fairly
+complex way to extend classes and deal with prototypal inheritance. Modern techniques
+allow us to create and extend classes directly and write cleaner code:
+
+```javascript
+class BasicExample {
+	constructor( el ) {
+		super(); // if you're extending
+	}
+
+	init() {
+		console.log( 'Hello world.' )
+	}
+}
+```
+
+Classes in modern JavaScript offer a nicer syntax to access the standard prototypal
+inheritance we've already had for a while, but can also help guide the structure
+of componentized code. When deciding whether or not to use a Class, think of the
+code you're writing in the greater context of the application.
+
+Classes will not always be the answer for creating modular code in your application,
+but you should consider them when you need to create discrete components or when
+those components need to inherit behaviors from other components, while still
+functioning as a single unit. For example, a utility function that searches a
+string for text may not be a good utilization of Classes, but an accordion menu
+with children components would.
+
+#### Arrow Functions
+Arrow functions are a great way to slim down easily executable code blocks. When
+using this style of function be sure not to over engineer a simple action just
+to make it smaller. For example, this is a good use of a simple multiline function being
+compressed into a single line:
+
+Multi-line:
+```javascript
+const init = () => {
+	console.log( msg );
+};
+```
+
+Single line:
+```javascript
+const init = ( msg ) => console.log( msg );
+```
+
+This is a very simple function, so compressing it down into a single line won't
+cause any readability issues. However, the more complicated this function gets,
+the less likely it should be on a single line.
+
+Even though single argument arrow functions don't require parenthesis around the
+argument itself, it is best to include the parenthesis for improved readability and
+scalability of the function.
+
+Something important to remember is that arrow functions are not always the answer.
+Their release addressed a very specific problem many engineers were facing with
+preserving the context of `this`. In a traditional function `this` is bound to
+different values depending on the context it is called. With arrow functions, it
+is bound to the code that contains the arrow function. Because arrow functions
+also have syntax benefits, as a general rule, use arrow functions unless you
+need a more traditional treatment of `this` (like in an event listener).
+
+#### String Concatenation
+When dealing with strings in JavaScript, it is very common to need some form of
+concatenation along the way. Before ES6 we were concatenating string with the `+`
+operator:
+
+```javascript
+var first = 'hello';
+var last = 'world';
+var msg = 'I said, "' + first + ' ' + last + ' to the crowd.';
+console.log( msg );
+```
+
+Modern techniques give us something called, "template literals", which let us concatenate
+strings in a much more straightforward manner utilizing the back tick and some
+basic templating:
+
+```javascript
+const first = 'hello';
+const last = 'world';
+const msg = `I said, "${first} ${last}," to the crowd.`;
+console.log( msg );
+```
+
+#### Destructuring Arrays and Objects
+Destructuring is a JavaScript technique that allows you to easily assign values
+and properties from arrays and objects into specific variables. This direct mapping
+affords an easy way to access data from objects and arrays in a more convenient
+syntax.
+
+The old way:
+
+```javascript
+var arr = [1, 2, 3, 4];
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+var d = arr[3];
+```
+
+The new way:
+
+```javascript
+let [a, b, c, d] = [1, 2, 3, 4];
+console.log( a ); // 1
+console.log( b ); // 2
+console.log( c ); // 3
+console.log( d ); // 4
+```
+
+Use destructuring whenever possible to slim down your code and improve overall readability.
+
+### Don't Pollute the Window Object
+
+Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` with caution.
+
+When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
+
+```javascript
+console.log( this === window ); // true
+
+for ( var i = 0; i < 9; i++ ) {
+    // Do stuff
+}
+
+const result = true;
+
+console.log( window.result === result ); // true
+console.log( window.i === i ); // true
+```
+
+When we put our code inside a closure, our variables are private to that closure unless we expose them:
+
+```javascript
+( function() {
+
+    for ( var i = 0; i < 9; i++ ) {
+        // Do stuff
+    }
+
+    window.result = true;
+
+} )();
+
+console.log( typeof window.result !== 'undefined' ); // true
+console.log( typeof window.i !== 'undefined' ); // false
+```
+
+Notice how ```i``` was not exposed to the ```window``` object.
+
+### Secure Your Code
+
+In JavaScript, we often have to insert new elements with dynamic attributes and content into the DOM. A common way to do this is to use the [```innerHTML```](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) method like so:
+
+```javascript
+const someElement = document.getElementById( 'someElement' );
+const someUrl = 'https://someurl.com/';
+const someContent = 'Some content';
+
+someElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
+```
+However, passing HTML strings to ```innerHTML``` and methods like it can expose your code to [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting), also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For instance, if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked!' )" />```, the JavaScript in the ```onerror``` attribute will be executed.
+
+There are several measures you can take to circumvent this XSS vulnerability:
+
+#### Use ```textContent``` instead of ```innerHTML```
+
+When setting the human-readable content of a single element, using ```textContent``` is safer than using ```innerHTML``` because it does not parse strings as HTML—meaning any malicious code passed to it will not be executed. Refer to [MDN's documentation on ```textContent```](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) for more info.
+
+#### Use the ```DOM``` API to create and add elements
+
+When you need to create multiple DOM elements, use the ```document.createElement``` method to create new elements and the ```Element``` API to set attributes and append them to the document. Creating your own elements and attributes will ensure that only those you explicitly define will make their way into the DOM.
+
+Note that appending new elements to the DOM is a relatively expensive operation, so in general you'll want to build out the structure of new elements _before_ adding them to the DOM, preferably within a single container element, then append them to the document all at once.
+
+Refer to MDN's documentation on [```document.createElement```](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) and the [```Element``` API](https://developer.mozilla.org/en-US/docs/Web/API/Element) for more info.
+
+#### Sanitize HTML strings before adding to the DOM
+
+In general, using the ```Element``` API is the preferred best practice to safely create and add DOM elements. However, it tends to result in much more verbose code compared to HTML-parsing methods like ```innerHTML```. This can become painful if you need to dynamically create a large number of new elements. In these cases, the convenience of methods like ```innerHTML``` can be extremely tempting.
+
+If you need to generate a large amount of HTML dynamically, consider using a ```DOMParser``` to parse and sanitize HTML strings before adding the HTML to the DOM with a method like ```innerHTML```. Parsing HTML strings with a ```DOMParser``` will not automatically make the code any safer, but it will allow you to access the elements from the string and strip potentially unsafe tags and attributes before they have a chance to get executed. Refer to [MDN's documentation on ```DOMParser```](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser) for more info.
+
+Alternatively, you may consider adding a client-side sanitization library to your project so you can strip potentially malicious code from your HTML before you add it to the DOM. Passing your HTML strings through a sanitizer can help prevent XSS attacks when using methods like ```innerHTML```. However, no library is perfect, so be aware that you are relying on the security of the sanitizer you choose. Also remember to consider the effect on [performance](#performance) when deciding whether to add any large library to your project.
+
 <h2 id="performance" class="anchor-heading">Performance</h2>
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
@@ -7,12 +207,6 @@ We have a published [.eslint](https://www.npmjs.com/package/@10up/eslint-config)
 ### Only Load Libraries You Need
 
 JavaScript libraries should only be loaded on the page when needed. React + React DOM are around 650 KB together. This isn't a huge deal on a fast connection but can add up quickly in a constrained bandwidth situation when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflicts.
-
-### Use Libraries and Frameworks Wisely
-
-With the influx of JavaScript upgrades in recent years, the need for a third-party library to polyfill functionality is becoming more and more rare (outside of a build script). Don't load in extensions unless the benefit outweighs the size of and added load-time of using it. While it is often more efficient for coding to use a quick jQuery method, it is rarely worth bringing in an entire library for one-off instances. [Read our section on Libraries and Frameworks for more specific information](#libraries).
-
-If you are working on a legacy project that already contains a library, make sure you're still evaluating the need for it as you build out features to best set up clients for the future.
 
 ### Cache DOM Selections
 
@@ -35,7 +229,7 @@ Cached:
 const menu = document.getElementById( 'menu' );
 const hideButton = document.querySelector( '.hide-button' );
 
-hideButton.addEventListener( 'click', () => {
+//hideButton.addEventListener( 'click', () => {
     menu.style.display = 'none';
 }
 ```
@@ -65,7 +259,8 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 
 } );
 ```
-You may be wondering why we don't just add one listener to the ```<body>``` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+
+You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
 <h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/top %}</h2>
 
@@ -121,92 +316,6 @@ fetch( '/graphql', {
 
 The above code snippet will help you get started in making requests to the GraphQL service.
 
-<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
-
-Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
-
-### Don't Pollute the Window Object
-
-Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` with caution.
-
-When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
-
-```javascript
-console.log( this === window ); // true
-
-for ( var i = 0; i < 9; i++ ) {
-    // Do stuff
-}
-
-const result = true;
-
-console.log( window.result === result ); // true
-console.log( window.i === i ); // true
-```
-
-When we put our code inside a closure, our variables are private to that closure unless we expose them:
-
-```javascript
-( function() {
-
-    for ( var i = 0; i < 9; i++ ) {
-        // Do stuff
-    }
-
-    window.result = true;
-
-} )();
-
-console.log( typeof window.result !== 'undefined' ); // true
-console.log( typeof window.i !== 'undefined' ); // false
-```
-
-Notice how ```i``` was not exposed to the ```window``` object.
-
-### Use Modern Functions, Methods, and Properties
-
-It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
-
-On all new projects you should be using up to date JavaScript methodologies combined with a build process tool like [Babel](https://babeljs.io/) to ensure browser compatibility. This allows us to utilize modern techniques while being certain our code will not break in older systems. The [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) have this functionality built in.
-
-Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
-
-### Secure Your Code
-
-In JavaScript, we often have to insert new elements with dynamic attributes and content into the DOM. A common way to do this is to use the [```innerHTML```](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) method like so:
-
-```javascript
-const someElement = document.getElementById( 'someElement' );
-const someUrl = 'https://someurl.com/';
-const someContent = 'Some content';
-
-someElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
-```
-
-However, passing HTML strings to ```innerHTML``` and methods like it can expose your code to [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting), also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For instance, if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked!' )" />```, the JavaScript in the ```onerror``` attribute will be executed.
-
-There are several measures you can take to circumvent this XSS vulnerability:
-
-#### Use ```textContent``` instead of ```innerHTML```
-
-When setting the human-readable content of a single element, using ```textContent``` is safer than using ```innerHTML``` because it does not parse strings as HTML—meaning any malicious code passed to it will not be executed. Refer to [MDN's documentation on ```textContent```](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) for more info.
-
-#### Use the ```DOM``` API to create and add elements
-
-When you need to create multiple DOM elements, use the ```document.createElement``` method to create new elements and the ```Element``` API to set attributes and append them to the document. Creating your own elements and attributes will ensure that only those you explicitly define will make their way into the DOM.
-
-Note that appending new elements to the DOM is a relatively expensive operation, so in general you'll want to build out the structure of new elements _before_ adding them to the DOM, preferably within a single container element, then append them to the document all at once.
-
-Refer to MDN's documentation on [```document.createElement```](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) and the [```Element``` API](https://developer.mozilla.org/en-US/docs/Web/API/Element) for more info.
-
-#### Sanitize HTML strings before adding to the DOM
-
-In general, using the ```Element``` API is the preferred best practice to safely create and add DOM elements. However, it tends to result in much more verbose code compared to HTML-parsing methods like ```innerHTML```. This can become painful if you need to dynamically create a large number of new elements. In these cases, the convenience of methods like ```innerHTML``` can be extremely tempting. 
-
-If you need to generate a large amount of HTML dynamically, consider using a ```DOMParser``` to parse and sanitize HTML strings before adding the HTML to the DOM with a method like ```innerHTML```. Parsing HTML strings with a ```DOMParser``` will not automatically make the code any safer, but it will allow you to access the elements from the string and strip potentially unsafe tags and attributes before they have a chance to get executed. Refer to [MDN's documentation on ```DOMParser```](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser) for more info.
-
-Alternatively, you may consider adding a client-side sanitization library to your project so you can strip potentially malicious code from your HTML before you add it to the DOM. Passing your HTML strings through a sanitizer can help prevent XSS attacks when using methods like ```innerHTML```. However, no library is perfect, so be aware that you are relying on the security of the sanitizer you choose. Also remember to consider the effect on [performance](#performance) when deciding whether to add any large library to your project.
-
 <h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
 
 We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
@@ -218,6 +327,10 @@ We conform to the [WordPress JavaScript documentation standards](https://make.wo
 At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When writing tests, it's important to use the framework that best fits the situation and make sure it is well documented for future engineers coming onto the project.
 
 <h2 id="libraries" class="anchor-heading">Libraries {% include Util/top %}</h2>
+
+With the influx of JavaScript upgrades in recent years, the need for a third-party library to polyfill functionality is becoming more and more rare (outside of a build script). Don't load in extensions unless the benefit outweighs the size of and added load-time of using it. While it is often more efficient for coding to use a quick jQuery method, it is rarely worth bringing in an entire library for one-off instances.
+
+If you are working on a legacy project that already contains a library, make sure you're still evaluating the need for it as you build out features to best set up clients for the future.
 
 There are many JavaScript libraries available today. Many of them directly compete with each other. We try to stay consistent with what WordPress uses. The following is a list of primary libraries used by 10up.
 
