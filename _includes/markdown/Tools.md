@@ -1,16 +1,16 @@
-The following are tools we use at 10up. This list will grow and change over time and is not meant to be comprehensive. Generally, we encourage or require these tools to be used in favor of other ones. Rules governing tools to be used and packaged with a client site will be much stricter than those used on internal projects.
+The following are tools we use at WisdmLabs. This list will grow and change over time and is not meant to be comprehensive. Generally, we encourage or require these tools to be used in favor of other ones. Rules governing tools to be used and packaged with a client site will be much stricter than those used on internal projects.
 
 <h2 id="local-development" class="anchor-heading">Local Development Environments {% include Util/top %}</h2>
 
-At 10up, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
+At WisdmLabs, we use [Vagrant](https://www.vagrantup.com/) and/or [Docker](https://www.docker.com/) to build and interact with virtual environments that match production as closely as possible. There are many setups and configurations available. The following setups are the only ones we support internally.
 
-[Varying Vagrant Vagrants (VVV)](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a 10up project (now open-sourced) and something with which we have a lot of familiarity.
+[Varying Vagrant Vagrants (VVV)](https://github.com/Varying-Vagrant-Vagrants/VVV) - Our standard Vagrant setup for client sites and local development. This was originally a WisdmLabs project (now open-sourced) and something with which we have a lot of familiarity.
 
-[WP Local Docker](https://github.com/10up/wp-local-docker) - A simple Docker-based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standardizing package versions (i.e. PHP) extremely easy.
+[WP Local Docker](https://github.com/WisdmLabs/wp-local-docker) - A simple Docker-based development environment. This setup is great because it's very easy to setup, simple to interact with, and makes standardizing package versions (i.e. PHP) extremely easy.
 
 <h2 id="scaffolding" class="anchor-heading">Scaffolding {% include Util/top %}</h2>
 
-[10up Project Scaffold](https://github.com/10up/project-scaffold) - Developers can use 10up Project Scaffold to quickly create themes and plugins with our recommended tools and many of our best practices already in place.
+[WisdmLabs Project Scaffold](https://github.com/WisdmLabs/project-scaffold) - Developers can use WisdmLabs Project Scaffold to quickly create themes and plugins with our recommended tools and many of our best practices already in place.
 
 <h2 id="task-runners" class="anchor-heading">Task Runners {% include Util/top %}</h2>
 
@@ -28,13 +28,13 @@ When a WordPress install is managed and maintained by an engineering team, and w
 
 <h2 id="version-control" class="anchor-heading">Version Control {% include Util/top %}</h2>
 
-[Git](https://git-scm.com) - At 10up we use Git for version control. We encourage people to use the command line for interacting with Git. GUIs are permitted but will not be supported internally.
+[Git](https://git-scm.com) - At WisdmLabs we use Git for version control. We encourage people to use the command line for interacting with Git. GUIs are permitted but will not be supported internally.
 
 [SVN](https://subversion.apache.org/) - We use SVN, but only in the context of WordPress.com VIP. Again, we encourage people to use the command line as we do not support GUIs internally.
 
 <h2 id="command-line" class="anchor-heading">Command Line Tools {% include Util/top %}</h2>
 
-[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) and [WP Local Docker](https://github.com/10up/wp-local-docker).
+[WP-CLI](https://wp-cli.org) - A command line interface for WordPress. This is an extremely powerful tool that allows us to do imports, exports, run custom scripts, and more via the command line. Often this is the only way we can affect a large database (WordPress.com VIP or WP Engine). This tool is installed by default on [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) and [WP Local Docker](https://github.com/WisdmLabs/wp-local-docker).
 
 <h3 id="a11y-testing" class="anchor-heading">Accessibility Testing</h3>
 

@@ -1,13 +1,13 @@
-name:          10up Engineering Best Practices
-title:         10up Engineering Best Practices
-description:   Engineering best practices used by 10up.
-url:           https://10up.github.io/
+name:          WisdmLabs Engineering Best Practices
+title:         WisdmLabs Engineering Best Practices
+description:   Engineering best practices used by WisdmLabs.
+url:           https://WisdmLabs.github.io/
 baseurl:       /Engineering-Best-Practices
 author:
-  name:    10up
-  email:   sales@10up.com
-  github:  10up
-  twitter: 10up
+  name:    WisdmLabs
+  email:   sales@WisdmLabs.com
+  github:  WisdmLabs
+  twitter: WisdmLabs
 
 markdown:      kramdown
 permalink:     pretty

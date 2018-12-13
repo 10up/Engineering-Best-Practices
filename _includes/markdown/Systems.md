@@ -1,6 +1,6 @@
 <h2 id="nginx" class="anchor-heading">Nginx{% include Util/top %}</h2>
 
-[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at 10up. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  10up maintains a public set of [Nginx configuration templates](https://github.com/10up/nginx_configs "10up Nginx Configuration Template for WordPress") that apply these best practices. 
+[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at WisdmLabs. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  WisdmLabs maintains a public set of [Nginx configuration templates](https://github.com/WisdmLabs/nginx_configs "WisdmLabs Nginx Configuration Template for WordPress") that apply these best practices. 
 
 ### Installation
 
@@ -18,19 +18,19 @@ Nginx does not have a history of security vulnerabilities, but keeping it at the
 
 Nginx has a number of modules that provide Web Application Firewall (WAF) style protection, but nearly all come with some significant trade-offs including the need to compile Nginx from source to install. [Naxsi](https://github.com/nbs-system/naxsi) and [modsecurity](https://www.trustwave.com/Resources/SpiderLabs-Blog/Announcing-the-availability-of-ModSecurity-extension-for-Nginx/) are 2 popular choices.
 
-Even without a security module compiled in, Nginx can be used to block some common exploit requests. The basic strategy is to know what kind of traffic you are expecting and would be legitimate, and block everything else. This way, a file snuck onto the server cannot be exploited. The [wordpress_security.inc](https://github.com/10up/nginx_configs/blob/master/security/wordpress_security.inc) file in our Nginx template provides some examples of this. 
+Even without a security module compiled in, Nginx can be used to block some common exploit requests. The basic strategy is to know what kind of traffic you are expecting and would be legitimate, and block everything else. This way, a file snuck onto the server cannot be exploited. The [wordpress_security.inc](https://github.com/WisdmLabs/nginx_configs/blob/master/security/wordpress_security.inc) file in our Nginx template provides some examples of this. 
 
-If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/10up/nginx_configs/blob/master/security/block_xmlrpc.inc) but allows for connections from Jetpack or whitelisted IP addresses.
+If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/WisdmLabs/nginx_configs/blob/master/security/block_xmlrpc.inc) but allows for connections from Jetpack or whitelisted IP addresses.
 
 ### Performance
 
 There are some basic settings that can be adjusted in Nginx to improve the performance of WordPress:
 
-* [Compress files with gzip](https://github.com/10up/nginx_configs/blob/master/includes/performance.inc)
+* [Compress files with gzip](https://github.com/WisdmLabs/nginx_configs/blob/master/includes/performance.inc)
 
-* Add [upstream response timing to the Nginx access logs](https://github.com/10up/nginx_configs/blob/master/template/nginx.conf#L20) to monitor PHP performance and cache hit status
+* Add [upstream response timing to the Nginx access logs](https://github.com/WisdmLabs/nginx_configs/blob/master/template/nginx.conf#L20) to monitor PHP performance and cache hit status
 
-* Set appropriate [expires headers for static assets](https://github.com/10up/nginx_configs/blob/master/includes/expires.inc).  The expires header should be set to as far in the future as possible.  Keep in mind that a method to deal with cache invalidation at the CDN and in the browser cache should be utilized for assets (like css and js) that occasionally will change. 
+* Set appropriate [expires headers for static assets](https://github.com/WisdmLabs/nginx_configs/blob/master/includes/expires.inc).  The expires header should be set to as far in the future as possible.  Keep in mind that a method to deal with cache invalidation at the CDN and in the browser cache should be utilized for assets (like css and js) that occasionally will change. 
 
 * Always enable [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) on SSL sites to take advantage of the improved header compression, pipelining, and multiplexing.  All major browsers support HTTP/2.
 
@@ -38,23 +38,23 @@ There are some basic settings that can be adjusted in Nginx to improve the perfo
 
 Nginx has a built-in caching mechanism that can be applied to data being proxied or passed to fastCGI. Since Nginx cached data can be served without an extra hop to PHP or a dedicated caching tool like Varnish, it has the potential for being the fastest option. Solutions like Varnish, however, have a big advantage when it comes to cache management and invalidation. Varnish allows sophisticated rules to be built around cache invalidation, whereas Nginx requires extra modules be compiled in to do anything but basic cache management. 
 
-10up often uses a "microcaching" strategy with Nginx to provide a performance boost without compiling in extra modules. Cache invalidation integration with WordPress is handled at the PHP level where Batcache provides the main caching mechanism. With microcaching, a small expiration time is set so that cached pages will expire before anyone notices they were even cached in the first place. In this way, there is no need to worry about invalidating caches on new posts, or any other WordPress action that would require a page cache update. This essentially rate limits the amount of requests that are sent to PHP for any given page. A microcaching expiration time of as short as 10 seconds can be helpful on busy sites with spiky traffic patterns. 
+WisdmLabs often uses a "microcaching" strategy with Nginx to provide a performance boost without compiling in extra modules. Cache invalidation integration with WordPress is handled at the PHP level where Batcache provides the main caching mechanism. With microcaching, a small expiration time is set so that cached pages will expire before anyone notices they were even cached in the first place. In this way, there is no need to worry about invalidating caches on new posts, or any other WordPress action that would require a page cache update. This essentially rate limits the amount of requests that are sent to PHP for any given page. A microcaching expiration time of as short as 10 seconds can be helpful on busy sites with spiky traffic patterns. 
 
 While a short microcaching time can be useful, the best practice is to set this microcaching expiration for as long a duration as is tolerable. For publishers that deal in breaking news, this may be tens of seconds. On a more static site, or a publisher where the stories are not time critical, microcaching up to 5 or 10 minutes can work and provide a big performance boost. This expiration time should be determined by collaborative discussion with the publishers and content creators. 
 
 #### Implementation
 
-A handful of good [blog](https://thelastcicada.com/2014/microcaching-with-nginx-for-wordpress) posts cover microcaching and our Nginx templates provide the settings we commonly use with comments for context.  Microcaching needs configuration in a number of places, so be sure to include configuration in the [server block](https://github.com/10up/nginx_configs/blob/master/includes/wp_microcaching.inc), the [http block](https://github.com/10up/nginx_configs/blob/master/template/example.conf#L3), and in the [php location block](https://github.com/10up/nginx_configs/blob/master/includes/php.inc).
+A handful of good [blog](https://thelastcicada.com/2014/microcaching-with-nginx-for-wordpress) posts cover microcaching and our Nginx templates provide the settings we commonly use with comments for context.  Microcaching needs configuration in a number of places, so be sure to include configuration in the [server block](https://github.com/WisdmLabs/nginx_configs/blob/master/includes/wp_microcaching.inc), the [http block](https://github.com/WisdmLabs/nginx_configs/blob/master/template/example.conf#L3), and in the [php location block](https://github.com/WisdmLabs/nginx_configs/blob/master/includes/php.inc).
 
 <h2 id="php-fpm" class="anchor-heading">PHP-FPM{% include Util/top %}</h2>
 
-PHP-FPM is 10up’s preferred solutions for parsing PHP and serving via fastCGI through Nginx to the web. PHP-FPM has proven to be a stable and performant solution, offering a number of variables to configure in the pursuit of performance. 
+PHP-FPM is WisdmLabs’s preferred solutions for parsing PHP and serving via fastCGI through Nginx to the web. PHP-FPM has proven to be a stable and performant solution, offering a number of variables to configure in the pursuit of performance. 
 
-10up recommends keeping the PHP version updated to be within 1 release of the most recent version. For example, when PHP is on version 7.1, the version of PHP in production should be no lower than PHP 7.0. 
+WisdmLabs recommends keeping the PHP version updated to be within 1 release of the most recent version. For example, when PHP is on version 7.1, the version of PHP in production should be no lower than PHP 7.0. 
 
 ### Installation
 
-The default repos in CentOS (and most Linux distributions) provide stable but usually well out-of-date packages for PHP. These are often more than 1 version behind the latest PHP release. Because of this, 10up relies on the [Remi repos](https://blog.remirepo.net/pages/Config-en) to provide up-to-date versions of PHP for CentOS. When using the Remi repos, edit ```/etc/yum.repos.d/remi.repo``` to select the PHP version to install. Alternatively, look for similarly named files that could be used for other PHP versions (such as ```/etc/yum.repos.d/remi-php71.repo```). By enabling and disabling specific Remi repos, the desired version of PHP can be installed. 
+The default repos in CentOS (and most Linux distributions) provide stable but usually well out-of-date packages for PHP. These are often more than 1 version behind the latest PHP release. Because of this, WisdmLabs relies on the [Remi repos](https://blog.remirepo.net/pages/Config-en) to provide up-to-date versions of PHP for CentOS. When using the Remi repos, edit ```/etc/yum.repos.d/remi.repo``` to select the PHP version to install. Alternatively, look for similarly named files that could be used for other PHP versions (such as ```/etc/yum.repos.d/remi-php71.repo```). By enabling and disabling specific Remi repos, the desired version of PHP can be installed. 
 
 When doing a standard yum install PHP-FPM, the software will be installed in the usual places on Linux and updating to a new version of PHP will mean installing directly over the existing version. An alternative method of installation is to use [Software Collections](https://www.softwarecollections.org/en/). Software Collections allow multiple versions of the same software to be installed and run at the same time. The scl command is used to specify which version of the software to use. In this scenario, multiple versions of PHP-FPM can be running simultaneously, making upgrading a website to a new version of PHP as simple as changing the upstream FastCGI process in Nginx. This allows for easy rollbacks if incompatibilities are discovered. This is also a great setup for development environments. 
 
@@ -169,7 +169,7 @@ The impact of MySQL performance is very different site to site. A slow database 
 
 ### Version
 
-Both MySQL and MariaDB can serve WordPress as they are fully compatible with each other.  While 10up generally has switched to MariaDB due to the more open source ethos of the project, there’s very little reason not to use MySQL if that is the easier option.  In this document, "MySQL" is used as the generic term to refer to both MySQL and MariaDB.
+Both MySQL and MariaDB can serve WordPress as they are fully compatible with each other.  While WisdmLabs generally has switched to MariaDB due to the more open source ethos of the project, there’s very little reason not to use MySQL if that is the easier option.  In this document, "MySQL" is used as the generic term to refer to both MySQL and MariaDB.
 
 MySQL versions have a longer lifespan than PHP versions and as long as security patches are being issued for the version in use, it is likely acceptable to use. 
 
@@ -235,7 +235,7 @@ When evaluating memory usage, all programs running on the database server should
 
 When tuning memory usage, be aware that many MyISAM buffers and caches are per thread while many InnoDB buffers are global. InnoDB is the default database engine in MySQL and is what most WordPress installs will be using at this time, so MyISAM buffers can be greatly reduced (but should be non-zero as some MySQL internal tables can use MyISAM).
 
-This section will outline the most common variables that are tuned in the ```/etc/my.cnf``` or ```/etc/my.cnf.d/server.cnf``` files using a real example from a 10up configured site.
+This section will outline the most common variables that are tuned in the ```/etc/my.cnf``` or ```/etc/my.cnf.d/server.cnf``` files using a real example from a WisdmLabs configured site.
 
 * **Innodb_buffer_pool_size**: This is by far the most important variable for efficient performance of an InnoDB database.  InnoDB is the database engine which all WordPress databases should be unless there are very unusual circumstances. The InnoDB buffer pool should be larger than the size of the MySQL dataset so that all active databases can fit into memory, limiting at 85% of system RAM (assuming no other services are run on the database server). MySQLTuner provides excellent guidance for setting this value correctly. In our example project, MySQLTuner states ```InnoDB buffer pool / data size: 200.0M/455.9M```. This server has 4GB of RAM and has Memcached (the only other process running on this server) already using 128MB of RAM, so there’s plenty of room to devote to MySQL. MySQLTuner reports this as well showing ```Maximum possible memory usage: 972.0M (24.61% of installed RAM)```. In this example, this setting was increased as such to allow for growth: ```innodb_buffer_pool_size = 600M``` 
 

@@ -400,7 +400,7 @@ A namespace identifier consists of a _top-level_ namespace or "Vendor Name", whi
 
 Additional levels of the namespace are defined at discretion of the project's lead engineers. Around the time of a project's kickoff, they agree on a strategy for namespacing the project's code. For example, the client's name may be followed with the name of a particular site or high-level project we're building (```TenUp\Buy_N_Large\Wall_E;```).
 
-When 10up works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
+When WisdmLabs works on more than one project for a client and we build common plugins shared between sites, "Common" might be used in place of the project name to signal this code's relationship to the rest of the codebase.
 
 The engineering leads document this strategy so it can be shared with engineers brought onto the project throughout its lifecycle.
 
@@ -616,7 +616,7 @@ $wpdb->insert( $wpdb->posts, array( 'post_content' => wp_kses_post( $post_conten
 
 To escape is to ensure data conforms to specific standards before being passed off. Validation, again, ensures that data matches what is to be expected in a much stricter way. Any non-static data outputted to the browser must be escaped or validated.
 
-WordPress has a number of core functions that can be leveraged for escaping. At 10up, we follow the philosophy of *late escaping*. This means we escape things just before output in order to reduce missed escaping and improve code readability.
+WordPress has a number of core functions that can be leveraged for escaping. At WisdmLabs, we follow the philosophy of *late escaping*. This means we escape things just before output in order to reduce missed escaping and improve code readability.
 
 Here are some simple examples of *late-escaped* output:
 
@@ -803,7 +803,7 @@ To make this easier, the WordPress API includes functions that translate and esc
 
 We follow the official WordPress [coding](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/php/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
-That said, at 10up we highly value verbose commenting/documentation throughout any/all code, with an emphasis on docblock long descriptions which state 'why' the code is there and 'what' exactly the code does in human-readable prose. As a general rule of thumb; a manager should be able to grok your code by simply reading the docblock and inline comments.
+That said, at WisdmLabs we highly value verbose commenting/documentation throughout any/all code, with an emphasis on docblock long descriptions which state 'why' the code is there and 'what' exactly the code does in human-readable prose. As a general rule of thumb; a manager should be able to grok your code by simply reading the docblock and inline comments.
 
 Example:
 
@@ -860,7 +860,7 @@ Unit testing is the automated testing of units of source code against certain as
 
 By definition, unit tests do not have dependencies on outside systems; in other words, only your code (a single unit of code) is being tested. Integration testing works similarly to unit tests but assumptions are tested against systems of code, moving parts, or an entire application. The phrases unit testing and integration testing are often misused to reference one another especially in the context of WordPress.
 
-At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Building tests for client themes doesn't usually offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
+At WisdmLabs, we generally employ unit and integration tests only when building applications that are meant to be distributed. Building tests for client themes doesn't usually offer a huge amount of value (there are of course exceptions to this). When we do write tests, we use PHPUnit which is the WordPress standard library.
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](https://make.wordpress.org/core/handbook/testing/automated-testing/).
 
@@ -889,7 +889,7 @@ $a = esc_attr( $my_class_name );
 // Something naughty could happen to the string after early escaping
 $a .= 'something naughty';
 
-// 10up & VIP prefer to escape right at the point of output, which would be here
+// WisdmLabs & VIP prefer to escape right at the point of output, which would be here
 echo <<<HTML
 <div class="test {$a}">test</div>
 HTML;

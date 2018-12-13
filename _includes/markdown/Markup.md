@@ -1,13 +1,13 @@
 <h2 id="philosophy" class="anchor-heading">Philosophy</h2>
-At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
+At WisdmLabs, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
 ### Principles
 Markup is intended to define the structure and outline of a document and to offer semantic structure for the document's contents. Markup should not define the look and feel of the content on the page beyond the most basic structural concepts such as headers, paragraphs, and lists.
 
-At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
+At WisdmLabs, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
 
 ### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[https://en.wikipedia.org/wiki/Semantic_HTML](https://en.wikipedia.org/wiki/Semantic_HTML)).
+At WisdmLabs, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[https://en.wikipedia.org/wiki/Semantic_HTML](https://en.wikipedia.org/wiki/Semantic_HTML)).
 
 Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
 
@@ -19,7 +19,7 @@ We test our markup against the [W3C validator](https://validator.w3.org/) to ens
 
 
 ### Optimize Readability
-At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, eases onboarding processes, and improves code maintainability.
+At WisdmLabs, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, eases onboarding processes, and improves code maintainability.
 
 Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
 
@@ -101,7 +101,7 @@ Schema.org data can be provided in two forms: "microdata" markup added to a page
 
 Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
 
-For examples of Schema markup on components, check out the [10up WordPress Component Library](https://10up.github.io/wp-component-library/)
+For examples of Schema markup on components, check out the [WisdmLabs WordPress Component Library](https://WisdmLabs.github.io/wp-component-library/)
 
 <h2 id="html5-structural-elements" class="anchor-heading">HTML5 Structural Elements {% include Util/top %}</h2>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
@@ -181,7 +181,7 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 ### Accessibility Standards
-At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
+At a minimum, all WisdmLabs projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as WisdmLabs does not always control the design of a project. 
 
 For design projects and projects with a global marketplace (companies with entities outside the US), Level AA should be the baseline goal. The accessibility level is elevated for global markets to properly comply with [EU Functional Accessibility Requirements](http://mandate376.standards.eu/standard/technical-requirements/#9), which aligns closely with WCAG 2.0 Level AA. Having direct access to the designer also allows for greater accessibility standards to be achieved.
 
@@ -280,15 +280,15 @@ Automated testing will often only get you so far; that is why we also recommend 
 
 Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process. 
 
-Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
+Combining automated and manual testing practices allows WisdmLabs to maintain a high level of compliance on all projects and it is critical to the work we do.
 
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
-At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
+At WisdmLabs, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
 
 ### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
 
 ### Feature Detection
-At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
+At WisdmLabs, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.

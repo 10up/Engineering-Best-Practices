@@ -1,14 +1,14 @@
-We version control all projects at 10up using [Git](https://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
+We version control all projects at WisdmLabs using [Git](https://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
 
 <h2 id="structure-package-management" class="anchor-heading">Structure and Package Management{% include Util/top %}</h2>
 
-We structure our projects in such a way that we are not version controlling third party code, rather, they are included via a package manager. For PHP, we use [Composer](https://getcomposer.org/) to manage PHP dependencies (also see package managers](/Engineering-Best-Practices/tools/#package-managers)) e.g. WordPress core itself, plugins, and themes. Dependency management structuring is explained more in the [Structure](https://10up.github.io/Engineering-Best-Practices/structure/#composer-based-project-structure) section.
+We structure our projects in such a way that we are not version controlling third party code, rather, they are included via a package manager. For PHP, we use [Composer](https://getcomposer.org/) to manage PHP dependencies (also see package managers](/Engineering-Best-Practices/tools/#package-managers)) e.g. WordPress core itself, plugins, and themes. Dependency management structuring is explained more in the [Structure](https://WisdmLabs.github.io/Engineering-Best-Practices/structure/#composer-based-project-structure) section.
 
 We also do not commit compiled files (JS/CSS). This saves us from having to deal with people forgetting to compile files and large merge conflicts. Instead we generate compile files during deployment.
 
 <h2 id="workflows" class="anchor-heading">Workflows {% include Util/top %}</h2>
 
-At 10up we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason we use the following workflows company-wide both for internal and client projects.
+At WisdmLabs we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason we use the following workflows company-wide both for internal and client projects.
 
 ### Commits
 
@@ -118,7 +118,7 @@ As we assign version numbers to our software, we follow [the Semantic Versioning
 * **MINOR** versions are incremented when new functionality is added in a backwards-compatible manner.
 * **PATCH** versions are incremented for backwards-compatible bugfixes.
 
-Imagine Jake has written a new plugin: 10upalooza. He might give his first public release version **1.0.0.** After releasing the plugin, Jake decides to add some new (backwards-compatible) features, and subsequently releases version **1.1.0**. Later, Taylor finds a bug and reports it to Jake via GitHub; no functionality is added or removed, but Jake fixes the bug and releases version **1.1.1**.
+Imagine Jake has written a new plugin: WisdmLabsalooza. He might give his first public release version **1.0.0.** After releasing the plugin, Jake decides to add some new (backwards-compatible) features, and subsequently releases version **1.1.0**. Later, Taylor finds a bug and reports it to Jake via GitHub; no functionality is added or removed, but Jake fixes the bug and releases version **1.1.1**.
 
 Down the road, Jake decides to remove some functionality or change the way some functions are used. Since this would change how others interact with his code, he would declare this new release to be version **2.0.0**, hinting to consumers that there are breaking changes in the new version of his plugin.
 

@@ -23,7 +23,7 @@
 		border-radius: 100%;
 		z-index: 10; /* So that it overlays any expanded .top-nav */
 		@extend %hide-text;
-		background: #303030 url("img/10up-logo-full.svg") no-repeat 46% 30%;
+		background: #303030 url("img/WisdmLabs-logo-full.svg") no-repeat 46% 30%;
 		-webkit-background-size: 50%;
 		background-size: 50%;
 		@include breakpoint($breakpoint-bravo) {
