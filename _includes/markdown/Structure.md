@@ -63,7 +63,7 @@ Projects generally use two different types of dependency management:
 
 ## When and How to Use Packages
 
-When choosing a third-party library for inclusion in your project, see if it’s available on npm (JavaScript) or Packagist (PHP). Additionally, WordPress plugins and themes are often available on [wppackagist.org](wppackagist.org). Retrieving dependencies from a package repo helps slim down the code in our version control repos, meaning there’s less we need to retrieve when a new engineer starts on a project. It also contributes to easily keeping code up to date with security and performance improvements.
+When choosing a third-party library for inclusion in your project, see if it’s available on npm (JavaScript) or Packagist (PHP). Additionally, WordPress plugins and themes are often available on [wpackagist.org](https://wpackagist.org/). Retrieving dependencies from a package repo helps slim down the code in our version control repos, meaning there’s less we need to retrieve when a new engineer starts on a project. It also contributes to easily keeping code up to date with security and performance improvements.
 
 Most package managers differentiate between dependencies and devDependencies:
 
