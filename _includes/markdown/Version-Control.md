@@ -83,12 +83,15 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 * Merging the branch to ```staging```, using a non-fast-forward merge
 * Merging the branch back to ```master```, again using a non-fast-forward merge
 
-#### Deleting Branches
+#### Archiving and Deleting Branches
 
-This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete them after feature development is complete.
+This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll archive and delete them after feature development is complete.
 
-* Move to another branch (doesn't matter which)
-* Delete the branch (both on local and remote)
+* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Archive the branch: `git tag archive/branch-name branch-name` 
+* Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
+* Push the archive tag: `git push origin archive/branch-name`
+
 
 ### Plugins
 
