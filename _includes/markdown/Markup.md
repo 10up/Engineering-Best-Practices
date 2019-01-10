@@ -257,7 +257,7 @@ Example:
   <nav role="navigation">{ Main Navigation }</nav>
 </header>
 <main role="main">{ Main content }</main>
-<footer role="contentinfo">{ Site Footer }</header>
+<footer role="contentinfo">{ Site Footer }</footer>
 ```
 
 ### Automated Testing
