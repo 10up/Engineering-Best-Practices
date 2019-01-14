@@ -33,6 +33,25 @@ If you already have a Node / NPM / Yarn project that you wish to include React a
 
 Using the CLI tool is ideal if you are creating a full React App with an API backend.
 
+## Components
+When building out components, its beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
+
+### Class Components
+Class Components are written in the ES6 Class syntax. When building a component using a JS Class, you are generally inferring that the component either manages its own `state` or it's `state` is managed by a state management library like Redux. LifeCycle methods are only available in class components. 
+
+Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the state of their children.
+
+### Stateless Functions
+A Stateless function can take the form of a plain function in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter. 
+
+If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code.
+
+### PureComponents
+PureComponents allow for greater performance benefits with in the React Lifecycle. When using a Pure Component, the logic of `shouldComponentUpdate` is altered to check whether a re-render is necessary when changes to `props` or `state` are compared. This is known as a _shallow-comparison_. In Class Components - `shouldComponentUpdate` will always fire, thus so will `render`. 
+
+Use PureComponents to increase performance benefits of stateful components where you can easily ensure updates to `state` and `props` have not caused any mutations or side effects.
+
+
 ## Routing
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
