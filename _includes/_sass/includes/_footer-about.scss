@@ -2,6 +2,12 @@
 	background-color: #3f3f3f;
 	color: $default-light-color;
 
+	a {
+		background: none;
+		color: $default-light-color;
+		transition: none;
+	}
+
 	.footer-about-inner {
 		max-width: $single-max-width;
 		padding: $guaranteed-edge-standoff $guaranteed-edge-standoff $guaranteed-edge-standoff/2 $guaranteed-edge-standoff;
@@ -30,6 +36,15 @@
 		p {
 			font-size: 1rem;
 			margin: 1rem 0;
+		}
+
+		a {
+			text-decoration: underline;
+
+			&:active,
+			&:hover {
+				color: $color-accent-alternate-2;
+			}
 		}
 	}
 
