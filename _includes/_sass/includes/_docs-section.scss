@@ -16,21 +16,34 @@
 	}
 
 	.anchor-heading {
-		padding-top: 60px;
 		margin-top: -60px;
+		padding-top: 60px;
+	}
+}
 
-		&::after {
-			background-image: url("img/svg-icons/link.svg");
-			background-repeat: no-repeat;
-			background-size: cover;
-			content: "";
-			display: inline-block;
-			height: 0.8em;
-			margin-left: 0.2em;
-			margin-top: 0.1em;
-			opacity: 0.4;
-			width: 0.8em;
-		}
+.subhead-anchor {
+	display: none;
+	font-size: 0.7em;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&::after {
+		background-image: url("img/svg-icons/link.svg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		content: "";
+		display: inline-block;
+		height: 0.8em;
+		margin-left: 0.2em;
+		margin-top: 0.1em;
+		opacity: 0.4;
+		width: 0.8em;
+	}
+
+	.anchor-heading:hover & {
+		display: inline-block;
 	}
 }
 
