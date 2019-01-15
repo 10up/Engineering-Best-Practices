@@ -303,21 +303,54 @@ At 10up, the concept of feature detection is used to test browser support for ne
 
 ### Best Practices &amp; Common Usage
 
-#### SVG icon in a button
+#### SVG icon in a button with text
 
 ```
 <button type="button">
     Menu
     <svg viewBox="0 0 10 10"
-         class="svg-icon"
-         aria-hidden="true"
-         focusable="false">
+        class="svg-icon"
+        aria-hidden="true"
+        focusable="false">
         <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
     </svg>
 </button>
 ```
 
 Since the SVG is merely decorative and the "Menu" textually explains the button's purpose. Then we can leverage `aria-hidden="true"` and `focusable="false"` to hide the SVG-as-decorative-element from the accessibility tree.
+
+#### SVG icon in a button with _hidden_ text
+
+```
+<button type="button">
+    <svg class="svg-icon"
+        height="10"
+        width="10"
+        viewBox="0 0 10 10"
+        aria-hidden="true"
+        focusable="false">
+        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
+    </svg>
+    <span class="visually-hidden">
+        Menu
+    </span>
+</button>
+```
+
+The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer.
+
+The corresponding CSS for this:
+
+```
+.visually-hidden {
+    clip: rect(0, 0, 0, 0); // Clip the box to zero pixels.
+    height: 1px;
+    overflow: hidden; // Hide any overflowing elements or text.
+    position: absolute; // Move the text out of the flow of the container.
+    white-space: nowrap; // Text won't wrap to a second line.
+    width: 1px; // Reduce its height and width to just one pixel.
+}
+```
 
 ### Performance
 
