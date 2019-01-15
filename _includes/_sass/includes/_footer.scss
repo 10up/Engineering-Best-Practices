@@ -3,6 +3,11 @@ footer[role="contentinfo"] {
 	background-color: #303030;
 	position: relative;
 
+	a {
+		background: none;
+		transition: none;
+	}
+
 	.logo-link {
 		display: none;
 		@extend %hide-text;
