@@ -21,7 +21,7 @@ body {
 	background: $party-blue; /* Webkit */
 	color:white;
 }
-	
+
 ::-moz-selection {
 	background: $party-blue; /* Firefox */
 	color:white;
@@ -44,6 +44,10 @@ a {
 	&:active {
 		color: saturate( darken($color-accent-alternate, 10%), 10% );
 	}
+}
+
+abbr {
+	text-decoration: none;
 }
 
 p a {
