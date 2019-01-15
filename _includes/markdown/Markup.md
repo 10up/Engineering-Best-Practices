@@ -292,3 +292,29 @@ When writing markup that does not have wide browser support, using polyfills can
 
 ### Feature Detection
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
+
+<h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
+<abbr title="Scaleable Vector Graphics">SVG</abbr> has become a prevalent means for displaying rich vector graphics. At 10up we prefer to use SVGs over icon fonts for several reasons:
+
+1. Sharper in fidelity - icon fonts can be a bit pixelated, because the browser treats them as text (i.e. anti-aliased). While this can sometimes be overcome by adjusting `font-smoothing`. This approach is not recommended.
+2. Broader CSS control - individual stroke and fill properties can be adjusted.
+3. Semantics - icon fonts are typically rendered using pseudo-elements and an empty `<span>` element. This is not ideal semantics. Whereas, an `<svg>` is semantically an image.
+4. Accessibility - while font icons _can_ be implemented in an accessible way. There are obscure instances where glyphs have mixed Unicode meaning and can be output in inconsistent manner. Whereas, an SVG is output _as is_.
+
+### Best Practices &amp; Common Usage
+
+#### SVG icon in a button
+
+```
+<button type="button">
+    Menu
+    <svg viewBox="0 0 10 10"
+         class="svg-icon"
+         aria-hidden="true"
+         focusable="false">
+        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
+    </svg>
+</button>
+```
+
+Since the SVG is merely decorative and the "Menu" textually explains the button's purpose. Then we can leverage `aria-hidden="true"` and `focusable="false"` to hide the SVG-as-decorative-element from the accessibility tree.
