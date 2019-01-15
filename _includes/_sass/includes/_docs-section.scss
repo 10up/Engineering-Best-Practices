@@ -18,6 +18,19 @@
 	.anchor-heading {
 		padding-top: 60px;
 		margin-top: -60px;
+
+		&::after {
+			background-image: url("img/svg-icons/link.svg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			content: "";
+			display: inline-block;
+			height: 0.8em;
+			margin-left: 0.2em;
+			margin-top: 0.1em;
+			opacity: 0.4;
+			width: 0.8em;
+		}
 	}
 }
 
