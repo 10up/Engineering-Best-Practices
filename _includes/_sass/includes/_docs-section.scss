@@ -1,7 +1,7 @@
 .docs-section {
-	padding: $guaranteed-edge-standoff;
-	max-width: $single-max-width;
 	margin: 0 auto;
+	max-width: $single-max-width;
+	padding: $guaranteed-edge-standoff;
 	width: 100%;
 
 	h2 {
@@ -48,7 +48,7 @@
 }
 
 .back-to-top {
-	font-size: 0.5em;
 	float: right;
+	font-size: 0.5em;
 	padding-top: 1.2em;
 }
