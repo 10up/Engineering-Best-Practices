@@ -111,9 +111,14 @@
 	display: block;
 	font-size: 1.3rem;
 	background-color: black;
+	background-image: none;
 
 	@include breakpoint($breakpoint-bravo) {
 		display: none;
+	}
+
+	&:hover {
+		color: $color-accent-alternate-2;
 	}
 }
 
@@ -123,10 +128,15 @@
 	display: block;
 	font-size: 1.3rem;
 	background-color: black;
+	background-image: none;
 	right: 2.5em;
 
 	@include breakpoint($breakpoint-bravo) {
 		right: 0;
+	}
+
+	&:hover {
+		color: $color-accent-alternate-2;
 	}
 }
 
@@ -142,6 +152,11 @@
 		@include inline-list();
 		display: block !important;
 		padding-top: 0;
+	}
+
+	a {
+		background: none;
+		transition: none;
 	}
 
 	li {
