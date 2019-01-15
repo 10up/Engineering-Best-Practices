@@ -33,30 +33,24 @@ img {
 }
 
 a {
-	color: darken($color-accent-alternate, 10%);
+	background-image: linear-gradient(transparent calc(100% - 7px), $color-error-light 0),
+	linear-gradient(transparent calc(100% - 7px), $color-accent-alternate-2 0);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: 0 100%, 100% 100%;
+	color: $color-dark;
 	text-decoration: none;
+	transition: all .1s;
 
 	&:visited {
-		color: desaturate($color-accent-alternate, 20%);
+		color: $color-dark;
 	}
 
 	&:hover,
 	&:active {
-		color: saturate( darken($color-accent-alternate, 10%), 10% );
+		background-size: 100% 100%, 100% 100%;
+		color: $color-dark;
 	}
-}
-
-p a {
-	border-bottom: 1px solid rgba( $color-accent-alternate, .3 );
-
-	&:hover {
-		border-bottom-color: rgba( saturate( darken( $color-accent-alternate, 10%), 10% ), .8 );
-	}
-
-	&:visited {
-
-	}
-
 }
 
 // otherwise it's too wonky with our static header on mobile
