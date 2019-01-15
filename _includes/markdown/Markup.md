@@ -318,3 +318,7 @@ At 10up, the concept of feature detection is used to test browser support for ne
 ```
 
 Since the SVG is merely decorative and the "Menu" textually explains the button's purpose. Then we can leverage `aria-hidden="true"` and `focusable="false"` to hide the SVG-as-decorative-element from the accessibility tree.
+
+### Performance
+
+It is quite common for SVG to make their way in to a project without being optimized. Also, most tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGOMG](https://jakearchibald.github.io/svgomg/) or using tooling, like: [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
