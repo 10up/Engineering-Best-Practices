@@ -1,4 +1,4 @@
-<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
+<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/link_anchor anchor="design-patterns" %} {% include Util/top %}</h2>
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
@@ -198,7 +198,7 @@ If you need to generate a large amount of HTML dynamically, consider using a ```
 
 Alternatively, you may consider adding a client-side sanitization library to your project so you can strip potentially malicious code from your HTML before you add it to the DOM. Passing your HTML strings through a sanitizer can help prevent XSS attacks when using methods like ```innerHTML```. However, no library is perfect, so be aware that you are relying on the security of the sanitizer you choose. Also, remember to consider the effect on [performance](#performance) when deciding whether to add any large library to your project.
 
-<h2 id="performance" class="anchor-heading">Performance</h2>
+<h2 id="performance" class="anchor-heading">Performance {% include Util/link_anchor anchor="performance" %}</h2>
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
@@ -262,7 +262,7 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 
 You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
-<h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/top %}</h2>
+<h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/link_anchor anchor="client-side-data" %} {% include Util/top %}</h2>
 
 When dealing with client-side data requests (Ajax calls), there are a lot of different methods to consider. This portion of the document will walk you through various situations and talk about the different technologies and patterns you may encounter along the way.
 
@@ -316,17 +316,17 @@ fetch( '/graphql', {
 
 The above code snippet will help you get started in making requests to the GraphQL service.
 
-<h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
+<h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/link_anchor anchor="code-style" %} {% include Util/top %}</h2>
 
 We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
 
 We conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
 
-<h2 id="unit-and-integration-testing" class="anchor-heading">Unit and Integration Testing {% include Util/top %}</h2>
+<h2 id="unit-and-integration-testing" class="anchor-heading">Unit and Integration Testing {% include Util/link_anchor anchor="unit-and-integration-testing" %} {% include Util/top %}</h2>
 
 At 10up, we generally employ unit and integration tests only when building applications that are meant to be distributed. Writing tests for client themes usually does not offer a huge amount of value (there are of course exceptions to this). When writing tests, it's important to use the framework that best fits the situation and make sure it is well documented for future engineers coming onto the project.
 
-<h2 id="libraries" class="anchor-heading">Libraries {% include Util/top %}</h2>
+<h2 id="libraries" class="anchor-heading">Libraries {% include Util/link_anchor anchor="libraries" %} {% include Util/top %}</h2>
 
 With the influx of JavaScript upgrades in recent years, the need for a third-party library to polyfill functionality is becoming more and more rare (outside of a build script). Don't load in extensions unless the benefit outweighs the size of and added load-time of using it. While it is often more efficient for coding to use a quick jQuery method, it is rarely worth bringing in an entire library for one-off instances.
 
