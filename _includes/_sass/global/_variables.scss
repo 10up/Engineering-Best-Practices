@@ -1,5 +1,6 @@
 // Colors
 $party-blue: #54cdcd;
+$humming-bird: #cef8f7;
 $business-red: #b73030;
 $business-red-light: #b72f2f;
 
@@ -42,6 +43,9 @@ $color-accent-light-text: lighten($color-accent-light, 30%);
 
 $color-accent-alternate: $party-blue;
 $color-accent-alternate-text: lighten($color-accent-alternate, 30%);
+
+$color-accent-alternate-2: $humming-bird;
+$color-accent-alternate-2-text: contrast($color-accent-alternate-2);
 
 $color-button: $very-dark-grey;
 $color-button-text: contrast($color-button);
