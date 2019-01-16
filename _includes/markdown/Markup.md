@@ -352,6 +352,29 @@ The corresponding CSS for this:
 }
 ```
 
+#### SVG as non-decorative element
+
+If you would like to use an inline SVG. Here are some considerations to improve experience for assistive technology:
+
+* Use a descriptive `<title>` within the SVG.
+* Assign `role="image"`
+* Use `aria-labeledby` to help call out the title and description.
+
+Let's put it all together in an example:
+
+```
+<svg version="1.1" width="50" height="50" role="img" aria-labelledby="title-2 desc-2">
+    <title id="title-2">red square</title>
+    <desc id="desc-2">A plain red square defined at 50 pixels length and height.</desc>
+    <rect width="50" height="50" fill="#cc0000" />
+</svg>
+```
+
+##### Further reading:
+* ["Using ARIA to enhance SVG accessibility"](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
+* ["Accessible SVG Icons with Inline Sprites"](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
+* ["Accessible SVG test page"](https://weboverhauls.github.io/demos/svg/)
+
 ### Optimization
 
 It is quite common for SVG to make their way in to a project without being optimized. Also, most tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like: [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
