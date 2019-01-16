@@ -298,7 +298,7 @@ At 10up, the concept of feature detection is used to test browser support for ne
 
 1. Sharper in fidelity - icon fonts can be a bit pixelated, because the browser treats them as text (i.e. anti-aliased). While this can sometimes be overcome by adjusting `font-smoothing`. This approach is not recommended.
 2. Broader CSS control - individual stroke and fill properties can be adjusted.
-3. Semantics - icon fonts are typically rendered using pseudo-elements and an empty `<span>` element. This is not ideal semantics. Whereas, an `<svg>` is semantically an image.
+3. Semantics - An `<svg>` element has semantic meaning as an image. This helps communicate to browsers and assitive technology the intended meaning of the element.
 4. Accessibility - while font icons _can_ be implemented in an accessible way. There are obscure instances where glyphs have mixed Unicode meaning and can be output in inconsistent manner. Whereas, an SVG is output _as is_.
 
 ### Best Practices &amp; Common Usage
