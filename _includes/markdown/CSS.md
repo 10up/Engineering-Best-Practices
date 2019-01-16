@@ -282,7 +282,7 @@ Articles worth reading:
 
 Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
 
-While the `prefer-reduced-motion` CSS media feature does not have the widest support yet (mostly just Safari and Firefox). We still recommend applying `prefer-reduced-motion`, as it is simple to implement and affords a better experience for those using supported browsers.
+The `prefer-reduced-motion` CSS media feature does not have the widest support: just Safari and Firefox (see [CanIUse.com for latest](https://caniuse.com/#feat=prefers-reduced-motion) support information). However, we still recommend applying `prefer-reduced-motion`, as it is simple to implement and affords a better experience for those using supported browsers.
 
 Here is an example:
 
