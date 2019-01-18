@@ -74,13 +74,14 @@
 	}
 
 	a {
+		background-image: none;
+		color: $almost-black;
 		display: inline-block;
-		padding-bottom: 1px;
+		text-decoration: none;
 	}
 
 	a:hover {
-		padding-bottom: 0;
-		border-bottom: 1px solid rgba(saturate(darken($color-accent-alternate, 10%), 10%), .8);
+	text-decoration: underline;
 	}
 
 	h3 {
