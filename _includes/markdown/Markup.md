@@ -388,13 +388,12 @@ The `<span>Menu</span>` still provides assistive technology with a textual expla
 If you would like to use an inline SVG. Here are some considerations to improve experience for assistive technology:
 
 * Use a descriptive `<title>` within the SVG.
-* Assign `role="image"`
 * Use `aria-labeledby` to help call out the title and description.
 
 Let's put it all together in an example:
 
 ```html
-<svg version="1.1" width="50" height="50" role="img" aria-labelledby="title-2 desc-2">
+<svg version="1.1" width="50" height="50" aria-labelledby="title-2 desc-2">
     <title id="title-2">red square</title>
     <desc id="desc-2">A plain red square defined at 50 pixels length and height.</desc>
     <rect width="50" height="50" fill="#cc0000" />
