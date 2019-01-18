@@ -14,11 +14,13 @@ subnav:
     tag: documentation
   - title: Performance
     tag: performance
+  - title: Accessibility
+    tag: accessibility
   - title: Responsive Websites
     tag: responsive-websites
   - title: Frameworks
     tag: frameworks
-updated: 2 September 2015
+updated: 15 January 2019
 ---
 
 <div class="docs-section">
