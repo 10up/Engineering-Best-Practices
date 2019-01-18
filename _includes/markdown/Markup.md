@@ -294,18 +294,62 @@ When writing markup that does not have wide browser support, using polyfills can
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
 
 <h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
-<abbr title="Scaleable Vector Graphics">SVG</abbr> has become a prevalent means for displaying rich vector graphics. At 10up we prefer to use SVGs over icon fonts for several reasons:
+<abbr title="Scaleable Vector Graphics">SVG</abbr> has become a prevalent means for displaying rich vector graphics. Here are a few known benefits of SVG:
 
-1. Sharper in fidelity - icon fonts can be a bit pixelated, because the browser treats them as text (i.e. anti-aliased). While this can sometimes be overcome by adjusting `font-smoothing`. This approach is not recommended.
-2. Broader CSS control - individual stroke and fill properties can be adjusted.
-3. Semantics - An `<svg>` element has semantic meaning as an image. This helps communicate to browsers and assitive technology the intended meaning of the element.
-4. Accessibility - while font icons _can_ be implemented in an accessible way. There are obscure instances where glyphs have mixed Unicode meaning and can be output in inconsistent manner. Whereas, an SVG is output _as is_.
+* __Scalability__ - They look great on retina displays and at any size, i.e. they're resolution independent.
+* __File Size__ - Small file size and compresses well.
+* __Styling__ - Manipulate fill, stroke, and even animate.
 
-### Best Practices &amp; Common Usage
+
+### Best Practices &amp; Common Usage / Pitfalls
+
+#### I've got an SVG on my page, now why is it so massive?
+
+Here is a basic example of placing an SVG with some corresponding helper CSS to make it responsive:
+
+```html
+<svg class="svg-icon" width="10" height="10" viewBox="0 0 10 10">
+    <path d="m5 9-3-4h2v-4h2v4h2z"/>
+</svg>
+```
+
+And the corresponding CSS to help it respond to inline text:
+
+```css
+.svg-icon {
+    /* Place the icon on the text baseline. */
+    position: relative;
+    top: .125em;
+
+    /* Prevent the icon from shrinking inside a flex container. */
+    flex-shrink: 0;
+
+    /* Scale the icon to match the font-size of the parent element. */
+    height: 1em;
+    width: 1em;
+
+    /* Let the icon take whatever color the parent has. */
+    fill: currentColor;
+
+    /*
+     * If the icon is used on a link, which has a color transition,
+     * we can also use a transition on the fill value.
+    */
+    transition: fill .3s;
+}
+```
+
+#### SVG with `<img>` element
+
+A totally acceptable way to output your SVG:
+
+```html
+<img class="lightbulb" alt="Lightbulb moment!" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/BulbIcon.svg">
+```
 
 #### SVG icon in a button with text
 
-```
+```html
 <button type="button">
     Menu
     <svg viewBox="0 0 10 10"
@@ -321,7 +365,7 @@ Since the SVG is merely decorative and the "Menu" textually explains the button'
 
 #### SVG icon in a button with _hidden_ text
 
-```
+```html
 <button type="button">
     <svg class="svg-icon"
         height="10"
@@ -341,7 +385,7 @@ The `<span>Menu</span>` still provides assistive technology with a textual expla
 
 The corresponding CSS for this:
 
-```
+```css
 .visually-hidden {
     clip: rect(0, 0, 0, 0); // Clip the box to zero pixels.
     height: 1px;
@@ -362,7 +406,7 @@ If you would like to use an inline SVG. Here are some considerations to improve 
 
 Let's put it all together in an example:
 
-```
+```html
 <svg version="1.1" width="50" height="50" role="img" aria-labelledby="title-2 desc-2">
     <title id="title-2">red square</title>
     <desc id="desc-2">A plain red square defined at 50 pixels length and height.</desc>
@@ -370,10 +414,21 @@ Let's put it all together in an example:
 </svg>
 ```
 
+### SVG Icons or Icon Font?
+
+Using either SVG icons or an icon font are both suitable approaches at the end of the day. Here are some considerations:
+
+* __Fidelity__ - icon fonts can be a bit pixelated, because the browser treats them as text (i.e. anti-aliased). While this can sometimes be overcome by adjusting `font-smoothing`. SVG is vector based and remain crisp at any size or resolution.
+* __Styling__ - SVG has far more styling opportunities (`fill`, `stroke`, `transform`), but icon fonts still afford styling opportunities as well (`color`, `font-size`).
+* __Semantics__ - an `<svg>` element has semantic meaning as an image. This helps communicate to browsers and assitive technology the intended meaning of the element.
+* __Accessibility__ - while font icons _can_ be implemented in an accessible way. There are obscure instances where glyphs have mixed Unicode meaning and can be output in inconsistent manner. Whereas, an SVG is output _as is_.
+
 ##### Further reading:
+* ["An Overview of SVG Sprite Creation Techniques"](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
 * ["Using ARIA to enhance SVG accessibility"](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
 * ["Accessible SVG Icons with Inline Sprites"](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
 * ["Accessible SVG test page"](https://weboverhauls.github.io/demos/svg/)
+* ["Creating Accessible SVGs"](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
 
 ### Optimization
 
