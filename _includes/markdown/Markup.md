@@ -400,15 +400,6 @@ Let's put it all together in an example:
 </svg>
 ```
 
-### SVG Icons or Icon Font?
-
-Using either SVG icons or an icon font are both suitable approaches at the end of the day. Here are some considerations:
-
-* __Fidelity__ - icon fonts can be a bit pixelated, because the browser treats them as text (i.e. anti-aliased). While this can sometimes be overcome by adjusting `font-smoothing`. SVG is vector based and remain crisp at any size or resolution.
-* __Styling__ - SVG has far more styling opportunities (`fill`, `stroke`, `transform`), but icon fonts still afford styling opportunities as well (`color`, `font-size`).
-* __Semantics__ - an `<svg>` element has semantic meaning as an image. This helps communicate to browsers and assitive technology the intended meaning of the element.
-* __Accessibility__ - while font icons _can_ be implemented in an accessible way. There are obscure instances where glyphs have mixed Unicode meaning and can be output in inconsistent manner. Whereas, an SVG is output _as is_.
-
 ##### Further reading:
 * ["An Overview of SVG Sprite Creation Techniques"](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
 * ["Using ARIA to enhance SVG accessibility"](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
