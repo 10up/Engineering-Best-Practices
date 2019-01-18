@@ -381,7 +381,7 @@ Since the SVG is merely decorative and the "Menu" textually explains the button'
 </button>
 ```
 
-The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer.
+The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer. Also, `focusable="false"` helps designate the SVG as a non-focusable element, therefore skipping it, and instead focusing on the `<span>` for announcement with assistive technology.
 
 #### SVG as non-decorative element
 
