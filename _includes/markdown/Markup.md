@@ -181,7 +181,7 @@ These are not easily maintainable and can be easily lost or cause unforeseen con
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 ### Accessibility Standards
-At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
+At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project.
 
 For design projects and projects with a global marketplace (companies with entities outside the US), Level AA should be the baseline goal. The accessibility level is elevated for global markets to properly comply with [EU Functional Accessibility Requirements](http://mandate376.standards.eu/standard/technical-requirements/#9), which aligns closely with WCAG 2.0 Level AA. Having direct access to the designer also allows for greater accessibility standards to be achieved.
 
@@ -267,7 +267,7 @@ Automating accessibility tests is easy with a tool like [pa11y](https://github.c
 
 It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
 
-```
+```js
 "scripts": {
     "pa11y": "pa11y --ignore notice https://projectname.test"
 },
@@ -278,9 +278,31 @@ Running this process allows the engineer to be alerted if a code-level or design
 ### Manual Testing
 Automated testing will often only get you so far; that is why we also recommend getting a human's eye on the accessibility in a project and executing manual tests alongside any automation. This process is largely done by an engineer reviewing the interface in a browser or screen reader and involves running your project through all of the WCAG guidelines at the compliance level that is applicable to your specific project (A, AA, or AAA). The [WCAG Quickref](https://www.w3.org/WAI/WCAG20/quickref/) is a great place to see all these guidelines in one place. Internally, we also have a spreadsheet template to help manage this process.
 
-Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process. 
+Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process.
 
 Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
+
+### Animation
+
+Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
+
+The `prefer-reduced-motion` CSS media feature does not currently have the widest support: just Safari and Firefox (see [CanIUse.com for latest](https://caniuse.com/#feat=prefers-reduced-motion) support information). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+
+Here is an example:
+
+```css
+.animation {
+    animation: vibrate 0.3s linear infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animation {
+        animation: none;
+    }
+}
+```
+
+Read more about [creating accessible animations](https://alistapart.com/blog/post/more-resources-for-accessible-animations).
 
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.

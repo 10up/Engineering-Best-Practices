@@ -278,26 +278,6 @@ Articles worth reading:
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
-<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h2>
-
-Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
-
-The `prefer-reduced-motion` CSS media feature does not have the widest support: just Safari and Firefox (see [CanIUse.com for latest](https://caniuse.com/#feat=prefers-reduced-motion) support information). However, we still recommend applying `prefer-reduced-motion`, as it is simple to implement and affords a better experience for those using supported browsers.
-
-Here is an example:
-
-```
-.animation {
-    animation: vibrate 0.3s linear infinite both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .animation {
-        animation: none;
-    }
-}
-```
-
 <h2 id="responsive-websites" class="anchor-heading">Responsive websites {% include Util/top %}</h2>
 
 We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
@@ -370,7 +350,7 @@ Sometimes a more complex grid system is warranted and leveraging a 3rd party lib
 
 ### Resets
 
-[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets. 
+[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets.
 
 ## Further reading {% include Util/top %}
 
