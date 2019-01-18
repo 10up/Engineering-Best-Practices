@@ -383,19 +383,6 @@ Since the SVG is merely decorative and the "Menu" textually explains the button'
 
 The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer.
 
-The corresponding CSS for this:
-
-```css
-.visually-hidden {
-    clip: rect(0, 0, 0, 0); // Clip the box to zero pixels.
-    height: 1px;
-    overflow: hidden; // Hide any overflowing elements or text.
-    position: absolute; // Move the text out of the flow of the container.
-    white-space: nowrap; // Text won't wrap to a second line.
-    width: 1px; // Reduce its height and width to just one pixel.
-}
-```
-
 #### SVG as non-decorative element
 
 If you would like to use an inline SVG. Here are some considerations to improve experience for assistive technology:
