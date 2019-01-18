@@ -418,4 +418,4 @@ Using either SVG icons or an icon font are both suitable approaches at the end o
 
 ### Optimization
 
-It is quite common for SVG to make their way in to a project without being optimized. Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
