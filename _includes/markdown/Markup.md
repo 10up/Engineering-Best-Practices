@@ -282,28 +282,6 @@ Manual accessibility testing should be run in conjunction with automated testing
 
 Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
 
-### Animation
-
-Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
-
-The `prefer-reduced-motion` CSS media feature does not currently have the widest support: just Safari and Firefox (see [CanIUse.com for latest](https://caniuse.com/#feat=prefers-reduced-motion) support information). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
-
-Here is an example:
-
-```css
-.animation {
-    animation: vibrate 0.3s linear infinite both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .animation {
-        animation: none;
-    }
-}
-```
-
-Read more about [creating accessible animations](https://alistapart.com/blog/post/more-resources-for-accessible-animations).
-
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
