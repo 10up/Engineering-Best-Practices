@@ -39,17 +39,17 @@ When building out components, its beneficial to understand how to construct them
 ### Class Components
 Class Components are written in the ES6 Class syntax. When building a component using a JS Class, you are generally inferring that the component either manages its own `state` or it's `state` is managed by a state management library like Redux. LifeCycle methods are only available in class components. 
 
-Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the state of their children.
+Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children. Examples would include: Accordions, Dropdowns, Modals or Responsive Navigation.
 
 ### Stateless Functions
 A Stateless function can take the form of a plain function in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter. 
 
-If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code.
+If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code. Examples would include: Grids, Sections, Dividers, Icons, Scaffolding.
 
 ### PureComponents
 PureComponents allow for greater performance benefits with in the React Lifecycle. When using a Pure Component, the logic of `shouldComponentUpdate` is altered to check whether a re-render is necessary when changes to `props` or `state` are compared. This is known as a _shallow-comparison_. In Class Components - `shouldComponentUpdate` will always fire, thus so will `render`. 
 
-Use PureComponents to increase performance benefits of stateful components where you can easily ensure updates to `state` and `props` have not caused any mutations or side effects.
+Use PureComponents to increase performance benefits of stateful components where you can easily ensure updates to `state` and `props` have not caused any mutations or side effects. Pure Components are highly subjective to how your component is tied up with in the context of `state` - many factors could have an influence on this decision such as design patterns, state management libraries and function.
 
 
 ## Routing
