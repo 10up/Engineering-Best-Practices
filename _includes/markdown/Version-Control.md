@@ -88,7 +88,7 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete or archive and delete them after feature development is complete.
 
 ### Deleting branches
-When projects use non-ff merges to master, we can safely delte feature branches because all commits are preserved and can be located from the merge commit.
+When projects use non-ff merges to master, we can safely delete feature branches because all commits are preserved and can be located from the merge commit.
 
 * Move to another branch (doesn't matter which): eg. `git checkout master`
 * Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
