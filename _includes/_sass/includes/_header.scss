@@ -118,6 +118,7 @@
 		display: none;
 	}
 
+	&:focus,
 	&:hover {
 		color: $color-accent-alternate-2;
 	}
@@ -137,6 +138,7 @@
 		right: 0;
 	}
 
+	&:focus,
 	&:hover {
 		color: $color-accent-alternate-2;
 	}
@@ -224,6 +226,7 @@
 			padding: 21px 0;
 			position: relative;
 
+			&:focus,
 			&:hover {
 				text-decoration: none;
 
