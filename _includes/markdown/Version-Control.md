@@ -83,12 +83,24 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 * Merging the branch to ```staging```, using a non-fast-forward merge
 * Merging the branch back to ```master```, again using a non-fast-forward merge
 
-#### Deleting Branches
+#### Deleting or Archiving and Deleting Branches
 
-This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete them after feature development is complete.
+This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete or archive and delete them after feature development is complete.
 
-* Move to another branch (doesn't matter which)
-* Delete the branch (both on local and remote)
+### Deleting branches
+When projects use non-ff merges to master, we can safely delete feature branches because all commits are preserved and can be located from the merge commit.
+
+* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
+
+### Archiving and Deleting branches
+When projects use squash merges to create a more streamlined history in master, we should archive branches before deleting them to preserve the commit history. Branch tag archives also prove a useful history of branches, in case a specific branch is needed later.
+
+* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Archive the branch: `git tag archive/branch-name branch-name`
+* Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
+* Push the archive tag: `git push origin archive/branch-name`
+
 
 ### Plugins
 
