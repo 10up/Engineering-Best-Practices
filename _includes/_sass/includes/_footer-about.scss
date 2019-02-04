@@ -41,7 +41,7 @@
 		a {
 			text-decoration: underline;
 
-			&:active,
+			&:focus,
 			&:hover {
 				color: $color-accent-alternate-2;
 			}
