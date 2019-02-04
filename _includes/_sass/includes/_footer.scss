@@ -63,6 +63,7 @@ footer[role="contentinfo"] {
 			color: lighten($color-medium-dark, 10%);
 			padding: .5em;
 
+			&:focus,
 			&:hover {
 				color: $white;
 			}
