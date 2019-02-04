@@ -9,27 +9,27 @@ html {
 }
 
 body {
+	background-color: $color-background-color-default;
+	color: $color-text-default;
+	font-family: $font-family-sans;
 	font-size: $base-font-size;
 	line-height: $base-line-height;
-	color: $color-text-default;
-	background-color: $color-background-color-default;
-	font-family: $font-family-sans;
-    padding-top: 60px;
+	padding-top: 60px;
 }
 
 ::selection {
 	background: $party-blue; /* Webkit */
-	color:white;
+	color: $white;
 }
-	
+
 ::-moz-selection {
 	background: $party-blue; /* Firefox */
-	color:white;
+	color: $white;
 }
 
 img {
-	max-width: 100%;
 	height: auto;
+	max-width: 100%;
 }
 
 a {
@@ -55,14 +55,14 @@ a {
 
 // otherwise it's too wonky with our static header on mobile
 body #wpadminbar {
-  position: fixed;
+	position: fixed;
 }
 
 // Reusable, toolbox kind of class
 .screen-reader-text {
+	left: -9999px;
 	position: absolute;
 	top: -9999px;
-	left: -9999px;
 }
 
 .interface-checkbox {
