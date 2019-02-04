@@ -79,6 +79,7 @@ footer[role="contentinfo"] {
 			padding: 21px 0 18px;
 			position: relative;
 
+			&:focus,
 			&:hover {
 				text-decoration: none;
 
