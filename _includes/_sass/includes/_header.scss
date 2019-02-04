@@ -138,6 +138,10 @@
 		right: 0;
 	}
 
+	&:visited {
+		color: $white;
+	}
+
 	&:focus,
 	&:hover {
 		color: $color-accent-alternate-2;
@@ -236,6 +240,7 @@
 					bottom: 7px;
 				}
 			}
+
 			&:after {
 				@include opacity(0);
 				@include transition(all, 80ms, ease-in);
