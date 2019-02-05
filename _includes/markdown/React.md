@@ -129,3 +129,16 @@ If you're only investigating SSR to improve the SEO of a handful of marketing pa
 ## Debugging
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
 
+## Gutenberg
+When creating Gutenberg components in the WordPress editor, mostly you’ll find yourself adhering to the standard best practices of React, but there are a few Gutenberg-specific design patterns you should be aware of before starting a new build.
+
+### @wordpress/element
+Element is an abstraction layer atop React created just for WordPress and used within Gutenberg components. It was created to allow engineers an API entry point into Gutenberg with deliberate features, omissions, and protections from core-library updates (React updates, in this case) that could cause breaking changes in an interface.
+
+The presence of Element is why you don't see React directly imported into Gutenberg components. [Read more about using Element in Gutenberg](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-element/).
+
+### Higher-order Components
+Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
+
+
+As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
