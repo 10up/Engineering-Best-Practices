@@ -300,113 +300,52 @@ At 10up, the concept of feature detection is used to test browser support for ne
 * __File Size__ - Small file size and compresses well.
 * __Styling__ - Manipulate fill, stroke, and even animate.
 
+### SVG Sprites
 
-### Best Practices &amp; Common Usage / Pitfalls
+It is optimal to group multiple SVG icons that are likely to be used throughout certain templates or even the entire site (i.e. sprite).
 
-#### I've got an SVG on my page, now why is it so massive?
+Combine them in to an `svg-defs.svg` file, and reference them within the template source with `<use>`. The creation of this icon system should be automated.
 
-Here is a basic example of placing an SVG with some corresponding helper CSS to make it responsive:
+Be sure to hide the `svg-defs.svg` from accessibility technologies with `display: none;`.
 
-```html
-<svg class="svg-icon" width="10" height="10" viewBox="0 0 10 10">
-    <path d="m5 9-3-4h2v-4h2v4h2z"/>
-</svg>
-```
 
-And the corresponding CSS to help it respond to inline text:
+### SVG embedded in HTML
 
-```css
-.svg-icon {
-    /* Place the icon on the text baseline. */
-    position: relative;
-    top: .125em;
+When your placing an SVG in markup (i.e. inline) be sure to use the following guidelines:
 
-    /* Prevent the icon from shrinking inside a flex container. */
-    flex-shrink: 0;
+* If the SVG is purely **decorative**: 
+    * An empty `alt=""` can be used: `<img alt="">`, or
+	* Use ARIA to hide the element from assistive technologies: `<svg aria-hidden="true">`
+* If the SVG is **meaningful** then use `<title>` and possibly even `<desc>` to describe the graphic.  Also, be sure to add an `id` to each element, and appropriate ARIA to overcome a known bug in [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=231654&q=SVG%20%20title%20attribute&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1151648).
 
-    /* Scale the icon to match the font-size of the parent element. */
-    height: 1em;
-    width: 1em;
+	```html
+	<!-- role="img" to exclude image from being traversed by certain browsers w/ group role -->
+	<svg role="img" aria-labelledby="uniqueTitleID uniqueDescID">
+		<title id="uniqueTitleID">The Title</title>
+		<desc id="uniqueDescID">Description goes here...</desc>
+	</svg>
+	```
 
-    /* Let the icon take whatever color the parent has. */
-    fill: currentColor;
+* Use `aria-label` if the SVG is linked and has no supporting text.
 
-    /*
-     * If the icon is used on a link, which has a color transition,
-     * we can also use a transition on the fill value.
-    */
-    transition: fill .3s;
-}
-```
+	```html
+	<a href="#" aria-label="See Twitter feed">
+		<svg><use xlink:href="#icon-twitter"></use></svg>
+	</a>
+	```
 
-#### SVG with `<img>` element
+* Use [media queries to provide fallbacks for Windows and High Contrast Mode](https://css-tricks.com/accessible-svgs/#article-header-id-20). 
 
-A totally acceptable way to output your SVG:
 
-```html
-<img class="lightbulb" alt="Lightbulb moment!" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/BulbIcon.svg">
-```
+### Optimization
 
-#### SVG icon in a button with text
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
 
-```html
-<button type="button">
-    Menu
-    <svg viewBox="0 0 10 10"
-        class="svg-icon"
-        aria-hidden="true"
-        focusable="false">
-        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
-    </svg>
-</button>
-```
-
-Since the SVG is merely decorative and the "Menu" textually explains the button's purpose. Then we can leverage `aria-hidden="true"` and `focusable="false"` to hide the SVG-as-decorative-element from the accessibility tree.
-
-#### SVG icon in a button with _hidden_ text
-
-```html
-<button type="button">
-    <svg class="svg-icon"
-        height="10"
-        width="10"
-        viewBox="0 0 10 10"
-        aria-hidden="true"
-        focusable="false">
-        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
-    </svg>
-    <span class="visually-hidden">
-        Menu
-    </span>
-</button>
-```
-
-The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer. Also, `focusable="false"` helps designate the SVG as a non-focusable element, therefore skipping it, and instead focusing on the `<span>` for announcement with assistive technology.
-
-#### SVG as non-decorative element
-
-If you would like to use an inline SVG. Here are some considerations to improve experience for assistive technology:
-
-* Use a descriptive `<title>` within the SVG.
-* Use `aria-labeledby` to help call out the title and description.
-
-Let's put it all together in an example:
-
-```html
-<svg version="1.1" width="50" height="50" aria-labelledby="title-2 desc-2">
-    <title id="title-2">red square</title>
-    <desc id="desc-2">A plain red square defined at 50 pixels length and height.</desc>
-    <rect width="50" height="50" fill="#cc0000" />
-</svg>
-```
-
-#### Further reading:
+### Further reading:
 * [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
 * [Using ARIA to enhance SVG accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
 * [Accessible SVG Icons with Inline Sprites](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
 * [Accessible SVG test page](https://weboverhauls.github.io/demos/svg/)
 * [Creating Accessible SVGs](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
-
-### Optimization
-
-Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+* [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) - CSSTricks.com
+* [Accessible SVGs](https://css-tricks.com/accessible-svgs/) - CSSTricks.com
