@@ -400,12 +400,12 @@ Let's put it all together in an example:
 </svg>
 ```
 
-##### Further reading:
-* ["An Overview of SVG Sprite Creation Techniques"](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
-* ["Using ARIA to enhance SVG accessibility"](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
-* ["Accessible SVG Icons with Inline Sprites"](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
-* ["Accessible SVG test page"](https://weboverhauls.github.io/demos/svg/)
-* ["Creating Accessible SVGs"](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
+#### Further reading:
+* [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
+* [Using ARIA to enhance SVG accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
+* [Accessible SVG Icons with Inline Sprites](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
+* [Accessible SVG test page](https://weboverhauls.github.io/demos/svg/)
+* [Creating Accessible SVGs](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
 
 ### Optimization
 
