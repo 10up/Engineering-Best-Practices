@@ -216,7 +216,7 @@ You can see how effortless it is to make our tabbed interface accessible to scre
 ### Accessible Forms
 Forms are one of the biggest challenges when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards:
 
-Each form field should have its own ```<label>```. The label element, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability screen readers and assistive technology.
+Each form field should have its own ```<label>```. The label element, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability for screen readers and assistive technology.
 
 Form elements should also be logically grouped using the ```<fieldset>``` element. Grouped form elements can be helpful for users who depend on screen readers or those with cognitive disabilities.
 
@@ -224,10 +224,10 @@ Finally, we should ensure that all interactive elements are keyboard navigable, 
 
 ### Bypass Blocks
 
-[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html) are HTML flags within in a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
+[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html) are HTML flags within a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
 
 #### Skip Links
-Skip links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
+Skip links are ideally placed immediately inside of the `<body>` tag so that they are discovered and announced as early as possible.
 
 While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several links can be added if multiple areas of interest are in the page.
 
@@ -265,7 +265,7 @@ In most cases, maintaining baseline accessibility requirements for a project can
 
 Automating accessibility tests is easy with a tool like [pa11y](https://github.com/pa11y/pa11y), which is a command line tool that runs [HTML Code Sniffer](http://squizlabs.github.io/HTML_CodeSniffer/) over a URL.
 
-It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
+It is easily installed through npm: ```npm install pa11y --save-dev``` and can be added into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
 
 ```js
 "scripts": {

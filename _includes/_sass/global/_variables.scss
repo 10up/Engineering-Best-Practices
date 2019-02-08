@@ -1,12 +1,16 @@
 // Colors
 $party-blue: #54cdcd;
+$humming-bird: #cef8f7;
 $business-red: #b73030;
 $business-red-light: #b72f2f;
 
+$white: #fff;
 $very-light-grey: #fefefe;
 $light-grey: #F9F9F9;
 $medium-grey: #eeeeee; /*used to be "light-grey" but needed a lighter grey added*/
 $dark-grey: #545353;
+$color-mineshaft: #303030;
+$color-mineshaft-2: #3f3f3f;
 $very-dark-grey: #232323;
 $almost-black: #111;
 
@@ -42,6 +46,9 @@ $color-accent-light-text: lighten($color-accent-light, 30%);
 
 $color-accent-alternate: $party-blue;
 $color-accent-alternate-text: lighten($color-accent-alternate, 30%);
+
+$color-accent-alternate-2: $humming-bird;
+$color-accent-alternate-2-text: contrast($color-accent-alternate-2);
 
 $color-button: $very-dark-grey;
 $color-button-text: contrast($color-button);
