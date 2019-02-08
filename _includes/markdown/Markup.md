@@ -306,8 +306,6 @@ It is optimal to group multiple SVG icons that are likely to be used throughout 
 
 Combine them in to an `svg-defs.svg` file, and reference them within the template source with `<use>`. The creation of this icon system should be automated.
 
-Be sure to hide the `svg-defs.svg` from accessibility technologies with `display: none;`.
-
 
 ### SVG embedded in HTML
 
