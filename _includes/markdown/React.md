@@ -49,7 +49,7 @@ If your component is not required to update `state` or the `state` of child comp
 ### PureComponents
 PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render.
 
-Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
+Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
 
 
 ## Routing
