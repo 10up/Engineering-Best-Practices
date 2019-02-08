@@ -37,19 +37,19 @@ Using the CLI tool is ideal if you are creating a full React App with an API bac
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
-Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux. LifeCycle methods are only available in class components. 
+Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux. LifeCycle methods are only available in class components.
 
 Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children. Examples would include: Accordions, Dropdowns, Modals or Responsive Navigation.
 
 ### Stateless Functions
-A Stateless function can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter. 
+A Stateless function can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter.
 
 If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code. Examples would include: Grids, Sections, Dividers, Icons, Scaffolding.
 
 ### PureComponents
-PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render, update the values that did change and unmount.
+PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render.
 
-Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component everytime data changes. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
+Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
 
 
 ## Routing
