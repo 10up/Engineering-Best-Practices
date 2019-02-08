@@ -104,12 +104,13 @@ updated: 6 Oct 2014
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ site.baseurl }}/structure/#top">Project Structure</a></h3>
+		<h3><a href="{{ site.baseurl }}/design/#top">Project Design</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/structure/#file-organization">File Organization</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#dependencies">Dependencies</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#integrations">Third-Party Integrations</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#modular-code">Modular Code</a></li>
+			<li><a href="{{ site.baseurl }}/design/#file-organization">File Organization</a></li>
+			<li><a href="{{ site.baseurl }}/design/#dependencies">Dependencies</a></li>
+			<li><a href="{{ site.baseurl }}/design/#integrations">Third-Party Integrations</a></li>
+			<li><a href="{{ site.baseurl }}/design/#modular-code">Modular Code</a></li>
+			<li><a href="{{ site.baseurl }}/design/#privacy">Privacy</a></li>
 		</ul>
 	</div>
 

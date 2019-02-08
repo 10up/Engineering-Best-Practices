@@ -82,7 +82,7 @@ operator:
 ```javascript
 var first = 'hello';
 var last = 'world';
-var msg = 'I said, "' + first + ' ' + last + ' to the crowd.';
+var msg = 'I said, "' + first + ' ' + last + '" to the crowd.';
 console.log( msg );
 ```
 
@@ -229,9 +229,9 @@ Cached:
 const menu = document.getElementById( 'menu' );
 const hideButton = document.querySelector( '.hide-button' );
 
-//hideButton.addEventListener( 'click', () => {
+hideButton.addEventListener( 'click', () => {
     menu.style.display = 'none';
-}
+});
 ```
 
 Notice how, in cached versions, we are pulling the menu selection out of the event listener so it only happens once. The cached version is, not surprisingly, the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).

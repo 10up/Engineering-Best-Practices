@@ -278,7 +278,31 @@ Articles worth reading:
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
-<h2 id="responsive-websites" class="anchor-heading">Responsive websites {% include Util/link_anchor anchor="responsive-websites" %} {% include Util/top %}</h2>
+<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h2>
+
+### Animation
+
+Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
+
+The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+
+Here is an example:
+
+```css
+.animation {
+    animation: vibrate 0.3s linear infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animation {
+        animation: none;
+    }
+}
+```
+
+Read more about [creating accessible animations](https://alistapart.com/blog/post/more-resources-for-accessible-animations).
+
+<h2 id="responsive-websites" class="anchor-heading">Responsive websites {% include Util/top %}</h2>
 
 We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
 
@@ -350,7 +374,7 @@ Sometimes a more complex grid system is warranted and leveraging a 3rd party lib
 
 ### Resets
 
-[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets. 
+[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets.
 
 ## Further reading {% include Util/top %}
 
