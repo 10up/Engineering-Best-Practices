@@ -326,7 +326,7 @@ When your placing an SVG in markup (i.e. inline) be sure to use the following gu
 * Use `aria-label` if the SVG is linked and has no supporting text.
 
 	```html
-	<a href="#" aria-label="See Twitter feed">
+	<a href="http://twitter.com/10up" aria-label="See Twitter feed">
 		<svg><use xlink:href="#icon-twitter"></use></svg>
 	</a>
 	```
