@@ -304,7 +304,7 @@ At 10up, the concept of feature detection is used to test browser support for ne
 
 It is optimal to group multiple SVG icons that are likely to be used throughout certain templates or even the entire site (i.e. sprite).
 
-Combine them in to an `svg-defs.svg` file, embed the `svg-defs.svg` within the document, and reference them within the template source with `<use>`. The creation of this icon system should be automated. Check out CSS-Trick.com's write up on this technique: [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/)
+Combine them in to an `svg-defs.svg` file, embed the `svg-defs.svg` within the document, and reference them within the template source with `<use>`. The creation of this icon system should be automated. Check out CSS-Tricks.com's write up on this technique: [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/)
 
 ### SVG embedded in HTML
 
