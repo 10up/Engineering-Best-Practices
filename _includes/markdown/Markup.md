@@ -308,7 +308,7 @@ Combine them in to an `svg-defs.svg` file, embed the `svg-defs.svg` within the d
 
 ### SVG embedded in HTML
 
-When your placing an SVG in markup (i.e. inline) be sure to use the following guidelines:
+When you're placing an SVG in markup (i.e. inline) be sure to use the following guidelines:
 
 * If the SVG is purely **decorative**: 
     * An empty `alt=""` can be used: `<img alt="">`, or
