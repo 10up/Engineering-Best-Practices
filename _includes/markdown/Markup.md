@@ -303,7 +303,10 @@ At 10up, the concept of feature detection is used to test browser support for ne
 Be mindful that SVGs have potential limitations as well:
 
 * __Security__ - Blindly including an SVG document in your page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of SVGs by default. Read: [SVG uploads in WordPress (the Inconvenient Truth)](https://bjornjohansen.no/svg-in-wordpress) for more information.
-* __Anti-patterns__ - Some uninformed users will embed a raster (`.jpg`, `.png`, `.gif`) file within an SVG document thinking this will give them the same affordances of SVGs (crispness and ability to style). Ultimately, it is still just a raster file within an SVG document and will be rendered as such.
+* SVG excels at images with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconongraphy, and illustrations.
+* SVG is __not__ ideal for photographic images or images with complex visual data. In this case, raster formats (JPG, PNG, GIF) will be a better choice.
+* Raster images should _not_ be converted to SVG. It will likely result in a raster image being embedded within the SVG document, which will not provide the same affordances (i.e. CSS manipulation) as a genuince SVG.
+* For further reading on vector vs. raster formats, and when to use each: [Adding vector graphics to the Web](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Adding_vector_graphics_to_the_Web).
 
 ### SVG Sprites
 
