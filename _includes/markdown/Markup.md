@@ -300,7 +300,7 @@ At 10up, the concept of feature detection is used to test browser support for ne
 * __File Size__ - Small file size and compresses well.
 * __Styling__ - Manipulate fill, stroke, and even animate.
 
-Be mindful that SVGs have potential drawbacks as well:
+Be mindful that SVGs have potential limitations as well:
 
 * __Security__ - Blindly including an SVG document in your page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of SVGs by default. Read: [SVG uploads in WordPress (the Inconvenient Truth)](https://bjornjohansen.no/svg-in-wordpress) for more information.
 * __Anti-patterns__ - Some uninformed users will embed a raster (`.jpg`, `.png`, `.gif`) file within an SVG document thinking this will give them the same affordances of SVGs (crispness and ability to style). Ultimately, it is still just a raster file within an SVG document and will be rendered as such.
