@@ -40,6 +40,7 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/markup/#classes-ids">Classes and ID's</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#progressive-enhancement">Progressive Enhancement</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
 		</ul>
 	</div>
 
