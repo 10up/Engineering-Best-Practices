@@ -74,7 +74,7 @@
 				padding-left: 6px;
 
 				li:nth-child(6) {
-					margin-right: 82px;
+					margin-right: 110px;
 				}
 			}
 
@@ -87,7 +87,6 @@
 		@include transition(height, 150ms, linear);
 
 		@include breakpoint($breakpoint-bravo) {
-			display: inline-block;
 			height: auto !important;
 			background-color: transparent;
 			position: relative;
