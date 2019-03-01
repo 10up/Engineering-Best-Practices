@@ -61,9 +61,13 @@ The most popular routing library for React is [React Router](https://github.com/
 *Best practice recommendation:* Build the app components without routing first, then add routing once the navigation structure is clear, so that you’re not locked into a routing configuration at the outset which might not match your application’s final structure.
 To read more about the concept of dynamic routing, with plenty of code examples to follow along with, refer to the [React Router documentation](https://reacttraining.com/react-router/web/guides/philosophy).
 
-## State Management
+## Props and State
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
+
+Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to conusme and utilize that data. Basic applications will likely be able to pass data using this default behavior.
+
+As an application becomes more complex, it may become more of a hassle to pass data down to many child components. This is where frameworks like [Redux](https://redux.js.org/) will come in. However before you reach for these third party frameworks, consider the [React Context API](https://reactjs.org/docs/context.html)
 
 ### Managing State within React
 
@@ -77,13 +81,21 @@ State is made to be updated (or mutated), either by methods within the component
 
 It’s important to note, that when updating state, you should never update it directly. The only place you can assign this.state is the constructor. Updating it directly will not trigger the component to re-render.
 
-## Redux
+### Context API
 
-As an application grows larger, it may be the case where the state become difficult to handle, every new feature introduces a new layer of complexity that may in some cases result in unexpected, and unpredictable behavior.
+The React Context API is the first line of defense when your application becomes sufficiently complex, and we are faced with [prop drilling](https://kentcdodds.com/blog/prop-drilling) concerns.
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level. This is immensely helpful for applications that are highly componentized, and need to share data with those components, regardless of where they exist within the application structure. It is crucial that you think critically about how the data in your application is to be utilized and passed around. If data simply needs to be shared, Context may be for you.
+
+Context does not however provide the further sophisticated features of libraries like Redux. Stepping through application history, alternate UIs that reuse business logic, state changes based on actions etc. If those are things that you need in your application, the Context API may not be quite robust enough for you.
+
+### Redux
+
+As an application grows larger, it may be the case where the state becomes difficult to handle, every new feature introduces a new layer of complexity that may in some cases result in unexpected, and unpredictable behavior.
 
 Redux is a state container that stops the ever-changing nature of the state itself. It acts as a protector of the state, allowing only certain defined actions to trigger a state update. Thus making it predictable.
 
-### Principles of Redux
+**Principles of Redux**
 
 Redux is based almost completely on 3 main principles:
 
@@ -91,7 +103,7 @@ Redux is based almost completely on 3 main principles:
 2. State is Read Only: The state of the application stops being mutable, the only way to change the state is by triggering an action, which itself will work as a log of what, when, and why changed in the state.
 3. Changes are made with pure functions: This means that only an action (or an event) can trigger a Reducer which will take the previous state and return a new one.
 
-### When to use Redux
+**When to use Redux**
 
 As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
 
