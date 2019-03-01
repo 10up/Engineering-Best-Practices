@@ -3,34 +3,34 @@
 	padding: $guaranteed-edge-standoff $guaranteed-edge-standoff;
 
 	&:after {
+		clear: both;
 		content: '';
 		display: block;
-		clear: both;
 	}
 
 	.col {
-		word-break: break-word;
 		border-top: 1px solid darken(#efefef, 5%);
 		margin: 0;
+		word-break: break-word;
 
 		&:first-child {
 			border-top: none;
 		}
 
 		@include breakpoint($breakpoint-bravo) {
-			width: 50%;
-			float: left;
-			vertical-align: top;
 			border-right: 1px solid darken(#efefef, 5%);
+			float: left;
 			padding-right: 2%;
+			vertical-align: top;
+			width: 50%;
 
 			&:nth-child(2n+1) {
-				margin-right: 0;
-				border-left: 1px solid darken( #efefef, 5%);
+				border-left: 1px solid darken(#efefef, 5%);
 				border-right: none;
+				left: -1px; /* middle border overlap */
+				margin-right: 0;
 				padding-left: 2%;
 				position: relative;
-				left: -1px; /* middle border overlap */
 			}
 
 			&:nth-of-type(2n+3){
@@ -39,8 +39,8 @@
 		}
 
 		@include breakpoint($breakpoint-charlie) {
-			width: 24%;
 			border-right: none;
+			width: 24%;
 
 			/** reset from breakpoint-alpha **/
 			&:nth-of-type(2n+3) {
@@ -64,30 +64,32 @@
 	}
 
 	h2 {
-		margin: 0;
-		margin-bottom: 1em;
+		margin: 0 0 1em;
 	}
 
 	ul {
-		padding-left: 0;
 		margin-top: .5em;
+		padding-left: 0;
 	}
 
 	a {
+		background-image: none;
+		color: $almost-black;
 		display: inline-block;
-		padding-bottom: 1px;
+		text-decoration: none;
 	}
 
+	a:focus,
 	a:hover {
-		padding-bottom: 0;
-		border-bottom: 1px solid rgba(saturate(darken($color-accent-alternate, 10%), 10%), .8);
+		text-decoration: underline;
 	}
 
 	h3 {
 		@extend %caps-text;
-		margin-bottom: 0;
+
 		font-size: 1.2em;
 		font-weight: 600;
+		margin-bottom: 0;
 	}
 
 	li {

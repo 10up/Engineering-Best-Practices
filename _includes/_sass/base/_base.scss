@@ -9,40 +9,41 @@ html {
 }
 
 body {
+	background-color: $color-background-color-default;
+	color: $color-text-default;
+	font-family: $font-family-sans;
 	font-size: $base-font-size;
 	line-height: $base-line-height;
-	color: $color-text-default;
-	background-color: $color-background-color-default;
-	font-family: $font-family-sans;
-    padding-top: 60px;
+	padding-top: 60px;
 }
 
 ::selection {
 	background: $party-blue; /* Webkit */
-	color:white;
+	color: $white;
 }
 
 ::-moz-selection {
 	background: $party-blue; /* Firefox */
-	color:white;
+	color: $white;
 }
 
 img {
-	max-width: 100%;
 	height: auto;
+	max-width: 100%;
 }
 
 a {
-	color: darken($color-accent-alternate, 10%);
+	background-image: linear-gradient(transparent calc(100% - 7px), $color-error-light 0),
+	linear-gradient(transparent calc(100% - 7px), $color-accent-alternate-2 0);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: 0 100%, 100% 100%;
+	color: $color-dark;
 	text-decoration: none;
+	transition: all .1s;
 
 	&:visited {
-		color: desaturate($color-accent-alternate, 20%);
-	}
-
-	&:hover,
-	&:active {
-		color: saturate( darken($color-accent-alternate, 10%), 10% );
+		color: $color-dark;
 	}
 }
 
@@ -50,60 +51,30 @@ abbr {
 	text-decoration: none;
 }
 
-p a {
+p a,
+li a {
 	border-bottom: 1px solid rgba( $color-accent-alternate, .3 );
 
+	&:focus,
 	&:hover {
-		border-bottom-color: rgba( saturate( darken( $color-accent-alternate, 10%), 10% ), .8 );
+		background-size: 100% 100%, 100% 100%;
+		color: $color-dark;
 	}
-
-	&:visited {
-
-	}
-
 }
 
 // otherwise it's too wonky with our static header on mobile
 body #wpadminbar {
-  position: fixed;
+	position: fixed;
 }
 
 // Reusable, toolbox kind of class
 .screen-reader-text {
+	left: -9999px;
 	position: absolute;
 	top: -9999px;
-	left: -9999px;
 }
 
 .interface-checkbox {
 	display: none;
 	speak: none;
 }
-
-// .template-header {
-// 	padding-top: 4rem;
-// 	padding-bottom: 4rem;
-// 	text-align: center;
-
-// 	@include breakpoint($breakpoint-alpha) {
-// 		padding-bottom: 11.5rem;
-// 		padding-top: 14rem;
-// 	}
-
-// 	h1,
-// 	.subhead {
-// 		margin-top: 0;
-// 	}
-
-// 	*:last-child {
-// 		margin-bottom: 0;
-// 	}
-
-// 	.wp-post-image {
-// 		margin-top:3rem;
-
-// 		@include breakpoint($breakpoint-alpha) {
-// 			margin-top:8rem;
-// 		}
-// 	}
-// }

@@ -1,18 +1,24 @@
 .footer-about {
-	background-color: #3f3f3f;
+	background-color: $color-mineshaft-2;
 	color: $default-light-color;
 
+	a {
+		background: none;
+		color: $default-light-color;
+		transition: none;
+	}
+
 	.footer-about-inner {
+		margin: 0 auto;
 		max-width: $single-max-width;
 		padding: $guaranteed-edge-standoff $guaranteed-edge-standoff $guaranteed-edge-standoff/2 $guaranteed-edge-standoff;
-		margin: 0 auto;
 	}
 
 	.cta-careers {
-		margin-bottom: $gutter-width;
 		display: inline-block;
-		width: 48%;
+		margin-bottom: $gutter-width;
 		vertical-align: top;
+		width: 48%;
 
 		.button {
 			margin-top: .5em;
@@ -22,14 +28,23 @@
 
 	.license {
 		display: inline-block;
-		width: 48%;
 		margin-left: 2%;
-		vertical-align: top;
 		text-align: right;
+		vertical-align: top;
+		width: 48%;
 
 		p {
 			font-size: 1rem;
 			margin: 1rem 0;
+		}
+
+		a {
+			text-decoration: underline;
+
+			&:focus,
+			&:hover {
+				color: $color-accent-alternate-2;
+			}
 		}
 	}
 

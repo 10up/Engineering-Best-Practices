@@ -1,12 +1,12 @@
 We version control all projects at 10up using [Git](https://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
 
-<h2 id="structure-package-management" class="anchor-heading">Structure and Package Management{% include Util/top %}</h2>
+<h2 id="structure-package-management" class="anchor-heading">Structure and Package Management {% include Util/link_anchor anchor="structure-package-management" %} {% include Util/top %}</h2>
 
 We structure our projects in such a way that we are not version controlling third party code, rather, they are included via a package manager. For PHP, we use [Composer](https://getcomposer.org/) to manage PHP dependencies (also see [package managers](/Engineering-Best-Practices/tools/#package-managers)) e.g. WordPress core itself, plugins, and themes. Dependency management structuring is explained more in the [Structure](https://10up.github.io/Engineering-Best-Practices/structure/#composer-based-project-structure) section.
 
 We also do not commit compiled files (JS/CSS). This saves us from having to deal with people forgetting to compile files and large merge conflicts. Instead, we generate compile files during deployment.
 
-<h2 id="workflows" class="anchor-heading">Workflows {% include Util/top %}</h2>
+<h2 id="workflows" class="anchor-heading">Workflows {% include Util/link_anchor anchor="workflows" %} {% include Util/top %}</h2>
 
 At 10up we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason, we use the following workflows company-wide both for internal and client projects.
 
@@ -83,12 +83,24 @@ In the event that VIP makes a change to the repository, we'll capture the diff o
 * Merging the branch to ```staging```, using a non-fast-forward merge
 * Merging the branch back to ```master```, again using a non-fast-forward merge
 
-#### Deleting Branches
+#### Deleting or Archiving and Deleting Branches
 
-This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete them after feature development is complete.
+This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete or archive and delete them after feature development is complete.
 
-* Move to another branch (doesn't matter which)
-* Delete the branch (both on local and remote)
+### Deleting branches
+When projects use non-ff merges to master, we can safely delete feature branches because all commits are preserved and can be located from the merge commit.
+
+* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
+
+### Archiving and Deleting branches
+When projects use squash merges to create a more streamlined history in master, we should archive branches before deleting them to preserve the commit history. Branch tag archives also prove a useful history of branches, in case a specific branch is needed later.
+
+* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Archive the branch: `git tag archive/branch-name branch-name`
+* Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
+* Push the archive tag: `git push origin archive/branch-name`
+
 
 ### Plugins
 
