@@ -1,12 +1,12 @@
 We version control all projects at 10up using [Git](https://git-scm.com/). Version control allows us to track codebase history, maintain parallel tracks of development, and collaborate without stomping out each other's changes.
 
-<h2 id="structure-package-management" class="anchor-heading">Structure and Package Management{% include Util/top %}</h2>
+<h2 id="structure-package-management" class="anchor-heading">Structure and Package Management {% include Util/link_anchor anchor="structure-package-management" %} {% include Util/top %}</h2>
 
 We structure our projects in such a way that we are not version controlling third party code, rather, they are included via a package manager. For PHP, we use [Composer](https://getcomposer.org/) to manage PHP dependencies (also see [package managers](/Engineering-Best-Practices/tools/#package-managers)) e.g. WordPress core itself, plugins, and themes. Dependency management structuring is explained more in the [Structure](https://10up.github.io/Engineering-Best-Practices/structure/#composer-based-project-structure) section.
 
 We also do not commit compiled files (JS/CSS). This saves us from having to deal with people forgetting to compile files and large merge conflicts. Instead, we generate compile files during deployment.
 
-<h2 id="workflows" class="anchor-heading">Workflows {% include Util/top %}</h2>
+<h2 id="workflows" class="anchor-heading">Workflows {% include Util/link_anchor anchor="workflows" %} {% include Util/top %}</h2>
 
 At 10up we consider standardizing a workflow to be a very important part of the development process. Utilizing an effective workflow ensures efficient collaboration and quicker project onboarding. For this reason, we use the following workflows company-wide both for internal and client projects.
 

@@ -1,4 +1,4 @@
-<h2 id="nginx" class="anchor-heading">Nginx{% include Util/top %}</h2>
+<h2 id="nginx" class="anchor-heading">Nginx {% include Util/link_anchor anchor="nginx" %} {% include Util/top %}</h2>
 
 [Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at 10up. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  10up maintains a public set of [Nginx configuration templates](https://github.com/10up/nginx_configs "10up Nginx Configuration Template for WordPress") that apply these best practices. 
 
@@ -46,7 +46,7 @@ While a short microcaching time can be useful, the best practice is to set this 
 
 A handful of good [blog](https://thelastcicada.com/2014/microcaching-with-nginx-for-wordpress) posts cover microcaching and our Nginx templates provide the settings we commonly use with comments for context.  Microcaching needs configuration in a number of places, so be sure to include configuration in the [server block](https://github.com/10up/nginx_configs/blob/master/includes/wp_microcaching.inc), the [http block](https://github.com/10up/nginx_configs/blob/master/template/example.conf#L3), and in the [php location block](https://github.com/10up/nginx_configs/blob/master/includes/php.inc).
 
-<h2 id="php-fpm" class="anchor-heading">PHP-FPM{% include Util/top %}</h2>
+<h2 id="php-fpm" class="anchor-heading">PHP-FPM {% include Util/link_anchor anchor="php-fpm" %} {% include Util/top %}</h2>
 
 PHP-FPM is 10up’s preferred solutions for parsing PHP and serving via fastCGI through Nginx to the web. PHP-FPM has proven to be a stable and performant solution, offering a number of variables to configure in the pursuit of performance. 
 
@@ -163,7 +163,7 @@ When you want to squeeze all the performance possible out of PHP, there is anoth
 
 PHP offers a shared space that can persist across processes to store information that needs to be accessible to all PHP processes called "sessions". Sessions are like cookies, but stored server-side instead of on the client. By default, PHP uses files to store sessions. This presents a problem in multi web server environments where not all servers will have access to a shared filesystem. A reliable solution to this problem is to use Memcached as the storage location for PHP sessions. Memcached is recommended for WordPress object caching and is often available in a high scale WordPress environment and will make PHP sessions available across all web servers.
 
-<h2 id="mysql" class="anchor-heading">MySQL{% include Util/top %}</h2>
+<h2 id="mysql" class="anchor-heading">MySQL {% include Util/link_anchor anchor="mysql" %} {% include Util/top %}</h2>
 
 The impact of MySQL performance is very different site to site. A slow database might not have much noticeable impact on a well cached site with a small collection of content, but could have major impact on a busy site with many editors publishing into a very large library of content. The amount of effort to spend on MySQL tuning should be gauged by the expected impact.
 

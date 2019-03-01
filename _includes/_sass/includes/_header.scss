@@ -75,7 +75,7 @@
 				text-align: center;
 
 				li:nth-child(6) {
-					margin-right: 82px;
+					margin-right: 110px;
 				}
 			}
 
@@ -89,7 +89,6 @@
 
 		@include breakpoint($breakpoint-bravo) {
 			background-color: transparent;
-			display: inline-block;
 			height: auto !important;
 			position: relative;
 			top: auto;
