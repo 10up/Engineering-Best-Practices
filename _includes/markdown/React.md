@@ -51,7 +51,6 @@ PureComponents allow for greater performance benefits with in the React Lifecycl
 
 Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
 
-
 ## Routing
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
@@ -158,6 +157,5 @@ The presence of Element is why you don't see React directly imported into Gutenb
 
 ### Higher-order Components
 Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
-
 
 As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
