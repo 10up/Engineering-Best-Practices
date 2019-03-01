@@ -16,7 +16,9 @@ subnav:
     tag: accessibility
   - title: Progressive Enhancement
     tag: progressive-enhancement
-updated: 23 April 2015
+  - title: SVG
+    tag: svg
+updated: 15 January 2019
 ---
 
 <div class="docs-section">
