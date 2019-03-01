@@ -285,10 +285,68 @@ Combining automated and manual testing practices allows 10up to maintain a high 
 <h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/link_anchor anchor="progressive-enhancement" %} {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
-At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
+At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible.
 
 ### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
 
 ### Feature Detection
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
+
+<h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
+<abbr title="Scaleable Vector Graphic">SVG</abbr> has become a prevalent means for displaying rich vector graphics. <abbr>SVG</abbr> images are great for graphics with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconography, and illustrations. Here are a few known benefits of SVG:
+
+* __Scalability__ - They look great on retina displays and at any size, i.e. they're resolution independent.
+* __File Size__ - Small file size and compresses well.
+* __Styling__ - Manipulate fill, stroke, and even animate.
+
+Be mindful that SVGs have potential limitations as well:
+
+* Adding unvetted <abbr>SVG</abbr> graphics to a page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of <abbr>SVG</abbr> by default. Read: [<abbr>SVG</abbr> uploads in WordPress (the Inconvenient Truth)](https://bjornjohansen.no/svg-in-wordpress) for more information.
+* SVG is __not__ ideal for photographic images or images with complex visual data. In this case, raster formats (JPG, PNG, GIF) will be a better choice.
+* Raster images should _not_ be converted to <abbr>SVG</abbr>. It will likely result in a raster image being embedded within the SVG document, which will not provide the same affordances (i.e. <abbr>CSS</abbr> manipulation) as a genuine <abbr>SVG</abbr>. For further reading on vector vs. raster formats, and when to use each: [Adding vector graphics to the Web](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Adding_vector_graphics_to_the_Web).
+
+### <abbr>SVG</abbr> Sprites
+
+Combining <abbr>SVG</abbr> images in a single file (usually called `svg-defs.svg`) has the benefit of helping limit <abbr title="HyperText Transfer Protocol">HTTP</abbr> requests within a document that contains multiple icons. An <abbr>SVG</abbr> sprite file can be embedded  within a document and referenced within the template source with a `<use>` element. The creation of this icon system should be automated through your build process. Read [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) for more information.
+
+### SVG embedded in HTML
+
+When placing an <abbr>SVG</abbr> in markup (i.e. inline) be sure to use the following guidelines:
+
+* If the <abbr>SVG</abbr> is purely **decorative**:
+    * An empty `alt=""` can be used: `<img alt="">`, or
+	* Use <abbr title="Accessible Rich Internet Applications">ARIA</abbr> attributes to hide the element from assistive technologies: `<svg aria-hidden="true">`
+* If the <abbr>SVG</abbr> is **meaningful** then use `<title>` and possibly even `<desc>` or `aria-label` to describe the graphic. Also, be sure to add an `id` to each element, and appropriate <abbr>ARIA</abbr> to overcome a known bug in [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=231654&q=SVG%20%20title%20attribute&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1151648).
+
+	```html
+	<!-- role="img" to exclude image from being traversed by certain browsers w/ group role -->
+	<svg role="img" aria-labelledby="uniqueTitleID uniqueDescID">
+		<title id="uniqueTitleID">The Title</title>
+		<desc id="uniqueDescID">Description goes here...</desc>
+	</svg>
+	```
+
+* Use `aria-label` if the SVG is linked and has no supporting text.
+
+	```html
+	<a href="http://twitter.com/10up" aria-label="Follow 10up on Twitter">
+		<svg><use xlink:href="#icon-twitter"></use></svg>
+	</a>
+	```
+
+* Use [media queries to provide fallbacks for Windows and High Contrast Mode](https://css-tricks.com/accessible-svgs/#article-header-id-20).
+
+
+### Optimization
+
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all <abbr>SVG</abbr> through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+
+### Further reading:
+* [<abbr>SVG</abbr> Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) - MDN web docs
+* [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
+* [Using ARIA to enhance <abbr>SVG</abbr> accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
+* [Accessible <abbr>SVG</abbr> Icons with Inline Sprites](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
+* [Accessible <abbr>SVG</abbr> test page](https://weboverhauls.github.io/demos/svg/)
+* [Creating Accessible SVGs](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
+* [Accessible SVGs](https://css-tricks.com/accessible-svgs/) - CSSTricks.com

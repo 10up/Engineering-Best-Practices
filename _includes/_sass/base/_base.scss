@@ -45,12 +45,25 @@ a {
 	&:visited {
 		color: $color-dark;
 	}
+}
+
+abbr {
+	text-decoration: none;
+}
+
+p a,
+li a {
+	border-bottom: 1px solid rgba( $color-accent-alternate, .3 );
 
 	&:focus,
 	&:hover {
 		background-size: 100% 100%, 100% 100%;
 		color: $color-dark;
 	}
+}
+
+abbr {
+	text-decoration: none;
 }
 
 // otherwise it's too wonky with our static header on mobile
