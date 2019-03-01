@@ -37,7 +37,7 @@ Using the CLI tool is ideal if you are creating a full React App with an API bac
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
-Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux. LifeCycle methods are only available in class components.
+Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux.
 
 Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children. Examples would include: Accordions, Dropdowns, Modals or Responsive Navigation.
 
@@ -51,14 +51,16 @@ PureComponents allow for greater performance benefits with in the React Lifecycl
 
 Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
 
+*NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
 
 ## Routing
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
 
+### React Router
+
 The most popular routing library for React is [React Router](https://github.com/ReactTraining/react-router). React Router provides a core library plus APIs for both DOM (web) and React Native (native iOS and Android) platforms. To use the library, install the package for one or the other API according to your application’s platform needs—the core library is included in both.
 
-*Best practice recommendation:* Build the app components without routing first, then add routing once the navigation structure is clear, so that you’re not locked into a routing configuration at the outset which might not match your application’s final structure.
 To read more about the concept of dynamic routing, with plenty of code examples to follow along with, refer to the [React Router documentation](https://reacttraining.com/react-router/web/guides/philosophy).
 
 ## Props and State
@@ -170,6 +172,5 @@ The presence of Element is why you don't see React directly imported into Gutenb
 
 ### Higher-order Components
 Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
-
 
 As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
