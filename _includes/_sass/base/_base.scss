@@ -62,6 +62,10 @@ li a {
 	}
 }
 
+abbr {
+	text-decoration: none;
+}
+
 // otherwise it's too wonky with our static header on mobile
 body #wpadminbar {
 	position: fixed;

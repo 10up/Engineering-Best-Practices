@@ -294,119 +294,59 @@ When writing markup that does not have wide browser support, using polyfills can
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
 
 <h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
-<abbr title="Scaleable Vector Graphics">SVG</abbr> has become a prevalent means for displaying rich vector graphics. Here are a few known benefits of SVG:
+<abbr title="Scaleable Vector Graphic">SVG</abbr> has become a prevalent means for displaying rich vector graphics. <abbr>SVG</abbr> images are great for graphics with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconography, and illustrations. Here are a few known benefits of SVG:
 
 * __Scalability__ - They look great on retina displays and at any size, i.e. they're resolution independent.
 * __File Size__ - Small file size and compresses well.
 * __Styling__ - Manipulate fill, stroke, and even animate.
 
+Be mindful that SVGs have potential limitations as well:
 
-### Best Practices &amp; Common Usage / Pitfalls
+* Adding unvetted <abbr>SVG</abbr> graphics to a page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of <abbr>SVG</abbr> by default. Read: [<abbr>SVG</abbr> uploads in WordPress (the Inconvenient Truth)](https://bjornjohansen.no/svg-in-wordpress) for more information.
+* SVG is __not__ ideal for photographic images or images with complex visual data. In this case, raster formats (JPG, PNG, GIF) will be a better choice.
+* Raster images should _not_ be converted to <abbr>SVG</abbr>. It will likely result in a raster image being embedded within the SVG document, which will not provide the same affordances (i.e. <abbr>CSS</abbr> manipulation) as a genuine <abbr>SVG</abbr>. For further reading on vector vs. raster formats, and when to use each: [Adding vector graphics to the Web](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Adding_vector_graphics_to_the_Web).
 
-#### I've got an SVG on my page, now why is it so massive?
+### <abbr>SVG</abbr> Sprites
 
-Here is a basic example of placing an SVG with some corresponding helper CSS to make it responsive:
+Combining <abbr>SVG</abbr> images in a single file (usually called `svg-defs.svg`) has the benefit of helping limit <abbr title="HyperText Transfer Protocol">HTTP</abbr> requests within a document that contains multiple icons. An <abbr>SVG</abbr> sprite file can be embedded  within a document and referenced within the template source with a `<use>` element. The creation of this icon system should be automated through your build process. Read [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) for more information.
 
-```html
-<svg class="svg-icon" width="10" height="10" viewBox="0 0 10 10">
-    <path d="m5 9-3-4h2v-4h2v4h2z"/>
-</svg>
-```
+### SVG embedded in HTML
 
-And the corresponding CSS to help it respond to inline text:
+When placing an <abbr>SVG</abbr> in markup (i.e. inline) be sure to use the following guidelines:
 
-```css
-.svg-icon {
-    /* Place the icon on the text baseline. */
-    position: relative;
-    top: .125em;
+* If the <abbr>SVG</abbr> is purely **decorative**:
+    * An empty `alt=""` can be used: `<img alt="">`, or
+	* Use <abbr title="Accessible Rich Internet Applications">ARIA</abbr> attributes to hide the element from assistive technologies: `<svg aria-hidden="true">`
+* If the <abbr>SVG</abbr> is **meaningful** then use `<title>` and possibly even `<desc>` or `aria-label` to describe the graphic. Also, be sure to add an `id` to each element, and appropriate <abbr>ARIA</abbr> to overcome a known bug in [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=231654&q=SVG%20%20title%20attribute&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1151648).
 
-    /* Prevent the icon from shrinking inside a flex container. */
-    flex-shrink: 0;
+	```html
+	<!-- role="img" to exclude image from being traversed by certain browsers w/ group role -->
+	<svg role="img" aria-labelledby="uniqueTitleID uniqueDescID">
+		<title id="uniqueTitleID">The Title</title>
+		<desc id="uniqueDescID">Description goes here...</desc>
+	</svg>
+	```
 
-    /* Scale the icon to match the font-size of the parent element. */
-    height: 1em;
-    width: 1em;
+* Use `aria-label` if the SVG is linked and has no supporting text.
 
-    /* Let the icon take whatever color the parent has. */
-    fill: currentColor;
+	```html
+	<a href="http://twitter.com/10up" aria-label="Follow 10up on Twitter">
+		<svg><use xlink:href="#icon-twitter"></use></svg>
+	</a>
+	```
 
-    /*
-     * If the icon is used on a link, which has a color transition,
-     * we can also use a transition on the fill value.
-    */
-    transition: fill .3s;
-}
-```
+* Use [media queries to provide fallbacks for Windows and High Contrast Mode](https://css-tricks.com/accessible-svgs/#article-header-id-20).
 
-#### SVG with `<img>` element
-
-A totally acceptable way to output your SVG:
-
-```html
-<img class="lightbulb" alt="Lightbulb moment!" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/BulbIcon.svg">
-```
-
-#### SVG icon in a button with text
-
-```html
-<button type="button">
-    Menu
-    <svg viewBox="0 0 10 10"
-        class="svg-icon"
-        aria-hidden="true"
-        focusable="false">
-        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
-    </svg>
-</button>
-```
-
-Since the SVG is merely decorative and the "Menu" textually explains the button's purpose. Then we can leverage `aria-hidden="true"` and `focusable="false"` to hide the SVG-as-decorative-element from the accessibility tree.
-
-#### SVG icon in a button with _hidden_ text
-
-```html
-<button type="button">
-    <svg class="svg-icon"
-        height="10"
-        width="10"
-        viewBox="0 0 10 10"
-        aria-hidden="true"
-        focusable="false">
-        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
-    </svg>
-    <span class="visually-hidden">
-        Menu
-    </span>
-</button>
-```
-
-The `<span>Menu</span>` still provides assistive technology with a textual explanation, while hiding the text from the viewer. Also, `focusable="false"` helps designate the SVG as a non-focusable element, therefore skipping it, and instead focusing on the `<span>` for announcement with assistive technology.
-
-#### SVG as non-decorative element
-
-If you would like to use an inline SVG. Here are some considerations to improve experience for assistive technology:
-
-* Use a descriptive `<title>` within the SVG.
-* Use `aria-labeledby` to help call out the title and description.
-
-Let's put it all together in an example:
-
-```html
-<svg version="1.1" width="50" height="50" aria-labelledby="title-2 desc-2">
-    <title id="title-2">red square</title>
-    <desc id="desc-2">A plain red square defined at 50 pixels length and height.</desc>
-    <rect width="50" height="50" fill="#cc0000" />
-</svg>
-```
-
-##### Further reading:
-* ["An Overview of SVG Sprite Creation Techniques"](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
-* ["Using ARIA to enhance SVG accessibility"](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
-* ["Accessible SVG Icons with Inline Sprites"](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
-* ["Accessible SVG test page"](https://weboverhauls.github.io/demos/svg/)
-* ["Creating Accessible SVGs"](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
 
 ### Optimization
 
-Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all <abbr>SVG</abbr> through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+
+### Further reading:
+* [<abbr>SVG</abbr> Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) - MDN web docs
+* [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
+* [Using ARIA to enhance <abbr>SVG</abbr> accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
+* [Accessible <abbr>SVG</abbr> Icons with Inline Sprites](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
+* [Accessible <abbr>SVG</abbr> test page](https://weboverhauls.github.io/demos/svg/)
+* [Creating Accessible SVGs](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
+* [Accessible SVGs](https://css-tricks.com/accessible-svgs/) - CSSTricks.com
