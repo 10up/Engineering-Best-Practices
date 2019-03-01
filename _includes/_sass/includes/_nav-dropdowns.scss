@@ -21,6 +21,7 @@
 
 		a {
 			position: relative;
+			border: 0;
 			z-index: 90;
 			padding: 1em 1.5em;
 			text-transform: none;
@@ -31,7 +32,8 @@
 			margin-bottom: 0;
 		}
 
-		a:hover {
+		a:hover ,
+		a:focus {
 			background-color: #303030;
 
 			&:after {

@@ -164,6 +164,7 @@
 
 	a {
 		background: none;
+		border: 0;
 		transition: none;
 	}
 
@@ -180,7 +181,8 @@
 			}
 		}
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: $color-mineshaft;
 
 			@include breakpoint($breakpoint-bravo) {

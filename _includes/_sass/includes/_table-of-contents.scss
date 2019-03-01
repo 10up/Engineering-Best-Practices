@@ -74,14 +74,16 @@
 
 	a {
 		background-image: none;
+		border: 0;
 		color: $almost-black;
 		display: inline-block;
-		text-decoration: none;
-	}
-
-	a:focus,
-	a:hover {
 		text-decoration: underline;
+
+		&:focus,
+		&:hover {
+			text-decoration: none;
+		}
+
 	}
 
 	h3 {
@@ -90,6 +92,17 @@
 		font-size: 1.2em;
 		font-weight: 600;
 		margin-bottom: 0;
+
+		a {
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+
+		}
+
 	}
 
 	li {
