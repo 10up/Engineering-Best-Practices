@@ -51,7 +51,7 @@ PureComponents allow for greater performance benefits with in the React Lifecycl
 
 Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
 
-*NOTE:* The performance benefits of Pure Components are realized when the data passed to the pure component is simple. Large nested objects, and complex arrays passed to Pure Components may end up degrading the performance benefits. It's important to be very deliberate about your use of Pure Components.
+*NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
 
 ## Routing
 
