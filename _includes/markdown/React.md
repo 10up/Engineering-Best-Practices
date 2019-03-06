@@ -63,6 +63,16 @@ The most popular routing library for React is [React Router](https://github.com/
 
 To read more about the concept of dynamic routing, with plenty of code examples to follow along with, refer to the [React Router documentation](https://reacttraining.com/react-router/web/guides/philosophy).
 
+### Routing Accessibility
+
+In general, routing is little more than an Ajax call to load content with a URL update. This pattern poses some accessibility problems since there is no true page reload. To overcome this and make sure our React implementations pass accessibility compliance we need to ensure a few things happen:
+
+1. Update the page title.
+2. Programmatically [reassign focus with a ref](https://reactjs.org/docs/refs-and-the-dom.html) to the new loaded content.
+3. [Alert the user of any changes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) (like a new page loading).
+
+Following these steps will make sure your content and routing is readable by assistive technology.
+
 ## Props and State
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
@@ -111,7 +121,7 @@ As appealing as it might be. Redux is not a tool for everyday use. By design, Re
 
 ## Accessibility
 
-React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary.
+React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary. Be sure to also use the [jsx-a11y eslint plugin](https://github.com/evcohen/eslint-plugin-jsx-a11y) to ensure your code maintains a solid accessible foundation.
 
 ### Semantic HTML and Fragments
 
