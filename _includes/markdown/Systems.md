@@ -259,7 +259,7 @@ New sites should implement HTTPS (Hypertext Transfer Protocol Secure) unless the
 
 * **Security:** HTTPS creates an encrypted channel between your browser and a website's server. Without encryption, anything transferred between the website and browser could be intercepted by a 3rd party. This is an issue for usernames, passwords, payment information and anything else sent over a form.
 
-* **Performance:** The HTTP/2 web protocol includes numerous performance benefits and only works on websites running on HTTPS.
+* **Performance:** The HTTP/2 web protocol includes numerous performance benefits such as allowing multiple requests to be sent over a single connection. This functionality only works on websites running on HTTPS, so utilizing HTTPS is important for performance.
 
 * **SEO:** While Google's search algorithms are ever-evolving, [Google is moving towards making sure that HTTPS sites will get a page rank boost](https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html). Using HTTPS automatically gives sites ranking improvements over non-HTTPS websites.
 
@@ -267,3 +267,5 @@ New sites should implement HTTPS (Hypertext Transfer Protocol Secure) unless the
 
 #### **HTTPS Best Practices**
 * **Mixed Content** - Mixed content occurs when HTML is loaded over a secure HTTPS connection and requests resources such as images and scripts to be loaded over an insecure HTTP connection. Most browsers display warnings about this type of content and prevents this content from loading on a page. Before implementing a new website on HTTPS, it's important to run a mixed content scanning tool that will crawl and scan an HTTPS-enabled website for mixed content. WordPress plugins should also be utilized that will check for insecure content from within the WordPress editor interface.
+
+* **Non-HTTPS APIs** - Caution should be taken when sending sensitive information such as usernames or passwords to 3rd-party APIs not utilizing HTTPS. When sending data to a non-secure API, always be sure sensitive information is encrypted and decrypted on each end of the connection so that they are not exposed. Likewise, sensitive information, such as passwords, session tokens, etc should not be exposed in HTTP URL requests, which can be captured in web server logs.
