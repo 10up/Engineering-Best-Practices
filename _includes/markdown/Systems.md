@@ -259,7 +259,7 @@ New sites should implement HTTPS (Hypertext Transfer Protocol Secure) unless the
 
 * **Security:** HTTPS creates an encrypted channel between your browser and a website's server. Without encryption, anything transferred between the website and browser could be intercepted by a 3rd party. This is an issue for usernames, passwords, payment information and anything else sent over a form.
 
-* **Performance:** The HTTP/2 web protocol includes numerous performance benefits and only works on websites running on HTTPS.  which  of efficiencies in content negotion, and increased multiplexed downloads.
+* **Performance:** The HTTP/2 web protocol includes numerous performance benefits and only works on websites running on HTTPS.
 
 * **SEO:** While Google's search algorithms are ever-evolving, [Google is moving towards making sure that HTTPS sites will get a page rank boost](https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html). Using HTTPS automatically gives sites ranking improvements over non-HTTPS websites.
 
