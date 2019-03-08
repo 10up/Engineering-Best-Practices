@@ -1,10 +1,10 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy</h2>
+<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
 
 At 10up, we value content and the experience users will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
 Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
-<h2 id="syntax-formatting" class="anchor-heading">Syntax and Formatting {% include Util/top %}</h2>
+<h2 id="syntax-formatting" class="anchor-heading">Syntax and Formatting {% include Util/link_anchor anchor="syntax-formatting" %} {% include Util/top %}</h2>
 
 Syntax and formatting are keys to a maintainable project. By keeping our code style consistent, we not only help ourselves debug faster but we're also lessening the burden on those who will have to maintain our code (maybe ourselves too!).
 
@@ -150,7 +150,7 @@ Prefer:
 
 For components that could possibly conflict with plugins or third-party libraries, use vendor prefixes. Don’t use names that can be blocked by adblockers (e.g. “advertisement”). When in doubt, you can check a class name against [this list](https://easylist-downloads.adblockplus.org/easylist.txt) to see if it's likely to be blocked.
 
-<h2 id="documentation" class="anchor-heading">Documentation {% include Util/top %}</h2>
+<h2 id="documentation" class="anchor-heading">Documentation {% include Util/link_anchor anchor="documentation" %} {% include Util/top %}</h2>
 
 Code documentation serves two purposes: it makes maintenance easier and it makes us stop and think about our code. If the explanation is too complex, maybe the code is overly complex too. Documenting helps keep our code simple and maintainable.
 
@@ -181,7 +181,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 }
 ```
 
-<h2 id="performance" class="anchor-heading">Performance {% include Util/top %}</h2>
+<h2 id="performance" class="anchor-heading">Performance {% include Util/link_anchor anchor="performance" %} {% include Util/top %}</h2>
 
 Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
 
@@ -278,6 +278,30 @@ Articles worth reading:
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
+<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h2>
+
+### Animation
+
+Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
+
+The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+
+Here is an example:
+
+```css
+.animation {
+    animation: vibrate 0.3s linear infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animation {
+        animation: none;
+    }
+}
+```
+
+Read more about [creating accessible animations](https://alistapart.com/blog/post/more-resources-for-accessible-animations).
+
 <h2 id="responsive-websites" class="anchor-heading">Responsive websites {% include Util/top %}</h2>
 
 We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
@@ -340,7 +364,7 @@ We prefer showing a fixed-width non-responsive desktop version to older IE users
 * Use a feature detection to target older browsers.
 * Load a different stylesheet for older browsers.
 
-<h2 id="frameworks" class="anchor-heading">Frameworks {% include Util/top %}</h2>
+<h2 id="frameworks" class="anchor-heading">Frameworks {% include Util/link_anchor anchor="frameworks" %} {% include Util/top %}</h2>
 
 ### Grids
 
@@ -350,7 +374,7 @@ Sometimes a more complex grid system is warranted and leveraging a 3rd party lib
 
 ### Resets
 
-[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets. 
+[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets.
 
 ## Further reading {% include Util/top %}
 

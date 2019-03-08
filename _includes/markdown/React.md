@@ -33,18 +33,53 @@ If you already have a Node / NPM / Yarn project that you wish to include React a
 
 Using the CLI tool is ideal if you are creating a full React App with an API backend.
 
+## Components
+When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
+
+### Class Components
+Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux.
+
+Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children. Examples would include: Accordions, Dropdowns, Modals or Responsive Navigation.
+
+### Stateless Functions
+A Stateless function can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter.
+
+If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code. Examples would include: Grids, Sections, Dividers, Icons, Scaffolding.
+
+### PureComponents
+PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render.
+
+Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
+
+*NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
+
 ## Routing
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
 
+### React Router
+
 The most popular routing library for React is [React Router](https://github.com/ReactTraining/react-router). React Router provides a core library plus APIs for both DOM (web) and React Native (native iOS and Android) platforms. To use the library, install the package for one or the other API according to your application’s platform needs—the core library is included in both.
 
-*Best practice recommendation:* Build the app components without routing first, then add routing once the navigation structure is clear, so that you’re not locked into a routing configuration at the outset which might not match your application’s final structure.
 To read more about the concept of dynamic routing, with plenty of code examples to follow along with, refer to the [React Router documentation](https://reacttraining.com/react-router/web/guides/philosophy).
 
-## State Management
+### Routing Accessibility
+
+In general, routing is little more than an Ajax call to load content with a URL update. This pattern poses some accessibility problems since there is no true page reload. To overcome this and make sure our React implementations pass accessibility compliance we need to ensure a few things happen:
+
+1. Update the page title.
+2. Programmatically [reassign focus with a ref](https://reactjs.org/docs/refs-and-the-dom.html) to the new loaded content.
+3. [Alert the user of any changes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) (like a new page loading).
+
+Following these steps will make sure your content and routing is readable by assistive technology.
+
+## Props and State
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
+
+Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to conusme and utilize that data. Basic applications will likely be able to pass data using this default behavior.
+
+As an application becomes more complex, it may become more of a hassle to pass data down to many child components. This is where frameworks like [Redux](https://redux.js.org/) will come in. However before you reach for these third party frameworks, consider the [React Context API](https://reactjs.org/docs/context.html)
 
 ### Managing State within React
 
@@ -58,13 +93,21 @@ State is made to be updated (or mutated), either by methods within the component
 
 It’s important to note, that when updating state, you should never update it directly. The only place you can assign this.state is the constructor. Updating it directly will not trigger the component to re-render.
 
-## Redux
+### Context API
 
-As an application grows larger, it may be the case where the state become difficult to handle, every new feature introduces a new layer of complexity that may in some cases result in unexpected, and unpredictable behavior.
+The React Context API is the first line of defense when your application becomes sufficiently complex, and we are faced with [prop drilling](https://kentcdodds.com/blog/prop-drilling) concerns.
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level. This is immensely helpful for applications that are highly componentized, and need to share data with those components, regardless of where they exist within the application structure. It is crucial that you think critically about how the data in your application is to be utilized and passed around. If data simply needs to be shared, Context may be for you.
+
+Context does not however provide the further sophisticated features of libraries like Redux. Stepping through application history, alternate UIs that reuse business logic, state changes based on actions etc. If those are things that you need in your application, the Context API may not be quite robust enough for you.
+
+### Redux
+
+As an application grows larger, it may be the case where the state becomes difficult to handle, every new feature introduces a new layer of complexity that may in some cases result in unexpected, and unpredictable behavior.
 
 Redux is a state container that stops the ever-changing nature of the state itself. It acts as a protector of the state, allowing only certain defined actions to trigger a state update. Thus making it predictable.
 
-### Principles of Redux
+**Principles of Redux**
 
 Redux is based almost completely on 3 main principles:
 
@@ -72,13 +115,13 @@ Redux is based almost completely on 3 main principles:
 2. State is Read Only: The state of the application stops being mutable, the only way to change the state is by triggering an action, which itself will work as a log of what, when, and why changed in the state.
 3. Changes are made with pure functions: This means that only an action (or an event) can trigger a Reducer which will take the previous state and return a new one.
 
-### When to use Redux
+**When to use Redux**
 
 As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
 
 ## Accessibility
 
-React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary.
+React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary. Be sure to also use the [jsx-a11y eslint plugin](https://github.com/evcohen/eslint-plugin-jsx-a11y) to ensure your code maintains a solid accessible foundation.
 
 ### Semantic HTML and Fragments
 
@@ -129,3 +172,15 @@ If you're only investigating SSR to improve the SEO of a handful of marketing pa
 ## Debugging
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
 
+## Gutenberg
+When creating Gutenberg components in the WordPress editor, mostly you’ll find yourself adhering to the standard best practices of React, but there are a few Gutenberg-specific design patterns you should be aware of before starting a new build.
+
+### @wordpress/element
+Element is an abstraction layer atop React created just for WordPress and used within Gutenberg components. It was created to allow engineers an API entry point into Gutenberg with deliberate features, omissions, and protections from core-library updates (React updates, in this case) that could cause breaking changes in an interface.
+
+The presence of Element is why you don't see React directly imported into Gutenberg components. [Read more about using Element in Gutenberg](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-element/).
+
+### Higher-order Components
+Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
+
+As with any evolving feature, it is important to frequently check the documentation for new additions and updates.

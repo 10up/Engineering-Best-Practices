@@ -1,10 +1,10 @@
 #page-header {
+	background-color: $color-mineshaft;
 	padding: 0 $guaranteed-edge-standoff;
-	background: #303030;
 	position: fixed;
-	z-index: 9999;
-	width: 100%;
 	top: 0;
+	width: 100%;
+	z-index: 9999;
 
 	body.admin-bar & {
 		top: 46px;
@@ -13,37 +13,38 @@
 			top: 32px;
 		}
 	}
+
 	.logo-link {
-		position: absolute;
+		@extend %hide-text;
+
+		background: $color-mineshaft url("img/10up-logo-full.svg") no-repeat 46% 30%;
+		background-size: 50%;
+		border-radius: 100%;
 		bottom: -$header-logo-small-protrusion;
+		height: $header-logo-small;
 		left: 50%;
 		margin-left: -$header-logo-small / 2;
-		height: $header-logo-small;
+		position: absolute;
 		width: $header-logo-small;
-		border-radius: 100%;
 		z-index: 10; /* So that it overlays any expanded .top-nav */
-		@extend %hide-text;
-		background: #303030 url("img/10up-logo-full.svg") no-repeat 46% 30%;
-		-webkit-background-size: 50%;
-		background-size: 50%;
+
 		@include breakpoint($breakpoint-bravo) {
-			margin-left: -$header-logo-large / 2;
+			background-position: 46% 50%;
+			background-size: 45%;
 			bottom: -$header-logo-large-protrusion;
 			height: $header-logo-large;
+			margin-left: -$header-logo-large / 2;
 			width: $header-logo-large;
-			-webkit-background-size: 45%;
-			background-size: 45%;
-			background-position: 46% 50%;
 		}
 	}
 
 	.top-nav {
+		background-color: $color-mineshaft;
+		height: 0;
+		padding: 0;
+		position: relative;
 		top: 6rem;
 		z-index: 5; /* higher than normal so it overlays content elements */
-		background-color: #303030;
-		padding: 0;
-		height: 0;
-		position: relative;
 
 		.js-mobile-expandable {
 			display: none;
@@ -52,9 +53,9 @@
 				display: block;
 
 				&:before {
-					content: '';
 					border: 10px solid transparent;
-					border-bottom-color: #222;
+					border-bottom-color: $very-dark-grey;
+					content: '';
 					display: block;
 					position: absolute;
 					right: .25em;
@@ -64,17 +65,17 @@
 		}
 
 		.header-nav {
-			background-color: #222;
+			background-color: $very-dark-grey;
 			text-align: right;
 
 			@include breakpoint($breakpoint-bravo) {
 				background-color: transparent;
-				text-align: center;
 				display: block;
 				padding-left: 6px;
+				text-align: center;
 
 				li:nth-child(6) {
-					margin-right: 82px;
+					margin-right: 110px;
 				}
 			}
 
@@ -87,9 +88,8 @@
 		@include transition(height, 150ms, linear);
 
 		@include breakpoint($breakpoint-bravo) {
-			display: inline-block;
-			height: auto !important;
 			background-color: transparent;
+			height: auto !important;
 			position: relative;
 			top: auto;
 			width: 100%;
@@ -98,9 +98,8 @@
 }
 
 .page-header-content {
-	// @extend %grid-context;
-	position: relative;
 	height: 6rem;
+	position: relative;
 }
 
 // handles layout and functionality for the header menus.
@@ -108,75 +107,103 @@
 .toggle-menu-icon {
 	@extend %menu-icon;
 	@include icon('menu');
+
+	background-color: $almost-black;
+	background-image: none;
 	display: block;
 	font-size: 1.3rem;
-	background-color: black;
 
 	@include breakpoint($breakpoint-bravo) {
 		display: none;
+	}
+
+	&:focus,
+	&:hover {
+		color: $color-accent-alternate-2;
 	}
 }
 
 .main-nav-supplemental-icon {
 	@extend %menu-icon;
 	@include icon('github');
+
+	background-color: $almost-black;
+	background-image: none;
 	display: block;
 	font-size: 1.3rem;
-	background-color: black;
 	right: 2.5em;
 
 	@include breakpoint($breakpoint-bravo) {
 		right: 0;
 	}
+
+	&:visited {
+		color: $white;
+	}
+
+	&:focus,
+	&:hover {
+		color: $color-accent-alternate-2;
+	}
 }
 
 .header-nav {
 	@extend %caps-text;
+
 	color: $color-dark-text;
 	line-height: inherit;
 	margin: 0;
-	padding: 0;
-	padding-top: 1em;
+	padding: 1em 0 0;
 
 	@include breakpoint($breakpoint-bravo) {
 		@include inline-list();
+
 		display: block !important;
 		padding-top: 0;
+	}
+
+	a {
+		background: none;
+		border: 0;
+		transition: none;
 	}
 
 	li {
 		list-style-type: none;
 		padding: .5em 1em;
 
-			&:hover {
-				background-color: #303030;
-				@include breakpoint($breakpoint-bravo) {
-					background-color: transparent;
-				}
-			}
-
-
 		@include breakpoint($breakpoint-bravo) {
-			padding: 0;
 			margin: 0 0.3em;
+			padding: 0;
 
 			@include breakpoint($breakpoint-charlie) {
 				margin: 0 0.4em;
 			}
 		}
 
+		&:hover,
+		&:focus {
+			background-color: $color-mineshaft;
+
+			@include breakpoint($breakpoint-bravo) {
+				background-color: transparent;
+			}
+		}
+
 		&.current-menu-item > a,
 		&.current_page_parent > a {
+
 			&:after {
-				background-color: #585858;
-				bottom: 7px;
 				@include opacity(1);
+
+				background-color: $dark-grey;
+				bottom: 7px;
 			}
 
 			body.home &:after {
-				bottom: 7px;
 				@include opacity(0);
-				// border-top-color: transparent;
+
+				bottom: 7px;
 			}
 		}
 	}
@@ -190,40 +217,47 @@
 }
 
 .page-header-content {
+
 	li a,
 	h1 a {
+		color: $color-dark-text;
 		display: block;
-		padding: .8rem 0;
 		font-size: 14px;
 		font-weight: 400;
-		color: $color-dark-text;
+		padding: .8rem 0;
 
 		@include breakpoint($breakpoint-bravo) {
-			padding: 21px 0;
 			font-size: 11px;
+			padding: 21px 0;
 			position: relative;
 
+			&:focus,
 			&:hover {
 				text-decoration: none;
+
 				&:after {
-					bottom: 7px;
 					@include opacity(1);
+
+					bottom: 7px;
 				}
 			}
+
 			&:after {
-				content: "";
-				width: 100%;
-				height: 5px;
-				background: $color-dark-text;
-				position: absolute;
-				bottom: 5px;
-				left: 0;
+				@include opacity(0);
+				@include transition(all, 80ms, ease-in);
+
 				-webkit-backface-visibility: hidden;
 				-moz-backface-visibility: hidden;
 				-ms-backface-visibility: hidden;
+
 				backface-visibility: hidden;
-				@include opacity(0);
-				@include transition(all, 80ms, ease-in);
+				background: $color-dark-text;
+				bottom: 5px;
+				content: "";
+				height: 5px;
+				left: 0;
+				position: absolute;
+				width: 100%;
 			}
 
 			@include breakpoint($breakpoint-charlie) {

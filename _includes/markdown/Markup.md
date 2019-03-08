@@ -1,4 +1,4 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy</h2>
+<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
 At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
 ### Principles
@@ -103,7 +103,7 @@ Schema.org markup should be validated against the [Google Structured Data Testin
 
 For examples of Schema markup on components, check out the [10up WordPress Component Library](https://10up.github.io/wp-component-library/)
 
-<h2 id="html5-structural-elements" class="anchor-heading">HTML5 Structural Elements {% include Util/top %}</h2>
+<h2 id="html5-structural-elements" class="anchor-heading">HTML5 Structural Elements {% include Util/link_anchor anchor="html5-structural-elements" %} {% include Util/top %}</h2>
 HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
 
 There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>```. The element represents a generic document or application section and should contain a heading.
@@ -163,7 +163,7 @@ Good example:
 <script src="script/scripts.js"></script>
 ```
 
-<h2 id="classes-ids" class="anchor-heading">Classes &amp; IDs {% include Util/top %}</h2>
+<h2 id="classes-ids" class="anchor-heading">Classes &amp; IDs {% include Util/link_anchor anchor="classes-ids" %} {% include Util/top %}</h2>
 In order to create more maintainable projects, developers should use classes for CSS and IDs for JavaScript. Separating concerns allows markup to be more flexible without risking breaking both styles and any JavaScript that may be attached to the element on which someone is working.
 
 When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
@@ -177,11 +177,11 @@ Example:
 ### Avoid using inline styles or JavaScript
 These are not easily maintainable and can be easily lost or cause unforeseen conflicts.
 
-<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h2>
+<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/link_anchor anchor="accessibility" %} {% include Util/top %}</h2>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
 
 ### Accessibility Standards
-At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project. 
+At a minimum, all 10up projects should pass [WCAG 2.1 Level A Standards](https://www.w3.org/WAI/intro/wcag). A baseline compliance goal of Level A is due to [WCAG guideline 1.4.3](https://www.w3.org/WAI/WCAG20/quickref/#visual-audio-contrast-contrast) which requires a minimum contrast ratio on text and images, as 10up does not always control the design of a project.
 
 For design projects and projects with a global marketplace (companies with entities outside the US), Level AA should be the baseline goal. The accessibility level is elevated for global markets to properly comply with [EU Functional Accessibility Requirements](http://mandate376.standards.eu/standard/technical-requirements/#9), which aligns closely with WCAG 2.0 Level AA. Having direct access to the designer also allows for greater accessibility standards to be achieved.
 
@@ -216,7 +216,7 @@ You can see how effortless it is to make our tabbed interface accessible to scre
 ### Accessible Forms
 Forms are one of the biggest challenges when it comes to accessibility. Fortunately, there are a few key things that we can do to ensure they meet accessibility standards:
 
-Each form field should have its own ```<label>```. The label element, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability screen readers and assistive technology.
+Each form field should have its own ```<label>```. The label element, along with the ```for``` attribute, can help explicitly associate a label to a form element adding readability for screen readers and assistive technology.
 
 Form elements should also be logically grouped using the ```<fieldset>``` element. Grouped form elements can be helpful for users who depend on screen readers or those with cognitive disabilities.
 
@@ -224,10 +224,10 @@ Finally, we should ensure that all interactive elements are keyboard navigable, 
 
 ### Bypass Blocks
 
-[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html), are HTML flags within in a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
+[Bypass blocks](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html) are HTML flags within a document that allow users that rely on screen readers, keyboard navigation or other assistive technologies to _bypass_ certain page elements or _skip_ to a specific section of a page with ease. They most often manifest themselves in the form of [skip links](https://webaim.org/techniques/skipnav/) and [ARIA landmark roles](https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page)
 
 #### Skip Links
-Skip links are ideally placed immediately inside of the `<body>` tag so that are discovered and announced as early as possible.
+Skip links are ideally placed immediately inside of the `<body>` tag so that they are discovered and announced as early as possible.
 
 While these links are often used to skip to a page's main content section they can link to different sections of the page if necessary and several links can be added if multiple areas of interest are in the page.
 
@@ -247,7 +247,7 @@ Due to some browsers [not moving keyboard focus when they move visual focus](htt
 
 ARIA is a descriptive layer on top of HTML to be used by screen readers. It has no effect on how elements are displayed or behave in browsers. We use these ARIA Landmark Roles (banner, navigation, main, etc.) to provide a better experience to users with disabilities. Landmark role are another type of bypass block. Screen readers can see these as major document regions and navigate to them directly without having to parse through all the content in between.
 
-Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assitive technology platforms that may not yet support the specification.
+Landmark roles should be used with skip links (not instead of), so we can be sure and offer support for older assistive technology platforms that may not yet support the specification.
 
 Example:
 
@@ -257,7 +257,7 @@ Example:
   <nav role="navigation">{ Main Navigation }</nav>
 </header>
 <main role="main">{ Main content }</main>
-<footer role="contentinfo">{ Site Footer }</header>
+<footer role="contentinfo">{ Site Footer }</footer>
 ```
 
 ### Automated Testing
@@ -265,9 +265,9 @@ In most cases, maintaining baseline accessibility requirements for a project can
 
 Automating accessibility tests is easy with a tool like [pa11y](https://github.com/pa11y/pa11y), which is a command line tool that runs [HTML Code Sniffer](http://squizlabs.github.io/HTML_CodeSniffer/) over a URL.
 
-It is easily installed through npm: ```npm install pa11y --save-dev``` and can be adding into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
+It is easily installed through npm: ```npm install pa11y --save-dev``` and can be added into a ```package.json``` file as a separate npm script as to not collide with other build processes that may be running on a project:
 
-```
+```js
 "scripts": {
     "pa11y": "pa11y --ignore notice https://projectname.test"
 },
@@ -278,17 +278,75 @@ Running this process allows the engineer to be alerted if a code-level or design
 ### Manual Testing
 Automated testing will often only get you so far; that is why we also recommend getting a human's eye on the accessibility in a project and executing manual tests alongside any automation. This process is largely done by an engineer reviewing the interface in a browser or screen reader and involves running your project through all of the WCAG guidelines at the compliance level that is applicable to your specific project (A, AA, or AAA). The [WCAG Quickref](https://www.w3.org/WAI/WCAG20/quickref/) is a great place to see all these guidelines in one place. Internally, we also have a spreadsheet template to help manage this process.
 
-Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process. 
+Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible - preferably the same templates used in the automated testing process.
 
 Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
 
-<h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/top %}</h2>
+<h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/link_anchor anchor="progressive-enhancement" %} {% include Util/top %}</h2>
 Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
-At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible. For example, browser support for SVG has not yet reached 100%. When using SVG you should always provide a fallback such as a PNG image for browsers that do not support vector graphics.
+At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible.
 
 ### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
 
 ### Feature Detection
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
+
+<h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
+<abbr title="Scaleable Vector Graphic">SVG</abbr> has become a prevalent means for displaying rich vector graphics. <abbr>SVG</abbr> images are great for graphics with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconography, and illustrations. Here are a few known benefits of SVG:
+
+* __Scalability__ - They look great on retina displays and at any size, i.e. they're resolution independent.
+* __File Size__ - Small file size and compresses well.
+* __Styling__ - Manipulate fill, stroke, and even animate.
+
+Be mindful that SVGs have potential limitations as well:
+
+* Adding unvetted <abbr>SVG</abbr> graphics to a page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of <abbr>SVG</abbr> by default. Read: [<abbr>SVG</abbr> uploads in WordPress (the Inconvenient Truth)](https://bjornjohansen.no/svg-in-wordpress) for more information.
+* SVG is __not__ ideal for photographic images or images with complex visual data. In this case, raster formats (JPG, PNG, GIF) will be a better choice.
+* Raster images should _not_ be converted to <abbr>SVG</abbr>. It will likely result in a raster image being embedded within the SVG document, which will not provide the same affordances (i.e. <abbr>CSS</abbr> manipulation) as a genuine <abbr>SVG</abbr>. For further reading on vector vs. raster formats, and when to use each: [Adding vector graphics to the Web](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Adding_vector_graphics_to_the_Web).
+
+### <abbr>SVG</abbr> Sprites
+
+Combining <abbr>SVG</abbr> images in a single file (usually called `svg-defs.svg`) has the benefit of helping limit <abbr title="HyperText Transfer Protocol">HTTP</abbr> requests within a document that contains multiple icons. An <abbr>SVG</abbr> sprite file can be embedded  within a document and referenced within the template source with a `<use>` element. The creation of this icon system should be automated through your build process. Read [Icon Systems with SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) for more information.
+
+### SVG embedded in HTML
+
+When placing an <abbr>SVG</abbr> in markup (i.e. inline) be sure to use the following guidelines:
+
+* If the <abbr>SVG</abbr> is purely **decorative**:
+    * An empty `alt=""` can be used: `<img alt="">`, or
+	* Use <abbr title="Accessible Rich Internet Applications">ARIA</abbr> attributes to hide the element from assistive technologies: `<svg aria-hidden="true">`
+* If the <abbr>SVG</abbr> is **meaningful** then use `<title>` and possibly even `<desc>` or `aria-label` to describe the graphic. Also, be sure to add an `id` to each element, and appropriate <abbr>ARIA</abbr> to overcome a known bug in [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=231654&q=SVG%20%20title%20attribute&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1151648).
+
+	```html
+	<!-- role="img" to exclude image from being traversed by certain browsers w/ group role -->
+	<svg role="img" aria-labelledby="uniqueTitleID uniqueDescID">
+		<title id="uniqueTitleID">The Title</title>
+		<desc id="uniqueDescID">Description goes here...</desc>
+	</svg>
+	```
+
+* Use `aria-label` if the SVG is linked and has no supporting text.
+
+	```html
+	<a href="http://twitter.com/10up" aria-label="Follow 10up on Twitter">
+		<svg><use xlink:href="#icon-twitter"></use></svg>
+	</a>
+	```
+
+* Use [media queries to provide fallbacks for Windows and High Contrast Mode](https://css-tricks.com/accessible-svgs/#article-header-id-20).
+
+
+### Optimization
+
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all <abbr>SVG</abbr> through [SVGO(MG)](https://jakearchibald.github.io/svgomg/) or using tooling, like [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
+
+### Further reading:
+* [<abbr>SVG</abbr> Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) - MDN web docs
+* [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
+* [Using ARIA to enhance <abbr>SVG</abbr> accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) - The Paciello Group
+* [Accessible <abbr>SVG</abbr> Icons with Inline Sprites](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/) 24 Accessibility
+* [Accessible <abbr>SVG</abbr> test page](https://weboverhauls.github.io/demos/svg/)
+* [Creating Accessible SVGs](https://www.deque.com/blog/creating-accessible-svgs/) Deque.com
+* [Accessible SVGs](https://css-tricks.com/accessible-svgs/) - CSSTricks.com
