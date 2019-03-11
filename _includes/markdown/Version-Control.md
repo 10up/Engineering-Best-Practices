@@ -53,6 +53,13 @@ git commit
 
 In order to avoid large merge conflicts, merges should occur early and often. Do not wait until a feature is complete to merge ```master``` into it. Merging should be done as non-fast-forwards (`--no-ff`) to ensure a record of the merge exists.
 
+### Protecting the ```master``` Branch
+
+We recommend for all repositories to be configured so the ```master``` branch is protected to prevent direct pushes. All merges should be made through a pull request, which ensures all code changes are peer reviewed before merging to prevent unintentional code reversions. Additionally, protecting branches provides the following benefits:
+
+* Prevents the master branch from being accidentally deleted by other engineers
+* Prevents force-pushes to the branch, overwriting the history
+
 ### Themes
 
 All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature or fix on the stage environment.
