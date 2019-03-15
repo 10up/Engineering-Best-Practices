@@ -2,7 +2,7 @@
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
-### Use Modern Functions, Methods, and Properties
+### Modern Functions, Methods, and Properties
 
 It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
@@ -10,7 +10,7 @@ On all new projects you should be using up to date JavaScript methodologies comb
 
 Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
 
-#### Classes
+#### Using Classes
 Before ES6, classes in JavaScript were created by building a constructor function
 and adding properties by extending the prototype object. This created a fairly
 complex way to extend classes and deal with prototypal inheritance. Modern techniques
@@ -40,7 +40,7 @@ functioning as a single unit. For example, a utility function that searches a
 string for text may not be a good utilization of Classes, but an accordion menu
 with children components would.
 
-#### Arrow Functions
+#### Using Arrow Functions
 Arrow functions are a great way to slim down easily executable code blocks. When
 using this style of function be sure not to over engineer a simple action just
 to make it smaller. For example, this is a good use of a simple multiline function being
@@ -74,7 +74,7 @@ is bound to the code that contains the arrow function. Because arrow functions
 also have syntax benefits, as a general rule, use arrow functions unless you
 need a more traditional treatment of `this` (like in an event listener).
 
-#### String Concatenation
+#### Concatenating Strings and Templating
 When dealing with strings in JavaScript, it is very common to need some form of
 concatenation along the way. Before ES6 we were concatenating string with the `+`
 operator:
@@ -83,7 +83,6 @@ operator:
 var first = 'hello';
 var last = 'world';
 var msg = 'I said, "' + first + ' ' + last + '" to the crowd.';
-console.log( msg );
 ```
 
 Modern techniques give us something called, "template literals", which let us concatenate
@@ -94,7 +93,6 @@ basic templating:
 const first = 'hello';
 const last = 'world';
 const msg = `I said, "${first} ${last}," to the crowd.`;
-console.log( msg );
 ```
 
 #### Destructuring Arrays and Objects
@@ -124,6 +122,27 @@ console.log( d ); // 4
 ```
 
 Use destructuring whenever possible to slim down your code and improve overall readability.
+
+#### Componentizing Your Code
+
+Keeping different bits of functionality in your code reasonably separated is important
+to building and maintaining a scalable system over time. In the past we've had to
+accomplish this with our build systems leaning on concatenation as an abstraction
+layer to the project. Modern JavaScript techniques allow us to utilize [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) statements
+to break apart and reassemble your code into consumable chunks.
+
+When you're building your project, be sure to lean on imports to wire your application
+together. As of right now, we do still need a build system to process the code so it can be
+consumed by a browser, but using this modern technique will make sure our code is well
+structured as the project ages. You can also use `import` statements to load parts of an external
+library you may need for any given component. The code below will give you an example:
+
+```javascript
+// Only loading in the map method from lodash, because that's all we need!
+import map from 'lodash/map';
+```
+
+This also allows you to build one component and import it into another.
 
 ### Don't Pollute the Window Object
 
@@ -207,6 +226,17 @@ We have a published [.eslint](https://www.npmjs.com/package/@10up/eslint-config)
 ### Only Load Libraries You Need
 
 JavaScript libraries should only be loaded on the page when needed. React + React DOM are around 650 KB together. This isn't a huge deal on a fast connection but can add up quickly in a constrained bandwidth situation when we start adding a bunch of libraries. Loading a large number of libraries also increases the chance of conflicts.
+
+Not only should you only load the libraries you need, but using import statements, you should only load the _parts_ of the libraries you need. For example, if you're using [Lodash](https://lodash.com/), it can be very large to load the entire system, especially if you're not using all of it. You should always utilize import statements to target relevant parts of an external library to make sure you're loading only what you need. The code block below will illustrate this point:
+
+```javascript
+import map from 'lodash/map';
+import tail from 'lodash/tail';
+import times from 'lodash/times';
+import uniq from 'lodash/uniq';
+```
+
+This code block imports four methods from Lodash instead of the entire library. [Read more about the proper way to load Lodash](https://www.blazemeter.com/blog/the-correct-way-to-import-lodash-libraries-a-benchmark). These imports can also be reduced to a single line, but for Lodash specifically, it's more performant to separate them.
 
 ### Cache DOM Selections
 
