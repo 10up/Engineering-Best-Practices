@@ -48,7 +48,7 @@ compressed into a single line:
 
 Multi-line:
 ```javascript
-const init = () => {
+const init = ( msg ) => {
 	console.log( msg );
 };
 ```
