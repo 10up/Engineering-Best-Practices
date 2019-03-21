@@ -114,7 +114,7 @@ var d = arr[3];
 The new way:
 
 ```javascript
-let [a, b, c, d] = [1, 2, 3, 4];
+const [a, b, c, d] = [1, 2, 3, 4];
 console.log( a ); // 1
 console.log( b ); // 2
 console.log( c ); // 3
