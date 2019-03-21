@@ -48,7 +48,7 @@ compressed into a single line:
 
 Multi-line:
 ```javascript
-const init = () => {
+const init = ( msg ) => {
 	console.log( msg );
 };
 ```
@@ -114,7 +114,7 @@ var d = arr[3];
 The new way:
 
 ```javascript
-let [a, b, c, d] = [1, 2, 3, 4];
+const [a, b, c, d] = [1, 2, 3, 4];
 console.log( a ); // 1
 console.log( b ); // 2
 console.log( c ); // 3
@@ -143,6 +143,18 @@ import map from 'lodash/map';
 ```
 
 This also allows you to build one component and import it into another.
+
+It's also worth noting that named exports can be imported by wrapping the exported function within curly braces:
+
+```javascript
+import { example } from 'example/lib';
+```
+
+This is only possible if the exported component is a named export like so:
+
+```javascript
+export const example = 66;
+```
 
 ### Don't Pollute the Window Object
 
