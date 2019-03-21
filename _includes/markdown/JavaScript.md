@@ -144,6 +144,18 @@ import map from 'lodash/map';
 
 This also allows you to build one component and import it into another.
 
+It's also worth noting that named exports can be imported by wrapping the exported function within curly braces:
+
+```javascript
+import { example } from 'example/lib';
+```
+
+This is only possible if the exported component is a named export like so:
+
+```javascript
+export const example = 66;
+```
+
 ### Don't Pollute the Window Object
 
 Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` with caution.
