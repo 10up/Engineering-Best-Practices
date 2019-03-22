@@ -390,3 +390,16 @@ There are many JavaScript libraries available today. Many of them directly compe
 [Vue](https://vuejs.org/) - Implementing Vue on a project allows us to take advantage of the statefulness built into something like React, but apply it on a much more lightweight and smaller scale as to not bog down performance by loading in a heavy library. [Learn more about how we use Vue]({{ site.baseurl }}/vue).
 
 [Backbone](http://backbonejs.org) - Provides a framework for building complex JavaScript applications. Backbone is based on the usage of models, views, and collections. WordPress core relies heavily on Backbone especially in the media library. Backbone requires Underscore and a DOM manipulation library.
+
+### Cookies
+Safari browser's Intelligent Tracking Prevention (ITP) 2.1 sets the expiration period at 7 days for all first-party cookies set by in-line (or tag management solution injected) vendor JavaScript libraries like Google Analytics’ analytics.js.
+
+Authentication cookies (secure and HTTP-only) which have been properly implemented won’t be affected by the 7-day cap. These cookies should be deployed using the Set-Cookie header in the HTTP response and inaccessible via JavaScript’s document.cookie API.
+
+Solutions for other types of cookies include:
+
+1. Using localStorage to persist the unique identifier (i.e. the client ID) instead of relying solely on the _ga cookie
+2. Setting the _ga cookie with the HTTP response, rather than with JavaScript
+Keep in mind that these solutions come with caveats: using localStorage only works on the same domain and would not work for cross-domain tracking.
+
+As an alternative to local storage, server-side tracking via the proxy layer in Cloudflare is probably the best option for clients with significant traffic from Safari.
