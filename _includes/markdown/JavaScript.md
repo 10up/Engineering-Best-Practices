@@ -278,7 +278,7 @@ hideButton.addEventListener( 'click', () => {
 
 Notice how, in cached versions, we are pulling the menu selection out of the event listener so it only happens once. The cached version is, not surprisingly, the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
 
-#### Event Delegation
+### Event Delegation
 
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
@@ -303,6 +303,77 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 ```
 
 You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+
+### Debounce and Throttle
+
+Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. Debouncing and throttling our functions helps us increase performance by controlling the rate at which an event listener calls them. 
+
+Debouncing a function will prevent it from being called again until a defined amount of time has passed, i.e., execute this function if 200ms has passed since it was last called. A common use case would be when resizing a browser window; we can apply classes or move elements after the resize has happened.
+
+Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want visual effects as a scroll is happening.
+
+Here are example debounce and throttle functions, though note that some of our recommended utility libraries already have similar functions, such as Underscore's _.debounce() and _.throttle(). 
+
+```javascript
+const debounce = ( func, delay, immediate ) => {
+	let timeout;
+
+	return function() {
+		const context = this;
+		const args = arguments;
+		const callNow = immediate && ! timeout;
+
+		const debounced = () => {
+			timeout = null;
+			if ( ! immediate ) {
+				func( context, ...args );
+			}
+		};
+
+		clearTimeout( timeout );
+
+		timeout = setTimeout( debounced, delay );
+
+		if ( callNow ) {
+			func( context, ...args );
+		}
+	};
+};
+
+const someDebouncedFunction = () => console.info( 'Here’s a debounced function.' );
+
+window.addEventListener( 'resize', debounce( someDebouncedFunction, 200 ) );
+```
+
+```javascript
+const throttle = ( func, limit ) => {
+	let timeout;
+	let lastRan;
+
+	return function() {
+		const context = this;
+		const args = arguments;
+
+		if ( ! lastRan ) {
+			func( context, ...args );
+			lastRan = Date.now();
+		} else {
+			clearTimeout( timeout );
+
+			timeout = setTimeout( function() {
+				if ( ( Date.now() - lastRan ) >= limit ) {
+					func( context, ...args );
+					lastRan = Date.now();
+				}
+			}, limit - ( Date.now() - lastRan ) );
+		}
+	};
+};
+
+const someThrottledFunction = () => console.info( 'Here’s a throttled function.' );
+
+window.addEventListener( 'scroll', throttle( someThrottledFunction, 50 ) );
+```
 
 <h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/link_anchor anchor="client-side-data" %} {% include Util/top %}</h2>
 
