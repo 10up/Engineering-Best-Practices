@@ -333,7 +333,7 @@ const debounce = ( func, delay, immediate ) => {
 			// Ensure timeout no longer exists since debounced() is running.
 			timeout = null;
 			
-			// Call the function and the end of the delay.
+			// Call the function on the trailing end of the delay.
 			if ( ! immediate ) {
 				
 				// Execute the original function with its arguments.
