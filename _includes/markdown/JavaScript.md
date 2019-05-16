@@ -308,13 +308,18 @@ You may be wondering why we don't just add one listener to the `<body>` for all 
 
 Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. Debouncing and throttling our functions helps us increase performance by controlling the rate at which an event listener calls them. 
 
+#### Debouncing
 Debouncing a function will prevent it from being called again until a defined amount of time has passed, i.e., execute this function if 200ms has passed since it was last called. A common use case would be when resizing a browser window; we can apply classes or move elements after the resize has happened.
 
-Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want visual effects as a scroll is happening.
-
-Here are example debounce and throttle functions, though note that some of our recommended utility libraries already have similar functions, such as Underscore's _.debounce() and _.throttle(). 
-
+Here's an example debounce function:
 ```javascript
+/**
+* Debounce function.
+* @param  {Function} func      The original function to be debounced.
+* @param  {Number}   delay     How long the function should be delayed between executing in milliseconds.
+* @param  {Boolean}  immediate Call the function at the start of the delay instead of the end.
+* @return {Function}
+*/
 const debounce = ( func, delay, immediate ) => {
 	let timeout;
 
@@ -324,17 +329,28 @@ const debounce = ( func, delay, immediate ) => {
 		const callNow = immediate && ! timeout;
 
 		const debounced = () => {
+			
+			// Ensure timeout no longer exists since debounced() is running.
 			timeout = null;
+			
+			// Call the function and the end of the delay.
 			if ( ! immediate ) {
+				
+				// Execute the original function with its arguments.
 				func( context, ...args );
 			}
 		};
 
+		// Clear the timer so it can start over with a full delay.
 		clearTimeout( timeout );
 
+		// Set the timeout timer.
 		timeout = setTimeout( debounced, delay );
 
+		// Call the function at the start of the delay instead of end.
 		if ( callNow ) {
+			
+			// Execute the original function with its arguments.
 			func( context, ...args );
 		}
 	};
@@ -345,7 +361,18 @@ const someDebouncedFunction = () => console.info( 'Here’s a debounced function
 window.addEventListener( 'resize', debounce( someDebouncedFunction, 200 ) );
 ```
 
+#### Throttling
+
+Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want visual effects as a scroll is happening.
+
+Here's an example throttle function:
 ```javascript
+/**
+* Throttle function.
+* @param  {Function} func  The original function to be throttled.
+* @param  {Number}   limit How often the function can be executed in milliseconds.
+* @return {Function}
+*/
 const throttle = ( func, limit ) => {
 	let timeout;
 	let lastRan;
@@ -354,18 +381,35 @@ const throttle = ( func, limit ) => {
 		const context = this;
 		const args = arguments;
 
+		// Run the function if lastRan doesn't yet exist.
 		if ( ! lastRan ) {
+			
+			// Execute the original function with its arguments.
 			func( context, ...args );
+			
+			// Set the last time the function was invocated.
 			lastRan = Date.now();
 		} else {
+			
+			// Clear the timer so it can start over.
 			clearTimeout( timeout );
 
+			// Set the timeout timer.
 			timeout = setTimeout( function() {
+				
+				// Check if the original function was last invocated past the throttle limit.
 				if ( ( Date.now() - lastRan ) >= limit ) {
+
+					// Execute the original function with its arguments.
 					func( context, ...args );
+					
+					// Update the last time the function was invocated.
 					lastRan = Date.now();
 				}
-			}, limit - ( Date.now() - lastRan ) );
+			},
+
+			// Count down the timer to ensure the last function call always executes.
+			limit - ( Date.now() - lastRan ) );
 		}
 	};
 };
@@ -374,6 +418,10 @@ const someThrottledFunction = () => console.info( 'Here’s a throttled function
 
 window.addEventListener( 'scroll', throttle( someThrottledFunction, 50 ) );
 ```
+
+Note that some of our recommended utility libraries already have similar functions, such as Underscore's [_.debounce()](https://underscorejs.org/#debounce) and [_.throttle()](https://underscorejs.org/#throttle) and Lodash's [_.debounce()](https://lodash.com/docs/4.17.11#debounce) and [_.throttle()](https://lodash.com/docs/4.17.11#throttle). 
+
+For more information with examples of debouncing and throttling, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/).
 
 <h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/link_anchor anchor="client-side-data" %} {% include Util/top %}</h2>
 
