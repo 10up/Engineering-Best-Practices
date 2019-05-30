@@ -40,6 +40,7 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/markup/#classes-ids">Classes and ID's</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#progressive-enhancement">Progressive Enhancement</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
 		</ul>
 	</div>
 
@@ -80,11 +81,12 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/javascript/#top">JavaScript</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/javascript/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#client-side-data">Client-side Data</a></li>
 			<li><a href="{{ site.baseurl }}/javascript/#design-patterns">Design Patterns</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
 			<li>
 				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
-			<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
 			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
 		</ul>
 	</div>
@@ -93,6 +95,7 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/tools/#local-development">Local Development Environments</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#scaffolding">Scaffolding</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
@@ -103,12 +106,22 @@ updated: 6 Oct 2014
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ site.baseurl }}/structure/#top">Project Structure</a></h3>
+		<h3><a href="{{ site.baseurl }}/design/#top">Project Design</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/structure/#file-organization">File Organization</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#dependencies">Dependencies</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#integrations">Third-Party Integrations</a></li>
-			<li><a href="{{ site.baseurl }}/structure/#modular-code">Modular Code</a></li>
+			<li><a href="{{ site.baseurl }}/design/#file-organization">File Organization</a></li>
+			<li><a href="{{ site.baseurl }}/design/#dependencies">Dependencies</a></li>
+			<li><a href="{{ site.baseurl }}/design/#integrations">Third-Party Integrations</a></li>
+			<li><a href="{{ site.baseurl }}/design/#modular-code">Modular Code</a></li>
+			<li><a href="{{ site.baseurl }}/design/#privacy">Privacy</a></li>
+		</ul>
+	</div>
+
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/systems/#top">Systems</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/systems/#nginx">Nginx</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
 		</ul>
 	</div>
 

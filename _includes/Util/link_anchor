@@ -1,0 +1,1 @@
+<a class="subhead-anchor" href="#{{ include.anchor }}"><span>#{{ include.anchor }}</span> {% include_relative img/svg-icons/link.svg %}</a>

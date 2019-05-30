@@ -1,7 +1,7 @@
 .docs-section {
-	padding: $guaranteed-edge-standoff;
-	max-width: $single-max-width;
 	margin: 0 auto;
+	max-width: $single-max-width;
+	padding: $guaranteed-edge-standoff;
 	width: 100%;
 
 	h2 {
@@ -16,13 +16,63 @@
 	}
 
 	.anchor-heading {
-		padding-top: 60px;
 		margin-top: -60px;
+		padding-top: 60px;
+	}
+}
+
+.subhead-anchor {
+	font-size: 0.5em;
+
+	&:focus,
+	&:hover {
+
+		& span {
+			clip: auto;
+			clip-path: none;
+			display: inline-block;
+			font-size: inherit;
+			height: auto;
+			line-height: normal;
+			position: relative;
+			top: 0.3em;
+			width: auto;
+		}
+
+		.icon-link {
+			top: 0.3em;
+		}
+
+	}
+
+	& span {
+		clip: rect(1px, 1px, 1px, 1px);
+		clip-path: inset(50%);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+		word-wrap: normal;
+	}
+
+	.icon-link {
+		display: inline-block;
+		height: 1em;
+		margin-left: 0.2em;
+		position: relative;
+		top: 0.1em;
+		width: 1em;
+	}
+
+	.anchor-heading:hover & {
+		display: inline-block;
 	}
 }
 
 .back-to-top {
-	font-size: 0.5em;
 	float: right;
-	padding-top: 1.2em;
+	font-size: 0.5em;
+	padding-top: 1.09em;
 }
