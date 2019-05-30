@@ -52,7 +52,7 @@ We're also a fan of a few browser tools that lend us a hand when it comes to tes
 * [Contrast Ratio](https://leaverou.github.io/contrast-ratio/) - A color contrast tool to compare two colors against [levels of conformance](https://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html) and see if they pass.
 * [Tanagaru Contrast Finder](http://contrast-finder.tanaguru.com/?lang=en) - Another color contrast tool that tests colors against the levels of conformance, but also provides you with alternatives should your provided colors fail.
 
-<h3 id="vrt" class="anchor-heading">Visual Regression Testing</h3>
+<h2 id="vrt" class="anchor-heading">Visual Regression Testing</h2>
 
 We do visual regression testing to ensure code changes don't have unforeseen repercussions. This provides a helpful visual aid to check against CSS changes, plugin updates, and third-party script updates.
 
