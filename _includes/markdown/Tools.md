@@ -54,6 +54,6 @@ We're also a fan of a few browser tools that lend us a hand when it comes to tes
 
 <h2 id="vrt" class="anchor-heading">Visual Regression Testing</h2>
 
-We do visual regression testing to ensure code changes don't have unforeseen repercussions. This provides a helpful visual aid to check against CSS changes, plugin updates, and third-party script updates.
+We use visual regression testing to ensure code changes don't have unforeseen repercussions. This provides a helpful visual aid to check against CSS changes, plugin updates, and third-party script updates.
 
 * [BackstopJS](https://github.com/garris/BackstopJS) - A tool used to run visual regression tests that compares known reference states against updates.
