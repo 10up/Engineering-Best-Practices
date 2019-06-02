@@ -304,124 +304,24 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 
 You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
 
-### Debounce and Throttle
+### Debounce, Throttle, and requestAnimationFrame
 
-Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. Debouncing and throttling our functions helps us increase performance by controlling the rate at which an event listener calls them. 
+Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. By debouncing, throttling, or using requestAnimationFrame on our functions, we can increase performance by controlling the rate at which an event listener calls them. 
 
 #### Debouncing
 Debouncing a function will prevent it from being called again until a defined amount of time has passed, i.e., execute this function if 200ms has passed since it was last called. A common use case would be when resizing a browser window; we can apply classes or move elements after the resize has happened.
 
-Here's an example debounce function:
-```javascript
-/**
-* Debounce function.
-* @param  {Function} func      The original function to be debounced.
-* @param  {Number}   delay     How long the function should be delayed between executing in milliseconds.
-* @param  {Boolean}  immediate Call the function at the start of the delay instead of the end.
-* @return {Function}
-*/
-const debounce = ( func, delay, immediate ) => {
-	let timeout;
-
-	return function() {
-		const context = this;
-		const args = arguments;
-		const callNow = immediate && ! timeout;
-
-		const debounced = () => {
-			
-			// Ensure timeout no longer exists since debounced() is running.
-			timeout = null;
-			
-			// Call the function on the trailing end of the delay.
-			if ( ! immediate ) {
-				
-				// Execute the original function with its arguments.
-				func( context, ...args );
-			}
-		};
-
-		// Clear the timer so it can start over with a full delay.
-		clearTimeout( timeout );
-
-		// Set the timeout timer.
-		timeout = setTimeout( debounced, delay );
-
-		// Call the function at the start of the delay instead of end.
-		if ( callNow ) {
-			
-			// Execute the original function with its arguments.
-			func( context, ...args );
-		}
-	};
-};
-
-const someDebouncedFunction = () => console.info( 'Here’s a debounced function.' );
-
-window.addEventListener( 'resize', debounce( someDebouncedFunction, 200 ) );
-```
-
 #### Throttling
 
-Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want visual effects as a scroll is happening.
+Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want an element to show up as we scroll down the page, but killing performance by checking the scroll position constantly isn't necessary. Debouncing wouldn't work in this example because we don't want to wait for the user to stop scrolling.
 
-Here's an example throttle function:
-```javascript
-/**
-* Throttle function.
-* @param  {Function} func  The original function to be throttled.
-* @param  {Number}   limit How often the function can be executed in milliseconds.
-* @return {Function}
-*/
-const throttle = ( func, limit ) => {
-	let timeout;
-	let lastRan;
+#### requestAnimationFrame
 
-	return function() {
-		const context = this;
-		const args = arguments;
+requestAnimationFrame is similar to throttling, but it's a browser native API and tries to always throttle to 60fps. Its very name helps us know when it's best to use: while animating things. This would be the case when our JavaScript function is updating element positions, sizes, or anything else that's "painting" to the screen.
 
-		// Run the function if lastRan doesn't yet exist.
-		if ( ! lastRan ) {
-			
-			// Execute the original function with its arguments.
-			func( context, ...args );
-			
-			// Set the last time the function was invocated.
-			lastRan = Date.now();
-		} else {
-			
-			// Clear the timer so it can start over.
-			clearTimeout( timeout );
+Note that some of our recommended utility libraries already provide these functions, such as Underscore's [_.debounce()](https://underscorejs.org/#debounce) and [_.throttle()](https://underscorejs.org/#throttle) and Lodash's [_.debounce()](https://lodash.com/docs/4.17.11#debounce) and [_.throttle()](https://lodash.com/docs/4.17.11#throttle). 
 
-			// Set the timeout timer.
-			timeout = setTimeout( function() {
-				
-				// Check if the original function was last invocated past the throttle limit.
-				if ( ( Date.now() - lastRan ) >= limit ) {
-
-					// Execute the original function with its arguments.
-					func( context, ...args );
-					
-					// Update the last time the function was invocated.
-					lastRan = Date.now();
-				}
-			},
-
-			// Count down the timer to ensure the last function call always executes.
-			limit - ( Date.now() - lastRan ) );
-		}
-	};
-};
-
-const someThrottledFunction = () => console.info( 'Here’s a throttled function.' );
-
-window.addEventListener( 'scroll', throttle( someThrottledFunction, 50 ) );
-```
-
-Note that some of our recommended utility libraries already have similar functions, such as Underscore's [_.debounce()](https://underscorejs.org/#debounce) and [_.throttle()](https://underscorejs.org/#throttle) and Lodash's [_.debounce()](https://lodash.com/docs/4.17.11#debounce) and [_.throttle()](https://lodash.com/docs/4.17.11#throttle). 
-
-For more information with examples of debouncing and throttling, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/).
+For more information and examples of debouncing, throttling, and requestAnimationFrame, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/), [The Difference Between Throttling and Debouncing ](https://css-tricks.com/the-difference-between-throttling-and-debouncing/), and [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function).
 
 <h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/link_anchor anchor="client-side-data" %} {% include Util/top %}</h2>
 
