@@ -278,7 +278,7 @@ hideButton.addEventListener( 'click', () => {
 
 Notice how, in cached versions, we are pulling the menu selection out of the event listener so it only happens once. The cached version is, not surprisingly, the [fastest way to handle this situation](https://jsperf.com/dom-selection-caching).
 
-#### Event Delegation
+### Event Delegation
 
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
@@ -303,6 +303,25 @@ document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
 ```
 
 You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
+
+### Debounce, Throttle, and requestAnimationFrame
+
+Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. By debouncing, throttling, or using requestAnimationFrame on our functions, we can increase performance by controlling the rate at which an event listener calls them. 
+
+#### Debouncing
+Debouncing a function will prevent it from being called again until a defined amount of time has passed, i.e., execute this function if 200ms has passed since it was last called. A common use case would be when resizing a browser window; we can apply classes or move elements after the resize has happened.
+
+#### Throttling
+
+Throttling a function will cause it to only be called a maximum number of times over a defined period of time, i.e., only execute this function once every 50ms. A common use case would be when scrolling a browser window; we may want an element to show up as we scroll down the page, but killing performance by checking the scroll position constantly isn't necessary. Debouncing wouldn't work in this example because we don't want to wait for the user to stop scrolling.
+
+#### requestAnimationFrame
+
+requestAnimationFrame is similar to throttling, but it's a browser native API and tries to always throttle to 60fps. Its very name helps us know when it's best to use: while animating things. This would be the case when our JavaScript function is updating element positions, sizes, or anything else that's "painting" to the screen.
+
+Note that some of our recommended utility libraries already provide these functions, such as Underscore's [_.debounce()](https://underscorejs.org/#debounce) and [_.throttle()](https://underscorejs.org/#throttle) and Lodash's [_.debounce()](https://lodash.com/docs/4.17.11#debounce) and [_.throttle()](https://lodash.com/docs/4.17.11#throttle). 
+
+For more information and examples of debouncing, throttling, and requestAnimationFrame, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/), [The Difference Between Throttling and Debouncing ](https://css-tricks.com/the-difference-between-throttling-and-debouncing/), and [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function).
 
 <h2 id="client-side-data" class="anchor-heading">Client-side Data {% include Util/link_anchor anchor="client-side-data" %} {% include Util/top %}</h2>
 
