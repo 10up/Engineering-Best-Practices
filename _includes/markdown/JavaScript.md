@@ -319,7 +319,7 @@ Throttling a function will cause it to only be called a maximum number of times 
 
 requestAnimationFrame is similar to throttling, but it's a browser native API and tries to always throttle to 60fps. Its very name helps us know when it's best to use: while animating things. This would be the case when our JavaScript function is updating element positions, sizes, or anything else that's "painting" to the screen.
 
-Note that some of our recommended utility libraries already provide these functions, such as Underscore's [_.debounce()](https://underscorejs.org/#debounce) and [_.throttle()](https://underscorejs.org/#throttle) and Lodash's [_.debounce()](https://lodash.com/docs/4.17.11#debounce) and [_.throttle()](https://lodash.com/docs/4.17.11#throttle). 
+Note that some of our recommended utility libraries already provide these functions, such as Underscore's [_.debounce](https://underscorejs.org/#debounce) and [_.throttle](https://underscorejs.org/#throttle) and Lodash's [_.debounce](https://lodash.com/docs/4.17.11#debounce) and [_.throttle](https://lodash.com/docs/4.17.11#throttle). 
 
 For more information and examples of debouncing, throttling, and requestAnimationFrame, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/), [The Difference Between Throttling and Debouncing ](https://css-tricks.com/the-difference-between-throttling-and-debouncing/), and [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function).
 
