@@ -18,6 +18,8 @@ subnav:
     tag: unit-and-integration-testing
   - title: Libraries and Frameworks
     tag: libraries
+  - title: React
+    slug: react
 updated: 10 Dec 2018
 ---
 

@@ -88,6 +88,7 @@ updated: 6 Oct 2014
 				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
 			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
+			<li><a href="{{ site.baseurl }}/react/">React</a></li>
 		</ul>
 	</div>
 

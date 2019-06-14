@@ -306,7 +306,7 @@ You may be wondering why we don't just add one listener to the `<body>` for all 
 
 ### Debounce, Throttle, and requestAnimationFrame
 
-Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. By debouncing, throttling, or using requestAnimationFrame on our functions, we can increase performance by controlling the rate at which an event listener calls them. 
+Browser events such as scrolling, resizing, and cursor movements happen as fast as possible and can cause performance issues. By debouncing, throttling, or using requestAnimationFrame on our functions, we can increase performance by controlling the rate at which an event listener calls them.
 
 #### Debouncing
 Debouncing a function will prevent it from being called again until a defined amount of time has passed, i.e., execute this function if 200ms has passed since it was last called. A common use case would be when resizing a browser window; we can apply classes or move elements after the resize has happened.
@@ -319,7 +319,7 @@ Throttling a function will cause it to only be called a maximum number of times 
 
 requestAnimationFrame is similar to throttling, but it's a browser native API and tries to always throttle to 60fps. Its very name helps us know when it's best to use: while animating things. This would be the case when our JavaScript function is updating element positions, sizes, or anything else that's "painting" to the screen.
 
-Note that some of our recommended utility libraries already provide these functions, such as Underscore's [debounce](https://underscorejs.org/#debounce) and [throttle](https://underscorejs.org/#throttle) and Lodash's [debounce](https://lodash.com/docs/4.17.11#debounce) and [throttle](https://lodash.com/docs/4.17.11#throttle). 
+Note that some of our recommended utility libraries already provide these functions, such as Underscore's [debounce](https://underscorejs.org/#debounce) and [throttle](https://underscorejs.org/#throttle) and Lodash's [debounce](https://lodash.com/docs/4.17.11#debounce) and [throttle](https://lodash.com/docs/4.17.11#throttle).
 
 For more information and examples of debouncing, throttling, and requestAnimationFrame, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/), [The Difference Between Throttling and Debouncing ](https://css-tricks.com/the-difference-between-throttling-and-debouncing/), and [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function).
 
@@ -404,7 +404,7 @@ There are many JavaScript libraries available today. Many of them directly compe
 
 ### Frameworks
 
-[React](https://reactjs.org/) - Using React provides a library to create large-scale, stateful JavaScript applications. It aims to provide a flexible system of creating highly componentized user interfaces. [Learn more about how we use React]({{ site.baseurl }}/react).
+<span id="react">[React](https://reactjs.org/)</span> - Using React provides a library to create large-scale, stateful JavaScript applications. It aims to provide a flexible system of creating highly componentized user interfaces. [Learn more about how we use React]({{ site.baseurl }}/react).
 
 [Vue](https://vuejs.org/) - Implementing Vue on a project allows us to take advantage of the statefulness built into something like React, but apply it on a much more lightweight and smaller scale as to not bog down performance by loading in a heavy library. [Learn more about how we use Vue]({{ site.baseurl }}/vue).
 
