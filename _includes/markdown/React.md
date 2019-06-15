@@ -1,4 +1,4 @@
-The purpose of this document is to help guide you through working with a potential project using the JavaScript library, [React](https://reactjs.org/). Outside of The official React documentation, you should find here personalized recommendations for using the library based on the types of projects we typically  see at 10up. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [official React documentation](https://reactjs.org/).
+The purpose of this document is to help guide you through working with a potential project using the JavaScript library, [React](https://reactjs.org/). Outside of the official React documentation, you should find here personalized recommendations for using the library based on the types of projects we typically  see at 10up. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [official React documentation](https://reactjs.org/).
 
 ## Figuring Out If React Is Right For Your Project
 
@@ -13,38 +13,18 @@ When deciding whether React is the right tool for your project, it might help to
 
 React is easily integrated into specific parts of the front-end or admin of an existing site, but it can also be used to render entire sites, effectively replacing traditional WordPress templates—although doing so requires a lot more planning and scaffolding of features (such as routing) that would normally be handled by the CMS out of the box.
 
-## Implementing React on a Project
-
-There are a number of ways to get up and running with React in a project. The deciding factor is based on the context of your project and how you plan to implement React. The following subsections will outline instructions that are specific to installing React on a per project basis:
-
-### Script Element
-
-Including React via a script element in your HTML is a pretty quick and standard way of including the library. To do this you can either [download the library directly](https://react-cn.github.io/react/downloads.html), use the [CDN](https://reactjs.org/docs/cdn-links.html), or install through [NPM](https://www.npmjs.com/package/react) and direct-link into your `node_modules` directory.
-
-Something to note about this method is that React and ReactDOM are both required. There is also no inherent support for ES6 or JSX without Webpack or Babel in this context. You would need to separately configure a transpiler or write in Vanilla JavaScript.
-
-### Including with NPM
-
-If you already have a Node / NPM / Yarn project that you wish to include React as a dependency of, then you can use the installation instructions found on the [Official React Documentation](https://reactjs.org/docs/add-react-to-an-existing-app.html). Include React and ReactDOM in your package file just like you would any other dependency. Also be sure your transpiler is working to correctly process the ES6 and JSX from React into something the browser can understand.
-
-### Installation with a CLI
-
-[The React CLI](https://reactjs.org/blog/2016/07/22/create-apps-with-no-configuration.html) (create-react-app) provides us a quick way to setup and scaffold a React project. It makes use of the modern frontend workflows and out of the box, React CLI provides hot reloading, minification, asset management, module bundling, linting and a development server to test your application under realistic circumstances. It works with zero configuration from your part as everything is already set up.
-
-Using the CLI tool is ideal if you are creating a full React App with an API backend.
-
 ## Components
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
 Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux.
 
-Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children. Examples would include: Accordions, Dropdowns, Modals or Responsive Navigation.
+Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children.
 
 ### Stateless Functions
 A Stateless function can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter.
 
-If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code. Examples would include: Grids, Sections, Dividers, Icons, Scaffolding.
+If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code.
 
 ### PureComponents
 PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render.
@@ -77,21 +57,9 @@ Following these steps will make sure your content and routing is readable by ass
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
 
-Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to conusme and utilize that data. Basic applications will likely be able to pass data using this default behavior.
+Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to consume and utilize that data. Basic applications will likely be able to pass data using this default behavior.
 
 As an application becomes more complex, it may become more of a hassle to pass data down to many child components. This is where frameworks like [Redux](https://redux.js.org/) will come in. However before you reach for these third party frameworks, consider the [React Context API](https://reactjs.org/docs/context.html)
-
-### Managing State within React
-
-State is managed within each individual component. Generally, state should not be passed between components, as state is intended to determine how a single component is rendered on the page.
-
-On initial render of a component, we are able to define default state. This default state will be made available to the component on it’s initial render, before a user, or any method mutates the state. This is typically defined within the initial constructor() method of a react component. Check out the React docs for an example showing how to set initial state.
-
-### Updating State
-
-State is made to be updated (or mutated), either by methods within the component that take input from the user, or methods created by you to mutate the state manually. Either way, it requires utilization of the setState() method. Examples of the various ways to update state can be found in the React documentation.
-
-It’s important to note, that when updating state, you should never update it directly. The only place you can assign this.state is the constructor. Updating it directly will not trigger the component to re-render.
 
 ### Context API
 
@@ -159,7 +127,6 @@ Here are three topics to consider when looking at server-side rendering:
 
 * You need SEO on Google, DuckDuckGo, Bing, Yahoo, or Baidu and performing consistently across all of them. Note that as of now, Google and Bing can index synchronous JavaScript applications—synchronous being the key word. If your app starts with a loading spinner, then fetches content via Ajax, the crawler will only wait a few seconds for loading to complete. This means if you have content fetched asynchronously on pages where SEO is important, SSR might be necessary.
 * If you are looking for an alternative to improve user experience and performance. Server-rendered markup doesn't need to wait until all JavaScript has been downloaded and executed to be displayed, so your user will see a fully-rendered page sooner. This generally results in better user experience, and can be critical for applications where time-to-content is directly associated with conversion rate.
-* If your project has a generous budget and can be deployed on a NodeJS server.
 
 ### Other things to consider when using SSR:
 
