@@ -976,7 +976,7 @@ function is_valid_api_response( array $data = [] ) {
 }
 ```
 
-This function checks to ensure all expected data was returned from the API. Now imagine there’s a lot of data you have to check for. Adding more isset checks will fix this issue, but makes debugging hard since you have to check each index individually. This can be refactored to make debugging easier.
+This function checks to ensure all expected data was returned from the API. Consider there’s a lot of data you have to check for. Adding more isset checks will fix this issue, but makes debugging hard since you have to check each index individually. This can be refactored to make debugging easier.
 
 ```php
 /**
