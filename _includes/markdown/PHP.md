@@ -919,7 +919,7 @@ Sessions should never be stored in the database. This introduces extra data into
 
 ### Avoid nested logic
 
-Nesting logic makes code hard to read. The following is an example of the [wp_unslash](https://codex.wordpress.org/Function_Reference/wp_unslash).
+Nesting logic makes code hard to read. The following is an example of the [wp_unslash](https://codex.wordpress.org/Function_Reference/wp_unslash) function in WP Core.
 
 ```php
 function wp_slash( $value ) {
