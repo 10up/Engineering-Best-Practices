@@ -145,7 +145,7 @@ Before we dive into some of the specifics of Gutenberg, it's important to unders
 Very simply, Gutenberg is built with React. The underlying code that makes Gutenberg work, is React code. Much like “WordPress PHP” Gutenberg blocks employ a similar code style as React, but it’s not React. In any case, the most effective way for us to frame React’s role in Gutenberg is that React is simply the technology used to make Gutenberg work the way it does.
 
 ### Framing Gutenberg
-When discussing Gutenberg and its capabilities, we must examine it's role in any given project. Primarily, Gutenberg should be framed as a tool for publishers to manage their content in a more dynamic and flexible way. It should not be framed as a "page builder", which implies a 1:1 relationship between the front end and the back end. Gutenberg most certainly has tools to help us achieve a 1:1 relationship, however creating this relationship for every custom block should not be an implied expectation.
+When discussing Gutenberg and its capabilities, we must examine its role in any given project. Primarily, Gutenberg should be framed as a tool for publishers to manage their content in a more dynamic and flexible way. It should not be framed as a "page builder", which implies a 1:1 relationship between the front end and the back end. Gutenberg most certainly has tools to help us achieve a 1:1 relationship, however creating this relationship for every custom block should not be an implied expectation.
 
 ### Gutenberg Components
 When creating Gutenberg components in the WordPress editor, mostly you’ll find yourself adhering to the standard best practices of React, but there are a few Gutenberg-specific design patterns you should be aware of before starting a new build.
