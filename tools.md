@@ -20,7 +20,9 @@ subnav:
     tag: command-line
   - title: Accessibility Testing
     tag: a11y-testing
-updated: 6 Oct 2014
+  - title: Visual Regression Testing
+    tag: vrt
+updated: 5 Oct 2019
 ---
 
 <div class="docs-section">
