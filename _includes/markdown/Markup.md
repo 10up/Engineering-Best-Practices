@@ -1,181 +1,11 @@
 <h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
 At 10up, we aim to create the best possible experience for both our clients and their customers; not for the sake of using cool, bleeding edge technologies that may not have widespread browser support. Our markup embodies this approach.
 
-### Principles
 Markup is intended to define the structure and outline of a document and to offer semantic structure for the document's contents. Markup should not define the look and feel of the content on the page beyond the most basic structural concepts such as headers, paragraphs, and lists.
 
-At 10up, our projects are often large and ongoing. As such, it's imperative that we engineer projects to be maintainable. From a markup perspective, we do this by adhering to the following principles:
+At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible.
 
-### Semantic
-At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[https://en.wikipedia.org/wiki/Semantic_HTML](https://en.wikipedia.org/wiki/Semantic_HTML)).
-
-Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
-
-
-### Minimal &amp; Valid
-Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects, it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
-
-We test our markup against the [W3C validator](https://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
-
-
-### Optimize Readability
-At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, eases onboarding processes, and improves code maintainability.
-
-Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
-
-When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block. Similarly, keep PHP blocks to a minimum inside markup. Doing this turns the PHP blocks into a type of tag themselves. Use colon syntax for PHP loops and conditionals so that it's easier to see when a certain loop ends within the block of markup.
-
-#### Examples
-
-Bad:
-
-```php
-<ul>
-<?php
-foreach( $things as $thing ) {
-  echo '<li>' . esc_html( $thing ) . '</li>';
-}
-?>
-</ul>
-```
-
-Good:
-
-```php
-<ul>
-    <?php foreach( $things as $thing ) : ?>
-        <li><?php echo esc_html( $thing ); ?></li>
-    <?php endforeach; ?>
-</ul>
-```
-
-### Declaring the Proper Doctype
-For all new projects we use HTML5 with the following doctype: ```<!DOCTYPE html>```
-
-### Lowercase Tags
-Although HTML is not case sensitive, using lowercase tags is our preferred pattern. Again, we're emphasizing readability and consistency.
-
-#### Examples
-
-Bad:
-
-```html
-<DIV class="featured-image"></DIV>
-```
-Good:
-
-```html
-<div class="featured-image"></div>
-```
-
-### Avoid Unnecessary Presentational Markup
-As part of our mission to write clean, semantic markup, avoid writing unnecessary presentational markup. Markup should always dictate what the content is, and CSS should dictate how the content looks. Mixing these two concerns makes maintaining code more difficult.
-
-By using Sass, we're able to better extend our classes within our CSS, allowing us to easily separate concerns between markup and styling. For example, we can ```@extend``` or ```@include``` our grid column sizes as well as media queries to modify the behavior at different sizes so that styles live separately from markup.
-
-This is not to say that multiple classes on an element are unacceptable. Contextual modifier classes are certainly acceptable and encouraged.
-
-#### Examples
-Bad:
-
-```html
-<div class="col-lg-6 col-md-6 col-sm-9 col-xs-12 featured-image"></div>
-```
-Good:
-
-```html
-<nav class="primary-nav"></nav>
-<nav class="primary-nav open"></nav>
-```
-
-### Schema.org Markup
-[Schema.org](https://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema.org data to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
-
-For example, if you've ever searched for a restaurant and found that it had star reviews in its search results, this is a product of Schema.org and rich snippets.
-
-Schema.org data is intended to tell the search engines what your data *means*, not just what it says.
-
-To this end, we use Schema.org data where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
-
-Schema.org data can be provided in two forms: "microdata" markup added to a page's structure or a JSON-LD format. Google prefers developers adopt JSON-LD, which isolates the data provided for search engines from the markup meant for user agents. Even though the JSON-LD spec allows linking to data in an external file, search engines currently only parse JSON-LD data when it appears within a `<script type="application/ld+json">` tag, as shown below.
-
-Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
-
-For examples of Schema markup on components, check out the [10up WordPress Component Library](https://10up.github.io/wp-component-library/)
-
-<h2 id="html5-structural-elements" class="anchor-heading">HTML5 Structural Elements {% include Util/link_anchor anchor="html5-structural-elements" %} {% include Util/top %}</h2>
-HTML5 structural elements allow us to create a more semantic and descriptive codebase and are used in all of our projects. Instead of using ```<div>```s for everything, we can use HTML5 elements like ```<header>```, ```<footer>```, and ```<article>```. They work the same way, in that they're all block level elements, but improve readability and thus maintainability.
-
-There are a few common pitfalls to avoid with HTML structural elements. Not everything is a ```<section>```. The element represents a generic document or application section and should contain a heading.
-
-Another misconception is that the ```<figure>``` element can only be used for images. In fact, it can be used to mark up diagrams, SVG charts, photos, and code samples.
-
-Finally, not all groups of links on a page need to be in a nav element. The ```<nav>``` element is primarily intended for sections that consist of major navigation blocks.
-
-### Examples
-
-Bad:
-
-```html
-<section id="wrapper">
-    <header>
-        <h1>Header content</h1>
-    </header>
-    <section id="main">
-        <!-- Main content -->
-    </section>
-    <section id="secondary">
-        <!-- Secondary content -->
-    </section>
-</section>
-```
-
-Good:
-
-```html
-<div class="wrapper">
-    <header>
-        <h1>My super duper page</h1>
-        <!-- Header content -->
-    </header>
-    <main role="main">
-        <!-- Page content -->
-    </main>
-    <aside role="complementary">
-        <!-- Secondary content -->
-    </aside>
-</div>
-```
-
-### Type attribute on script and style elements is not necessary in HTML5
-Since all browsers expect scripts to be JavaScript and styles to be CSS, you don't need to include a type attribute. While it isn't really a mistake, it's a best practice to avoid this pattern.
-
-Bad example:
-
-```html
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<script type="text/javascript" src="script/scripts.js"></script>
-```
-Good example:
-
-```html
-<link rel="stylesheet" href="css/style.css">
-<script src="script/scripts.js"></script>
-```
-
-<h2 id="classes-ids" class="anchor-heading">Classes &amp; IDs {% include Util/link_anchor anchor="classes-ids" %} {% include Util/top %}</h2>
-In order to create more maintainable projects, developers should use classes for CSS and IDs for JavaScript. Separating concerns allows markup to be more flexible without risking breaking both styles and any JavaScript that may be attached to the element on which someone is working.
-
-When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
-
-Example:
-
-```html
-<nav id="js-primary-menu" class="primary-menu"></nav>
-```
-
-### Avoid using inline styles or JavaScript
-These are not easily maintainable and can be easily lost or cause unforeseen conflicts.
+Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
 
 <h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/link_anchor anchor="accessibility" %} {% include Util/top %}</h2>
 It's important that our clients and their customers are able to use the products that we create for them. Accessibility means creating a web that is accessible to all people: those with disabilities and those without. We must think about people with visual, auditory, physical, speech, cognitive and neurological disabilities and ensure that we deliver the best experience we possibly can to everyone. Accessibility best practices also make content more easily digestible by search engines. Increasingly, basic accessibility can even be a legal requirement. In all cases, an accessible web benefits everyone.
@@ -282,10 +112,74 @@ Manual accessibility testing should be run in conjunction with automated testing
 
 Combining automated and manual testing practices allows 10up to maintain a high level of compliance on all projects and it is critical to the work we do.
 
-<h2 id="progressive-enhancement" class="anchor-heading">Progressive Enhancement {% include Util/link_anchor anchor="progressive-enhancement" %} {% include Util/top %}</h2>
-Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
+<h2 id="structure" class="anchor-heading">Structure {% include Util/link_anchor anchor="structure" %}</h2>
 
-At 10up, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible.
+At 10up, we pride ourselves in writing clean, semantic markup. Semantic markup can be defined as: "the use of HTML markup to reinforce the semantics, or meaning, of the information in web pages rather than merely to define it's presentation or look. Semantic HTML is processed by traditional web browsers as well as by many other user agents. CSS is used to suggest its presentation to human users" (definition from Wikipedia -[https://en.wikipedia.org/wiki/Semantic_HTML](https://en.wikipedia.org/wiki/Semantic_HTML)).
+
+Semantic elements are elements with clearly defined meaning to both the browser and the developer. Elements like ```<header>```, ```<nav>```, ```<footer>```, or ```<article>``` do a much better job of explaining the content that is contained within the element than ```<span>``` or ```<div>```. This does not mean that we do not use ```<div>```s in our markup, only that we prefer the right tool (or in this case semantic element) for the job.
+
+### Minimal &amp; Valid
+Websites should be written using the least amount of markup that accomplishes the goal. In the interest of engineering maintainable projects, it's imperative that two completely different types of readers are accounted for: humans and browsers. Writing minimal markup makes it easier for developers to read and understand in a code editor. Valid markup is easier for browsers to process.
+
+We test our markup against the [W3C validator](https://validator.w3.org/) to ensure that it is well formed and provides a fairly consistent experience across browsers.
+
+### Optimize Readability
+At 10up, we often work with large codebases. As such, it's important to optimize markup for human readability. This allows developers to quickly rotate in and out of projects, eases onboarding processes, and improves code maintainability.
+
+Always use tabs for indentation. Doing this allows developers to set their editor preferences for tab width.
+
+When mixing PHP and HTML together, indent PHP blocks to match the surrounding HTML code. Closing PHP blocks should match the same indentation level as the opening block. Similarly, keep PHP blocks to a minimum inside markup. Doing this turns the PHP blocks into a type of tag themselves. Use colon syntax for PHP loops and conditionals so that it's easier to see when a certain loop ends within the block of markup.
+
+#### Examples
+
+Bad:
+
+```php
+<ul>
+<?php
+foreach( $things as $thing ) {
+  echo '<li>' . esc_html( $thing ) . '</li>';
+}
+?>
+</ul>
+```
+
+Good:
+
+```php
+<ul>
+    <?php foreach( $things as $thing ) : ?>
+        <li><?php echo esc_html( $thing ); ?></li>
+    <?php endforeach; ?>
+</ul>
+```
+
+### Avoid Unnecessary Presentational Markup
+As part of our mission to write clean, semantic markup, avoid writing unnecessary presentational markup. Markup should always dictate what the content is, and CSS should dictate how the content looks. Mixing these two concerns makes maintaining code more difficult.
+
+This is not to say that multiple classes on an element are unacceptable. Contextual modifier classes are certainly acceptable and encouraged.
+
+### Schema.org Markup
+[Schema.org](https://schema.org) is the result of collaboration between Google, Bing, Yandex, and Yahoo! to provide the information their search engines need to understand content and provide the best search results possible. Adding Schema.org data to your HTML provides search engines with structured data they can use to improve the way pages display in search results.
+
+For example, if you've ever searched for a restaurant and found that it had star reviews in its search results, this is a product of Schema.org and rich snippets.
+
+Schema.org data is intended to tell the search engines what your data *means*, not just what it says.
+
+To this end, we use Schema.org data where relevant and reasonable to ensure that our clients have the best search visibility that we can provide.
+
+Schema.org data can be provided in two forms: "microdata" markup added to a page's structure or a JSON-LD format. Google prefers developers adopt JSON-LD, which isolates the data provided for search engines from the markup meant for user agents. Even though the JSON-LD spec allows linking to data in an external file, search engines currently only parse JSON-LD data when it appears within a `<script type="application/ld+json">` tag, as shown below.
+
+Schema.org markup should be validated against the [Google Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/u/0/).
+
+For examples of Schema markup on components, check out the [10up WordPress Component Library](https://10up.github.io/wp-component-library/)
+
+### Classes &amp; IDs
+In order to create more maintainable projects, developers should use classes for CSS and IDs for JavaScript. Separating concerns allows markup to be more flexible without risking breaking both styles and any JavaScript that may be attached to the element on which someone is working.
+
+When using JavaScript to target specific elements in your markup, prefix the ID of the element that is being targeted with `js-`. This indicates the element is being targeted by JavaScript for your future self as well as other developers that may work on the project.
+
+<h2 id="polyfills" class="anchor-heading">Feature Detection and Polyfills {% include Util/link_anchor anchor="polyfills" %} {% include Util/top %}</h2>
 
 ### Polyfills
 When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
@@ -293,7 +187,24 @@ When writing markup that does not have wide browser support, using polyfills can
 ### Feature Detection
 At 10up, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) at-rule for CSS that can be utilized.
 
-<h2 id="svg" class="anchor-heading">SVG {% include Util/top %}</h2>
+<h2 id="media" class="anchor-heading">Media {% include Util/link_anchor anchor="media" %}</h2>
+If accessibility starts with HTML, media is how we make it come alive. Creating accessible media is not only the responsibility of an editorial team, but it is our responsibility as engineers to ensure the systems we put in place promote and support the creation of accessible media. It can generally be put into three buckets: images, audio, and video. When looking for direction in these areas we turn to the rules laid out by the [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/).
+
+To read more about any of the guidelines outlined in this section, please visit the [WCAG quickref document](https://www.w3.org/WAI/WCAG21/quickref/). Some of the more aggressive guidelines in Level AAA are not mentioned here. Be sure to check with your project lead about the accessibility compliance level you need to follow.
+
+### Images
+Images are the most common for of media we encounter in our day to day work. WCAG guidelines pertaining to images are: [1.1.1 Non-text content](https://www.w3.org/WAI/WCAG21/quickref/#non-text-content) and [1.4.4 Images of text](https://www.w3.org/WAI/WCAG21/quickref/#images-of-text). Following these two rules will ensure that our images always have alternative text and any time text is represented in an image there is always a purely text-based version of it available for users of assistive technology.
+
+### Audio &amp; Video
+Between audio and video, we certainly deal with video more often, but there are some WCAG guidelines that encompass both, such as: [1.2.2 Audio/Video-only](https://www.w3.org/WAI/WCAG21/quickref/#audio-only-and-video-only-prerecorded) and [1.2.3 Audio Descriptions or Media Alternative](https://www.w3.org/WAI/WCAG21/quickref/#audio-description-prerecorded). Both these guidelines address the creation of text-based versions of the media being presented to a user. This typically comes in the form of an audio track on a video, or a transcript outputted on the page somewhere. As an aside, outputting a transcript will help the content get indexed by search engines, rather than just having the content inside a media element (audio/video)
+
+### Audio
+Audio is an important part of the work we do; making that content accessible to all users is extremely valuable. Guideline [1.4.1 Audio Control](https://www.w3.org/WAI/WCAG21/quickref/#audio-control) is related to autoplaying audio. The general rule is: don't autoplay audio. However, if you do,  and that audio is playing for more than three seconds 1.4.1 states that either a mechanism must be available to pause or stop the audio, or a mechanism must be available to control audio volume independently from the overall system volume level. This is important for any user with and auditory disorder.
+
+### Video
+When putting video on the Web (that contains dialog), [guideline 1.2.2](https://www.w3.org/WAI/WCAG21/quickref/#captions-prerecorded) states that captions must be present, without exception. While we can't always control the content that's placed on a site, we can be sure to guide clients towards a situation for compliance but suggesting transcription services. Other than alternative text, dealing with captions is the most common media accessibility issue you'll likely have to deal with.
+
+<h2 id="svg" class="anchor-heading">SVG {% include Util/link_anchor anchor="svg" %}</h2>
 <abbr title="Scaleable Vector Graphic">SVG</abbr> has become a prevalent means for displaying rich vector graphics. <abbr>SVG</abbr> images are great for graphics with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconography, and illustrations. Here are a few known benefits of SVG:
 
 * __Scalability__ - They look great on retina displays and at any size, i.e. they're resolution independent.
