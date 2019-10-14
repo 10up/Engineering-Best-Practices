@@ -49,10 +49,11 @@ updated: 6 Oct 2014
 
   		<ul>
   			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#responsive-websites">Responsive Websites</a></li>
+			<li><a href="{{ site.baseurl }}/css/#accessibility">Accessibility</a></li>
+			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/css/#responsive-design">Responsive Design</a></li>
+			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
+			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
   			<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
   		</ul>
   	</div>
