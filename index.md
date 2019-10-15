@@ -36,10 +36,9 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#html5-structural-elements">HTML5 Structural Elements</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#classes-ids">Classes and ID's</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#progressive-enhancement">Progressive Enhancement</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#structure">Structure</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#media">Media</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
 		</ul>
 	</div>
