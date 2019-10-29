@@ -996,7 +996,7 @@ function is_valid_api_response( array $data = [] ) {
 		'required_index',
 'another_required_index',
 'yet_another_required_index',
-'and_yet_another_required_index',
+		'and_yet_another_required_index',
 ];
 
 // Loop through required indices to check each in the API response.
