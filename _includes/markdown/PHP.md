@@ -972,7 +972,12 @@ Sanity checks are a part of any good coding logic. These checks can be written e
  * @return bool              True if all required pieces of data exist, false otherwise.
  */
 function is_valid_api_response( array $data = [] ) {
-	return isset( $data['required_index'], $data['another_required_index'], $data['yet_another_required_index'], $data['and_yet_another_required_index']  );
+	return isset(
+		$data['required_index'],
+		$data['another_required_index'],
+		$data['yet_another_required_index'],
+		$data['and_yet_another_required_index'] 
+	);
 }
 ```
 
