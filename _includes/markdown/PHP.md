@@ -994,7 +994,7 @@ function is_valid_api_response( array $data = [] ) {
 	// Holds data we must have in the API response for it to be considered valid.
 	$required_indices = [
 		'required_index',
-'another_required_index',
+		'another_required_index',
 'yet_another_required_index',
 		'and_yet_another_required_index',
 ];
