@@ -951,7 +951,7 @@ function wp_slash( $value ) {
   // Loop through values and add slashes to each value.
   foreach ( $value as $k => $v ) {
     // Sanitize value or values.
-   $values[ $k ] = is_array( $v ) ? wp_slash( $v ) : addslashes( $v );
+    $values[ $k ] = is_array( $v ) ? wp_slash( $v ) : addslashes( $v );
   }
 
   return $values;
