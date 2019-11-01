@@ -943,18 +943,20 @@ This function could be rewritten to make it easier to understand and remove nest
 
 ```php
 function wp_slash( $value ) {
-  // Bail early if value is not an array.
-  if ( ! is_array( $value ) ) {
-    return addslashes( $value );
-  }
-  
-  // Loop through values and add slashes to each value.
-  foreach ( $value as $k => $v ) {
-    // Sanitize value or values.
-    $values[ $k ] = is_array( $v ) ? wp_slash( $v ) : addslashes( $v );
-  }
+    // Bail early if value is not an array.
+    if ( ! is_array( $value ) ) {
+        return addslashes( $value );
+    }
 
-  return $values;
+    $values = [];
+
+    // Loop through values and add slashes to each value.
+    foreach ( $value as $k => $v ) {
+        // Sanitize value or values.
+        $values[ $k ] = is_array( $v ) ? wp_slash( $v ) : addslashes( $v );
+    }
+
+    return $values;
 }
 ```
 
@@ -997,21 +999,21 @@ function is_valid_api_response( array $data = [] ) {
 		'another_required_index',
 		'yet_another_required_index',
 		'and_yet_another_required_index',
-];
+    ];
 
-// Loop through required indices to check each in the API response.
-foreach ( $required_indices as $index ) {
-	// Skip if the index is set.
-	if ( isset( $data[ $index ] ) ) {
-		continue;
-	}
-	
-	// Bail early because a required piece of data wasn’t returned.
-	return false;
-}
+    // Loop through required indices to check each in the API response.
+    foreach ( $required_indices as $index ) {
+        // Skip if the index is set.
+        if ( isset( $data[ $index ] ) ) {
+            continue;
+        }
+        
+        // Bail early because a required piece of data wasn’t returned.
+        return false;
+    }
 
-// All required pieces of data exist.
-return true;
+    // All required pieces of data exist.
+    return true;
 }
 ```
 
