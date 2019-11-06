@@ -253,7 +253,7 @@ What data is collected and what is stored? How and where is the data stored? How
 
 #### Data capture should be secure and respect individual rights.
 
-Consent must be given before the collection of personal data, both for the type of data and the purpose. Make sure consent is clear and not opted-in by default.
+Consent must be given before the collection of clearly identifiable information about the visitor, both for the type of data and the purpose. Make sure consent is clear and not opted-in by default.
 
 Capture as little data and anonymize it as much as possible. All data collection should be encrypted via https and data storage must be encrypted and secure. Data should only be stored as long as necessary and should be kept up to date.
 
