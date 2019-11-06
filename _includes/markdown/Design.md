@@ -261,7 +261,7 @@ Capture as little data and anonymize it as much as possible. All data collection
 
 Ensure the site includes a clear, easy to understand, and easily accessible privacy policy that complies with any applicable guidelines. All collection, retention, sharing and use of personal data should be described in the site privacy policy.
 
-Ensure there is a process in place to let users easily request access to their data and to manage and report any data breaches.
+Encourage the site owner / manager to ensure that there is a process in place to let users easily request access to their data and to manage and report any data breaches. From a development perspective, this can be as basic as including contact information in the privacy policy.
 
 #### Pay attention to third-party services.
 
