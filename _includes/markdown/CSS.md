@@ -1,10 +1,104 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy</h2>
+<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
 
 At 10up, we value content and the experience users will have reading it. We write CSS with this in mind and don't sacrifice our clients' most important assets over the latest, shiniest, half-supported CSS features just for the sake of using them. CSS should help enhance content, not bury it under "cool" distractions.
 
 Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
-<h2 id="syntax-formatting" class="anchor-heading">Syntax and Formatting {% include Util/top %}</h2>
+<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/top %}</h2>
+
+### Animation
+
+Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
+
+The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+
+Here is an example:
+
+```css
+.animation {
+    animation: vibrate 0.3s linear infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animation {
+        animation: none;
+    }
+}
+```
+
+Read more about [creating accessible animations](https://alistapart.com/blog/post/more-resources-for-accessible-animations).
+
+<h2 id="performance" class="anchor-heading">Performance {% include Util/link_anchor anchor="performance" %} {% include Util/top %}</h2>
+
+Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
+
+Three areas of concern are [network requests](#network-requests), [CSS specificity](#css-specificity) and [animation](#animations) performance.
+
+Performance best practices are not only for the browser experience, but for code maintenance as well.
+
+<h2 id="responsive-design" class="anchor-heading">Responsive Design {% include Util/top %}</h2>
+
+We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
+
+### Min-width media queries
+
+A responsive website should be built with min-width media queries. This approach means that our media queries are consistent, readable and minimize selector overrides.
+
+* For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
+* It targets the least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
+* When media queries consistently "point" in the same direction, it makes it easier to understand and maintain stylesheets.
+
+Avoid mixing min-width and max-width media queries.
+
+### Breakpoints
+
+Working with build tools that utilize Sass or PostCSS processing, we can take advantages of reusability and avoid having an unmaintainable number of breakpoints. Using variables and reusable code blocks we can lighten the CSS load and ease maintainability.
+
+### Media queries placement
+
+In your stylesheet files, nest the media query within the component it modifies. **Do not** create size-based partials (e.g. `_1024px.(s)css`, `_480px.(s)css`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the component will allow developers to immediately see all the different styles applied to an element.
+
+Avoid:
+
+```css
+@media only screen and (min-width: 1024px) {
+	@import "responsive/1024up";
+}
+.some-class {
+	color: red;
+}
+.some-other-class {
+	color: orange;
+}
+@media only screen and (min-width: 1024px) {
+	.some-class {
+		color: blue;
+	}
+}
+```
+
+Prefer:
+
+```css
+.some-class {
+	color: red;
+	@media only screen and (min-width: 1024px) {
+		color: blue;
+	}
+}
+.some-other-class {
+	color: orange;
+}
+```
+
+### IE8 and older browser support
+
+We prefer showing a fixed-width non-responsive desktop version to older IE users rather than showing a mobile version.
+
+* Use a feature detection to target older browsers.
+* Load a different stylesheet for older browsers.
+
+<h2 id="syntax-formatting" class="anchor-heading">Syntax and Formatting {% include Util/link_anchor anchor="syntax-formatting" %} {% include Util/top %}</h2>
 
 Syntax and formatting are keys to a maintainable project. By keeping our code style consistent, we not only help ourselves debug faster but we're also lessening the burden on those who will have to maintain our code (maybe ourselves too!).
 
@@ -150,7 +244,7 @@ Prefer:
 
 For components that could possibly conflict with plugins or third-party libraries, use vendor prefixes. Don’t use names that can be blocked by adblockers (e.g. “advertisement”). When in doubt, you can check a class name against [this list](https://easylist-downloads.adblockplus.org/easylist.txt) to see if it's likely to be blocked.
 
-<h2 id="documentation" class="anchor-heading">Documentation {% include Util/top %}</h2>
+<h2 id="documentation" class="anchor-heading">Documentation {% include Util/link_anchor anchor="documentation" %} {% include Util/top %}</h2>
 
 Code documentation serves two purposes: it makes maintenance easier and it makes us stop and think about our code. If the explanation is too complex, maybe the code is overly complex too. Documenting helps keep our code simple and maintainable.
 
@@ -180,14 +274,6 @@ li:nth-child(n+4):nth-child(-n+8) {
 	color: red;
 }
 ```
-
-<h2 id="performance" class="anchor-heading">Performance {% include Util/top %}</h2>
-
-Let's be honest, CSS "speed" and performance is not as important as PHP or JavaScript performance. However, this doesn't mean we should ignore it. A sum of small improvements equals better experience for the user.
-
-Three areas of concern are [network requests](#network-requests), [CSS specificity](#css-specificity) and [animation](#animations) performance.
-
-Performance best practices are not only for the browser experience, but for code maintenance as well.
 
 ### Network Requests
 
@@ -267,8 +353,7 @@ Avoid:
   left: 10px
 }
 ```
-
-Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site.
+Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site. **Note:** [WCAG 2.1, Guideline 2.3.2 Motion from Animation](https://www.w3.org/WAI/WCAG21/quickref/#animation-from-interactions) dictates that, "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed."
 
 Articles worth reading:
 * [CSS animations performance: the untold story](https://greensock.com/css-performance)
@@ -278,69 +363,7 @@ Articles worth reading:
 * [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
-<h2 id="responsive-websites" class="anchor-heading">Responsive websites {% include Util/top %}</h2>
-
-We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
-
-### Min-width media queries
-
-A responsive website should be built with min-width media queries. This approach means that our media queries are consistent, readable and minimize selector overrides.
-
-* For most selectors, properties will be added at later breakpoints. This way we can reduce the usage of overrides and resets.
-* It targets the least capable browsers first which is philosophically in line with mobile first — a concept we often embrace for our sites
-* When media queries consistently "point" in the same direction, it makes it easier to understand and maintain stylesheets.
-
-Avoid mixing min-width and max-width media queries.
-
-### Breakpoints
-
-Working with build tools that utilize Sass or PostCSS processing, we can take advantages of reusability and avoid having an unmaintainable number of breakpoints. Using variables and reusable code blocks we can lighten the CSS load and ease maintainability.
-
-### Media queries placement
-
-In your stylesheet files, nest the media query within the component it modifies. **Do not** create size-based partials (e.g. `_1024px.(s)css`, `_480px.(s)css`): it will be frustrating to hunt for a specific selector through all the files when we have to maintain the project. Putting the media query inside the component will allow developers to immediately see all the different styles applied to an element.
-
-Avoid:
-
-```css
-@media only screen and (min-width: 1024px) {
-	@import "responsive/1024up";
-}
-.some-class {
-	color: red;
-}
-.some-other-class {
-	color: orange;
-}
-@media only screen and (min-width: 1024px) {
-	.some-class {
-		color: blue;
-	}
-}
-```
-
-Prefer:
-
-```css
-.some-class {
-	color: red;
-	@media only screen and (min-width: 1024px) {
-		color: blue;
-	}
-}
-.some-other-class {
-	color: orange;
-}
-```
-
-### IE8 and older browser support
-
-We prefer showing a fixed-width non-responsive desktop version to older IE users rather than showing a mobile version.
-
-* Use a feature detection to target older browsers.
-* Load a different stylesheet for older browsers.
-
-<h2 id="frameworks" class="anchor-heading">Frameworks {% include Util/top %}</h2>
+<h2 id="frameworks" class="anchor-heading">Frameworks {% include Util/link_anchor anchor="frameworks" %} {% include Util/top %}</h2>
 
 ### Grids
 
@@ -350,7 +373,7 @@ Sometimes a more complex grid system is warranted and leveraging a 3rd party lib
 
 ### Resets
 
-As of [August 13th, 2015](https://10up.com/blog/2015/sponsoring-sanitize-css/) 10up has taken stewardship of [sanitize.css](https://github.com/10up/sanitize.css), making it our primary tool for resets. Although we can still consider using [normalize.css](https://necolas.github.io/normalize.css/).
+[Normalize.css](https://necolas.github.io/normalize.css/) is our primary tool for CSS resets.
 
 ## Further reading {% include Util/top %}
 

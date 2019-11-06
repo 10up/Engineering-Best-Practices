@@ -1,4 +1,4 @@
-<h2 id="performance" class="anchor-heading">Performance</h2>
+<h2 id="performance" class="anchor-heading">Performance {% include Util/link_anchor anchor="performance" %}</h2>
 
 Writing performant code is absolutely critical, especially at the enterprise level. There are a number of strategies and best practices we must employ to ensure our code is optimized for high-traffic situations.
 
@@ -131,7 +131,7 @@ As noted in the [WordPress Codex (along with a useful query flow chart)](https:/
 The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
 
 The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](https://secure.php.net/manual/en/function.isset.php).
-`isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
+`isset()` uses an [O(1)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
 
 Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
 
@@ -377,7 +377,7 @@ Writing information to the database is at the core of any website you build. Her
 
 * Certain options are "autoloaded" or put into the object cache on each page load. When [creating or updating options](https://codex.wordpress.org/Options_API), you can pass an ```$autoload``` argument to [```add_option()```](https://developer.wordpress.org/reference/functions/add_option/). If your option is not going to get used often, it shouldn't be autoloaded. As of WordPress 4.2, [```update_option()```](https://developer.wordpress.org/reference/functions/update_option/) supports configuring autoloading directly by passing an optional ```$autoload``` argument. Using this third parameter is preferable to using a combination of [```delete_option()```](https://developer.wordpress.org/reference/functions/delete_option/) and ```add_option()``` to disable autoloading for existing options.
 
-<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/top %}</h2>
+<h2 id="design-patterns" class="anchor-heading">Design Patterns {% include Util/link_anchor anchor="design-patterns" %} {% include Util/top %}</h2>
 
 Using a common set of design patterns while working with PHP code is the easiest way to ensure the maintainability of a project. This section addresses standard practices that set a low barrier for entry to new developers on the project.
 
@@ -542,7 +542,7 @@ wp_register_script( 'custom-script', get_template_directory_uri() . '/js/asset.j
 
 Remember to increment the version in the defined constant prior to deployment.
 
-<h2 id="security" class="anchor-heading">Security {% include Util/top %}</h2>
+<h2 id="security" class="anchor-heading">Security {% include Util/link_anchor anchor="security" %} {% include Util/top %}</h2>
 
 Security in the context of web development is a huge topic. This section only addresses some of the things we can do at the server-side code level.
 
@@ -799,7 +799,7 @@ To make this easier, the WordPress API includes functions that translate and esc
 1. [esc_attr_e](https://codex.wordpress.org/Function_Reference/esc_attr_e): Echoes a translated and escaped string
 1. [esc_attr_x](https://codex.wordpress.org/Function_Reference/esc_attr_x): Returns a translated and escaped string, *passing a context* to the translation function
 
-<h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/top %}</h2>
+<h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/link_anchor anchor="code-style" %} {% include Util/top %}</h2>
 
 We follow the official WordPress [coding](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/) and [documentation](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/php/) standards. The [WordPress Coding Standards for PHP_CodeSniffer](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) will find many common violations and flag risky code for manual review.
 
@@ -854,7 +854,7 @@ function protect_post_meta( $protected, $current_meta_key ) {
 ?>
 ```
 
-<h2 id="unit-testing" class="anchor-heading">Unit and Integration Testing {% include Util/top %}</h2>
+<h2 id="unit-testing" class="anchor-heading">Unit and Integration Testing {% include Util/link_anchor anchor="unit-testing" %} {% include Util/top %}</h2>
 
 Unit testing is the automated testing of units of source code against certain assertions. The goal of unit testing is to write test cases with assertions that test if a unit of code is truly working as intended. If an assertion fails, a potential issue is exposed, and code needs to be revised.
 
@@ -864,7 +864,7 @@ At 10up, we generally employ unit and integration tests only when building appli
 
 Read more at the [PHPUnit homepage](https://phpunit.de/) and [automated testing for WordPress](https://make.wordpress.org/core/handbook/testing/automated-testing/).
 
-<h2 id="libraries" class="anchor-heading">Libraries and Frameworks {% include Util/top %}</h2>
+<h2 id="libraries" class="anchor-heading">Libraries and Frameworks {% include Util/link_anchor anchor="libraries" %} {% include Util/top %}</h2>
 
 Generally, we do not use PHP frameworks or libraries that do not live within WordPress for general theme and plugin development. WordPress APIs provide us with 99 percent of the functionality we need from database management to sending emails. There are frameworks and libraries we use for themes and plugins that are being distributed or open-sourced to the public such as PHPUnit.
 

@@ -8,15 +8,15 @@ layout: default
 subnav:
   - title: Philosophy
     tag: philosophy
-  - title: HTML5 Structural Elements
-    tag: html5-structural-elements
-  - title: Classes and IDs
-    tag: classes-ids
   - title: Accessibility
     tag: accessibility
-  - title: Progressive Enhancement
-    tag: progressive-enhancement
-updated: 23 April 2015
+  - title: Structure
+    tag: structure
+  - title: Media
+    tag: media
+  - title: SVG
+    tag: svg
+updated: 14 October 2019
 ---
 
 <div class="docs-section">
