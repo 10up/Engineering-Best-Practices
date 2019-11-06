@@ -3,6 +3,7 @@ page: introduction
 title: Introduction
 nav: Home
 group: navigation
+weight: 1
 layout: default
 subnav:
   - title: Audience
@@ -22,65 +23,105 @@ updated: 6 Oct 2014
 	</header>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}#top">Introduction</a></h3>
+		<h3><a href="{{ site.baseurl }}#top">Introduction</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}#audience">Audience</a></li>
-			<li><a href="{{ HOME_PATH }}#goal">Goal</a></li>
-			<li><a href="{{ HOME_PATH }}#philosophy">Philosophy</a></li>
-			<li><a href="{{ HOME_PATH }}#contributing">Contributing</a></li>
+			<li><a href="{{ site.baseurl }}#audience">Audience</a></li>
+			<li><a href="{{ site.baseurl }}#goal">Goal</a></li>
+			<li><a href="{{ site.baseurl }}#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}#contributing">Contributing</a></li>
+		</ul>
+	</div>
+
+    <div class="col">
+		<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#structure">Structure</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#media">Media</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
+		</ul>
+	</div>
+
+	    <div class="col">
+  		<h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
+
+  		<ul>
+  			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}/css/#accessibility">Accessibility</a></li>
+			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/css/#responsive-design">Responsive Design</a></li>
+			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
+			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
+  			<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
+  		</ul>
+  	</div>
+
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/php/#top">PHP</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/php/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/php/#design-patterns">Design Patterns</a></li>
+			<li><a href="{{ site.baseurl }}/php/#security">Security</a></li>
+			<li><a href="{{ site.baseurl }}/php/#code-style">Code Style & Documentation</a></li>
+			<li><a href="{{ site.baseurl }}/php/#unit-testing">Unit and Integration Testing</a></li>
+			<li><a href="{{ site.baseurl }}/php/#libraries">Libraries and Frameworks</a></li>
 		</ul>
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}php#top">PHP</a></h3>
+		<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}php#performance">Performance</a></li>
-			<li><a href="{{ HOME_PATH }}php#design-patterns">Design Patterns</a></li>
-			<li><a href="{{ HOME_PATH }}php#security">Security</a></li>
-			<li><a href="{{ HOME_PATH }}php#unit-testing">Unit and Integration Testing</a></li>
-			<li><a href="{{ HOME_PATH }}php#code-style">Code Style & Documentation</a></li>
-			<li><a href="{{ HOME_PATH }}php#libraries">Libraries and Frameworks</a></li>
+			<li><a href="{{ site.baseurl }}/version-control/#structure">Structure</a></li>
+			<li><a href="{{ site.baseurl }}/version-control/#workflows">Workflows</a></li>
 		</ul>
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}version-control#top">Version Control</a></h3>
+		<h3><a href="{{ site.baseurl }}/javascript/#top">JavaScript</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}version-control#structure">Structure</a></li>
-			<li><a href="{{ HOME_PATH }}version-control#workflows">Workflows</a></li>
-		</ul>
-	</div>
-
-	<div class="col">
-		<h3><a href="{{ HOME_PATH }}javascript#top">JavaScript</a></h3>
-		<ul>
-			<li><a href="{{ HOME_PATH }}javascript#performance">Performance</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#design-patterns">Design Patterns</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#client-side-data">Client-side Data</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#design-patterns">Design Patterns</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
 			<li>
-				<a href="{{ HOME_PATH }}javascript#unit-and-integration-testing">Unit and Integration Testing</a>
+				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
-			<li><a href="{{ HOME_PATH }}javascript#code-style">Code Style & Documentation</a></li>
-			<li><a href="{{ HOME_PATH }}javascript#libraries">Libraries</a></li>
+			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
+			<li><a href="{{ site.baseurl }}/react/">React</a></li>
 		</ul>
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}tools#top">Tools</a></h3>
+		<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}tools#local-development">Local Development Environments</a></li>
-			<li><a href="{{ HOME_PATH }}tools#task-runners">Task Runners</a></li>
-			<li><a href="{{ HOME_PATH }}tools#package-managers">Package/Dependency Managers</a></li>
-			<li><a href="{{ HOME_PATH }}tools#version-control">Version Control</a></li>
-			<li><a href="{{ HOME_PATH }}tools#command-line">Command Line Tools</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#local-development">Local Development Environments</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#scaffolding">Scaffolding</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#command-line">Command Line Tools</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#a11y-testing">Accessibility Tools</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#vrt">Visual Regression Testing</a></li>
 		</ul>
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ HOME_PATH }}structure#top">Project Structure</a></h3>
+		<h3><a href="{{ site.baseurl }}/structure/#top">Project Design</a></h3>
 		<ul>
-			<li><a href="{{ HOME_PATH }}structure#templates">Templates</a></li>
-			<li><a href="{{ HOME_PATH }}structure#modular-code">Modular Code</a></li>
-			<li><a href="{{ HOME_PATH }}structure#dependencies">Dependencies</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#file-organization">File Organization</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#dependencies">Dependencies</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#integrations">Third-Party Integrations</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#modular-code">Modular Code</a></li>
+		</ul>
+	</div>
+
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/systems/#top">Systems</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/systems/#nginx">Nginx</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
 		</ul>
 	</div>
 

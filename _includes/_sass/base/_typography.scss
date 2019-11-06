@@ -15,7 +15,7 @@ blockquote {
 	line-height: 50px;
 	text-align: left;
 	text-indent: 16px;
-	color: rgba(140, 138, 138, 1.00);
+	color: #777575;
 }
 
 h1 {
@@ -64,12 +64,16 @@ h5 {
 	font-weight: 300;
 }
 
-p, ul {
+p, ul, ol {
 	text-indent: 0em;
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 	font-weight: 300;
 	line-height: 1.7;
 	margin: 14px 0px 18px 0px;
+
+	@include breakpoint($breakpoint-bravo) {
+		font-size: 1.8rem;
+	}
 }
 
 p.intro {
@@ -131,4 +135,3 @@ h1.pagetitle {
 	line-height: 36px;
 	letter-spacing: 1px;
 }
-

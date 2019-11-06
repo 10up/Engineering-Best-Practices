@@ -3,6 +3,7 @@ page: php
 title: PHP
 nav: PHP
 group: navigation
+weight: 6
 layout: default
 subnav:
   - title: Performance
@@ -11,10 +12,10 @@ subnav:
     tag: design-patterns
   - title: Security
     tag: security
-  - title: Unit and Integration Testing
-    tag: unit-testing
   - title: Code Style & Documentation
     tag: code-style
+  - title: Unit and Integration Testing
+    tag: unit-testing
   - title: Libraries and Frameworks
     tag: libraries
 updated: 6 Oct 2014

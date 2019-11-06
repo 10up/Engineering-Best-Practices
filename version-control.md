@@ -3,10 +3,11 @@ page: version-control
 title: Version Control
 nav: VCS
 group: navigation
+weight: 9
 layout: default
 subnav:
   - title: Structure
-    tag: structure
+    tag: structure-package-management
   - title: Workflows
     tag: workflows
 updated: 6 Oct 2014

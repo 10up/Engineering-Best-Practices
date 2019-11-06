@@ -3,19 +3,24 @@ page: javascript
 title: JavaScript
 nav: JS
 group: navigation
+weight: 3
 layout: default
 subnav:
-  - title: Performance
-    tag: performance
   - title: Design Patterns
     tag: design-patterns
-  - title: Unit and Integration Testing
-    tag: unit-and-integration-testing
+  - title: Performance
+    tag: performance
+  - title: Client-Side Data
+    tag: client-side-data
   - title: Code Style & Documentation
     tag: code-style
+  - title: Unit and Integration Testing
+    tag: unit-and-integration-testing
   - title: Libraries and Frameworks
     tag: libraries
-updated: 6 Oct 2014
+  - title: React
+    slug: react
+updated: 10 Dec 2018
 ---
 
 <div class="docs-section">

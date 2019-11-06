@@ -1,20 +1,23 @@
 ---
-page: structure
-title: Project Structure
-nav: Structure
+page: design
+title: Project Design
+nav: Design
 group: navigation
+weight: 7
 layout: default
 subnav:
-  - title: Templates
-    tag: templates
-  - title: Modular Code
-    tag: modular-code
+  - title: File Organization
+    tag: file-organization
   - title: Dependencies
     tag: dependencies
-updated: 6 Oct 2014
+  - title: Third-Party Integrations
+    tag: integrations
+  - title: Modular Code
+    tag: modular-code
+updated: 23 June 2015
 ---
 
 <div class="docs-section">
-		{% capture structure %}{% include markdown/Structure.md %}{% endcapture %}
-		{{ structure | markdownify }}
+		{% capture design %}{% include markdown/Design.md %}{% endcapture %}
+		{{ design | markdownify }}
 </div>
