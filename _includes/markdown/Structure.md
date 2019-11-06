@@ -198,48 +198,50 @@ indent_size = 4
 
 Developers may extend and/or customize these rules as new file formats are added to the project.
 
-<h3 id="privacy">Privacy {% include Util/top %}</h3>
-Handling of user data is important from both a legal and a trust perspective Projects should document user data that is collected and stored and ensure compliance with the GDPR.
+<h2 id="privacy">Privacy {% include Util/top %}</h2>
 
-#### Privacy Development Best Practices
-- Projects should document user data that is collected and stored
-  - What data collected and what is stored?
-  - How and where is the data stored?
-  - How and why is the data being collected?
-  - Where did the data come from?
-- Sites should include a privacy policy: ensure the site includes a clear, easy to understand, easily accessible (and GDPR compliant) privacy policy.
-- Data capture should respect individual rights:
-  - Capture as little data as possible
-  - Privacy is the default settings and collection of user data is always opt-in. Opt ins should be explicit and should allow users to opt in to specific uses of their data.
-  - All data collection is encrypted via https.
-  - Ensure data storage is encrypted and secure.
-  - Consent must be given before the collection of personal data. Make sure consent is clear, opt-in, and GDPR compliant (no pre checked boxes!).
-  - Children: if the site targets children, compliance requirements are stricter.
-  - Data Breaches: make sure there are processes in place to manage and report any data breaches.
-- Access Requests: ensure there is a process in place to let users easily request access to their data - these requests need to be fulfilled within 30 days.
-  - Note: Since 4.9.6 WordPress provides direct support for exporting user data, removing personal data, and adding a privacy policy
-- All collection, retention, sharing and use of personal data should be described in the site privacy policy.
-- When private data is shared, only the necessary data should be included.
-- When private data is sent to an API, only encrypted communication should be used.
-- Data should be anonymized when possible.
-- Third party advertisement user tracking is not allowed, unless the user explicitly consents.
-- Telemetry/reporting must be opt in.
-- Lawful Basis: ensure that data captured and processed fits into one of the 6 lawful reasons
-- Data expiry: data should only be stored as long as necessary and should be kept up to date.
-- Third party services used should be GDPR compliant - any service or scripts running on the site should be evaluated for compliance.
+Software and services should be designed with privacy in mind, both for user trust and for potential legal reasons. The following are some general guidelines and WordPress-focused features and tactics to use. Accommodations for specific regulations such as GDPR should be determined on a case-by-case basis.
 
-#### Privacy audit
-- Existing sites should be audited for privacy concerns
-  - Review all data collected from users, including by browsers or other automatic sources
-  - Review and search database for user data
-  - Review data sent to third party APIs
+Broadly, the following areas should be considered when designing for privacy:
+
+- What user data is collected and how it is used, including telemetry and reporting.
+- Where and what user data is exposed (e.g. via REST API).
+- Compliance requirements for specific user groups.
+- The content and display of a privacy policy.
+- Third-party services and advertisements.
+
+### WordPress features
+
+Since 4.9.6, WordPress provides direct support for exporting user data, removing user data, and adding a privacy policy. These do not automatically make a site compliant with a set of regulations; procedures still need to be established for response and removal timelines as well as general consideration of how data is collected and used in the first place.
+
+Another feature to keep an eye on is the REST API, in particular any meta added to the user endpoints. Be careful that exposing meta via an endpoint for the purposes of an admin feature does not inadvertently expose it publicly or to other non-admin users.
+
+### Privacy Development Best Practices
+
+#### Projects should document user data that is collected and stored.
+
+What data is collected and what is stored? How and where is the data stored? How and why is the data being collected? Where did the data come from?
+
+#### Data capture should be secure and respect individual rights.
+
+Consent must be given before the collection of personal data, both for the type of data and the purpose. Make sure consent is clear and not opted-in by default.
+
+Capture as little data and anonymize it as much as possible. All data collection should be encrypted via https and data storage must be encrypted and secure. Data should only be stored as long as necessary and should be kept up to date.
+
+#### Sites should have clear and accessible privacy policies and data request features.
+
+Ensure the site includes a clear, easy to understand, and easily accessible privacy policy that complies with any applicable guidelines. All collection, retention, sharing and use of personal data should be described in the site privacy policy.
+
+Ensure there is a process in place to let users easily request access to their data and to manage and report any data breaches.
+
+#### Pay attention to third-party services.
+
+Third-party services and advertisements used should also be compliant with any regulations - any service or scripts running on the site should be evaluated for compliance.
 
 #### Resources
-[Wikipedia: General Data Protection Regulation
-](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)
-[Privacy Policy Snippets](https://github.com/gdpr-compliance/info/blob/master/Privacy-policy-snippets.md)
-[Guide to the General Data Protection Regulation (GDPR)](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/)
-[The Digiday guide to GDPR](https://digiday.com/wp-content/uploads/2018/01/GDPR-download.pdf)
-[An Introduction to GDPR Compliance for WooCommerce Stores](https://woocommerce.com/2017/12/gdpr-compliance-woocommerce)
-[What Does the New Data Regulation Mean for Your Website, Business and Data?](https://www.codeinwp.com/blog/complete-wordpress-gdpr-guide/)
-[The GDPR regulations](http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN)
+- [Privacy Policy Snippets](https://github.com/gdpr-compliance/info/blob/master/Privacy-policy-snippets.md)
+- [Guide to the General Data Protection Regulation (GDPR)](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/)
+- [The Digiday guide to GDPR](https://digiday.com/wp-content/uploads/2018/01/GDPR-download.pdf)
+- [An Introduction to GDPR Compliance for WooCommerce Stores](https://woocommerce.com/2017/12/gdpr-compliance-woocommerce)
+- [What Does the New Data Regulation Mean for Your Website, Business and Data?](https://www.codeinwp.com/blog/complete-wordpress-gdpr-guide/)
+- [The GDPR regulations](http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN)
