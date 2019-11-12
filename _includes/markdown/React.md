@@ -140,14 +140,22 @@ If you're only investigating SSR to improve the SEO of a handful of marketing pa
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
 
 ## Gutenberg
+Before we dive into some of the specifics of Gutenberg, it's important to understand React's role within Gutenberg itself.
+
+Very simply, Gutenberg is built with React. The underlying code that makes Gutenberg work, is React code. Much like “WordPress PHP” Gutenberg blocks employ a similar code style as React, but it’s not React. In any case, the most effective way for us to frame React’s role in Gutenberg is that React is simply the technology used to make Gutenberg work the way it does.
+
+### Framing Gutenberg
+When discussing Gutenberg and its capabilities, we must examine its role in any given project. Primarily, Gutenberg should be framed as a tool for publishers to manage their content in a more dynamic and flexible way. It should not be framed as a "page builder", which implies a 1:1 relationship between the front end and the back end. Gutenberg most certainly has tools to help us achieve a 1:1 relationship, however creating this relationship for every custom block should not be an implied expectation.
+
+### Gutenberg Components
 When creating Gutenberg components in the WordPress editor, mostly you’ll find yourself adhering to the standard best practices of React, but there are a few Gutenberg-specific design patterns you should be aware of before starting a new build.
 
-### @wordpress/element
+#### @wordpress/element
 Element is an abstraction layer atop React created just for WordPress and used within Gutenberg components. It was created to allow engineers an API entry point into Gutenberg with deliberate features, omissions, and protections from core-library updates (React updates, in this case) that could cause breaking changes in an interface.
 
 The presence of Element is why you don't see React directly imported into Gutenberg components. [Read more about using Element in Gutenberg](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-element/).
 
-### Higher-order Components
+#### Higher-order Components
 Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
 
 As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
