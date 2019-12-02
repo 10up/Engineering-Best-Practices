@@ -960,7 +960,7 @@ function wp_slash( $value ) {
 }
 ```
 
-With the refactoring from above, the nested logic is removed and "bail early" logic is being used to return if the value is not an array. A ternary is then used to determine if the function needs to be recursively called and, finally, the values are returned.
+With the refactoring from above, the nested logic is removed and bail early/guard clause logic is being used to return if the value is not an array. A ternary is then used to determine if the function needs to be recursively called and, finally, the values are returned.
 
 ### Sanity checking data
 
