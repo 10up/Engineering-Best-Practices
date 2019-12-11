@@ -264,7 +264,7 @@ Memcached and Redis are used by WordPress as simple, in memory key-value stores.
 * Caching the results of a complex query
 * Storing full or partial pages 
 
-Items stored in these caching technologies are made up of 3 things: a key, a value, and an optional expiration time.  After the expiration time, items are evicted from the cache.  Items without an expiration time will persist in the cache until the cache is full, at which time the cache will evict the least recently used (LRU) item each time a new item needs to be stored. 
+Items stored in these caching technologies are made up of 3 things: a key, a value, and an optional expiration time.  After the expiration time, items are evicted from the cache.  Redis can be configured with a number of eviction schemes, which control what happens when an item expires or when the cache is full, but in our use case, it rarely makes sense to use anything besides a Least Recently Used (LRU) eviction scheme.  Items without an expiration time will persist in the cache until the cache is full, at which time the cache will evict the least recently used item each time a new item needs to be stored.
 
 ### Sizing the Cache Pool
 
@@ -290,13 +290,13 @@ Memcached can be installed on multiple servers that can combine into a memcached
 
 #### Item Size
 
-By default, memcached accepts items (key + value) of 1 MB or less. In most scenarios, this is fine and plenty of space. However, on larger WordPress sites or sites with a number of plugins, the “alloptions” array combining all autoloaded rows from the wp_options table can exceed 1 MB.  This array will be stored in memcached if memcached is in use for the object cache, unless it exceeds the memcached item size limit.  When this array is larger than the memcached item size, it can cause all sorts of odd issues and inconsistent performance.  
+By default, memcached accepts items (key + value) of 1 MB or less. In most scenarios, this is fine and plenty of space. However, on larger WordPress sites or sites with a number of plugins, the “alloptions” array combining all autoloaded rows from the wp_options table can exceed 1 MB.  This array will be stored in memcached if memcached is in use for the object cache, unless it exceeds the memcached item size limit.  When this array is larger than the memcached item size, it can cause all sorts of odd issues and inconsistent performance.  While the alloptions array is the most common way a WordPress site will exceed the 1 MB limit, many other use cases can result in this same problem, including storing HTML fragments, remote call responses, or query results.  Keep the item size limit in mind whenever storing data in memcached. 
 
-Starting in memcached version 1.4.2, the item size is configurable via the `-I` option.  Setting the item size higher than 1 MB is not recommended unless necessary as memcached becomes less efficient as the item size increases, meaning it will take more memory to store the same amount of data.  If memory is available to accommodate a larger cache size, it is worth considering raising the item size to prevent the alloptions array from ever becoming a problem.  
+Starting in memcached version 1.4.2, the item size is configurable via the `-I` option.  Setting the item size higher than 1 MB is not recommended unless necessary as memcached becomes less efficient as the item size increases, meaning it will take more memory to store the same amount of data.  If memory is available to accommodate a larger cache size, it is worth considering raising the item size to prevent this limit from ever becoming a problem.  
 
 #### Connecting WordPress to Memcached
 
-WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcached](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, 10up mostly uses one of the following:
+WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcache](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, 10up mostly uses one of the following:
 
 * [Memcached Object Cache](https://wordpress.org/plugins/memcached/) for php-memcache
 * [Wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) for php-memcached
