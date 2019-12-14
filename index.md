@@ -123,6 +123,7 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
 			<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
 			<li><a href="{{ site.baseurl }}/systems/#memcached-and-redis">Memcached and Redis</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#load-balancing">Load Balancing</a></li>
 		</ul>
 	</div>
 
