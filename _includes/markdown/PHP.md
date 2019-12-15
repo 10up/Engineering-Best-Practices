@@ -942,18 +942,18 @@ function wp_slash( $value ) {
 This function could be rewritten to make it easier to understand and remove nested logic.
 
 ```php
-function wp_slash( $value ) {
+function wp_slash( $input ) {
     // Bail early if value is not an array.
-    if ( ! is_array( $value ) ) {
-        return addslashes( $value );
+    if ( ! is_array( $input ) ) {
+        return addslashes( $input );
     }
 
     $values = [];
 
     // Loop through values and add slashes to each value.
-    foreach ( $value as $k => $v ) {
+    foreach ( $input as $key => $value ) {
         // Sanitize value or values.
-        $values[ $k ] = is_array( $v ) ? wp_slash( $v ) : addslashes( $v );
+        $values[ $key ] = is_array( $value ) ? wp_slash( $value ) : addslashes( $value );
     }
 
     return $values;
@@ -961,60 +961,3 @@ function wp_slash( $value ) {
 ```
 
 With the refactoring from above, the nested logic is removed and "bail early" logic is being used to return if the value is not an array. A ternary is then used to determine if the function needs to be recursively called and, finally, the values are returned.
-
-### Sanity checking data
-
-Sanity checks are a part of any good coding logic. These checks can be written easier to speed up debugging. For example, take the following piece of code:
-
-```php
-/**
- * Checks an API response to ensure all required pieces of data was returned.
- *
- * @param array $data The data to check.
- * @return bool              True if all required pieces of data exist, false otherwise.
- */
-function is_valid_api_response( array $data = [] ) {
-	return isset(
-		$data['required_index'],
-		$data['another_required_index'],
-		$data['yet_another_required_index'],
-		$data['and_yet_another_required_index'] 
-	);
-}
-```
-
-This function checks to ensure all expected data was returned from the API. Consider there’s a lot of data you have to check for. Adding more isset checks will fix this issue, but makes debugging hard since you have to check each index individually. This can be refactored to make debugging easier.
-
-```php
-/**
- * Checks an API response to ensure all required pieces of data was returned.
- *
- * @param array $data The data to check.
- * @return bool              True if all required pieces of data exist, false otherwise.
- */
-function is_valid_api_response( array $data = [] ) {
-	// Holds data we must have in the API response for it to be considered valid.
-	$required_indices = [
-		'required_index',
-		'another_required_index',
-		'yet_another_required_index',
-		'and_yet_another_required_index',
-    ];
-
-    // Loop through required indices to check each in the API response.
-    foreach ( $required_indices as $index ) {
-        // Skip if the index is set.
-        if ( isset( $data[ $index ] ) ) {
-            continue;
-        }
-        
-        // Bail early because a required piece of data wasn’t returned.
-        return false;
-    }
-
-    // All required pieces of data exist.
-    return true;
-}
-```
-
-Why is the new function easier to debug? Imagine a widget isn’t rendering properly because not all required pieces of data exist. Before refactoring, you’d have to compare every piece of returned data to what is required which can be cumbersome. In the refactored version, you could simply dump the missing index name before false is returned in the foreach loop.
