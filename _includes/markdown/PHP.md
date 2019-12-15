@@ -916,3 +916,60 @@ Instead of sessions, use cookies or client-side storage APIs if possible. In add
 If sessions must be used, create them conservatively. Don't create sessions for every visitor. Limit sessions to the smallest group that needs them: logged-in editors and admins, or visitors using a particular feature.
 
 Sessions should never be stored in the database. This introduces extra data into a storage system that's not meant for that volume. Database session libraries also rely on PHP code which can't match the performance of PHP's native session handlers. PHP extensions for Memcache and Redis allow sessions to be stored in these in-memory datastores and are a good solution for sessions when multiple webservers are present.
+
+### Sanity checking data
+
+Sanity checks are a part of any good coding logic. These checks can be written easier to speed up debugging. For example, take the following piece of code:
+
+```php
+/**
+ * Checks an API response to ensure all required pieces of data was returned.
+ *
+ * @param array $data The data to check.
+ * @return bool              True if all required pieces of data exist, false otherwise.
+ */
+function is_valid_api_response( array $data = [] ) {
+	return isset(
+		$data['required_index'],
+		$data['another_required_index'],
+		$data['yet_another_required_index'],
+		$data['and_yet_another_required_index'] 
+	);
+}
+```
+
+This function checks to ensure all expected data was returned from the API. Consider there’s a lot of data you have to check for. Adding more isset checks will fix this issue, but makes debugging hard since you have to check each index individually. This can be refactored to make debugging easier.
+
+```php
+/**
+ * Checks an API response to ensure all required pieces of data was returned.
+ *
+ * @param array $data The data to check.
+ * @return bool              True if all required pieces of data exist, false otherwise.
+ */
+function is_valid_api_response( array $data = [] ) {
+	// Holds data we must have in the API response for it to be considered valid.
+	$required_indices = [
+		'required_index',
+		'another_required_index',
+		'yet_another_required_index',
+		'and_yet_another_required_index',
+    ];
+
+    // Loop through required indices to check each in the API response.
+    foreach ( $required_indices as $index ) {
+        // Skip if the index is set.
+        if ( isset( $data[ $index ] ) ) {
+            continue;
+        }
+        
+        // Bail early because a required piece of data wasn’t returned.
+        return false;
+    }
+
+    // All required pieces of data exist.
+    return true;
+}
+```
+
+This makes it easier to debug because you can simply drop `var_dump( $index ); die;` inside the foreach loop after the isset check to see which piece of data is missing instead of having to manually compare indices that are required.
