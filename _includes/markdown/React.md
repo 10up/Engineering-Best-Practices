@@ -160,13 +160,13 @@ Gutenberg offers a library of higher-order components (HOC) you can use to build
 
 As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
 
-### Whitelisting / Blacklisting
+### Including / Excluding Blocks
 
-Gutenberg has the ability to whitelist or blacklist certain blocks. This can be found under the [Block Filters](https://developer.wordpress.org/block-editor/developers/filters/block-filters/) page of the official Gutenberg documentation. Specifically, under the heading [Removing Blocks](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#removing-blocks). Details of how to filter via JavaScript or PHP can be found there.
+Gutenberg has the ability to allow only certain blocks to be used. This can be found under the [Block Filters](https://developer.wordpress.org/block-editor/developers/filters/block-filters/) page of the official Gutenberg documentation. Specifically, under the heading [Removing Blocks](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#removing-blocks). Details of how to filter via JavaScript or PHP can be found there.
 
-Also note that this method is different than the `allowedBlocks` prop on `<InnerBlocks>` when used in a custom block. Whitelisting or blacklisting here applies to all blocks on a higher level within the editor.
+Also note that this method is different than the `allowedBlocks` prop on `<InnerBlocks>` when used in a custom block. The filtering described here applies to all blocks on a higher level within the editor.
 
-#### Possible Scenarios for Whitelisting / Blacklisting
+#### Possible scenarios
 
 There may be a need to remove or restrict access to blocks. This could be for a variety of reasons, but typical scenarios could be:
 - Improve admin UX by reducing block options for editors
@@ -177,6 +177,6 @@ There may be a need to remove or restrict access to blocks. This could be for a 
 
 Each project is different. Carefully consider removing blocks from the admin with your project team.
 
-#### Choosing Whitelist or Blacklist
+#### Choosing to allow or deny access to blocks
 
-Typically, you should reach for whitelisting versus blacklisting. Whitelisting helps guard against changes or blocks which are added at a later date, which could break functionality or have other unintented side effects. Blocks would have to be specifically allowed and tested before being used. Additionally, typical patterns for how we develop favor whitelists in other locations (such as escaping, `<InnerBlocks>`, etc.) This helps keep a consistent pattern in the codebase.
+Typically, you should exclude all blocks by default and add a list of which blocks to include versus including all blocks by default with a list of which to exclude. This helps guard against changes or blocks which are added at a later date, which could break functionality or have other unintented side effects. Blocks would have to be specifically allowed and tested before being used. Additionally, typical patterns for how we develop favor this in other locations (such as escaping, `<InnerBlocks>`, etc.) This helps keep a consistent pattern in the codebase.
