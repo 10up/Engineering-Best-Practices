@@ -74,6 +74,7 @@ php-pear
 php-pecl-jsonc
 php-pecl-memcache
 php-pecl-memcached
+php-pecl-redis
 php-pecl-zip
 php-process
 php-redis
@@ -252,3 +253,94 @@ Once tuning moves beyond these main items, performance improvements will be mino
 As discussed earlier, WordPress utilizes on-disk temporary tables when doing JOIN statements that reference the ```wp_posts``` table as many of the ```wp_posts``` table’s fields are of type TEXT or LONGTEXT. If a TEXT or LONGTEXT field are in the results of a JOIN, that query cannot use in-memory temporary tables and will create those temporary tables on disk. One way to optimize the performance of these on-disk temporary tables is to set MySQL’s `tmpdir` to a [tmpfs](https://en.wikipedia.org/wiki/Tmpfs) filesystem. tmpfs appears to the operating system to be a normally mounted disk drive, but it is actually a filesystem that resides entirely in volatile memory (RAM). By mounting the tmpdir in memory, MySQL will read and write temporary tables very quickly without the input/output limitations for traditional drives. This method is even faster than most SSDs and has been shown to provide a significant performance boost for some WordPress workloads. 
 
 Most Linux servers have a few tmpfs mounts already. The `/dev/shm` mount is a tmpfs mount for efficiently storing temporary files for programs and we can set MySQL to use this with the tmpdir variable in the ```my.cnf``` file. tmpfs only uses space in RAM when files exist (it isn’t preallocated), but if the WordPress database is very busy, beware that MySQL could use as much RAM as is allocated for ```/dev/shm``` (which is normally 50% of total RAM). In most WordPress workloads, MySQL only uses a few megabytes in temporary tables on disk, but if ```/dev/shm``` usage were to grow, it could quickly cause an out of memory situation. Take this into account when tuning MySQL for memory usage. ```/dev/shm``` size should be monitored if used for the MySQL tmpdir.
+
+<h2 id="memcached-and-redis" class="anchor-heading">Memcached and Redis {% include Util/link_anchor anchor="memcached-and-redis" %} {% include Util/top %}</h2>
+
+Memcached and Redis are in memory data stores that are used for the WordPress object cache. Implementation of the object cache in WordPress code is covered extensively in the [PHP Performance](https://10up.github.io/Engineering-Best-Practices/php/#performance) section of the Best Practices and this section will focus on the hosting and setup of memcached and Redis.
+
+Memcached and Redis are used by WordPress as simple, in memory key-value stores. By being in memory and not having the possibility for complex queries, these tools provide blazing fast retrieval of data, usually in less than 1 millisecond. Common use cases of these data stores are:
+
+* Caching results of an external API call
+* Caching the results of a complex query
+* Storing full or partial pages 
+
+Items stored in these caching technologies are made up of 3 things: a key, a value, and an optional expiration time.  After the expiration time, items are evicted from the cache.  Redis can be configured with a number of eviction schemes, which control what happens when an item expires or when the cache is full, but in our use case, it rarely makes sense to use anything besides a Least Recently Used (LRU) eviction scheme.  Items without an expiration time will persist in the cache until the cache is full, at which time the cache will evict the least recently used item each time a new item needs to be stored.
+
+### Sizing the Cache Pool
+
+The LRU eviction policy means that even a small cache can be effective and the most used data will always be in the cache. However, the most effective cache pool will never evict an item before the expiration time is reached and will have enough space for a healthy collection of items with no expiration time.  10up has tested various sizes of cache pools and has found 256 MB to be appropriate for most WordPress sites.  Complicated sites or large multisites may benefit from 512 MB and small sites on limited hardware can perform well with as little as 64 MB, but 256 MB should be used as a safe “rule of thumb”.  Above 256 MB, the cache hit rate and eviction rate usually do not improve no matter how large the cache pool is.
+
+A common misconception is that a full cache pool is a problem and should be avoided, or that a full cache means a bigger cache pool is needed. In reality, a full cache pool is the normal state of the cache with WordPress and means nothing.  No matter how big the cache pool, it will eventually become full.  This is because there will always be some cached items without an expiration time that will persist in the cache forever, until the cache is full and the LRU policy evicts it to make room for a new item.
+
+Even a very active cache will not stress a modern CPU, so a caching server can perform very well even with a single CPU core.  Similarly, since the cache activity is all in memory (unless persistence is enabled with Redis), a small and slow hard drive will work fine.  As long as network bandwidth is fast, latency is low, and enough RAM is available for the cache pool, nearly any server can host the cache. 
+
+### Architecture Considerations
+
+The worst thing that can happen with an in-memory cache like memcached or Redis is the memory becoming full and swap space needing to be used.  In a high availability setup, it would be prefereable if the server just crashed and went offline rather than using swap.  If a server begins swapping, it is using the much slower hard disk to store some items that should be in memory, such as memcached items.  A hard disk is so many times slower than memory that this will cause a dramatic worsening of the performance of the cache node and the application relying on the cache will be forced to wait for this slow server to reply.  This causes a massive bottleneck for the application and in WordPress will result in pages timing out or loading very slowly.  If the cache server were to just go offline, the items from the cache would be redistributed to the other cache nodes and everything would continue on, which is why it is recommended to disable swap entirely on cache nodes.  
+
+For a cache node to have stable performance, it must have a predictable amount of memory available and, preferably, devoted to the cache.  For this reason, it is recommended to run memcache or redis either on a dedicated server or on a server shared with MySQL, but not on a server that is serving PHP requests.  A server that is taking PHP web requests, whether with Apache and mod_php or with Nginx and PHP-FPM, will have very unpredictable memory usage.  Depending on the kind of work each process is doing, PHP could use 30 MB or 300 MB and it is very difficult to predict.  Therefore, webservers create the possibility that memory could unexpectedly become full.  On most webservers, this isn't a big deal as some PHP processes will fail but the rest will continue on normally.  However, if a webserver were to also be hosting the cache, running out of memory could be disasterous when under load as the cache process could be killed off or worse, could start swapping.  On single-server setups, careful tuning of the stack and conservative use of the available memory can make it work, but if possible, MySQL and the cache should be moved to a separate server.  In constrast to PHP, MySQL is ideal software to host alongside memcached or Redis on a server.  The memory usage of MySQL is predictable and can be completely controlled with the `my.cnf` file, leaving a stable amount of memory that can be dedicated to the cache. 
+
+### Memcached
+
+Memcached is simpler than Redis and has fewer features. While Redis can be used as a full database, memcached is only a key-value store. This simplicity is by design and makes Memcached a very low maintenance tool. 
+
+#### High Availability
+
+Memcached can be installed on multiple servers that can combine into a memcached “pool”.  Keeping with the theme of simplicity, each memcached server in the pool knows nothing about the other instances in the pool and operates completely independently.  It is up to the client (in this case, WordPress and PHP) to distribute data across the pool of memcached servers however it sees fit.  Memcached performs no replication, failover, or connection balancing itself.  To distribute data evenly across multiple servers, the PHP extensions for memcached use a hashing strategy.  In this way, multiple PHP web servers can read and write to multiple memcached servers and all know exactly where each key is stored. 
+
+#### Item Size
+
+By default, memcached accepts items (key + value) of 1 MB or less. In most scenarios, this is fine and plenty of space. However, on larger WordPress sites or sites with a number of plugins, the “alloptions” array combining all autoloaded rows from the wp_options table can exceed 1 MB.  This array will be stored in memcached if memcached is in use for the object cache, unless it exceeds the memcached item size limit.  When this array is larger than the memcached item size, it can cause all sorts of odd issues and inconsistent performance.  While the alloptions array is the most common way a WordPress site will exceed the 1 MB limit, many other use cases can result in this same problem, including storing HTML fragments, remote call responses, or query results.  Keep the item size limit in mind whenever storing data in memcached. 
+
+Starting in memcached version 1.4.2, the item size is configurable via the `-I` option.  Setting the item size higher than 1 MB is not recommended unless necessary as memcached becomes less efficient as the item size increases, meaning it will take more memory to store the same amount of data.  If memory is available to accommodate a larger cache size, it is worth considering raising the item size to prevent this limit from ever becoming a problem.  
+
+#### Connecting WordPress to Memcached
+
+WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcache](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, 10up mostly uses one of the following:
+
+* [Memcached Object Cache](https://wordpress.org/plugins/memcached/) for php-memcache
+* [Wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) for php-memcached
+
+One benefit of [wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) is that the alloptions array discussed in the "Item Size" section has been split up and each "option" is stored as a separate key and value.  This means that WordPress is much less likely to exceed the 1 MB default item size, which will allow the cache to run efficiently.  The individual keys and values are retrieved with a [getMulti command](https://github.com/humanmade/wordpress-pecl-memcached-object-cache/blob/master/object-cache.php#L1506) (only available in the php-memcached extension), which results in the only 1 additional memcached call over storing the alloptions array in a single key. 
+
+#### Security
+
+Memcached offers no security.  It is imperative that memcached not be exposed to the internet, both to prevent sensitive data from being exposed, but also to prevent [amplification attacks](https://www.cloudflare.com/learning/ddos/memcached-ddos-attack/).  If memcached is on a dedicated server, or a server shared with MySQL, ideally it will not have a public IP address nor be accessible outside of the private network.  If the entire stack is on a single server, use the -l option to bind memcached to 127.0.0.1.  If a public IP must be used, restrict access using a firewall.
+
+#### Tools
+
+One of the biggest challenges with memcached is getting visibility into the items in the cache and the performance of the cache.  The simplest way to interact with a memcached server is by using telnet.  For example, a memcached server on localhost can be connected to with the command `telnet 127.0.0.1 11211` where 11211 is the port memcached listens on.  Once connected with telnet, basic statistics about the instance are available by typing `stats`. Most of these statistics are only useful with consistent monitoring to understand trends, but `get_hits` and `get_misses` are particularly useful for calculating the hit ratio (`get_hits / (get_hits + get_misses)`).  
+
+For easier to read statistics, [PHPMemcachedAdmin](https://github.com/elijaa/phpmemcachedadmin) provides an interactive, browser-based dashboard.  Be diligent to keep this dashboard private by configuring it behind a password or to be accessed only by known IPs. 
+
+Beyond the stats, it is difficult to get a good idea of the content in a memcached instance.  While PHPMemcachedAdmin makes some strides towards providing this visibility, there’s no good way to view all keys in memcached, or do any fuzzy matching like you would in a full database.  The simplicity of memcached makes it very difficult to find anything without knowing the exact key.  This kind of visibility is not often needed, but can be a challenge when debugging an issue with the cache. 
+
+### Redis
+
+While memcached strives for simplicity, Redis seeks to be a full featured, high performance database and data store.  Many data types, eviction schemes, and transaction types are available, but the common use case with WordPress is very similar to memcached: a simple key-value store with an LRU eviction scheme.  
+
+#### High Availability
+
+Redis offers many more options for high availability that memcached, including master-slave [replication](https://redis.io/topics/replication), failover architectures via [Sentinel](https://redis.io/topics/sentinel), and full multi-node [clusters](https://redis.io/topics/cluster-tutorial).  Implementing any of these solutions adds complexity and hardware, which should be considered carefully.  Unlike memcached, Redis cache can be made to persist to disk, so the cache values can survive a restart, making recovery from a cache failure less impactful.  On high-traffic sites where the object cache uptime is mission critical, the high availability capabilities of Redis may make it the right choice.  
+
+#### Connecting WordPress to Redis
+
+Similar to memcached, WordPress connects to Redis through an object-cache.php file in the wp-content folder, which in turn leverages a PHP extension.  Two extensions are widely used, [Predis](https://github.com/nrk/predis/) and [phpredis](https://github.com/phpredis/phpredis).  The object-cache.php file also has 2 good options that are widely used:
+
+* [Redis Object Cache](https://wordpress.org/plugins/redis-cache/) with good support for clusters and replication
+* [WP Redis](https://wordpress.org/plugins/wp-redis/) with support from [Pantheon](https://pantheon.io/)
+
+#### Security
+
+Redis supports password authentication with every request, making it suitable for use on a public endpoint.  However, installing Redis within a private network is the preferred setup for security. 
+
+#### Tools
+
+Redis has a robust toolset for monitoring and viewing data stored in the cache.  The [redis-cli](https://redis.io/topics/rediscli) tool is a must have for anyone working with a Redis site and can monitor all data in and out of a cluster, simulate replication, show real-time latency, and search for keys in the cache, among many other capabilities.  For a graphical interface, many options are availble including:
+
+* [PHPRedisAdmin](https://github.com/erikdubbelboer/phpRedisAdmin) - browser-based Redis GUI
+* [Redsmin](https://www.redsmin.com/) - SaaS Redis GUI
+* [Redis Desktop](https://redisdesktop.com/) - Cross-platform Redis GUI to install locally to view remote Redis servers
+* [Redis Insight](https://redislabs.com/redisinsight/) - Browser-based GUI from Redis Labs
+
+For even more tools, [Redis Labs has a good list](https://redislabs.com/blog/so-youre-looking-for-the-redis-gui/).  

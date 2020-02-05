@@ -131,7 +131,7 @@ As noted in the [WordPress Codex (along with a useful query flow chart)](https:/
 The worst case scenario is that the whole array needs to be traversed, thus making it a function with [O(n)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) complexity. VIP review reports `in_array()` use as an error, as it's known not to scale.
 
 The best way to check if a value is present in an array is by building arrays that encourage lookup by key and use [`isset()`](https://secure.php.net/manual/en/function.isset.php).
-`isset()` uses an [`O(1)`](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
+`isset()` uses an [O(1)](https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions) hash search on the key and will scale.
 
 Here is an example of an array that encourages lookup by key by using the intended values as keys of an associative array
 
