@@ -123,6 +123,80 @@ console.log( d ); // 4
 
 Use destructuring whenever possible to slim down your code and improve overall readability.
 
+#### Spread operator and Rest parameters
+The notation `...` which comes with ES6 represents the **spread** operator and **rest** parameters.  
+
+The **Spread** operator unpacks every item from an iterable and makes them available for new iterables. It's specially useful to add items to an array or concatenate different arrays.  
+
+Adding new items to an array:  
+```javascript
+// OLD WAY
+var food = ['pasta', 'pizza', 'burger'];
+var newArray = [].concat(food);
+newArray.push('sushi');
+
+console.log(newArray); // ['pasta', 'pizza', 'burger', 'sushi']
+
+// NEW WAY
+const food = ['pasta', 'pizza', 'burger'];
+let newArray = [...food, 'sushi'];
+
+console.log(newArray); // ['pasta', 'pizza', 'burger', 'sushi']
+```
+
+Concatenating two arrays:  
+```javascript
+// OLD WAY
+var dogs1 = ['pug', 'dobermann', 'german shepherd'];
+var dogs2 = ['beagle', 'maltese', 'dachshund'];
+var allTheDogs = dogs1.concat(dogs2);
+
+console.log(allTheDogs); // ['pug', 'dobermann', 'german shepherd', 'beagle', 'maltese', 'dachshund']
+
+// NEW WAY
+const dogs1 = ['pug', 'dobermann', 'german shepherd'];
+const dogs2 = ['beagle', 'maltese', 'dachshund'];
+const allTheDogs = [...dogs1, ...dogs2];
+
+console.log(allTheDogs); // ['pug', 'dobermann', 'german shepherd', 'beagle', 'maltese', 'dachshund']
+```
+
+The Spread operator can be also used to unpack an array into a function:  
+```javascript
+const name = ['Walter', 'White'];
+
+function sayMyName(first, last) {
+   return `You're ${first} ${last}.`;
+}
+
+sayMyName(...name); // "You're Walter White."
+```
+
+The **Rest** parameters collects all the remaining elements of an array and packs them together.  
+
+It can be used to get any item from an array first as single element, and then the rest in a separate array:  
+```javascript
+function getOne(dog, ...cats) {
+  console.log(dog);
+  console.log(cats);
+}
+
+getOne('Napoleon', 'Duchess', 'O Malley', 'Toulouse', 'Marie');
+// Napoleon
+// ['Duchess', 'O Malley', 'Toulouse', 'Marie']
+```
+
+And it can be used for destructuring:  
+```javascript
+const students = ['Luna Lovegood', 'Cedric Diggory', 'Draco Malfoy', 'Harry Potter', 'Ron Weasley', 'Hermione Granger'];
+const [ravenclaw, hufflepuff, slytherin, ...gryffindor] = students;
+
+console.log(ravenclaw); // 'Luna Lovegood'
+console.log(hufflepuff); // 'Cedric Diggory'
+console.log(slytherin); // 'Draco Malfoy'
+console.log(gryffindor); // ['Harry Potter', 'Ron Weasley', 'Hermione Granger']
+```
+
 #### Componentizing Your Code
 
 Keeping different bits of functionality in your code reasonably separated is important
