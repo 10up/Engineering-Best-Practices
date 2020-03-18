@@ -4,7 +4,7 @@ Writing performant code is absolutely critical, especially at the enterprise lev
 
 ### Efficient Database Queries
 
-When querying the database in WordPress, you should generally use a [```WP_Query```](https://developer.wordpress.org/reference/functions/query_posts/) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as [```get_posts()```](https://developer.wordpress.org/reference/functions/get_posts/) do not.
+When querying the database in WordPress, you should generally use a [```WP_Query```](https://developer.wordpress.org/reference/classes/wp_query/) object. ```WP_Query``` objects take a number of useful arguments and do things behind-the-scenes that other database access methods such as [```get_posts()```](https://developer.wordpress.org/reference/functions/get_posts/) do not.
 
 Here are a few key points:
 
