@@ -18,7 +18,7 @@ allow us to create and extend classes directly and write cleaner code:
 
 ```javascript
 class BasicExample {
-	constructor( el ) {
+	constructor(el) {
 		super(); // if you're extending
 	}
 
@@ -48,14 +48,14 @@ compressed into a single line:
 
 Multi-line:
 ```javascript
-const init = ( msg ) => {
-	console.log( msg );
+const init = (msg) => {
+	console.log(msg);
 };
 ```
 
 Single line:
 ```javascript
-const init = ( msg ) => console.log( msg );
+const init = (msg) => console.log(msg);
 ```
 
 This is a very simple function, so compressing it down into a single line won't
@@ -80,9 +80,9 @@ concatenation along the way. Before ES6 we were concatenating string with the `+
 operator:
 
 ```javascript
-var first = 'hello';
-var last = 'world';
-var msg = 'I said, "' + first + ' ' + last + '" to the crowd.';
+const first = 'hello';
+const last = 'world';
+const msg = `I said, "${first} ${last}" to the crowd.`;
 ```
 
 Modern techniques give us something called, "template literals", which let us concatenate
@@ -104,21 +104,21 @@ syntax.
 The old way:
 
 ```javascript
-var arr = [1, 2, 3, 4];
-var a = arr[0];
-var b = arr[1];
-var c = arr[2];
-var d = arr[3];
+const arr = [1, 2, 3, 4];
+const a = arr[0];
+const b = arr[1];
+const c = arr[2];
+const d = arr[3];
 ```
 
 The new way:
 
 ```javascript
 const [a, b, c, d] = [1, 2, 3, 4];
-console.log( a ); // 1
-console.log( b ); // 2
-console.log( c ); // 3
-console.log( d ); // 4
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // 3
+console.log(d); // 4
 ```
 
 Use destructuring whenever possible to slim down your code and improve overall readability.
@@ -163,33 +163,31 @@ Adding methods or properties to the ```window``` object or the global namespace 
 When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
 
 ```javascript
-console.log( this === window ); // true
+console.log(this === window); // true
 
-for ( var i = 0; i < 9; i++ ) {
-    // Do stuff
+for (var i = 0; i < 9; i++) {
+	// Do stuff
 }
 
 const result = true;
 
-console.log( window.result === result ); // true
-console.log( window.i === i ); // true
+console.log(window.result === result); // true
+console.log(window.i === i); // true
 ```
 
 When we put our code inside a closure, our variables are private to that closure unless we expose them:
 
 ```javascript
-( function() {
+(function () {
+	for (let i = 0; i < 9; i++) {
+		// Do stuff
+	}
 
-    for ( var i = 0; i < 9; i++ ) {
-        // Do stuff
-    }
+	window.result = true;
+})();
 
-    window.result = true;
-
-} )();
-
-console.log( typeof window.result !== 'undefined' ); // true
-console.log( typeof window.i !== 'undefined' ); // false
+console.log(typeof window.result !== 'undefined'); // true
+console.log(typeof window.i !== 'undefined'); // false
 ```
 
 Notice how ```i``` was not exposed to the ```window``` object.
@@ -199,11 +197,11 @@ Notice how ```i``` was not exposed to the ```window``` object.
 In JavaScript, we often have to insert new elements with dynamic attributes and content into the DOM. A common way to do this is to use the [```innerHTML```](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) method like so:
 
 ```javascript
-const someElement = document.getElementById( 'someElement' );
+const someElement = document.getElementById('someElement');
 const someUrl = 'https://someurl.com/';
 const someContent = 'Some content';
 
-someElement.innerHTML = `<div class="container"><a href="${ someUrl }">${ someContent }</a></div>`;
+someElement.innerHTML = `<div class="container"><a href="${someUrl}">${someContent}</a></div>`;
 ```
 However, passing HTML strings to ```innerHTML``` and methods like it can expose your code to [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting), also known as XSS—the most common security vulnerability in JavaScript. Because these methods evaluate strings passed to them as HTML, they can execute potentially harmful code. For instance, if ```someContent``` in the above example is ```<img src="fakeImage" onerror="alert( 'hacked!' )" />```, the JavaScript in the ```onerror``` attribute will be executed.
 
@@ -257,22 +255,22 @@ It's a common JavaScript mistake to reselect something unnecessarily. For exampl
 Uncached:
 
 ```javascript
-const hideButton = document.querySelector( '.hide-button' );
+const hideButton = document.querySelector('.hide-button');
 
-hideButton.addEventListener( 'click', () => {
-    const menu = document.getElementById( 'menu' );
-    menu.style.display = 'none';
-} );
+hideButton.addEventListener('click', () => {
+	const menu = document.getElementById('menu');
+	menu.style.display = 'none';
+});
 ```
 
 Cached:
 
 ```javascript
-const menu = document.getElementById( 'menu' );
-const hideButton = document.querySelector( '.hide-button' );
+const menu = document.getElementById('menu');
+const hideButton = document.querySelector('.hide-button');
 
-hideButton.addEventListener( 'click', () => {
-    menu.style.display = 'none';
+hideButton.addEventListener('click', () => {
+	menu.style.display = 'none';
 });
 ```
 
@@ -283,23 +281,21 @@ Notice how, in cached versions, we are pulling the menu selection out of the eve
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
 ```javascript
-document.getElementById( 'menu' ).addEventListener( 'click', ( e ) => {
+document.getElementById('menu').addEventListener('click', (e) => {
+	const { currentTarget } = e;
+	let { target } = event;
 
-    const currentTarget = e.currentTarget;
-    let target = event.target;
-
-    if ( currentTarget && target ) {
-      if ( 'LI' === target.nodeName ) {
-        // Do stuff with target!
-      } else {
-        while ( currentTarget.contains( target ) ) {
-          // Do stuff with a parent.
-          target = target.parentNode;
-        }
-      }
-    }
-
-} );
+	if (currentTarget && target) {
+		if (target.nodeName === 'LI') {
+			// Do stuff with target!
+		} else {
+			while (currentTarget.contains(target)) {
+				// Do stuff with a parent.
+				target = target.parentNode;
+			}
+		}
+	}
+});
 ```
 
 You may be wondering why we don't just add one listener to the `<body>` for all our events. Well, we want the event to *bubble up the DOM as little as possible* for [performance reasons](https://jsperf.com/event-delegation-distance). This would also be pretty messy code to write.
@@ -368,11 +364,11 @@ An essential part of a GraphQL API is an API schema. GraphQL requires a human-re
 If you are choosing to use GraphQL on a WordPress project, it is recommended to use the WPGraphQL plugin. This plugin will return WordPress data in JSON format through a GraphQL endpoint - in many cases you won’t need to write the schema yourself. This will give you all the benefits of concatenating your data requests as well as easy access to your data as it is output by WordPress. You can retrieve your data by passing a query directly into a simple fetch request:
 
 ```javascript
-fetch( '/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query: "[your query string goes here]" }),
-} ).then( res => res.json() );
+fetch('/graphql', {
+	method: 'POST',
+	headers: { 'Content-Type': 'application/json' },
+	body: JSON.stringify({ query: '[your query string goes here]' }),
+}).then((res) => res.json());
 ```
 
 The above code snippet will help you get started in making requests to the GraphQL service.
