@@ -375,9 +375,9 @@ The above code snippet will help you get started in making requests to the Graph
 
 <h2 id="code-style" class="anchor-heading">Code Style & Documentation {% include Util/link_anchor anchor="code-style" %} {% include Util/top %}</h2>
 
-We conform to the [WordPress JavaScript coding standards](http://make.wordpress.org/core/handbook/coding-standards/javascript/).
+10up maintains a [eslint shareable config](https://github.com/10up/eslint-config) that is used across all 10up projects. It exposes several different configs and engineers should opt-in to the config that best fits the project.
 
-We conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/).
+As far as JavaScript documentation goes, we conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/) and those standards are enforced by 10up's eslint config.
 
 <h2 id="unit-and-integration-testing" class="anchor-heading">Unit and Integration Testing {% include Util/link_anchor anchor="unit-and-integration-testing" %} {% include Util/top %}</h2>
 
