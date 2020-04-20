@@ -1,6 +1,4 @@
 module.exports = {
-	extends: ['@10up/eslint-config'],
-	"plugins": [
-        "markdown",
-    ],
+	extends: ['@10up/eslint-config/react'],
+	plugins: ['markdown'],
 };

@@ -158,14 +158,14 @@ export const example = 66;
 
 ### Don't Pollute the Window Object
 
-Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. We should wrap our scripts in closures and expose methods and properties to ```window``` with caution.
+Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. If you need to expose data to the rest of your application, you should first consider using some sort of state management. Sometimes however, exposing methods or properties to the ```window``` global is necessary and when doing so wrap your code in closures and expose methods and properties to ```window``` with caution.
 
 When a script is not wrapped in a closure, the current context or ```this``` is actually ```window```:
 
 ```javascript
 console.log(this === window); // true
 
-for (var i = 0; i < 9; i++) {
+for (var i = 0; i < 9; i += 1) {
 	// Do stuff
 }
 
@@ -179,7 +179,7 @@ When we put our code inside a closure, our variables are private to that closure
 
 ```javascript
 (function () {
-	for (let i = 0; i < 9; i++) {
+	for (let i = 0; i < 9; i += 1) {
 		// Do stuff
 	}
 
