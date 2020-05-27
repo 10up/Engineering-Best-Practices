@@ -76,20 +76,6 @@ All staging branches will branch off ```master``` as well, and should be named `
 
 In some cases, a feature will be large enough to warrant multiple developers working on it at the same time. In order to enable testing the feature as a cohesive unit and avoid merge conflicts when pushing to ```staging``` and ```master``` it is recommended to create a feature branch to act as a staging area. We do this by branching from ```master``` to create the primary feature branch, and then as necessary, create additional branches from the feature branch for distinct items of work. When individual items are complete, merge back to the feature branch. To pull work from ```master```, merge ```master``` into the feature branch and then merge the feature branch into the individual branches. When all work has been merged back into the feature branch, the feature branch can then be merged into ```staging``` and ```master``` as an entire unit of work.
 
-#### Working with WordPress.com VIP (not Go)
-
-In a VIP environment, we want every commit to the theme's Subversion repository to be matched 1:1 with a merge commit on our Beanstalk Git repository. This means we add a step to our deployment above: Create a diff between the branch and ```master``` before merging. We can apply this diff as a patch to the VIP Subversion repository. Again, make sure to use non-fast-forward merges.
-
-##### Backporting VIP
-
-In the event that VIP makes a change to the repository, we'll capture the diff of their changeset and import it to our development repository by:
-
-* Grabbing the diff of their changes
-* Creating a new ```vip-rXXXX``` branch off ```master```
-* Applying the diff to the new branch
-* Merging the branch to ```staging```, using a non-fast-forward merge
-* Merging the branch back to ```master```, again using a non-fast-forward merge
-
 #### Deleting or Archiving and Deleting Branches
 
 This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete or archive and delete them after feature development is complete.
