@@ -24,7 +24,10 @@ Always keep WordPress up to date. Use as few plugins as possible and keep them u
 
 Don't use the username `admin` since it is easily guessable.
 
-
 ## Disable XML-RPC
 
 Always disable XML-RPC since it can be used for brute force attacks.
+
+## Managing API Keys
+
+Where possible, keys should be stored either in the `wp_options` table, or as a constant defined in the `wp-config.php`, never within the application source code. Storing keys in these locations reduce the chance of accidentally pushing these keys into an upstream version control repository.  Additionally, these locations increase discoverability during routine security audits or when rotating keys.
