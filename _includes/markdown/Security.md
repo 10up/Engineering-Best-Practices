@@ -34,18 +34,13 @@ Always keep WordPress up to date. WordPress core minor versions should be instal
 
 ## Don't use 'admin' as the default admin username.
 
-<<<<<<< HEAD
 Don't use usernames like `admin` since it is easily guessable. Usernames like this make brute forcing much easier.
 
 ## Disable User Enumeration
 
 Always consider the information available on the JSON API about the users of the site. WordPress users data can be accessed via WordPress JSON API. This could expose something like usernames that could then be used in a brute force attempt or email addresses to be used to try to phish an user.
-=======
-## Disable XML-RPC
-
-Always disable XML-RPC since it can be used for brute force attacks.
 
 ## Managing API Keys
 
 Where possible, keys should be stored either in the `wp_options` table, or as a constant defined in the `wp-config.php`, never within the application source code. Storing keys in these locations reduce the chance of accidentally pushing these keys into an upstream version control repository.  Additionally, these locations increase discoverability during routine security audits or when rotating keys.
->>>>>>> 6ac26b5862d9ae20d4acdc59603812cfbf9f6d7a
+
