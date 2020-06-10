@@ -245,7 +245,7 @@ The principes are the following:
 3. [No component is a singleton](https://overreacted.io/writing-resilient-components/#principle-3-no-component-is-a-singleton)
 4. [Keep the local state isolated](https://overreacted.io/writing-resilient-components/#principle-4-keep-the-local-state-isolated)
 
-Writing resilient components makes components robust and has the potential to avoid many bugs. It's highly recommended to review the principles above.
+Writing resilient components makes components more robust and has the potential to avoid many bugs. It's highly recommended to review the principles above.
 
 ## Accessibility
 
@@ -298,9 +298,9 @@ If you're only investigating SSR to improve the SEO of a handful of marketing pa
 
 ### Dynamic Rendering
 
-Another alternative for improving SEO on react websites without SSR is to use [Dynamic Rendering](https://developers.google.com/search/docs/guides/dynamic-rendering). This requires a more complex set up but the benefit is that you don't have to change anything in your SPA.
+Another alternative for improving SEO on react websites without SSR is to use [Dynamic Rendering](https://developers.google.com/search/docs/guides/dynamic-rendering). This requires a more complex set up but the benefit is that this technique does not require any changes to the SPA codebase.
 
-The idea here is to set up a server or service that will be responsible for prerendering you SPA through a headless browser before serving the markup to search engines.
+The idea here is to set up a server or service that will be responsible for prerendering the SPA through a headless browser before serving the markup to search engines.
 
 ## Debugging
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
