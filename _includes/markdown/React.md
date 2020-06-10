@@ -17,9 +17,7 @@ React is easily integrated into specific parts of the front-end or admin of an e
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
-Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux.
-
-Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children.
+Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component manages it's own `state` or needs access to specific lifecycles hooks.
 
 Example of a Class Component:
 
@@ -52,13 +50,45 @@ class SearchInput extends Component {
 export default SearchInput;
 ```
 
+Using class components are mostly discouraged since the introduction of [React Hooks](https://reactjs.org/docs/hooks-intro.html). There are however some situations where you might still need a class component:
+
+- When you need access to a very specific lifecycle hook such as `componentDidCatch` for creating [ErrorBoundaries](https://reactjs.org/docs/error-boundaries.html#introducing-error-boundaries).
+- Some components are naturally better suited for using class components. As an example consider the following component that consumes a stream of frames:
+
+```javascript
+class Camera extends Component {
+	handleCameraStream = (frames) => {
+		// this method has proper access to props and state. Even if Camera re-renders.
+		cancelAnimationFrame( this.rafID );
+		const loop = async ( now ) => {
+			const frame = frames.next().value;
+			// process frame
+			this.rafID = requestAnimationFrame( loop );
+		};
+		this.rafID = requestAnimationFrame( loop );
+	}
+
+	render() {
+		return (
+			<CameraStream 
+				width={width}
+				height={height}
+				onReady={this.handleCameraStream}
+			/>
+		);
+	}
+}
+```
+
+`onReady` is only called when the camera stream is ready and the `handleCameraStream` method sets up a loop, if `Camera` re-renders, `onReady` is not called again. If `Camera` was a functional component, everytime it re-rendered and its props/state changed, the `handleCameraStream` callback would not have the right scope to have access the most up-to-date state/props as the function was bound to the first render.
+
 ### Functional Components
 
 A Functional Component can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. In the past, the biggest difference between a Class Component and a Functional Component was that Functional Components were not aware of `state`. With the introduction of [React Hooks](https://reactjs.org/docs/hooks-intro.html) functional components are now able to handle most of the React APIs such as state, contexts, refs and lifecycle.
 
 Functional components are the **recommended** way to write React components as they come with less boilerplate code, allows you to reuse stateful logic without changing component hierarchy and complex components become easier to understand by avoiding a myriad of complex logic spread between `componentDidUpdate`, `componentDidMount` and other lifecycle class methods. 
 
-The following example is the same `SearchInput` component converted to a functional component using hooks.
+The following example is the previous `SearchInput` component converted to a functional component using hooks.
 
 ```javascript
 import React, { useState } from 'react';
@@ -86,7 +116,7 @@ PureComponents allow for a potential performance benefit. A [Pure Component](htt
 
 Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. 
 
-Typically you **won't need** to create PureComponents as functional components and react hooks are better tools for the job. Do not use PureComponent if you are building stateless functional component and need lifecycle methods, use the `useEffect` hook instead. 
+Typically, you **won't need** to create PureComponents as functional components and react hooks are better tools for the job. Do not use PureComponent if you are building stateless functional component and need lifecycle methods, use the `useEffect` hook instead. 
 
 *NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
 
@@ -135,9 +165,9 @@ Context provides a way to pass data through the component tree without having to
 
 Context does not however provide the further sophisticated features of libraries like Redux. Stepping through application history, alternate UIs that reuse business logic, state changes based on actions etc. If those are things that you need in your application, the Context API may not be quite robust enough for you. 
 
-You also need to be careful with the fact that any component "connected" to a given React Context will re-render automatically when the data the context holds changes. There's no built-in mechanism to "**mapStateToProps**" within the Context API. One way to solve this problem is to create multiple "specialized" contexts for you application that only stores a specific portion of you shared global state. For example, a "User" context that holds user data, a "Posts" context that holds a list of posts to be rendered on the application.
+You also need to be careful with the fact that any component "connected" to a given React Context will re-render automatically when the data the context holds changes. There's no built-in mechanism to **mapStateToProps** within the Context API. One way to solve this problem is to create multiple specialized contexts for you application that only stores a specific portion of you shared global state. For example, a "User" context that holds user data and a "Posts" context that holds a list of posts to be rendered on the application.
 
-For example, consider the following `UserProvider` component that is responsible for fetching a user if it's logged in and storing the user object in a React Context.
+For example, consider the following `UserProvider` component that is responsible for fetching an user if it's logged in and storing the user object in a React Context.
 
 ```javascript
 import React, { useEffect, useState, useContext, createContext } from 'react';

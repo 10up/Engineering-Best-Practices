@@ -6,14 +6,14 @@ group: navigation
 weight: 3
 layout: default
 subnav:
+  - title: Code Style & Documentation
+    tag: code-style
   - title: Design Patterns
     tag: design-patterns
   - title: Performance
     tag: performance
   - title: Client-Side Data
     tag: client-side-data
-  - title: Code Style & Documentation
-    tag: code-style
   - title: Unit and Integration Testing
     tag: unit-and-integration-testing
   - title: Libraries and Frameworks
