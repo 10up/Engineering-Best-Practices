@@ -56,28 +56,26 @@ Using class components are mostly discouraged since the introduction of [React H
 - Some components are naturally better suited for using class components. As an example consider the following component that consumes a stream of frames:
 
 ```javascript
+import React, { Component } from 'react';
+
 class Camera extends Component {
 	handleCameraStream = (frames) => {
 		// this method has proper access to props and state. Even if Camera re-renders.
-		cancelAnimationFrame( this.rafID );
-		const loop = async ( now ) => {
+		cancelAnimationFrame(this.rafID);
+		const loop = async (now) => {
 			const frame = frames.next().value;
 			// process frame
-			this.rafID = requestAnimationFrame( loop );
+			this.rafID = requestAnimationFrame(loop);
 		};
-		this.rafID = requestAnimationFrame( loop );
-	}
+		this.rafID = requestAnimationFrame(loop);
+	};
 
 	render() {
-		return (
-			<CameraStream 
-				width={width}
-				height={height}
-				onReady={this.handleCameraStream}
-			/>
-		);
+		return <CameraStream width={width} height={height} onReady={this.handleCameraStream} />;
 	}
 }
+
+export default Camera;
 ```
 
 `onReady` is only called when the camera stream is ready and the `handleCameraStream` method sets up a loop, if `Camera` re-renders, `onReady` is not called again. If `Camera` was a functional component, everytime it re-rendered and its props/state changed, the `handleCameraStream` callback would not have the right scope to have access the most up-to-date state/props as the function was bound to the first render.
