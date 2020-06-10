@@ -145,12 +145,6 @@ State in React is the lifeblood of the component. State determines how, and with
 
 Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to consume and utilize that data. Basic applications will likely be able to pass data using this default behavior.
 
-### Anti-Patterns
-
-This sections cover a few anti-patterns you should avoid when writing React Code.
-
-#### Avoid copyting props to state
-
 ### State Management
 
 As an application becomes more complex, it may become more of a hassle to pass data down to many child components. This is where frameworks like [Redux](https://redux.js.org/) will come in. However before you reach for these third party frameworks, consider the [React Context API](https://reactjs.org/docs/context.html)
@@ -240,6 +234,19 @@ The third bullet point is really important but some times underestimated. Introd
 
 As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
 
+## Resilient Components
+
+The idea of resilient components was first introduced by Dan Abramov, his blog post [writing resiliting components](https://overreacted.io/writing-resilient-components/) does a great job explaining this concept.
+
+The principes are the following:
+
+1. [Don’t stop the data flow](https://overreacted.io/writing-resilient-components/#principle-1-dont-stop-the-data-flow)
+2. [Always be ready to render](https://overreacted.io/writing-resilient-components/#principle-2-always-be-ready-to-render)
+3. [No component is a singleton](https://overreacted.io/writing-resilient-components/#principle-3-no-component-is-a-singleton)
+4. [Keep the local state isolated](https://overreacted.io/writing-resilient-components/#principle-4-keep-the-local-state-isolated)
+
+Writing resilient components makes components robust and has the potential to avoid many bugs. It's highly recommended to review the principles above.
+
 ## Accessibility
 
 React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary. Be sure to also use the [jsx-a11y eslint plugin](https://github.com/evcohen/eslint-plugin-jsx-a11y) to ensure your code maintains a solid accessible foundation.
@@ -288,6 +295,12 @@ Here are three topics to consider when looking at server-side rendering:
 
 ### Prerendering
 If you're only investigating SSR to improve the SEO of a handful of marketing pages, you probably want [prerendering](https://github.com/geelen/react-snapshot) instead. Rather than using a web server to compile HTML on-the-fly, prerendering simply generates static HTML files for specific routes at build time. The advantage is setting up prerendering is much simpler and allows you to keep your frontend as a fully static site.
+
+### Dynamic Rendering
+
+Another alternative for improving SEO on react websites without SSR is to use [Dynamic Rendering](https://developers.google.com/search/docs/guides/dynamic-rendering). This requires a more complex set up but the benefit is that you don't have to change anything in your SPA.
+
+The idea here is to set up a server or service that will be responsible for prerendering you SPA through a headless browser before serving the markup to search engines.
 
 ## Debugging
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
