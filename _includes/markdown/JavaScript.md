@@ -171,7 +171,7 @@ When a script is not wrapped in a closure, the current context or ```this``` is 
 ```javascript
 console.log(this === window); // true
 
-for (var i = 0; i < 9; i += 1) {
+for (var i = 0; i < 9; i++) {
 	// Do stuff
 }
 
@@ -185,7 +185,7 @@ When we put our code inside a closure, our variables are private to that closure
 
 ```javascript
 (function () {
-	for (let i = 0; i < 9; i += 1) {
+	for (let i = 0; i < 9; i++) {
 		// Do stuff
 	}
 
@@ -287,8 +287,8 @@ Notice how, in cached versions, we are pulling the menu selection out of the eve
 Event delegation is the act of adding one event listener to a parent node to listen for events bubbling up from its children. This is much more performant than adding one event listener for each child element. Here is an example:
 
 ```javascript
-document.getElementById('menu').addEventListener('click', (e) => {
-	const { currentTarget } = e;
+document.getElementById('menu').addEventListener('click', (event) => {
+	const { currentTarget } = event;
 	let { target } = event;
 
 	if (currentTarget && target) {
