@@ -8,7 +8,7 @@ As far as JavaScript documentation goes, we conform to the [WordPress JavaScript
 
 Standardizing the way we structure our JavaScript allows us to collaborate more effectively with one another. Using intelligent design patterns improves maintainability, code readability, and even helps to prevent bugs.
 
-### Modern Functions, Methods, and Properties
+### Writing Modern JavaScript
 
 It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
@@ -86,9 +86,10 @@ concatenation along the way. Before ES6 we were concatenating string with the `+
 operator:
 
 ```javascript
-const first = 'hello';
-const last = 'world';
-const msg = `I said, "${first} ${last}" to the crowd.`;
+/* eslint-disable */
+var first = 'hello';
+var last = 'world';
+var msg = 'I said, "' + first + ' ' + last + '" to the crowd.';
 ```
 
 Modern techniques give us something called, "template literals", which let us concatenate
@@ -129,7 +130,7 @@ console.log(d); // 4
 
 Use destructuring whenever possible to slim down your code and improve overall readability.
 
-#### Componentizing Your Code
+### Componentizing Your Code
 
 Keeping different bits of functionality in your code reasonably separated is important
 to building and maintaining a scalable system over time. In the past we've had to
@@ -161,6 +162,83 @@ This is only possible if the exported component is a named export like so:
 ```javascript
 export const example = 66;
 ```
+
+### Creating your own modules
+
+When creating your own modules be sure to think about how it should be used by others. Luckily ES6 modules makes this a simple task.
+
+There are many ways you can export a module, but typically exposing specific functions and/or data structures through an ES6 module is the preffered way.
+
+```javascript
+// datastructure.js
+// private variable to the module
+const data = {};
+
+// private function to the module
+const process = (value) => {
+	// complex logic
+	return value;
+};
+
+// the two functions below are public
+export const getData = (field) => {
+	return process(data[field]);
+};
+
+export const addData = (field, value) => {
+	data[field] = value;
+};
+```
+
+In the module above only two functions are being exposed, everything else is private to the module, therefore this module can be consume as following.
+
+```javascript
+import { addData, getData } from './datastructure';
+
+addData('key', 'myvalue');
+
+const value = getData('key');
+```
+Avoid using classes unless there's a good reason to. Consider the following example:
+
+```javascript
+import Module from './mymodule';
+/* Module is a ES6 class */
+new Module('.element-selector', {
+	/* options */
+	onEvent1: () => {},
+	onEvent2: () => {},
+});
+```
+
+One good indicator that you don't need classes is when you don't actually need the instance of that class, for that reason our eslint config has the [no-new](https://eslint.org/docs/rules/no-new) rule enabled . The code sample below provides better alternatives.
+
+```javascript
+// Option 1: still using classes but with a better design
+import Module from './mymodule';
+
+const module1 = new Module('.element-selector', {
+	/* options */
+});
+module1.addEventListener('onEvent1', () => {});
+module1.addEventListener('onEvent2', () => {});
+module1.doSomething();
+module1.hide();
+```
+
+The example above changed the design of the module API a bit and assumes multiple and separate instance of the module is desired. However, sometimes that might not even be necessary or overkill. If all you need is to abstract some complex logic and accept a couple of parameter, exposing a factorty/init function is fine.
+
+```javascript
+// Option 2: not using classes
+import module from './mymodule';
+
+module('.element-selector', {
+	/* options */
+});
+```
+
+
+
 
 ### Don't Pollute the Window Object
 
