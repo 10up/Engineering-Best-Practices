@@ -130,7 +130,7 @@ console.log(d); // 4
 
 Use destructuring whenever possible to slim down your code and improve overall readability.
 
-### Componentizing Your Code
+#### Componentizing Your Code
 
 Keeping different bits of functionality in your code reasonably separated is important
 to building and maintaining a scalable system over time. In the past we've had to
@@ -163,7 +163,7 @@ This is only possible if the exported component is a named export like so:
 export const example = 66;
 ```
 
-### Creating your own modules
+### Modules
 
 When creating your own modules be sure to think about how it should be used by others. Luckily ES6 modules makes this a simple task.
 
@@ -190,7 +190,7 @@ export const addData = (field, value) => {
 };
 ```
 
-In the module above only two functions are being exposed, everything else is private to the module, therefore this module can be consume as following.
+In the module above only two functions are being exposed, everything else is private to the module, therefore this module can be used as following.
 
 ```javascript
 import { addData, getData } from './datastructure';
