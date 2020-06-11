@@ -44,3 +44,7 @@ Always consider the information available on the JSON API about the users of the
 
 Where possible, keys should be stored either in the `wp_options` table, or as a constant defined in the `wp-config.php`, never within the application source code. Storing keys in these locations reduce the chance of accidentally pushing these keys into an upstream version control repository.  Additionally, these locations increase discoverability during routine security audits or when rotating keys.
 
+## 10up Experience Plugin
+
+For improved security, 10up recommends our [10up experience plugin](https://github.com/10up/10up-experience). 10up experience configures WordPress to better protect and inform our clients. [Please read the plugin readme for a description of the functionality.](https://github.com/10up/10up-experience#functionality)
+
