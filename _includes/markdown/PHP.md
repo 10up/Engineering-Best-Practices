@@ -330,7 +330,7 @@ Here is a quick code example for caching a third-party request:
  * @return string Body of the response. Empty string if no body or incorrect parameter given.
  */
 function prefix_get_posts_from_other_blog() {
-    if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) {
+    if ( false === ( $posts = wp_cache_get( 'prefix_other_blog_posts' ) ) ) {
 
         $request = wp_remote_get( ... );
         $posts = wp_remote_retrieve_body( $request );
