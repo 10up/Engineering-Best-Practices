@@ -211,7 +211,7 @@ new Module('.element-selector', {
 });
 ```
 
-One good indicator that you don't need classes is when you don't actually need the instance of that class, for that reason our eslint config has the [no-new](https://eslint.org/docs/rules/no-new) rule enabled . The code sample below provides better alternatives.
+A good indicator that you don't need classes is when you don't need the instance of that class. For this reason our eslint config has the [no-new](https://eslint.org/docs/rules/no-new) rule enabled. The code sample below provides a better alternative.
 
 ```javascript
 // Option 1: still using classes but with a better design
@@ -226,7 +226,7 @@ module1.doSomething();
 module1.hide();
 ```
 
-The example above changed the design of the module API a bit and assumes multiple and separate instance of the module is desired. However, sometimes that might not even be necessary or overkill. If all you need is to abstract some complex logic and accept a couple of parameter, exposing a factorty/init function is fine.
+The example above changes the design of the module API a bit and assumes multiple and separate instance of the module are desired. However, sometimes that might not even be necessary. If all you need is to abstract some complex logic and accept a couple of parameter, exposing a factory/init function is all you need.
 
 ```javascript
 // Option 2: not using classes
@@ -236,9 +236,6 @@ module('.element-selector', {
 	/* options */
 });
 ```
-
-
-
 
 ### Don't Pollute the Window Object
 

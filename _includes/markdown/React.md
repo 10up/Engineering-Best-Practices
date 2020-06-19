@@ -78,7 +78,7 @@ class Camera extends Component {
 export default Camera;
 ```
 
-`onReady` is only called when the camera stream is ready and the `handleCameraStream` method sets up a loop, if `Camera` re-renders, `onReady` is not called again. If `Camera` was a functional component, everytime it re-rendered and its props/state changed, the `handleCameraStream` callback would not have the right scope to have access the most up-to-date state/props as the function was bound to the first render. The alternative for using functional components is storing each frame in state through `useState` and process frames in a separate function but that adds complexity and unecessary re-renders every time a new frame is received.
+`onReady` is only called when the camera stream is ready and the `handleCameraStream` method sets up a loop, if `Camera` re-renders, `onReady` is not called again. If `Camera` was a functional component, everytime it re-rendered and its props/state changed, the `handleCameraStream` callback would not have the right scope to have access to the most up-to-date state/props as the function was bound to the first render. The alternative for using functional components is storing each frame in state through `useState` and process frames in a separate function but that adds complexity and unecessary re-renders every time a new frame is received.
 
 ### Functional Components
 
