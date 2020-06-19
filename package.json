@@ -1,0 +1,37 @@
+{
+  "name": "@10up/engineering-best-practices",
+  "version": "1.0.0",
+  "description": "These are the official best practices for 10up. This guide dictates how we, as a company, engineer websites. The purpose behind them is to improve the quality of the experiences we build as well as to standardize in order to facilitate more effective collaboration.",
+  "scripts": {
+    "lint:js": "eslint .",
+    "format:js": "eslint --fix .",
+    "lint:js:md": "eslint --ext md .",
+    "format:js:md": "eslint --fix --ext md .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/Engineering-Best-Practices.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/10up/Engineering-Best-Practices/issues"
+  },
+  "devDependencies": {
+    "@10up/eslint-config": "^2.0.3-next",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsdoc": "^22.1.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-markdown": "^1.0.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "prettier": "^2.0.4"
+  }
+}

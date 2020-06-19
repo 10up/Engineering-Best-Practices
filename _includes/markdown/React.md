@@ -17,21 +17,107 @@ React is easily integrated into specific parts of the front-end or admin of an e
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
-Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component either manages it's own `state` or it's `state` is managed by a state management library like Redux.
+Class Components are written in the ES6 Class syntax. When building a component using a [JS Class](https://reactjs.org/docs/react-api.html#reactcomponent), you are generally inferring that the component manages it's own `state` or needs access to specific lifecycles hooks.
 
-Class components are also capabale of handling `props`. Use these components when you need to build "intelligent" React components that are aware of their own `state` as well as the `state` of their children.
+Example of a Class Component:
 
-### Stateless Functions
-A Stateless function can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. The biggest difference between a Class Component and a Stateless Function is that Stateless Functions are not aware of `state`. `state` can not be passed to them from a parent (unless it's through `props`) thus the component cannot update `state`. Stateless Function's can handle props as a destructured object as a parameter.
+```javascript
+import React, { Component } from 'react';
 
-If your component is not required to update `state` or the `state` of child components use a Stateless Function. They have a low re-render cost and provide for cleaner code.
+class SearchInput extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			searchTerm: '',
+		};
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick(e) {
+		this.setState({ searchTerm: e.target.value });
+	}
+
+	render() {
+		const { searchTerm } = this.state;
+		return (
+			<div className="search-input">
+				<input onChange={this.handleClick} value={searchTerm} />
+			</div>
+		);
+	}
+}
+
+export default SearchInput;
+```
+
+Using class components are mostly discouraged since the introduction of [React Hooks](https://reactjs.org/docs/hooks-intro.html). There are however some situations where you might still need a class component:
+
+- When you need access to a very specific lifecycle hook such as `componentDidCatch` for creating [ErrorBoundaries](https://reactjs.org/docs/error-boundaries.html#introducing-error-boundaries).
+- Some components are naturally better suited for using class components. As an example consider the following component that consumes a stream of frames:
+
+```javascript
+import React, { Component } from 'react';
+
+class Camera extends Component {
+	handleCameraStream = (frames) => {
+		// this method has proper access to props and state. Even if Camera re-renders.
+		cancelAnimationFrame(this.rafID);
+		const loop = async (now) => {
+			const frame = frames.next().value;
+			// process frame
+			this.rafID = requestAnimationFrame(loop);
+		};
+		this.rafID = requestAnimationFrame(loop);
+	};
+
+	render() {
+		return <CameraStream width={width} height={height} onReady={this.handleCameraStream} />;
+	}
+}
+
+export default Camera;
+```
+
+`onReady` is only called when the camera stream is ready and the `handleCameraStream` method sets up a loop, if `Camera` re-renders, `onReady` is not called again. If `Camera` was a functional component, everytime it re-rendered and its props/state changed, the `handleCameraStream` callback would not have the right scope to have access to the most up-to-date state/props as the function was bound to the first render. The alternative for using functional components is storing each frame in state through `useState` and process frames in a separate function but that adds complexity and unecessary re-renders every time a new frame is received.
+
+### Functional Components
+
+A Functional Component can take the form of a [plain function](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in JavaScript, or a fat arrow function stored in a variable. In the past, the biggest difference between a Class Component and a Functional Component was that Functional Components were not aware of `state`. With the introduction of [React Hooks](https://reactjs.org/docs/hooks-intro.html) functional components are now able to handle most of the React APIs such as state, contexts, refs and lifecycle.
+
+Functional components are the **recommended** way to write React components as they come with less boilerplate code, allows you to reuse stateful logic without changing component hierarchy and complex components become easier to understand by avoiding a myriad of complex logic spread between `componentDidUpdate`, `componentDidMount` and other lifecycle class methods. 
+
+The following example is the previous `SearchInput` component converted to a functional component using hooks.
+
+```javascript
+import React, { useState } from 'react';
+
+const SearchInput = () => {
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const handleClick = (e) => {
+		setSearchTerm(e.target.value);
+	};
+
+	return (
+		<div className="search-input">
+			<input onChange={handleClick} value={searchTerm} />
+		</div>
+	);
+};
+
+export default SearchInput;
+```
 
 ### PureComponents
-PureComponents allow for greater performance benefits with in the React Lifecycle. When using a [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent), the logic of the `shouldComponentUpdate` lifecycle method is altered to perform a shallow comparison of what changed in `props` and `state` since the last render.
 
-Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. You can also use PureComponents if you're building a stateless component, but still need lifecycle methods. Examples would include: TodoLists, Star Ratings, Event Calendars, Forms, Comments
+PureComponents allow for a potential performance benefit. A [Pure Component](https://reactjs.org/docs/react-api.html#reactpurecomponent) implements the `shouldComponentUpdate` lifecycle method to perform a shallow comparison of what changed in `props` and `state` since the last render.
+
+Considering PureComponents perform shallow comparisons of previous `state` and new `state`, a component should become "pure" when theres no need to re-render the entire component (or its children) every time data changes. 
+
+Typically, you **won't need** to create PureComponents as functional components and react hooks are better tools for the job. Do not use PureComponent if you are building stateless functional component and need lifecycle methods, use the `useEffect` hook instead. 
 
 *NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
+
 
 ## Routing
 
@@ -59,17 +145,76 @@ State in React is the lifeblood of the component. State determines how, and with
 
 Props serve as a means to pass data between components. At its most basic level, props are passed to *each individual component* that needs to consume and utilize that data. Basic applications will likely be able to pass data using this default behavior.
 
+### State Management
+
 As an application becomes more complex, it may become more of a hassle to pass data down to many child components. This is where frameworks like [Redux](https://redux.js.org/) will come in. However before you reach for these third party frameworks, consider the [React Context API](https://reactjs.org/docs/context.html)
 
-### Context API
+#### Context API
 
 The React Context API is the first line of defense when your application becomes sufficiently complex, and we are faced with [prop drilling](https://kentcdodds.com/blog/prop-drilling) concerns.
 
 Context provides a way to pass data through the component tree without having to pass props down manually at every level. This is immensely helpful for applications that are highly componentized, and need to share data with those components, regardless of where they exist within the application structure. It is crucial that you think critically about how the data in your application is to be utilized and passed around. If data simply needs to be shared, Context may be for you.
 
-Context does not however provide the further sophisticated features of libraries like Redux. Stepping through application history, alternate UIs that reuse business logic, state changes based on actions etc. If those are things that you need in your application, the Context API may not be quite robust enough for you.
+Context does not however provide the further sophisticated features of libraries like Redux. Stepping through application history, alternate UIs that reuse business logic, state changes based on actions etc. If those are things that you need in your application, the Context API may not be quite robust enough for you. 
 
-### Redux
+You also need to be careful with the fact that any component "connected" to a given React Context will re-render automatically when the data the context holds changes. There's no built-in mechanism to **mapStateToProps** within the Context API. One way to solve this problem is to create multiple specialized contexts for you application that only stores a specific portion of you shared global state. For example, a "User" context that holds user data and a "Posts" context that holds a list of posts to be rendered on the application.
+
+For example, consider the following `UserProvider` component that is responsible for fetching an user if it's logged in and storing the user object in a React Context.
+
+```javascript
+import React, { useEffect, useState, useContext, createContext } from 'react';
+import PropTypes from 'prop-types';
+import { fetchUser } from '../util';
+
+export const UserContext = createContext();
+
+export const useUser = () => {
+	const data = useContext(UserContext);
+
+	return data.user ? data.user : null;
+};
+
+const UserProvider = ({ children }) => {
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		fetchUser().then(setUser);
+	}, []);
+
+	return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
+};
+
+UserProvider.propTypes = {
+	children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
+		.isRequired,
+};
+
+export default UserProvider;
+```
+
+This component can then wrap the application tree exposing the `UserContext` to any child component.
+
+```javascript
+import React from 'react';
+import UserProvider, { useUser } from './UserProvider';
+
+const UserMenu = () => {
+	const user = useUser();
+
+	return user ? 'user is logged in' : 'user is not logged in';
+};
+
+const App = () => (
+	<UserProvider>
+		<UserMenu />
+	</UserProvider>
+);
+
+export default App;
+```
+
+
+#### Redux
 
 As an application grows larger, it may be the case where the state becomes difficult to handle, every new feature introduces a new layer of complexity that may in some cases result in unexpected, and unpredictable behavior.
 
@@ -83,9 +228,24 @@ Redux is based almost completely on 3 main principles:
 2. State is Read Only: The state of the application stops being mutable, the only way to change the state is by triggering an action, which itself will work as a log of what, when, and why changed in the state.
 3. Changes are made with pure functions: This means that only an action (or an event) can trigger a Reducer which will take the previous state and return a new one.
 
+The third bullet point is really important but some times underestimated. Introducing application side-effects inside reducers can trigger several issues that become difficult to debug. As a general rule, action creators and reducers should never trigger application side-effects such as mutating the DOM, attaching event callbacks, triggering event callbacks etc. If you need something like that consider either creating a Redux Middleware or using existing solutions such as [Redux Saga](https://redux-saga.js.org/) alongside with Redux.
+
 **When to use Redux**
 
 As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
+
+## Resilient Components
+
+The idea of resilient components was first introduced by Dan Abramov, his blog post [writing resiliting components](https://overreacted.io/writing-resilient-components/) does a great job explaining this concept.
+
+The principes are the following:
+
+1. [Don’t stop the data flow](https://overreacted.io/writing-resilient-components/#principle-1-dont-stop-the-data-flow)
+2. [Always be ready to render](https://overreacted.io/writing-resilient-components/#principle-2-always-be-ready-to-render)
+3. [No component is a singleton](https://overreacted.io/writing-resilient-components/#principle-3-no-component-is-a-singleton)
+4. [Keep the local state isolated](https://overreacted.io/writing-resilient-components/#principle-4-keep-the-local-state-isolated)
+
+Writing resilient components makes components more robust and has the potential to avoid many bugs. It's highly recommended to review the principles above.
 
 ## Accessibility
 
@@ -135,6 +295,12 @@ Here are three topics to consider when looking at server-side rendering:
 
 ### Prerendering
 If you're only investigating SSR to improve the SEO of a handful of marketing pages, you probably want [prerendering](https://github.com/geelen/react-snapshot) instead. Rather than using a web server to compile HTML on-the-fly, prerendering simply generates static HTML files for specific routes at build time. The advantage is setting up prerendering is much simpler and allows you to keep your frontend as a fully static site.
+
+### Dynamic Rendering
+
+Another alternative for improving SEO on react websites without SSR is to use [Dynamic Rendering](https://developers.google.com/search/docs/guides/dynamic-rendering). This requires a more complex set up but the benefit is that this technique does not require any changes to the SPA codebase.
+
+The idea here is to set up a server or service that will be responsible for prerendering the SPA through a headless browser before serving the markup to search engines.
 
 ## Debugging
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
