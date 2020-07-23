@@ -493,3 +493,4 @@ Solutions for other types of cookies include:
 Keep in mind that these solutions come with caveats: using localStorage only works on the same domain and would not work for cross-domain tracking.
 
 As an alternative to local storage, server-side tracking via the proxy layer in Cloudflare is probably the best option for clients with significant traffic from Safari.
+
