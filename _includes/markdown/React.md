@@ -325,3 +325,24 @@ The presence of Element is why you don't see React directly imported into Gutenb
 Gutenberg offers a library of higher-order components (HOC) you can use to build out a robust editor experience. The features of these components range from focus management to auditory messaging. It is best to familiarize yourself with these components so you don't end up rebuilding a utility functionality that already exists within Gutenberg. You can view [Gutenberg's library of generic Higher Order React Components](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/higher-order) to learn more or view the official [React documentation for general information about using HOC](https://reactjs.org/docs/higher-order-components.html).
 
 As with any evolving feature, it is important to frequently check the documentation for new additions and updates.
+
+### Including / Excluding Blocks
+
+Gutenberg has the ability to allow only certain blocks to be used. This can be found under the [Block Filters](https://developer.wordpress.org/block-editor/developers/filters/block-filters/) page of the official Gutenberg documentation. Specifically, under the heading [Removing Blocks](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#removing-blocks). Details of how to filter via JavaScript or PHP can be found there.
+
+Also note that this method is different than the `allowedBlocks` prop on `<InnerBlocks>` when used in a custom block. The filtering described here applies to all blocks on a higher level within the editor.
+
+#### Possible scenarios
+
+There may be a need to remove or restrict access to blocks. This could be for a variety of reasons, but typical scenarios could be:
+- Improve admin UX by reducing block options for editors
+- Prevent editors from using unsupported blocks
+- Multiphase / retainer project where a subset of blocks are added / supported over time
+- Restricting blocks to a particular user group, post type, or page template
+- Using a custom block which replaces functionality of an existing block
+
+Each project is different. Carefully consider removing blocks from the admin with your project team.
+
+#### Choosing to allow or deny access to blocks
+
+Typically, you should exclude all blocks by default and add a list of which blocks to include versus including all blocks by default with a list of which to exclude. This helps guard against changes or blocks which are added at a later date, which could break functionality or have other unintented side effects. Blocks would have to be specifically allowed and tested before being used. Additionally, typical patterns for how we develop favor this in other locations (such as escaping, `<InnerBlocks>`, etc.) This helps keep a consistent pattern in the codebase.
