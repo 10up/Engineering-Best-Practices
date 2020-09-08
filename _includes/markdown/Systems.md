@@ -344,3 +344,85 @@ Redis has a robust toolset for monitoring and viewing data stored in the cache. 
 * [Redis Insight](https://redislabs.com/redisinsight/) - Browser-based GUI from Redis Labs
 
 For even more tools, [Redis Labs has a good list](https://redislabs.com/blog/so-youre-looking-for-the-redis-gui/).  
+
+<h2 id="load-balancing" class="anchor-heading">Load Balancing {% include Util/link_anchor anchor="load-balancing" %} {% include Util/top %}</h2>
+
+At the most basic level, a load balancer is software or hardware that sits in between the client and a collection of servers and splits the network traffic in a predefined way among the collection of servers.  In the use case described here, the load balancer will be distributing web traffic (HTTP and HTTPS requests) to multiple webservers.  Load balancers can be used in many other parts of a network design, including between the webservers and the database servers, upstream at the CDN layer, between cache servers and webservers, or anywhere else that traffic needs to be distributed across multiple servers or services.  A load balancer is a type of proxy and many of the tools mentioned can function as full-featured and flexible proxies.  
+
+Most web applications can be horizontally scaled to run on multiple servers, including WordPress.  Using a load balancer and multiple web servers provides a number of benefits, including:
+
+* Ability to take a webserver offline for maintenance without taking the application offline
+* Resiliency against the failure of a single machine or virtual machine (commonly known as "high availability")
+* Quick addition of additional servers, either manually or automatically through autoscaling
+
+Using multiple servers in a high availability configuration is a best practice for enterprise applications, but it does add significant complexity over a single server environment.  Modern hosting providers and servers are very reliable and provide excellent uptime and the extra complexity of a multi-server environment should be weighed against the expected benefits and extra costs to determine if a load balanced multi-server environment is right for a project.  Many sites can run very effectively on a single server with very little downtime, even accounting for planned maintenance. 
+
+### Layer 4 vs Layer 7
+
+Layer 4 and Layer 7 are the two modes of load balancing most commonly used for web applications and are supported by most of the tools discussed.  Layer 4 is the most simple, taking any TCP or UDP traffic and distributing it among a pool of servers.  Layer 4 load balancing doesn't know anything about the data in the TCP or UDP requests and cannot take any action based on context.  For example, Layer 4 load balancing doesn't distinguish between HTTP and HTTPS requests and does not read any of the headers.  This is a simple load balancing method and has very predictable behavior.  It also scales very well since no work is done by the load balancer to apply logic to requests based on contextual information. 
+
+Layer 7 load balancing has application awareness and can leverage information within the requests to make contextual decisions.  With a Layer 7 load balancer, HTTPS sessions can be terminated at the load balancer, giving the load balancer visibility into the content of the requests.  Based on the content, the load balancer can route the traffic to different servers, or respond directly to the client to provide instructions such as a "301 redirect" or a "403 forbidden" message.  Layer 7 load balancers can read cookies, inject headers, and manipulate requests flowing through.  Layer 7 is much more powerful and is recommended for most applications.  All of the subsequent topics in this section assume a Layer 7 load balancer. 
+
+### Algorithm
+
+The load balancing algorithm decides which back-end server to send the next request to.  The goal is to distribute load across the available servers and avoid sending traffic to a server that is unavailable or overloaded.  The most common algorithms are:
+
+* Round Robin - the default on most load balancers, it does not require any knowledge of server health except if it is online or offline and is generally the simplest to setup.  
+* Weighted - each server is given a "weight" which determines what fraction of the traffic is directed to the server.  Useful in environments with servers of varying size and performance.  For example, a server with a weight of "2" would get twice the traffic of a server with a weight of "1". 
+* Least Connections - Sends the next request to the server with the least number of active requests.  If each request is assumed to be equal, this should maintain an even balance of load across servers.  If some requests can cause much greater load than others (such as requests to an admin dashboard vs public page loads), this might not result in the desired outcome.
+* Response Time - sends the next request to the server with the fastest response time.  If we assume response time is dictated by number of requests and server load, this will result in the best performance.  Can result in unexpected traffic distribution if response time between servers differs slightly for reasons not related to the application.  Also requires the load balancer to maintain knowledge of the current response time of each server, which is not a feature of all load balancers. 
+
+For most applications, 10up uses Round Robin as it satisfies the goals of load balancing with the simplest solution and is very predictable.  
+
+### Session Persistence
+
+In most scenarios, 10up recommends against enabling session persistence on the load balancer.  Session persistence, or sticky sessions, will attempt to identify each user and route the user to the same backend server for all their requests.  Users can be identified by their IP address or using a cookie.  Reasons to do this include:
+
+* An application that uses PHP sessions (see section about PHP Sessions below)
+* Webservers that may not be identical (it would be better for the servers to be identical instead)
+* Storage for uploaded files has a replication lag (see "Shared Storage" section for further discussion)
+
+Downsides of using persistent sessions:
+
+* Attacks from a single source, or overly agressive crawling of a site can overwhelm the webserver where all the traffic is routed towards rather than being effectively spread over all webservers.
+* Scaling automatically or manually will have a delay in effectiveness before new sessions arrive to replace existing users.
+* Upstream proxies, such as CDNs or caching layers, can reduce the number of unique IPs, resulting in unbalanced load if traffic is generally from one region
+* Upstream caching can be ineffective when using a cookie to uniquely identify each visitor.
+
+Since WordPress uses cookies to track logged-in state, requests can safely be balanced across multiple servers even for logged-in users.  For best results in a load balanced environment, find solutions that don't require persistent sessions and load balance requests across all servers without uniquely identifying a user. 
+
+### PHP Sessions
+
+WordPress does not use PHP sessions, but some plugins do.  By default, PHP sessions are stored on the local file-system of the webserver, which would cause the website visitor to lose their session as their requests get balanced across multiple webservers.  A simple solution is to have PHP store sessions in memcached or Redis, which are often already available for caching purposes.  Memcached and Redis are a resource shared across all webservers and the PHP extensions for memcached and Redis have built in support for PHP session storage.
+
+### Shared Storage
+
+Storage becomes an issue in a multi-server environment, particularly how to deal with user uploaded files.  In WordPress, this includes plugins, themes, and media, along with WordPress core updates.  When files are changed or added on one webserver, that change must also be made on all other webservers, or the files change must reside on a storage system that is shared across webservers. 
+
+Using a shared storage solution is a popular option, and the most popular protocol is [NFS](https://en.wikipedia.org/wiki/Network_File_System).  NFS mounts a drive from one server onto other servers, making the drive shared across all servers it is mounted on.  NFS is an open standard, reliable, and compatible with nearly all operating systems.  When using a shared drive with NFS or similar technology, everything about the file system will work similarly to a single-server setup and no special provisions need to be made.  While this is a very convenient option, it has one major flaw: it introduces a single point of failure in a critical system.  If the NFS server were to fail and the NFS server is where all WordPress code and uploads are served from, it doesn't matter how many webservers or database servers exist for redundancy, the site will be offline.  Additionally, if network latency between the webservers and NFS server increases for some reason, page load times will dramatically worsen.  
+
+To mitigate some of this risk, 10up often will install all code directly to the webservers and only rely on NFS for WordPress uploads.  The shared storage is still a single point of failure, but with a CDN in place that will serve media, the site can keep functioning even if the NFS becomes unavailable.  An additional benefit of installing code on the local disk of the webservers is that the local disk will always be more performant than storage mounted over the network.  This puts the code (which we want to perform optimally) on the fastest storage, reducing any potential bottlenecks.  
+
+When code is no longer served from shared storage, a new solution for keeping it in sync across all webservers is needed.  While it can be effective to sync files between servers automatically using something like [lsyncd](https://github.com/axkibe/lsyncd), [unison](https://www.cis.upenn.edu/~bcpierce/unison/), or [syncthing](https://syncthing.net/), a better solution is to move all code to a version controlled repository and build process.  This way, all fo the code is managed outside of the server environment and fully version controlled.  A scripted deployment process can be used to deploy the files from version control to each server.  File modifications should be disabled in the wp-config.php file with `define('DISALLOW_FILE_MODS', true);` to avoid any confusion and prevent code from being installed via the broswer.  This has the added benefit of increased security by disabling a vector of attack. 
+
+To create a fully highly available infrastructure, replace NFS entirely with a highly durable and redundat cloud object storage system such as [Amazon S3](https://aws.amazon.com/s3/) or [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/).  This is the most flexible solution, allowing for the webservers to be fully ephemeral and replaceable, storing no valuable or irreplacable data locally.  Uploads are moved to the infinitely scalable cloud object storage, which WordPress interacts with via a plugin:
+
+* [S3-Uploads](https://github.com/humanmade/S3-Uploads)
+* [Microsoft Azure Storage for WordPress](https://wordpress.org/plugins/windows-azure-storage/)
+
+Using a cloud object storage system is 10up's preferred solution, but does come with some challenges:
+
+* Bulk actions on the WordPress uploads, such as resizing thumbnails, will be much slower than when using local storage.
+* The cost of bandwidth when serving files from S3 or Blob Storage can quickly get prohibitive, so careful architecture that offloads image serving to the CDN is suggested.
+
+### Software and Services
+
+Load balancing has become a comodity service, avaiable at the click of a button on every cloud hosting platform.  The load balancing services offered by the major cloud providers, such as Amazon Web Services, Microsoft Azure, and Google Cloud, are quite good and 10up recommends their use.  Be advised, however, that each platform has multiple types of load balancers and the documentation should be consulted to make sure the type chosen matches up with the type of load balancing needed. 
+
+If building a multiserver environment outside of the cloud providers, the following software load balancers are a good place to start:
+
+* [Nginx](hhttps://10up.github.io/Engineering-Best-Practices/systems/#nginx) - fully featured web server and proxy with advanced capabilities
+* [HAProxy](http://www.haproxy.org/) - focused load balancer software with powerful options
+* [LVS](http://www.linuxvirtualserver.org/whatis.html) - Simple load balancing with very little overhead 
+
+As 10up uses Nginx as our main webserver software, we also prefer to use it as our load balancing solution for the sake of simplicity.   

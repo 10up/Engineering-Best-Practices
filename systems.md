@@ -14,6 +14,8 @@ subnav:
     tag: mysql
   - title: Memcached and Redis
     tag: memcached-and-redis
+  - title: Load Balancing
+    tag: load-balancing
 updated: 13 December 2019
 ---
 
