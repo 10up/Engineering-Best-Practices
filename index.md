@@ -88,7 +88,22 @@ updated: 6 Oct 2014
 				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
 			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
-			<li><a href="{{ site.baseurl }}/react/">React</a></li>
+
+		</ul>
+	</div>
+
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/react/#top">React</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/react/#is-react-right">Is React Right For Your Project</a></li>
+			<li><a href="{{ site.baseurl }}/react/#components">Components</a></li>
+			<li><a href="{{ site.baseurl }}/react/#routing">Routing</a></li>
+			<li><a href="{{ site.baseurl }}/react/#props-and-state">Props and State</a></li>
+			<li><a href="{{ site.baseurl }}/react/#resilient-components">Resilient Components</a></li>
+			<li><a href="{{ site.baseurl }}/react/#accessibility">Accessibility</a></li>
+			<li><a href="{{ site.baseurl }}/react/#ssr">Server Side Rendering</a></li>
+			<li><a href="{{ site.baseurl }}/react/#debugging">Debugging</a></li>
+			<li><a href="{{ site.baseurl }}/react/#gutenberg">Gutenberg</a></li>
 		</ul>
 	</div>
 
