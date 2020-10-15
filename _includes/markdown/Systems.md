@@ -198,35 +198,35 @@ There are a few common goals of database replication:
 
 * Segmentation: isolate workloads to prevent taxing jobs from impacting site performance
 
-The three commonly encountered MySQL replication types are Master-Slave, Master-Master, and Synchronous clusters like Galera.
+The three commonly encountered MySQL replication types are Primary-Replica, Primary-Primary, and Synchronous clusters like Galera.
 
-#### Master-Slave
+#### Primary-Replica
 
-A Master-Slave replication pair consists of the Master node, where all database writes happen, and the Slave node, where only database reads can occur. The Slave node never pushes any data back to the Master node, so any writes that are attempted on this node are refused. 
+A Primary-Replica replication pair consists of the Primary node, where all database writes happen, and the Replica node, where only database reads can occur. The Replica node never pushes any data back to the Primary node, so any writes that are attempted on this node are refused. 
 
-Here’s how Master-Slave replication does on our replication goals:
+Here’s how Primary-Replica replication does on our replication goals:
 
-* **High Availability:** If the slave database server goes down, WordPress is still completely functional, but if the master database goes offline, WordPress becomes read-only and no new articles, comments, or changes to any content can be made. Additionally, as WordPress is not usually designed to be read only, some sites will not load at all without successful database writes. Master-Slave is not the best solution for High Availability. 
+* **High Availability:** If the replica database server goes down, WordPress is still completely functional, but if the primary database goes offline, WordPress becomes read-only and no new articles, comments, or changes to any content can be made. Additionally, as WordPress is not usually designed to be read only, some sites will not load at all without successful database writes. Primary-Replica is not the best solution for High Availability. 
 
-* **Performance:** Master-Slave replication is excellent for scaling database reads. Replication overhead is very low, so nearly all of the horsepower of a slave server is used for performing database reads. If more performance is needed, another replica can be added. This can scale horizontally almost infinitely. However, writes do not scale at all in a Master-Slave setup as writes are limited to only the single master server.
+* **Performance:** Primary-Replica replication is excellent for scaling database reads. Replication overhead is very low, so nearly all of the horsepower of a replica server is used for performing database reads. If more performance is needed, another replica can be added. This can scale horizontally almost infinitely. However, writes do not scale at all in a Primary-Replica setup as writes are limited to only the single primary server.
 
-* **Segmentation:** Master-Slave replication is a great solution when offloading taxing jobs from your main production server. Backups or reports can be run from a dedicated slave database server that has no impact at all on the master server or any of the other slaves. This slave server can be small and cheap as long as it can keep up with the replication workload. 
+* **Segmentation:** Primary-Replica replication is a great solution when offloading taxing jobs from your main production server. Backups or reports can be run from a dedicated replica database server that has no impact at all on the primary server or any of the other replicas. This replica server can be small and cheap as long as it can keep up with the replication workload. 
 
-#### Master-Master
+#### Primary-Primary
 
-Do not use MySQL Master-Master replication. It is attractive as it seems to solve all the limitations of Master-Slave replication. However, Master-Master replication can be very dangerous and can result in data collisions, lost data, or duplicated data if the replication were to break or one of the database servers were to crash. It is a fragile type of replication and, while it can be engineered to be a reliable system, there are better options available.
+Do not use MySQL Primary-Primary replication. It is attractive as it seems to solve all the limitations of Primary-Replica replication. However, Primary-Primary replication can be very dangerous and can result in data collisions, lost data, or duplicated data if the replication were to break or one of the database servers were to crash. It is a fragile type of replication and, while it can be engineered to be a reliable system, there are better options available.
 
 #### Galera Cluster
 
-A Galera cluster is a synchronous multi-master database cluster for InnoDB tables where writes must happen successfully on all cluster members to finish successfully on a single member. This gives Galera a high data durability. A Galera cluster should always be setup with an odd number of nodes. This is so in the event of a replication failure of 1 node, 2 remaining nodes can remain a quorum and the source of true data, re-syncing to the lone disconnected database node when it reconnects. If the absolute lowest cost is needed, the 3rd (or odd-numbered) Galera member could be a [Galera Arbitrator](http://galeracluster.com/documentation-webpages/arbitrator.html), which does not participate in the replication, but will maintain connections to all other Galera nodes and assist in determining a quorum. 
+A Galera cluster is a synchronous multi-primary database cluster for InnoDB tables where writes must happen successfully on all cluster members to finish successfully on a single member. This gives Galera a high data durability. A Galera cluster should always be setup with an odd number of nodes. This is so in the event of a replication failure of 1 node, 2 remaining nodes can remain a quorum and the source of true data, re-syncing to the lone disconnected database node when it reconnects. If the absolute lowest cost is needed, the 3rd (or odd-numbered) Galera member could be a [Galera Arbitrator](http://galeracluster.com/documentation-webpages/arbitrator.html), which does not participate in the replication, but will maintain connections to all other Galera nodes and assist in determining a quorum. 
 
 Here’s how Galera performs on the common replication goals:
 
 * **High Availability:** Galera is the recommended solution for High Availability MySQL replication. A Galera cluster will remain online and fully functional as long as more than 50% of nodes remain online and synced. This means in a typical 3 node cluster, a single database server can be brought offline for upgrades without any noticeable difference in performance in WordPress. It is crucial that a smart load balancing strategy be employed that recognizes an offline or out of sync database and reroutes traffic accordingly. 
 
-* **Performance:** Database reads can scale horizontally in much the same manner as in Master-Slave replication when using Galera as each server acts as a standalone database server in the context of reads. Writes, however, do not scale as more nodes are added since Galera requires all nodes in a cluster to perform every write synchronously. In practice, writes become slightly slower with Galera, though usually by a very small percentage. Database writes can only be scaled through faster hardware in a Galera cluster. For most WordPress installations, reads are where scaling is needed and a single server can keep up with write operations effectively. 
+* **Performance:** Database reads can scale horizontally in much the same manner as in Primary-Replica replication when using Galera as each server acts as a standalone database server in the context of reads. Writes, however, do not scale as more nodes are added since Galera requires all nodes in a cluster to perform every write synchronously. In practice, writes become slightly slower with Galera, though usually by a very small percentage. Database writes can only be scaled through faster hardware in a Galera cluster. For most WordPress installations, reads are where scaling is needed and a single server can keep up with write operations effectively. 
 
-* **Segmentation:** Galera can be used for workload segmentation, running backups or other read-heavy tasks to a single Galera server and using the other nodes for production work. Additionally, a read-only slave can be added to any node in Galera in typical Master-Slave configuration if a read-only server is desired. 
+* **Segmentation:** Galera can be used for workload segmentation, running backups or other read-heavy tasks to a single Galera server and using the other nodes for production work. Additionally, a read-only replica can be added to any node in Galera in typical Primary-Replica configuration if a read-only server is desired. 
 
 ### Performance Tuning
 
@@ -321,7 +321,7 @@ While memcached strives for simplicity, Redis seeks to be a full featured, high 
 
 #### High Availability
 
-Redis offers many more options for high availability that memcached, including master-slave [replication](https://redis.io/topics/replication), failover architectures via [Sentinel](https://redis.io/topics/sentinel), and full multi-node [clusters](https://redis.io/topics/cluster-tutorial).  Implementing any of these solutions adds complexity and hardware, which should be considered carefully.  Unlike memcached, Redis cache can be made to persist to disk, so the cache values can survive a restart, making recovery from a cache failure less impactful.  On high-traffic sites where the object cache uptime is mission critical, the high availability capabilities of Redis may make it the right choice.  
+Redis offers many more options for high availability that memcached, including primary-replica [replication](https://redis.io/topics/replication), failover architectures via [Sentinel](https://redis.io/topics/sentinel), and full multi-node [clusters](https://redis.io/topics/cluster-tutorial).  Implementing any of these solutions adds complexity and hardware, which should be considered carefully.  Unlike memcached, Redis cache can be made to persist to disk, so the cache values can survive a restart, making recovery from a cache failure less impactful.  On high-traffic sites where the object cache uptime is mission critical, the high availability capabilities of Redis may make it the right choice.  
 
 #### Connecting WordPress to Redis
 
