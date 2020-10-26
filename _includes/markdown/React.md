@@ -1,6 +1,6 @@
 The purpose of this document is to help guide you through working with a potential project using the JavaScript library, [React](https://reactjs.org/). Outside of the official React documentation, you should find here personalized recommendations for using the library based on the types of projects we typically  see at 10up. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [official React documentation](https://reactjs.org/).
 
-## Figuring Out If React Is Right For Your Project
+<h2 id="is-react-right" class="anchor-heading">Figuring Out If React Is Right For Your Project {% include Util/link_anchor anchor="is-react-right" %} {% include Util/top %}</h2>
 
 Using the right tool for the job is critical in navigating a successful project. Will React always be the answer? Of course not. But there are some instances where you may want to use this library over something like (for example) a collection of plugins, custom JavaScript, or another framework.
 
@@ -13,7 +13,8 @@ When deciding whether React is the right tool for your project, it might help to
 
 React is easily integrated into specific parts of the front-end or admin of an existing site, but it can also be used to render entire sites, effectively replacing traditional WordPress templates—although doing so requires a lot more planning and scaffolding of features (such as routing) that would normally be handled by the CMS out of the box.
 
-## Components
+<h2 id="components" class="anchor-heading">Components {% include Util/link_anchor anchor="components" %} {% include Util/top %}</h2>
+
 When building out components, it's beneficial to understand how to construct them in the most appropriate way possible. Certain "types" of components can be written differently which can have big performance benefits on larger scale applications.
 
 ### Class Components
@@ -119,7 +120,7 @@ Typically, you **won't need** to create PureComponents as functional components 
 *NOTE:* The performance benefits are realized when the data passed to the component is simple. Large nested objects, and complex arrays passed to PureComponents may end up degrading the performance benefits. It's important to be very deliberate about your use of this type of component.
 
 
-## Routing
+<h2 id="routing" class="anchor-heading">Routing {% include Util/link_anchor anchor="routing" %} {% include Util/top %}</h2>
 
 In most cases, you will only need routing if your React application needs to navigate between multiple layout components, render different data based on the current app location, and provide browser history. Make sure your app needs routing functionality before you consider adding a routing library.
 
@@ -139,7 +140,7 @@ In general, routing is little more than an Ajax call to load content with a URL 
 
 Following these steps will make sure your content and routing is readable by assistive technology.
 
-## Props and State
+<h2 id="props-and-state" class="anchor-heading">Props and State {% include Util/link_anchor anchor="props-and-state" %} {% include Util/top %}</h2>
 
 State in React is the lifeblood of the component. State determines how, and with what data, a component will be rendered on the page. State gives components reactivity and dynamic rendering abilities.
 
@@ -234,7 +235,7 @@ The third bullet point is really important but some times underestimated. Introd
 
 As appealing as it might be. Redux is not a tool for everyday use. By design, Redux will put constraints in your application that may not actually be needed. A good starting point to make this choice is the article by its creator, [Dan Abramov: You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). The usual recommendation is, think in React. And if along the way you discover the need of Redux, implement it.
 
-## Resilient Components
+<h2 id="resilient-components" class="anchor-heading">Resilient Components {% include Util/link_anchor anchor="resilient-components" %} {% include Util/top %}</h2>
 
 The idea of resilient components was first introduced by Dan Abramov, his blog post [writing resiliting components](https://overreacted.io/writing-resilient-components/) does a great job explaining this concept.
 
@@ -247,7 +248,7 @@ The principes are the following:
 
 Writing resilient components makes components more robust and has the potential to avoid many bugs. It's highly recommended to review the principles above.
 
-## Accessibility
+<h2 id="accessibility" class="anchor-heading">Accessibility {% include Util/link_anchor anchor="accessibility" %} {% include Util/top %}</h2>
 
 React accessibility is not so different than standard accessibility support. It mainly centers around making sure semantic HTML and proper attributes are used with the correct elements. Managing focus flow and repairing when necessary. Be sure to also use the [jsx-a11y eslint plugin](https://github.com/evcohen/eslint-plugin-jsx-a11y) to ensure your code maintains a solid accessible foundation.
 
@@ -274,7 +275,7 @@ The ref attribute can be placed on any React component, with a function value. T
 
 [Read more about creating refs and focus control in React](https://reactjs.org/docs/accessibility.html#focus-control)
 
-## Server Side Rendering
+<h2 id="ssr" class="anchor-heading">Server Side Rendering {% include Util/link_anchor anchor="ssr" %} {% include Util/top %}</h2>
 
 With server side rendering (SSR), the initial content is generated on the server, so your browser can download a page with HTML content already in place. Updates to the content are still handled in the browser.
 
@@ -302,10 +303,12 @@ Another alternative for improving SEO on react websites without SSR is to use [D
 
 The idea here is to set up a server or service that will be responsible for prerendering the SPA through a headless browser before serving the markup to search engines.
 
-## Debugging
+<h2 id="debugging" class="anchor-heading">Debugging {% include Util/link_anchor anchor="debugging" %} {% include Util/top %}</h2>
+
 React provides a Chrome &amp; Firefox extension to facilitate debugging. It is an extremely useful debugging tool, providing quick transparent access into the data within your React instance. Whenever you encounter a new concept in React, it’s generally a good idea to open up the dev tool, and observe your application state.
 
-## Gutenberg
+<h2 id="gutenberg" class="anchor-heading">Gutenberg {% include Util/link_anchor anchor="gutenberg" %} {% include Util/top %}</h2>
+
 Before we dive into some of the specifics of Gutenberg, it's important to understand React's role within Gutenberg itself.
 
 Very simply, Gutenberg is built with React. The underlying code that makes Gutenberg work, is React code. Much like “WordPress PHP” Gutenberg blocks employ a similar code style as React, but it’s not React. In any case, the most effective way for us to frame React’s role in Gutenberg is that React is simply the technology used to make Gutenberg work the way it does.
