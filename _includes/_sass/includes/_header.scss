@@ -66,14 +66,34 @@
 
 		.header-nav {
 			background-color: $very-dark-grey;
-			margin-left: 56px;
 			text-align: right;
 
 			@include breakpoint($breakpoint-bravo) {
 				background-color: transparent;
 				display: block;
+				margin-right: 18px;
+				text-align: center;
+
+				li {
+					margin: 0 0.24em
+				}
+
+				li:nth-child(6) {
+					margin-right: 80px;
+				}
+			}
+
+			@include breakpoint($breakpoint-charlie) {
+				background-color: transparent;
+				display: block;
+				margin-left: 56px;
+				margin-right: 0;
 				padding-left: 6px;
 				text-align: center;
+
+				li {
+					margin: 0 0.3em
+				}
 
 				li:nth-child(6) {
 					margin-right: 110px;
