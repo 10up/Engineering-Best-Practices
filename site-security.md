@@ -1,5 +1,5 @@
 ---
-page: security
+page: site-security
 title: Security
 nav: Security
 group: navigation
@@ -9,6 +9,6 @@ updated: 11 May 2020
 ---
 
 <div class="docs-section">
-		{% capture security %}{% include markdown/Security.md %}{% endcapture %}
+		{% capture security %}{% include markdown/Site-Security.md %}{% endcapture %}
 		{{ security | markdownify }}
 </div>
