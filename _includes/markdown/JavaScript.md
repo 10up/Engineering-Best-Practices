@@ -1,6 +1,6 @@
 <h2 id="code-style" class="anchor-heading">Code Style, Tooling & Documentation {% include Util/link_anchor anchor="code-style" %} {% include Util/top %}</h2>
 
-10up maintains a [eslint shareable config](https://github.com/10up/eslint-config) that is used across all 10up projects. It exposes several different configs and engineers should opt-in to the config that best fits the project. We also maitain a [babel-preset](https://github.com/10up/babel-preset-default/) that works well for most of our projects.
+10up maintains a [eslint shareable config](https://github.com/10up/eslint-config) that is used across all 10up projects. It exposes several different configs and engineers should opt-in to the config that best fits the project. We also maintain a [babel-preset](https://github.com/10up/babel-preset-default/) that works well for most of our projects.
 
 As far as JavaScript documentation goes, we conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/) and those standards are enforced by 10up's eslint config.
 
@@ -167,7 +167,7 @@ export const example = 66;
 
 When creating your own modules be sure to think about how it should be used by others. Luckily ES6 modules makes this a simple task.
 
-There are many ways you can export a module, but typically exposing specific functions and/or data structures through an ES6 module is the preffered way.
+There are many ways you can export a module, but typically exposing specific functions and/or data structures through an ES6 module is the preferred way.
 
 ```javascript
 // datastructure.js
