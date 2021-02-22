@@ -152,8 +152,6 @@ Here are a few key points:
   ?>
   ```
 
-* When multi-dimensional queries can't be avoided, Avoid using ```compare => EXISTS/NOT_EXISTS```.
-
 #### WP\_Query vs. get\_posts() vs. query\_posts()
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
 
