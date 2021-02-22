@@ -88,7 +88,44 @@ Here are a few key points:
 
 * A [taxonomy](https://wordpress.org/support/article/taxonomies/) is a tool that lets us group or classify posts.
 
-    [Post meta](https://wordpress.org/support/article/custom-fields/) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
+*    [Post meta](https://wordpress.org/support/article/custom-fields/) lets us store unique information about specific posts. As such the way post meta is stored does not facilitate efficient post lookups. Generally, looking up posts by post meta should be avoided (sometimes it can't). If you have to use one, make sure that it's not the main query and that it's cached.
+
+* Always set default values for post_meta keys, especially if they are used to filter other queries. When writing queries filtering by post meta, never use compare types ```EXISTS/NOT_EXISTS```.
+
+    Queries that need to check if a given meta_key exists need to use `LEFT JOIN` and require the MySQL engine to run through all the rows in the join to make sure it catches all that meet the criteria. If all posts have a specific meta key, the engine can use a simple `INNER JOIN` and only touch the rows that already meet the criteria, saving a lot of time and processing on large tables.
+
+    To make sure a value was manually set on a post, use :
+
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'meta_query' => array(
+          array(
+              'key' => 'meta_key',
+              'value' => 'default_value',
+              'compare' => '!='
+          )
+      )
+  ) );
+  ?>
+  ```
+
+    Instead of:
+
+  ```php
+  <?php
+  $foo_query = new WP_Query( array(
+      'post_type' => 'post',
+      'meta_query' => array(
+          array(
+              'key' => 'meta_key',
+              'compare' => 'EXISTS'
+          )
+      )
+  ) );
+  ?>
+  ```
 
 * Passing ```cache_results => false``` to ```WP_Query``` is usually not a good idea.
 
@@ -114,6 +151,8 @@ Here are a few key points:
   ));
   ?>
   ```
+
+* When multi-dimensional queries can't be avoided, Avoid using ```compare => EXISTS/NOT_EXISTS```.
 
 #### WP\_Query vs. get\_posts() vs. query\_posts()
 As outlined above, `get_posts()` and `WP_Query`, apart from some slight nuances, are quite similar. Both have the same performance cost (minus the implication of skipping filters): the query performed.
