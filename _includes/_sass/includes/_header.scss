@@ -1,3 +1,6 @@
+/* Navivation Variables */
+$breakpoint-nav-layout-mid: 900px;
+
 #page-header {
 	background-color: $color-mineshaft;
 	padding: 0 $guaranteed-edge-standoff;
@@ -49,6 +52,10 @@
 		.js-mobile-expandable {
 			display: none;
 
+			@include breakpoint($breakpoint-bravo) {
+				display: flex;
+			}
+
 			&.is-open {
 				display: block;
 
@@ -70,8 +77,6 @@
 
 			@include breakpoint($breakpoint-bravo) {
 				background-color: transparent;
-				display: block;
-				margin-right: 18px;
 				text-align: center;
 
 				li {
@@ -81,9 +86,21 @@
 				li:nth-child(6) {
 					margin-right: 80px;
 				}
+
+				li:nth-child(7) {
+					margin-left: auto;
+				}
+
+				li:first-child {
+					margin-left: 32px;
+				}
+
+				li:last-child {
+					margin-right: 0;
+				}
 			}
 
-			@include breakpoint($breakpoint-charlie) {
+			@include breakpoint($breakpoint-nav-layout-mid) {
 				background-color: transparent;
 				display: block;
 				margin-left: 56px;
@@ -96,7 +113,19 @@
 				}
 
 				li:nth-child(6) {
-					margin-right: 110px;
+					margin-right: 40px;
+				}
+
+				li:nth-child(7) {
+					margin-left: 40px;
+				}
+
+				li:first-child {
+					margin-left: auto;
+				}
+
+				li:last-child {
+					margin-right: auto;
 				}
 			}
 
@@ -155,6 +184,12 @@
 	right: 2.5em;
 
 	@include breakpoint($breakpoint-bravo) {
+		left: -4px;
+		right: auto;
+	}
+
+	@include breakpoint($breakpoint-nav-layout-mid) {
+		left: auto;
 		right: 0;
 	}
 
@@ -179,7 +214,9 @@
 	@include breakpoint($breakpoint-bravo) {
 		@include inline-list();
 
-		display: block !important;
+		display: flex;
+		flex-flow: row nowrap;
+
 		padding-top: 0;
 	}
 
