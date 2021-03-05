@@ -57,19 +57,29 @@ $breakpoint-nav-layout-mid: 900px;
 			}
 
 			&.is-open {
+				display: block;
 
-				@media screen and (max-width: ($breakpoint-bravo - 1)) {
+				&:before {
+					border: 10px solid transparent;
+					border-bottom-color: $very-dark-grey;
+					content: '';
 					display: block;
+					position: absolute;
+					right: .25em;
+					top: -20px;
+				}
+
+				@include breakpoint($breakpoint-bravo) {
+					display: flex;
 
 					&:before {
-						border: 10px solid transparent;
-						border-bottom-color: $very-dark-grey;
-						content: '';
-						display: block;
-						position: absolute;
-						right: .25em;
-						top: -20px;
+
+						display: none;
 					}
+				}
+
+				@include breakpoint($breakpoint-nav-layout-mid) {
+					display: block;
 				}
 			}
 		}
@@ -270,12 +280,14 @@ $breakpoint-nav-layout-mid: 900px;
 	}
 
 	&.is-open {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
 
-		@media screen and (max-width: ($breakpoint-bravo - 1)) {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 100%;
+		@include breakpoint($breakpoint-bravo) {
+			position: static;
+			width: auto;
 		}
 	}
 }
