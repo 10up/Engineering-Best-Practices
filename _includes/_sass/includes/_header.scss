@@ -57,16 +57,19 @@ $breakpoint-nav-layout-mid: 900px;
 			}
 
 			&.is-open {
-				display: block;
 
-				&:before {
-					border: 10px solid transparent;
-					border-bottom-color: $very-dark-grey;
-					content: '';
+				@media screen and (max-width: ($breakpoint-bravo - 1)) {
 					display: block;
-					position: absolute;
-					right: .25em;
-					top: -20px;
+
+					&:before {
+						border: 10px solid transparent;
+						border-bottom-color: $very-dark-grey;
+						content: '';
+						display: block;
+						position: absolute;
+						right: .25em;
+						top: -20px;
+					}
 				}
 			}
 		}
@@ -267,10 +270,13 @@ $breakpoint-nav-layout-mid: 900px;
 	}
 
 	&.is-open {
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 100%;
+
+		@media screen and (max-width: ($breakpoint-bravo - 1)) {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+		}
 	}
 }
 
