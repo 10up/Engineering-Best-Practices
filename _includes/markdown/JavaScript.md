@@ -12,7 +12,7 @@ Standardizing the way we structure our JavaScript allows us to collaborate more 
 
 It's important we use language features that are intended to be used. This means not using deprecated functions, methods, or properties. Whether we are using plain JavaScript or a library, we should not use deprecated features. Using deprecated features can have negative effects on performance, security, maintainability, and compatibility.
 
-On all new projects you should be using up to date JavaScript methodologies combined with a build process tool like [Babel](https://babeljs.io/) to ensure browser compatibility. This allows us to utilize modern techniques while being certain our code will not break in older systems. The [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) have this functionality built in.
+On all new projects you should be using up to date JavaScript methodologies combined with a build process tool like [Babel](https://babeljs.io/) to ensure browser compatibility. This allows us to utilize modern techniques while being certain our code will not break in older systems. The [10up WP Scaffold](https://github.com/10up/wp-scaffold) have this functionality built in.
 
 Some older projects that have not yet been upgraded may not have the capability to use the most modern techniques, but it is still important to have processes in place that allow us to grow the technology stack as a project matures. In these cases, you should still follow best practice recommendations even if the newest patterns are not yet available to you.
 
@@ -312,7 +312,7 @@ Alternatively, you may consider adding a client-side sanitization library to you
 
 Writing performant code is absolutely critical. Poorly written JavaScript can significantly slow down and even crash the browser. On mobile devices, it can prematurely drain batteries and contribute to data overages. Performance at the browser level is a major part of user experience which is part of the 10up mission statement.
 
-We have a published [.eslint](https://www.npmjs.com/package/@10up/eslint-config) configuration that's used on 10up projects. This linting is included in our [theme scaffolding](https://github.com/10up/theme-scaffold) and [plugin scaffolding](https://github.com/10up/plugin-scaffold) and should help you adhere to our coding standards.
+We have a published [.eslint](https://www.npmjs.com/package/@10up/eslint-config) configuration that's used on 10up projects. This linting is included in our [10up WP Scaffold](https://github.com/10up/wp-scaffold) and should help you adhere to our coding standards.
 
 ### Only Load Libraries You Need
 
