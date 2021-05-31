@@ -127,6 +127,16 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/web-vitals/#top">Web Vitals</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/web-vitals/#lcp">Largest Contentful Paint</a></li>
+			<li><a href="{{ site.baseurl }}/web-vitals/#cls">Cumulative Layout Shift</a></li>
+			<li><a href="{{ site.baseurl }}/web-vitals/#fid">First Input Delay</a></li>
+			<li><a href="{{ site.baseurl }}/web-vitals/#measuring">Measuring</a></li>
+		</ul>
+	</div>
+
 </div>
 
 <div class="docs-section">
