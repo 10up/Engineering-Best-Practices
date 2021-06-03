@@ -1,4 +1,10 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
+<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
+
+<h2 id="ads" class="anchor-heading">Ads {% include Util/link_anchor anchor="ads" %} {% include Util/top %}</h2>
+
+<h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
+
+<h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
 Web Vitals is a new initiative by Google which provides a set of rules, concepts and metrics
 in order to serve users with the best web experience possible.
 
@@ -25,7 +31,7 @@ This metric reports the render time of the largest element on the page _that is 
 
 > An LCP score of 2.5 seconds or less is considered to be a conducive measurement for good user experience.
 
-LCP is measured in seconds (s) and can be tracked against the follow DOM elements:
+LCP is measured in seconds (s) and can be tracked against the following DOM elements:
 
 * `<img>`
 * `<image>` - inside an SVG
@@ -60,8 +66,8 @@ To measure the "speed" of your server you can track the [Time to First Byte (TTF
 
 Here are some high-level guidelines for ensuring Largest Contentful Paint occurs as fast as possible:
 
-* Are assets (Images, JavaScript, CSS, Video) served over a CDN?
-* Is there a sufficient and well-thought out caching strategy on the webserver?
+* Serve assets (Images, JavaScript, CSS, Video) over a CDN.
+* Ensure that there is a well-thought out caching strategy in place.
 * Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains. 
 * Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
 * Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chromes "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
@@ -124,7 +130,7 @@ Elements that cause CLS can be easily fixed in some instances. As a general rule
 * All images loaded on the site have a `width` and a `height` attribute. This is because HTML gets parsed before CSS and the browser will reserve space if it knows the dimensions and aspect-ratio of the image.
 * Ensure that ads, iframes and other embeds have a `width` and `height` attribute.
 * As a best practice, do not insert dynamic content into the site without the user performing an action to recieve it, ie "load more" or "click".
-* Ensure that you have a Web Font Loading strategy in place.
+* Ensure that you have a Web Font Loading strategy in place that mitigates layout shift when fonts are loaded and displayed in the browser.
 * When animating CSS properties, ensure that you animate `transform` properties rather than `box-model` properties to prevent reflow and layout changes in the browsers [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
 #### _Handling Ad Sizes_
@@ -291,3 +297,13 @@ Addy Osmani has written a really useful and compact extention that reports on th
 * [The business impact of Core Web Vitals](https://web.dev/vitals-business-impact/)
 * [Getting started with measuring Web Vitals](https://web.dev/vitals-measurement-getting-started/)
 * [Preloading responsive images](https://web.dev/preload-responsive-images/)
+
+<h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
+
+<h2 id="images-and-media" class="anchor-heading">Images & Media {% include Util/link_anchor anchor="images-and-media" %} {% include Util/top %}</h2>
+
+<h2 id="js-and-css" class="anchor-heading">JavaScript & CSS {% include Util/link_anchor anchor="js-and-css" %} {% include Util/top %}</h2>
+
+
+
+
