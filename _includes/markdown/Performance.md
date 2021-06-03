@@ -1,4 +1,10 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %}</h2>
+<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
+
+<h2 id="ads" class="anchor-heading">Ads {% include Util/link_anchor anchor="ads" %} {% include Util/top %}</h2>
+
+<h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
+
+<h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
 Web Vitals is a new initiative by Google which provides a set of rules, concepts and metrics
 in order to serve users with the best web experience possible.
 
@@ -291,3 +297,13 @@ Addy Osmani has written a really useful and compact extention that reports on th
 * [The business impact of Core Web Vitals](https://web.dev/vitals-business-impact/)
 * [Getting started with measuring Web Vitals](https://web.dev/vitals-measurement-getting-started/)
 * [Preloading responsive images](https://web.dev/preload-responsive-images/)
+
+<h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
+
+<h2 id="images-and-media" class="anchor-heading">Images & Media {% include Util/link_anchor anchor="images-and-media" %} {% include Util/top %}</h2>
+
+<h2 id="js-and-css" class="anchor-heading">JavaScript & CSS {% include Util/link_anchor anchor="js-and-css" %} {% include Util/top %}</h2>
+
+
+
+
