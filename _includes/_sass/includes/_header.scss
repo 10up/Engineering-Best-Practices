@@ -31,7 +31,7 @@ $breakpoint-nav-layout-mid: 900px;
 		width: $header-logo-small;
 		z-index: 10; /* So that it overlays any expanded .top-nav */
 
-		@include breakpoint($breakpoint-bravo) {
+		@include breakpoint($breakpoint-charlie) {
 			background-position: 46% 50%;
 			background-size: 45%;
 			bottom: -$header-logo-large-protrusion;
@@ -52,7 +52,7 @@ $breakpoint-nav-layout-mid: 900px;
 		.js-mobile-expandable {
 			display: none;
 
-			@include breakpoint($breakpoint-bravo) {
+			@include breakpoint($breakpoint-charlie) {
 				display: flex;
 			}
 
@@ -69,17 +69,13 @@ $breakpoint-nav-layout-mid: 900px;
 					top: -20px;
 				}
 
-				@include breakpoint($breakpoint-bravo) {
+				@include breakpoint($breakpoint-charlie) {
 					display: flex;
 
 					&:before {
 
 						display: none;
 					}
-				}
-
-				@include breakpoint($breakpoint-nav-layout-mid) {
-					display: block;
 				}
 			}
 		}
@@ -88,7 +84,7 @@ $breakpoint-nav-layout-mid: 900px;
 			background-color: $very-dark-grey;
 			text-align: right;
 
-			@include breakpoint($breakpoint-bravo) {
+			@include breakpoint($breakpoint-charlie) {
 				background-color: transparent;
 				text-align: center;
 
@@ -113,7 +109,7 @@ $breakpoint-nav-layout-mid: 900px;
 				}
 			}
 
-			@include breakpoint($breakpoint-nav-layout-mid) {
+			@include breakpoint($breakpoint-charlie) {
 				background-color: transparent;
 				display: block;
 				margin-left: 20px;
@@ -150,7 +146,7 @@ $breakpoint-nav-layout-mid: 900px;
 
 		@include transition(height, 150ms, linear);
 
-		@include breakpoint($breakpoint-bravo) {
+		@include breakpoint($breakpoint-charlie) {
 			background-color: transparent;
 			height: auto !important;
 			position: relative;
@@ -176,7 +172,7 @@ $breakpoint-nav-layout-mid: 900px;
 	display: block;
 	font-size: 1.3rem;
 
-	@include breakpoint($breakpoint-bravo) {
+	@include breakpoint($breakpoint-charlie) {
 		display: none;
 	}
 
@@ -196,14 +192,9 @@ $breakpoint-nav-layout-mid: 900px;
 	font-size: 1.3rem;
 	right: 2.5em;
 
-	@include breakpoint($breakpoint-bravo) {
+	@include breakpoint($breakpoint-charlie) {
 		left: -4px;
 		right: auto;
-	}
-
-	@include breakpoint($breakpoint-nav-layout-mid) {
-		left: auto;
-		right: 0;
 	}
 
 	&:visited {
@@ -224,7 +215,7 @@ $breakpoint-nav-layout-mid: 900px;
 	margin: 0;
 	padding: 1em 0 0;
 
-	@include breakpoint($breakpoint-bravo) {
+	@include breakpoint($breakpoint-charlie) {
 		@include inline-list();
 
 		display: flex;
@@ -243,7 +234,7 @@ $breakpoint-nav-layout-mid: 900px;
 		list-style-type: none;
 		padding: .5em 1em;
 
-		@include breakpoint($breakpoint-bravo) {
+		@include breakpoint($breakpoint-charlie) {
 			margin: 0 0.3em;
 			padding: 0;
 
@@ -256,7 +247,7 @@ $breakpoint-nav-layout-mid: 900px;
 		&:focus {
 			background-color: $color-mineshaft;
 
-			@include breakpoint($breakpoint-bravo) {
+			@include breakpoint($breakpoint-charlie) {
 				background-color: transparent;
 			}
 		}
@@ -285,7 +276,7 @@ $breakpoint-nav-layout-mid: 900px;
 		top: 0;
 		width: 100%;
 
-		@include breakpoint($breakpoint-bravo) {
+		@include breakpoint($breakpoint-charlie) {
 			position: static;
 			width: auto;
 		}
@@ -302,7 +293,7 @@ $breakpoint-nav-layout-mid: 900px;
 		font-weight: 400;
 		padding: .8rem 0;
 
-		@include breakpoint($breakpoint-bravo) {
+		@include breakpoint($breakpoint-charlie) {
 			font-size: 11px;
 			padding: 21px 0;
 			position: relative;

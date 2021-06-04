@@ -44,7 +44,7 @@
 	line-height: 1;
 	z-index: 15; /* override .top-nav */
 
-	@include breakpoint($breakpoint-bravo) {
+	@include breakpoint($breakpoint-charlie) {
 		font-size: 1.6rem;
 		height: 2.8rem;
 		width: 2.8rem;
