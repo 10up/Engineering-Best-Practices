@@ -14,8 +14,6 @@ subnav:
     tag: integrations
   - title: Modular Code
     tag: modular-code
-  - title: Privacy
-    tag: privacy
 updated: 23 June 2015
 ---
 

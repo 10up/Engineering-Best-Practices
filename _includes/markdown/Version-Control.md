@@ -51,52 +51,45 @@ git commit
 
 ### Merges
 
-In order to avoid large merge conflicts, merges should occur early and often. Do not wait until a feature is complete to merge ```master``` into it. Merging should be done as non-fast-forwards (`--no-ff`) to ensure a record of the merge exists.
+In order to avoid large merge conflicts, merges should occur early and often. Do not wait until a feature is complete to merge ```trunk``` into it. Merging should be done as non-fast-forwards (`--no-ff`) to ensure a record of the merge exists.
+
+### Protecting the ```trunk``` Branch
+
+We recommend for all repositories to be configured so the ```trunk``` branch is protected to prevent direct pushes. All merges should be made through a pull request, which ensures all code changes are peer reviewed before merging to prevent unintentional code reversions. Additionally, protecting branches provides the following benefits:
+
+* Prevents the trunk branch from being accidentally deleted by other engineers
+* Prevents force-pushes to the branch, overwriting the history
 
 ### Themes
 
-All new development should take place on feature branches that branch off ```master```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature or fix on the stage environment.
+All new development should take place on feature branches that branch off ```trunk```. When a new feature or bugfix is complete, we will do a non-fast-forward merge from that branch to ```staging``` to verify the feature or fix on the stage environment.
 
-When things are absolutely ready to go, we'll deploy the feature or fix by performing a non-fast-forward merge from that branch to ```master```
+When things are absolutely ready to go, we'll deploy the feature or fix by performing a non-fast-forward merge from that branch to ```trunk```
 
 #### Branching
 
-All theme projects will treat the ```master``` branch as the canonical source for live, production code. Feature branches will branch off ```master``` and should always have ```master``` merged back into them before requesting peer code review and before deploying to any staging environments.
+All theme projects will treat the ```trunk``` branch as the canonical source for live, production code. Feature branches will branch off ```trunk``` and should always have ```trunk``` merged back into them before requesting peer code review and before deploying to any staging environments.
 
-All staging branches will branch off ```master``` as well, and should be named ```staging``` or ```stage-{environment}``` for consistency and clarity. Staging branches will never be merged into any other branches. The ```master``` branch can be merged into both staging and feature branches to keep them up-to-date.
+All staging branches will branch off ```trunk``` as well, and should be named ```staging``` or ```stage-{environment}``` for consistency and clarity. Staging branches will never be merged into any other branches. The ```trunk``` branch can be merged into both staging and feature branches to keep them up-to-date.
 
 #### Complex Feature Branches
 
-In some cases, a feature will be large enough to warrant multiple developers working on it at the same time. In order to enable testing the feature as a cohesive unit and avoid merge conflicts when pushing to ```staging``` and ```master``` it is recommended to create a feature branch to act as a staging area. We do this by branching from ```master``` to create the primary feature branch, and then as necessary, create additional branches from the feature branch for distinct items of work. When individual items are complete, merge back to the feature branch. To pull work from ```master```, merge ```master``` into the feature branch and then merge the feature branch into the individual branches. When all work has been merged back into the feature branch, the feature branch can then be merged into ```staging``` and ```master``` as an entire unit of work.
-
-#### Working with WordPress.com VIP (not Go)
-
-In a VIP environment, we want every commit to the theme's Subversion repository to be matched 1:1 with a merge commit on our Beanstalk Git repository. This means we add a step to our deployment above: Create a diff between the branch and ```master``` before merging. We can apply this diff as a patch to the VIP Subversion repository. Again, make sure to use non-fast-forward merges.
-
-##### Backporting VIP
-
-In the event that VIP makes a change to the repository, we'll capture the diff of their changeset and import it to our development repository by:
-
-* Grabbing the diff of their changes
-* Creating a new ```vip-rXXXX``` branch off ```master```
-* Applying the diff to the new branch
-* Merging the branch to ```staging```, using a non-fast-forward merge
-* Merging the branch back to ```master```, again using a non-fast-forward merge
+In some cases, a feature will be large enough to warrant multiple developers working on it at the same time. In order to enable testing the feature as a cohesive unit and avoid merge conflicts when pushing to ```staging``` and ```trunk``` it is recommended to create a feature branch to act as a staging area. We do this by branching from ```trunk``` to create the primary feature branch, and then as necessary, create additional branches from the feature branch for distinct items of work. When individual items are complete, merge back to the feature branch. To pull work from ```trunk```, merge ```trunk``` into the feature branch and then merge the feature branch into the individual branches. When all work has been merged back into the feature branch, the feature branch can then be merged into ```staging``` and ```trunk``` as an entire unit of work.
 
 #### Deleting or Archiving and Deleting Branches
 
 This workflow will inevitably build up a large list of branches in the repository. To prevent a large number of unused branches living in the repository, we'll delete or archive and delete them after feature development is complete.
 
 ### Deleting branches
-When projects use non-ff merges to master, we can safely delete feature branches because all commits are preserved and can be located from the merge commit.
+When projects use non-ff merges to trunk, we can safely delete feature branches because all commits are preserved and can be located from the merge commit.
 
-* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Move to another branch (doesn't matter which): eg. `git checkout trunk`
 * Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
 
 ### Archiving and Deleting branches
-When projects use squash merges to create a more streamlined history in master, we should archive branches before deleting them to preserve the commit history. Branch tag archives also prove a useful history of branches, in case a specific branch is needed later.
+When projects use squash merges to create a more streamlined history in trunk, we should archive branches before deleting them to preserve the commit history. Branch tag archives also prove a useful history of branches, in case a specific branch is needed later.
 
-* Move to another branch (doesn't matter which): eg. `git checkout master`
+* Move to another branch (doesn't matter which): eg. `git checkout trunk`
 * Archive the branch: `git tag archive/branch-name branch-name`
 * Delete the branch (both on local and remote): `git branch -D branch-name; git push :branch-name`
 * Push the archive tag: `git push origin archive/branch-name`
@@ -104,7 +97,7 @@ When projects use squash merges to create a more streamlined history in master, 
 
 ### Plugins
 
-Unlike theme development, the `master` branch represents a stable, released, versioned product. Ongoing development will happen in feature branches branched off a `develop` branch, which is itself branched off `master`. This pattern is commonly referred to as [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow).
+Unlike theme development, the `trunk` branch represents a stable, released, versioned product. Ongoing development will happen in feature branches branched off a `develop` branch, which is itself branched off `trunk`. This pattern is commonly referred to as [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow).
 
 #### Branching
 
@@ -112,7 +105,7 @@ New features should be branched off `develop` and, once complete, merged back in
 
 #### Deploying
 
-When `develop` is at a state where it's ready to form a new release, create a new `release/<version>` branch off of `develop`. In this branch, you'll bump version numbers, update documentation, and generally prepare your release. Once ready, merge your release branch (using a non-fast-forward merge) into `master` and tag the release:
+When `develop` is at a state where it's ready to form a new release, create a new `release/<version>` branch off of `develop`. In this branch, you'll bump version numbers, update documentation, and generally prepare your release. Once ready, merge your release branch (using a non-fast-forward merge) into `trunk` and tag the release:
 
 ```sh
 git tag -a <version> -m "Tagging <version>"
@@ -120,7 +113,7 @@ git tag -a <version> -m "Tagging <version>"
 
 > **Note:** Once a version is tagged and released, the tag must never be removed. If there is a problem with the project requiring a re-deployment, create a new version and tag to reflect the change.
 
-Finally, merge `master` into `develop` so that `develop` includes all of the work that was done in your release branch and is aware of the current state of `master`.
+Finally, merge `trunk` into `develop` so that `develop` includes all of the work that was done in your release branch and is aware of the current state of `trunk`.
 
 ##### Semantic Versioning
 

@@ -12,7 +12,11 @@ subnav:
     tag: php-fpm
   - title: MySQL
     tag: mysql
-updated: 25 June 2018
+  - title: Memcached and Redis
+    tag: memcached-and-redis
+  - title: Load Balancing
+    tag: load-balancing
+updated: 13 December 2019
 ---
 
 <div class="docs-section">

@@ -36,10 +36,9 @@ updated: 6 Oct 2014
 		<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#html5-structural-elements">HTML5 Structural Elements</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#classes-ids">Classes and ID's</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
-			<li><a href="{{ site.baseurl }}/markup/#progressive-enhancement">Progressive Enhancement</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#structure">Structure</a></li>
+			<li><a href="{{ site.baseurl }}/markup/#media">Media</a></li>
 			<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
 		</ul>
 	</div>
@@ -49,10 +48,11 @@ updated: 6 Oct 2014
 
   		<ul>
   			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#responsive-websites">Responsive Websites</a></li>
+			<li><a href="{{ site.baseurl }}/css/#accessibility">Accessibility</a></li>
+			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
+			<li><a href="{{ site.baseurl }}/css/#responsive-design">Responsive Design</a></li>
+			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
+			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
   			<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
   		</ul>
   	</div>
@@ -88,6 +88,7 @@ updated: 6 Oct 2014
 				<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
 			</li>
 			<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
+			<li><a href="{{ site.baseurl }}/react/">React</a></li>
 		</ul>
 	</div>
 
@@ -101,17 +102,17 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#command-line">Command Line Tools</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#a11y-testing">Accessibility Tools</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#vrt">Visual Regression Testing</a></li>
 		</ul>
 	</div>
 
 	<div class="col">
-		<h3><a href="{{ site.baseurl }}/design/#top">Project Design</a></h3>
+		<h3><a href="{{ site.baseurl }}/structure/#top">Project Design</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/design/#file-organization">File Organization</a></li>
-			<li><a href="{{ site.baseurl }}/design/#dependencies">Dependencies</a></li>
-			<li><a href="{{ site.baseurl }}/design/#integrations">Third-Party Integrations</a></li>
-			<li><a href="{{ site.baseurl }}/design/#modular-code">Modular Code</a></li>
-			<li><a href="{{ site.baseurl }}/design/#privacy">Privacy</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#file-organization">File Organization</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#dependencies">Dependencies</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#integrations">Third-Party Integrations</a></li>
+			<li><a href="{{ site.baseurl }}/structure/#modular-code">Modular Code</a></li>
 		</ul>
 	</div>
 
@@ -121,6 +122,8 @@ updated: 6 Oct 2014
 			<li><a href="{{ site.baseurl }}/systems/#nginx">Nginx</a></li>
 			<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
 			<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#memcached-and-redis">Memcached and Redis</a></li>
+			<li><a href="{{ site.baseurl }}/systems/#load-balancing">Load Balancing</a></li>
 		</ul>
 	</div>
 

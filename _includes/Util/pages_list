@@ -11,7 +11,11 @@
       	{% assign subnav_list = node.subnav %}
       	<ul class="subnav">
       	  {% for subnav in subnav_list %}
-		      <li><a href="{{ site.baseurl }}{{ node.url }}#{{ subnav.tag }}">{{ subnav.title }}</a></li>
+            {% if subnav.slug %}
+              <li><a href="{{ site.baseurl }}/{{ subnav.slug }}">{{ subnav.title }}</a></li>
+            {% else %}
+              <li><a href="{{ site.baseurl }}{{ node.url }}#{{ subnav.tag }}">{{ subnav.title }}</a></li>
+            {% endif %}
           {% endfor %}
       	</ul>
       	{% assign subnav_list = nil %}

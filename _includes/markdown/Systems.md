@@ -74,6 +74,7 @@ php-pear
 php-pecl-jsonc
 php-pecl-memcache
 php-pecl-memcached
+php-pecl-redis
 php-pecl-zip
 php-process
 php-redis
@@ -197,35 +198,35 @@ There are a few common goals of database replication:
 
 * Segmentation: isolate workloads to prevent taxing jobs from impacting site performance
 
-The three commonly encountered MySQL replication types are Master-Slave, Master-Master, and Synchronous clusters like Galera.
+The three commonly encountered MySQL replication types are Primary-Replica, Primary-Primary, and Synchronous clusters like Galera.
 
-#### Master-Slave
+#### Primary-Replica
 
-A Master-Slave replication pair consists of the Master node, where all database writes happen, and the Slave node, where only database reads can occur. The Slave node never pushes any data back to the Master node, so any writes that are attempted on this node are refused.
+A Primary-Replica replication pair consists of the Primary node, where all database writes happen, and the Replica node, where only database reads can occur. The Replica node never pushes any data back to the Primary node, so any writes that are attempted on this node are refused.
 
-Here’s how Master-Slave replication does on our replication goals:
+Here’s how Primary-Replica replication does on our replication goals:
 
-* **High Availability:** If the slave database server goes down, WordPress is still completely functional, but if the master database goes offline, WordPress becomes read-only and no new articles, comments, or changes to any content can be made. Additionally, as WordPress is not usually designed to be read only, some sites will not load at all without successful database writes. Master-Slave is not the best solution for High Availability.
+* **High Availability:** If the replica database server goes down, WordPress is still completely functional, but if the primary database goes offline, WordPress becomes read-only and no new articles, comments, or changes to any content can be made. Additionally, as WordPress is not usually designed to be read only, some sites will not load at all without successful database writes. Primary-Replica is not the best solution for High Availability.
 
-* **Performance:** Master-Slave replication is excellent for scaling database reads. Replication overhead is very low, so nearly all of the horsepower of a slave server is used for performing database reads. If more performance is needed, another replica can be added. This can scale horizontally almost infinitely. However, writes do not scale at all in a Master-Slave setup as writes are limited to only the single master server.
+* **Performance:** Primary-Replica replication is excellent for scaling database reads. Replication overhead is very low, so nearly all of the horsepower of a replica server is used for performing database reads. If more performance is needed, another replica can be added. This can scale horizontally almost infinitely. However, writes do not scale at all in a Primary-Replica setup as writes are limited to only the single primary server.
 
-* **Segmentation:** Master-Slave replication is a great solution when offloading taxing jobs from your main production server. Backups or reports can be run from a dedicated slave database server that has no impact at all on the master server or any of the other slaves. This slave server can be small and cheap as long as it can keep up with the replication workload.
+* **Segmentation:** Primary-Replica replication is a great solution when offloading taxing jobs from your main production server. Backups or reports can be run from a dedicated replica database server that has no impact at all on the primary server or any of the other replicas. This replica server can be small and cheap as long as it can keep up with the replication workload.
 
-#### Master-Master
+#### Primary-Primary
 
-Do not use MySQL Master-Master replication. It is attractive as it seems to solve all the limitations of Master-Slave replication. However, Master-Master replication can be very dangerous and can result in data collisions, lost data, or duplicated data if the replication were to break or one of the database servers were to crash. It is a fragile type of replication and, while it can be engineered to be a reliable system, there are better options available.
+Do not use MySQL Primary-Primary replication. It is attractive as it seems to solve all the limitations of Primary-Replica replication. However, Primary-Primary replication can be very dangerous and can result in data collisions, lost data, or duplicated data if the replication were to break or one of the database servers were to crash. It is a fragile type of replication and, while it can be engineered to be a reliable system, there are better options available.
 
 #### Galera Cluster
 
-A Galera cluster is a synchronous multi-master database cluster for InnoDB tables where writes must happen successfully on all cluster members to finish successfully on a single member. This gives Galera a high data durability. A Galera cluster should always be setup with an odd number of nodes. This is so in the event of a replication failure of 1 node, 2 remaining nodes can remain a quorum and the source of true data, re-syncing to the lone disconnected database node when it reconnects. If the absolute lowest cost is needed, the 3rd (or odd-numbered) Galera member could be a [Galera Arbitrator](http://galeracluster.com/documentation-webpages/arbitrator.html), which does not participate in the replication, but will maintain connections to all other Galera nodes and assist in determining a quorum.
+A Galera cluster is a synchronous multi-primary database cluster for InnoDB tables where writes must happen successfully on all cluster members to finish successfully on a single member. This gives Galera a high data durability. A Galera cluster should always be setup with an odd number of nodes. This is so in the event of a replication failure of 1 node, 2 remaining nodes can remain a quorum and the source of true data, re-syncing to the lone disconnected database node when it reconnects. If the absolute lowest cost is needed, the 3rd (or odd-numbered) Galera member could be a [Galera Arbitrator](http://galeracluster.com/documentation-webpages/arbitrator.html), which does not participate in the replication, but will maintain connections to all other Galera nodes and assist in determining a quorum.
 
 Here’s how Galera performs on the common replication goals:
 
 * **High Availability:** Galera is the recommended solution for High Availability MySQL replication. A Galera cluster will remain online and fully functional as long as more than 50% of nodes remain online and synced. This means in a typical 3 node cluster, a single database server can be brought offline for upgrades without any noticeable difference in performance in WordPress. It is crucial that a smart load balancing strategy be employed that recognizes an offline or out of sync database and reroutes traffic accordingly.
 
-* **Performance:** Database reads can scale horizontally in much the same manner as in Master-Slave replication when using Galera as each server acts as a standalone database server in the context of reads. Writes, however, do not scale as more nodes are added since Galera requires all nodes in a cluster to perform every write synchronously. In practice, writes become slightly slower with Galera, though usually by a very small percentage. Database writes can only be scaled through faster hardware in a Galera cluster. For most WordPress installations, reads are where scaling is needed and a single server can keep up with write operations effectively.
+* **Performance:** Database reads can scale horizontally in much the same manner as in Primary-Replica replication when using Galera as each server acts as a standalone database server in the context of reads. Writes, however, do not scale as more nodes are added since Galera requires all nodes in a cluster to perform every write synchronously. In practice, writes become slightly slower with Galera, though usually by a very small percentage. Database writes can only be scaled through faster hardware in a Galera cluster. For most WordPress installations, reads are where scaling is needed and a single server can keep up with write operations effectively.
 
-* **Segmentation:** Galera can be used for workload segmentation, running backups or other read-heavy tasks to a single Galera server and using the other nodes for production work. Additionally, a read-only slave can be added to any node in Galera in typical Master-Slave configuration if a read-only server is desired.
+* **Segmentation:** Galera can be used for workload segmentation, running backups or other read-heavy tasks to a single Galera server and using the other nodes for production work. Additionally, a read-only replica can be added to any node in Galera in typical Primary-Replica configuration if a read-only server is desired.
 
 ### Performance Tuning
 
@@ -269,3 +270,175 @@ New sites should implement HTTPS (Hypertext Transfer Protocol Secure) unless the
 * **Mixed Content** - Mixed content occurs when HTML is loaded over a secure HTTPS connection and requests resources such as images and scripts to be loaded over an insecure HTTP connection. Most browsers display warnings about this type of content and prevents this content from loading on a page. Before implementing a new website on HTTPS, it's important to run a mixed content scanning tool that will crawl and scan an HTTPS-enabled website for mixed content. WordPress plugins should also be utilized that will check for insecure content from within the WordPress editor interface.
 
 * **Non-HTTPS APIs** - Caution should be taken when sending sensitive information such as usernames or passwords to 3rd-party APIs not utilizing HTTPS. When sending data to a non-secure API, always be sure sensitive information is encrypted and decrypted on each end of the connection so that they are not exposed. Likewise, sensitive information, such as passwords, session tokens, etc should not be exposed in HTTP URL requests, which can be captured in web server logs.
+<h2 id="memcached-and-redis" class="anchor-heading">Memcached and Redis {% include Util/link_anchor anchor="memcached-and-redis" %} {% include Util/top %}</h2>
+
+Memcached and Redis are in memory data stores that are used for the WordPress object cache. Implementation of the object cache in WordPress code is covered extensively in the [PHP Performance](https://10up.github.io/Engineering-Best-Practices/php/#performance) section of the Best Practices and this section will focus on the hosting and setup of memcached and Redis.
+
+Memcached and Redis are used by WordPress as simple, in memory key-value stores. By being in memory and not having the possibility for complex queries, these tools provide blazing fast retrieval of data, usually in less than 1 millisecond. Common use cases of these data stores are:
+
+* Caching results of an external API call
+* Caching the results of a complex query
+* Storing full or partial pages
+
+Items stored in these caching technologies are made up of 3 things: a key, a value, and an optional expiration time.  After the expiration time, items are evicted from the cache.  Redis can be configured with a number of eviction schemes, which control what happens when an item expires or when the cache is full, but in our use case, it rarely makes sense to use anything besides a Least Recently Used (LRU) eviction scheme.  Items without an expiration time will persist in the cache until the cache is full, at which time the cache will evict the least recently used item each time a new item needs to be stored.
+
+### Sizing the Cache Pool
+
+The LRU eviction policy means that even a small cache can be effective and the most used data will always be in the cache. However, the most effective cache pool will never evict an item before the expiration time is reached and will have enough space for a healthy collection of items with no expiration time.  10up has tested various sizes of cache pools and has found 256 MB to be appropriate for most WordPress sites.  Complicated sites or large multisites may benefit from 512 MB and small sites on limited hardware can perform well with as little as 64 MB, but 256 MB should be used as a safe “rule of thumb”.  Above 256 MB, the cache hit rate and eviction rate usually do not improve no matter how large the cache pool is.
+
+A common misconception is that a full cache pool is a problem and should be avoided, or that a full cache means a bigger cache pool is needed. In reality, a full cache pool is the normal state of the cache with WordPress and means nothing.  No matter how big the cache pool, it will eventually become full.  This is because there will always be some cached items without an expiration time that will persist in the cache forever, until the cache is full and the LRU policy evicts it to make room for a new item.
+
+Even a very active cache will not stress a modern CPU, so a caching server can perform very well even with a single CPU core.  Similarly, since the cache activity is all in memory (unless persistence is enabled with Redis), a small and slow hard drive will work fine.  As long as network bandwidth is fast, latency is low, and enough RAM is available for the cache pool, nearly any server can host the cache.
+
+### Architecture Considerations
+
+The worst thing that can happen with an in-memory cache like memcached or Redis is the memory becoming full and swap space needing to be used.  In a high availability setup, it would be prefereable if the server just crashed and went offline rather than using swap.  If a server begins swapping, it is using the much slower hard disk to store some items that should be in memory, such as memcached items.  A hard disk is so many times slower than memory that this will cause a dramatic worsening of the performance of the cache node and the application relying on the cache will be forced to wait for this slow server to reply.  This causes a massive bottleneck for the application and in WordPress will result in pages timing out or loading very slowly.  If the cache server were to just go offline, the items from the cache would be redistributed to the other cache nodes and everything would continue on, which is why it is recommended to disable swap entirely on cache nodes.
+
+For a cache node to have stable performance, it must have a predictable amount of memory available and, preferably, devoted to the cache.  For this reason, it is recommended to run memcache or redis either on a dedicated server or on a server shared with MySQL, but not on a server that is serving PHP requests.  A server that is taking PHP web requests, whether with Apache and mod_php or with Nginx and PHP-FPM, will have very unpredictable memory usage.  Depending on the kind of work each process is doing, PHP could use 30 MB or 300 MB and it is very difficult to predict.  Therefore, webservers create the possibility that memory could unexpectedly become full.  On most webservers, this isn't a big deal as some PHP processes will fail but the rest will continue on normally.  However, if a webserver were to also be hosting the cache, running out of memory could be disasterous when under load as the cache process could be killed off or worse, could start swapping.  On single-server setups, careful tuning of the stack and conservative use of the available memory can make it work, but if possible, MySQL and the cache should be moved to a separate server.  In constrast to PHP, MySQL is ideal software to host alongside memcached or Redis on a server.  The memory usage of MySQL is predictable and can be completely controlled with the `my.cnf` file, leaving a stable amount of memory that can be dedicated to the cache.
+
+### Memcached
+
+Memcached is simpler than Redis and has fewer features. While Redis can be used as a full database, memcached is only a key-value store. This simplicity is by design and makes Memcached a very low maintenance tool.
+
+#### High Availability
+
+Memcached can be installed on multiple servers that can combine into a memcached “pool”.  Keeping with the theme of simplicity, each memcached server in the pool knows nothing about the other instances in the pool and operates completely independently.  It is up to the client (in this case, WordPress and PHP) to distribute data across the pool of memcached servers however it sees fit.  Memcached performs no replication, failover, or connection balancing itself.  To distribute data evenly across multiple servers, the PHP extensions for memcached use a hashing strategy.  In this way, multiple PHP web servers can read and write to multiple memcached servers and all know exactly where each key is stored.
+
+#### Item Size
+
+By default, memcached accepts items (key + value) of 1 MB or less. In most scenarios, this is fine and plenty of space. However, on larger WordPress sites or sites with a number of plugins, the “alloptions” array combining all autoloaded rows from the wp_options table can exceed 1 MB.  This array will be stored in memcached if memcached is in use for the object cache, unless it exceeds the memcached item size limit.  When this array is larger than the memcached item size, it can cause all sorts of odd issues and inconsistent performance.  While the alloptions array is the most common way a WordPress site will exceed the 1 MB limit, many other use cases can result in this same problem, including storing HTML fragments, remote call responses, or query results.  Keep the item size limit in mind whenever storing data in memcached.
+
+Starting in memcached version 1.4.2, the item size is configurable via the `-I` option.  Setting the item size higher than 1 MB is not recommended unless necessary as memcached becomes less efficient as the item size increases, meaning it will take more memory to store the same amount of data.  If memory is available to accommodate a larger cache size, it is worth considering raising the item size to prevent this limit from ever becoming a problem.
+
+#### Connecting WordPress to Memcached
+
+WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcache](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, 10up mostly uses one of the following:
+
+* [Memcached Object Cache](https://wordpress.org/plugins/memcached/) for php-memcache
+* [Wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) for php-memcached
+
+One benefit of [wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) is that the alloptions array discussed in the "Item Size" section has been split up and each "option" is stored as a separate key and value.  This means that WordPress is much less likely to exceed the 1 MB default item size, which will allow the cache to run efficiently.  The individual keys and values are retrieved with a [getMulti command](https://github.com/humanmade/wordpress-pecl-memcached-object-cache/blob/master/object-cache.php#L1506) (only available in the php-memcached extension), which results in the only 1 additional memcached call over storing the alloptions array in a single key.
+
+#### Security
+
+Memcached offers no security.  It is imperative that memcached not be exposed to the internet, both to prevent sensitive data from being exposed, but also to prevent [amplification attacks](https://www.cloudflare.com/learning/ddos/memcached-ddos-attack/).  If memcached is on a dedicated server, or a server shared with MySQL, ideally it will not have a public IP address nor be accessible outside of the private network.  If the entire stack is on a single server, use the -l option to bind memcached to 127.0.0.1.  If a public IP must be used, restrict access using a firewall.
+
+#### Tools
+
+One of the biggest challenges with memcached is getting visibility into the items in the cache and the performance of the cache.  The simplest way to interact with a memcached server is by using telnet.  For example, a memcached server on localhost can be connected to with the command `telnet 127.0.0.1 11211` where 11211 is the port memcached listens on.  Once connected with telnet, basic statistics about the instance are available by typing `stats`. Most of these statistics are only useful with consistent monitoring to understand trends, but `get_hits` and `get_misses` are particularly useful for calculating the hit ratio (`get_hits / (get_hits + get_misses)`).
+
+For easier to read statistics, [PHPMemcachedAdmin](https://github.com/elijaa/phpmemcachedadmin) provides an interactive, browser-based dashboard.  Be diligent to keep this dashboard private by configuring it behind a password or to be accessed only by known IPs.
+
+Beyond the stats, it is difficult to get a good idea of the content in a memcached instance.  While PHPMemcachedAdmin makes some strides towards providing this visibility, there’s no good way to view all keys in memcached, or do any fuzzy matching like you would in a full database.  The simplicity of memcached makes it very difficult to find anything without knowing the exact key.  This kind of visibility is not often needed, but can be a challenge when debugging an issue with the cache.
+
+### Redis
+
+While memcached strives for simplicity, Redis seeks to be a full featured, high performance database and data store.  Many data types, eviction schemes, and transaction types are available, but the common use case with WordPress is very similar to memcached: a simple key-value store with an LRU eviction scheme.
+
+#### High Availability
+
+Redis offers many more options for high availability that memcached, including primary-replica [replication](https://redis.io/topics/replication), failover architectures via [Sentinel](https://redis.io/topics/sentinel), and full multi-node [clusters](https://redis.io/topics/cluster-tutorial).  Implementing any of these solutions adds complexity and hardware, which should be considered carefully.  Unlike memcached, Redis cache can be made to persist to disk, so the cache values can survive a restart, making recovery from a cache failure less impactful.  On high-traffic sites where the object cache uptime is mission critical, the high availability capabilities of Redis may make it the right choice.
+
+#### Connecting WordPress to Redis
+
+Similar to memcached, WordPress connects to Redis through an object-cache.php file in the wp-content folder, which in turn leverages a PHP extension.  Two extensions are widely used, [Predis](https://github.com/nrk/predis/) and [phpredis](https://github.com/phpredis/phpredis).  The object-cache.php file also has 2 good options that are widely used:
+
+* [Redis Object Cache](https://wordpress.org/plugins/redis-cache/) with good support for clusters and replication
+* [WP Redis](https://wordpress.org/plugins/wp-redis/) with support from [Pantheon](https://pantheon.io/)
+
+#### Security
+
+Redis supports password authentication with every request, making it suitable for use on a public endpoint.  However, installing Redis within a private network is the preferred setup for security.
+
+#### Tools
+
+Redis has a robust toolset for monitoring and viewing data stored in the cache.  The [redis-cli](https://redis.io/topics/rediscli) tool is a must have for anyone working with a Redis site and can monitor all data in and out of a cluster, simulate replication, show real-time latency, and search for keys in the cache, among many other capabilities.  For a graphical interface, many options are availble including:
+
+* [PHPRedisAdmin](https://github.com/erikdubbelboer/phpRedisAdmin) - browser-based Redis GUI
+* [Redsmin](https://www.redsmin.com/) - SaaS Redis GUI
+* [Redis Desktop](https://redisdesktop.com/) - Cross-platform Redis GUI to install locally to view remote Redis servers
+* [Redis Insight](https://redislabs.com/redisinsight/) - Browser-based GUI from Redis Labs
+
+For even more tools, [Redis Labs has a good list](https://redislabs.com/blog/so-youre-looking-for-the-redis-gui/).
+
+<h2 id="load-balancing" class="anchor-heading">Load Balancing {% include Util/link_anchor anchor="load-balancing" %} {% include Util/top %}</h2>
+
+At the most basic level, a load balancer is software or hardware that sits in between the client and a collection of servers and splits the network traffic in a predefined way among the collection of servers.  In the use case described here, the load balancer will be distributing web traffic (HTTP and HTTPS requests) to multiple webservers.  Load balancers can be used in many other parts of a network design, including between the webservers and the database servers, upstream at the CDN layer, between cache servers and webservers, or anywhere else that traffic needs to be distributed across multiple servers or services.  A load balancer is a type of proxy and many of the tools mentioned can function as full-featured and flexible proxies.
+
+Most web applications can be horizontally scaled to run on multiple servers, including WordPress.  Using a load balancer and multiple web servers provides a number of benefits, including:
+
+* Ability to take a webserver offline for maintenance without taking the application offline
+* Resiliency against the failure of a single machine or virtual machine (commonly known as "high availability")
+* Quick addition of additional servers, either manually or automatically through autoscaling
+
+Using multiple servers in a high availability configuration is a best practice for enterprise applications, but it does add significant complexity over a single server environment.  Modern hosting providers and servers are very reliable and provide excellent uptime and the extra complexity of a multi-server environment should be weighed against the expected benefits and extra costs to determine if a load balanced multi-server environment is right for a project.  Many sites can run very effectively on a single server with very little downtime, even accounting for planned maintenance.
+
+### Layer 4 vs Layer 7
+
+Layer 4 and Layer 7 are the two modes of load balancing most commonly used for web applications and are supported by most of the tools discussed.  Layer 4 is the most simple, taking any TCP or UDP traffic and distributing it among a pool of servers.  Layer 4 load balancing doesn't know anything about the data in the TCP or UDP requests and cannot take any action based on context.  For example, Layer 4 load balancing doesn't distinguish between HTTP and HTTPS requests and does not read any of the headers.  This is a simple load balancing method and has very predictable behavior.  It also scales very well since no work is done by the load balancer to apply logic to requests based on contextual information.
+
+Layer 7 load balancing has application awareness and can leverage information within the requests to make contextual decisions.  With a Layer 7 load balancer, HTTPS sessions can be terminated at the load balancer, giving the load balancer visibility into the content of the requests.  Based on the content, the load balancer can route the traffic to different servers, or respond directly to the client to provide instructions such as a "301 redirect" or a "403 forbidden" message.  Layer 7 load balancers can read cookies, inject headers, and manipulate requests flowing through.  Layer 7 is much more powerful and is recommended for most applications.  All of the subsequent topics in this section assume a Layer 7 load balancer.
+
+### Algorithm
+
+The load balancing algorithm decides which back-end server to send the next request to.  The goal is to distribute load across the available servers and avoid sending traffic to a server that is unavailable or overloaded.  The most common algorithms are:
+
+* Round Robin - the default on most load balancers, it does not require any knowledge of server health except if it is online or offline and is generally the simplest to setup.
+* Weighted - each server is given a "weight" which determines what fraction of the traffic is directed to the server.  Useful in environments with servers of varying size and performance.  For example, a server with a weight of "2" would get twice the traffic of a server with a weight of "1".
+* Least Connections - Sends the next request to the server with the least number of active requests.  If each request is assumed to be equal, this should maintain an even balance of load across servers.  If some requests can cause much greater load than others (such as requests to an admin dashboard vs public page loads), this might not result in the desired outcome.
+* Response Time - sends the next request to the server with the fastest response time.  If we assume response time is dictated by number of requests and server load, this will result in the best performance.  Can result in unexpected traffic distribution if response time between servers differs slightly for reasons not related to the application.  Also requires the load balancer to maintain knowledge of the current response time of each server, which is not a feature of all load balancers.
+
+For most applications, 10up uses Round Robin as it satisfies the goals of load balancing with the simplest solution and is very predictable.
+
+### Session Persistence
+
+In most scenarios, 10up recommends against enabling session persistence on the load balancer.  Session persistence, or sticky sessions, will attempt to identify each user and route the user to the same backend server for all their requests.  Users can be identified by their IP address or using a cookie.  Reasons to do this include:
+
+* An application that uses PHP sessions (see section about PHP Sessions below)
+* Webservers that may not be identical (it would be better for the servers to be identical instead)
+* Storage for uploaded files has a replication lag (see "Shared Storage" section for further discussion)
+
+Downsides of using persistent sessions:
+
+* Attacks from a single source, or overly agressive crawling of a site can overwhelm the webserver where all the traffic is routed towards rather than being effectively spread over all webservers.
+* Scaling automatically or manually will have a delay in effectiveness before new sessions arrive to replace existing users.
+* Upstream proxies, such as CDNs or caching layers, can reduce the number of unique IPs, resulting in unbalanced load if traffic is generally from one region
+* Upstream caching can be ineffective when using a cookie to uniquely identify each visitor.
+
+Since WordPress uses cookies to track logged-in state, requests can safely be balanced across multiple servers even for logged-in users.  For best results in a load balanced environment, find solutions that don't require persistent sessions and load balance requests across all servers without uniquely identifying a user.
+
+### PHP Sessions
+
+WordPress does not use PHP sessions, but some plugins do.  By default, PHP sessions are stored on the local file-system of the webserver, which would cause the website visitor to lose their session as their requests get balanced across multiple webservers.  A simple solution is to have PHP store sessions in memcached or Redis, which are often already available for caching purposes.  Memcached and Redis are a resource shared across all webservers and the PHP extensions for memcached and Redis have built in support for PHP session storage.
+
+### Shared Storage
+
+Storage becomes an issue in a multi-server environment, particularly how to deal with user uploaded files.  In WordPress, this includes plugins, themes, and media, along with WordPress core updates.  When files are changed or added on one webserver, that change must also be made on all other webservers, or the files change must reside on a storage system that is shared across webservers.
+
+Using a shared storage solution is a popular option, and the most popular protocol is [NFS](https://en.wikipedia.org/wiki/Network_File_System).  NFS mounts a drive from one server onto other servers, making the drive shared across all servers it is mounted on.  NFS is an open standard, reliable, and compatible with nearly all operating systems.  When using a shared drive with NFS or similar technology, everything about the file system will work similarly to a single-server setup and no special provisions need to be made.  While this is a very convenient option, it has one major flaw: it introduces a single point of failure in a critical system.  If the NFS server were to fail and the NFS server is where all WordPress code and uploads are served from, it doesn't matter how many webservers or database servers exist for redundancy, the site will be offline.  Additionally, if network latency between the webservers and NFS server increases for some reason, page load times will dramatically worsen.
+
+To mitigate some of this risk, 10up often will install all code directly to the webservers and only rely on NFS for WordPress uploads.  The shared storage is still a single point of failure, but with a CDN in place that will serve media, the site can keep functioning even if the NFS becomes unavailable.  An additional benefit of installing code on the local disk of the webservers is that the local disk will always be more performant than storage mounted over the network.  This puts the code (which we want to perform optimally) on the fastest storage, reducing any potential bottlenecks.
+
+When code is no longer served from shared storage, a new solution for keeping it in sync across all webservers is needed.  While it can be effective to sync files between servers automatically using something like [lsyncd](https://github.com/axkibe/lsyncd), [unison](https://www.cis.upenn.edu/~bcpierce/unison/), or [syncthing](https://syncthing.net/), a better solution is to move all code to a version controlled repository and build process.  This way, all fo the code is managed outside of the server environment and fully version controlled.  A scripted deployment process can be used to deploy the files from version control to each server.  File modifications should be disabled in the wp-config.php file with `define('DISALLOW_FILE_MODS', true);` to avoid any confusion and prevent code from being installed via the broswer.  This has the added benefit of increased security by disabling a vector of attack.
+
+To create a fully highly available infrastructure, replace NFS entirely with a highly durable and redundat cloud object storage system such as [Amazon S3](https://aws.amazon.com/s3/) or [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/).  This is the most flexible solution, allowing for the webservers to be fully ephemeral and replaceable, storing no valuable or irreplacable data locally.  Uploads are moved to the infinitely scalable cloud object storage, which WordPress interacts with via a plugin:
+
+* [S3-Uploads](https://github.com/humanmade/S3-Uploads)
+* [Microsoft Azure Storage for WordPress](https://wordpress.org/plugins/windows-azure-storage/)
+
+Using a cloud object storage system is 10up's preferred solution, but does come with some challenges:
+
+* Bulk actions on the WordPress uploads, such as resizing thumbnails, will be much slower than when using local storage.
+* The cost of bandwidth when serving files from S3 or Blob Storage can quickly get prohibitive, so careful architecture that offloads image serving to the CDN is suggested.
+
+### Software and Services
+
+Load balancing has become a comodity service, avaiable at the click of a button on every cloud hosting platform.  The load balancing services offered by the major cloud providers, such as Amazon Web Services, Microsoft Azure, and Google Cloud, are quite good and 10up recommends their use.  Be advised, however, that each platform has multiple types of load balancers and the documentation should be consulted to make sure the type chosen matches up with the type of load balancing needed.
+
+If building a multiserver environment outside of the cloud providers, the following software load balancers are a good place to start:
+
+* [Nginx](hhttps://10up.github.io/Engineering-Best-Practices/systems/#nginx) - fully featured web server and proxy with advanced capabilities
+* [HAProxy](http://www.haproxy.org/) - focused load balancer software with powerful options
+* [LVS](http://www.linuxvirtualserver.org/whatis.html) - Simple load balancing with very little overhead
+
+As 10up uses Nginx as our main webserver software, we also prefer to use it as our load balancing solution for the sake of simplicity.
