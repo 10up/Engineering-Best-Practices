@@ -6,19 +6,27 @@ group: navigation
 weight: 10
 layout: default
 subnav:
-  - title: Ads
-    tag: ads
+  - title: Philosophy
+    tag: philosophy
   - title: Caching
     tag: caching
-  - title: Core Web Vitals
-    tag: core-web-vitals
+  - title: Images and Media
+    tag: images-and-media
   - title: Fonts
     tag: fonts
-  - title: Images & Media
-    tag: images-and-media
-  - title: JavaScript & CSS
-    tag: js-and-css
-updated: 03 June 2021
+  - title: JavaScript and CSS
+    tag: javascript-and-css
+  - title: Design and UX
+    tag: design-and-ux
+  - title: Advertising
+    tag: advertising
+  - title: Systems
+    tag: systems
+  - title: Third Party Plugins and Scripts
+    tag: third-party-plugins-and-scripts
+  - title: Core Web Vitals
+    tag: core-web-vitals
+updated: 14 June 2021
 ---
 
 <div class="docs-section">

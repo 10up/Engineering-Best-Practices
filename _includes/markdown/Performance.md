@@ -1,8 +1,73 @@
 <h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
 
-<h2 id="ads" class="anchor-heading">Ads {% include Util/link_anchor anchor="ads" %} {% include Util/top %}</h2>
+At 10up, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions. 
+
+There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred. 
+
+Performance should be a consideration throughout the entire engineering process. Significant performance gains can be achieved through attention to detail and following the best practices documented below.
+
 
 <h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
+
+Caching is a key aspect in reaching optimal performance both from a server and browser optimisation perspective, below are caching approaches:
+
+*   Ensure all static assets have cache busters in the form of either a version or fingerprint in the filename or unique query string in the URL. This needs to be implemented along with a cache-control header max-age of at least 1 month but optimally 1 year.
+*   A CDN is highly recommended, most popular CDN’s may offer page caching, browser caching and image optimizations.
+*   [Page caching](https://10up.github.io/Engineering-Best-Practices/php/#page-caching) should be set up, a lot of common hosting companies including WP Engine and WordPress VIP offer full page caching.
+*   [Object caching](https://10up.github.io/Engineering-Best-Practices/php/#the-object-cache) should be leveraged where applicable on the server.
+*   All projects should have a [manifest file](https://web.dev/add-manifest/) to download static assets that will be rarely updated. The [manifest.json is included in 10ups WP Scaffold](https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-theme/manifest.json) and will require custom configuration.
+
+<h2 id="images-and-media" class="anchor-heading">Images and Media {% include Util/link_anchor anchor="images-and-media" %} {% include Util/top %}</h2>
+
+*   Images should be optimized for Next-Gen formats. JPEG 2000, JPEG XR, and [WebP](https://developers.google.com/speed/webp) are image formats that have superior compression and quality characteristics compared to their older JPEG and PNG counterparts.
+*   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
+*   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
+*   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions) this is especially important in avoiding Content Layout Shift issues.
+*   Assets in particular images, should be served through CDN
+*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect the width and height should be set on the tag. 
+*   Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc
+
+<h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
+
+*   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/). If the fonts are not self hosted then ensure to include the _`crossorigin`_ attribute.
+*   Whenever available, WOFF2 font formats should be used for better compression with a WOFF fallback.
+*   Font files should be minimized (don’t load styles you don’t need)
+*   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and typekit, pick one).
+
+<h2 id="javascript-and-css" class="anchor-heading">JavaScript and CSS {% include Util/link_anchor anchor="javascript-and-css" %} {% include Util/top %}</h2>
+
+*   Use “Mobile First” build concepts so the browser doesn’t have to render extra CSS at load time.
+*   All JavaScript and CSS should be minified.
+*   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it. 
+*   No unnecessary libraries should be loaded. If something is not being used, do not load it, if only a small part of a library is needed, consider custom building or loading only the part that's needed.
+*   Critical rendering path should be considered. Scripts should be loaded in the footer and external scripts should contain the [‘async’ attribute](https://www.w3schools.com/tags/att_script_async.asp) or be loaded at the bottom of the document where they can’t be concatenated into a single file. Internal scripts without an implicit loading order should contain the [‘defer’ attribute](https://www.w3schools.com/tags/att_script_defer.asp) if possible. Note that scripts using the ‘defer’ attribute can be loaded in the head tag as they will be fetched asynchronously while being executed after the HTML is parsed.
+
+<h2 id="design-and-ux" class="anchor-heading">Design and UX {% include Util/link_anchor anchor="design-and-ux" %} {% include Util/top %}</h2>
+
+As part of design reviews, engineering teams should provide feedback on the following:
+
+*   Avoid using large media objects for decorative purposes if no business value is present.
+*   Avoid structural page changes based on the browser width as they require extra scripting and can slow performance.
+*   Err on the side of typefaces that offer WOFF2 font files, as they are quicker to load.
+*   Avoid auto playing videos, particularly above the fold and on mobile screens.
+
+<h2 id="advertising" class="anchor-heading">Advertising {% include Util/link_anchor anchor="advertising" %} {% include Util/top %}</h2>
+
+*   All ads should be lazy loaded.
+*   Keep ads to a minimum above the fold.
+
+<h2 id="systems" class="anchor-heading">Systems {% include Util/link_anchor anchor="systems" %} {% include Util/top %}</h2>
+
+*   Use HTTP/2 enabled hosting whenever possible
+*   GZIP compression should be active
+
+[Read more on the 10up systems performance best practices.](https://10up.github.io/Engineering-Best-Practices/systems/#performance)
+
+<h2 id="third-party-plugins-and-scripts" class="anchor-heading">Third Party Plugins and Scripts {% include Util/link_anchor anchor="third-party-plugins-and-scripts" %} {% include Util/top %}</h2>
+
+*   Third party plugins can play a part in poor site performance. Always audit a plugin for performance issues before adding it to a project. Paying careful attention to the server side impacts of slow non-cached queries and how data is being stored to the weight of the JavaScript and CSS being included on every page.
+*   Third party scripts, particularly those being loaded for analytics, user interactivity and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded with Google Tag Manager. Ensure that when engineering a solution, a discussion is being had around what scripts will be used and test the site performance with all scripts loaded.
+
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
 Web Vitals is a new initiative by Google which provides a set of rules, concepts and metrics
