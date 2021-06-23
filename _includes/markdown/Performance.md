@@ -24,22 +24,26 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
 *   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions) this is especially important in avoiding Content Layout Shift issues.
 *   Assets in particular images, should be served through CDN
-*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect the width and height should be set on the tag. 
-*   Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc
+*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect the width and height should be set on the tag.
+* If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
+* Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc
 
 <h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
 
-*   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/). If the fonts are not self hosted then ensure to include the _`crossorigin`_ attribute.
+*   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/).
 *   Whenever available, WOFF2 font formats should be used for better compression with a WOFF fallback.
-*   Font files should be minimized (don’t load styles you don’t need)
-*   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and typekit, pick one).
+*   Subset Font files if you have them available locally.
+*   Investigate using `unicode-range` to subset fonts if they are being served locally or through Google Fonts.
+*   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and TypeKit, pick one).
 
 <h2 id="javascript-and-css" class="anchor-heading">JavaScript and CSS {% include Util/link_anchor anchor="javascript-and-css" %} {% include Util/top %}</h2>
 
-*   Use “Mobile First” build concepts so the browser doesn’t have to render extra CSS at load time.
+*   Write JavaScript and CSS with the "Mobile First" approach in mind.
+*   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/).
 *   All JavaScript and CSS should be minified.
-*   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it. 
-*   No unnecessary libraries should be loaded. If something is not being used, do not load it, if only a small part of a library is needed, consider custom building or loading only the part that's needed.
+*   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it.
+*   Be aware of any additional requests 3rd-party libraries are making on page load. This can serverly impact performance scores.
+*   Where possible, defer loading of libraries that are not neccessary for a stable user experience until after initial load.
 *   Critical rendering path should be considered. Scripts should be loaded in the footer and external scripts should contain the [‘async’ attribute](https://www.w3schools.com/tags/att_script_async.asp) or be loaded at the bottom of the document where they can’t be concatenated into a single file. Internal scripts without an implicit loading order should contain the [‘defer’ attribute](https://www.w3schools.com/tags/att_script_defer.asp) if possible. Note that scripts using the ‘defer’ attribute can be loaded in the head tag as they will be fetched asynchronously while being executed after the HTML is parsed.
 
 <h2 id="design-and-ux" class="anchor-heading">Design and UX {% include Util/link_anchor anchor="design-and-ux" %} {% include Util/top %}</h2>
@@ -141,7 +145,7 @@ Here are some high-level guidelines for ensuring Largest Contentful Paint occurs
 The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
 * Optimize and compress all images on the site - ensure images are not greater than twice their contained real-estate.
 * Make sure that images are being served over a CDN, you're serving formats like WebP or AVIF and you're using responsive images techniques.
-* For images that find themselves in Hero components, `preload` the image resource ahead of time using `<link rel="preload" href="/path/to/image" as="image" />`. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attribute
+* For images that find themselves in Hero components, `preload` the image resource ahead of time. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attributes: `<link rel="preload" as="image" imagesrcset=" image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" imagesizes="100vw" />`. 
 * Check with Systems or Web Engineering that the server is utilizing compression algorithms like Gzip or Brotli.
 
 <h2 id="cls" class="anchor-heading">Cumulative Layout Shift {% include Util/link_anchor anchor="cls" %} {% include Util/top %}</h2>
@@ -362,12 +366,6 @@ Addy Osmani has written a really useful and compact extention that reports on th
 * [The business impact of Core Web Vitals](https://web.dev/vitals-business-impact/)
 * [Getting started with measuring Web Vitals](https://web.dev/vitals-measurement-getting-started/)
 * [Preloading responsive images](https://web.dev/preload-responsive-images/)
-
-<h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
-
-<h2 id="images-and-media" class="anchor-heading">Images & Media {% include Util/link_anchor anchor="images-and-media" %} {% include Util/top %}</h2>
-
-<h2 id="js-and-css" class="anchor-heading">JavaScript & CSS {% include Util/link_anchor anchor="js-and-css" %} {% include Util/top %}</h2>
 
 
 
