@@ -900,3 +900,48 @@ Instead of sessions, use cookies or client-side storage APIs if possible. In add
 If sessions must be used, create them conservatively. Don't create sessions for every visitor. Limit sessions to the smallest group that needs them: logged-in editors and admins, or visitors using a particular feature.
 
 Sessions should never be stored in the database. This introduces extra data into a storage system that's not meant for that volume. Database session libraries also rely on PHP code which can't match the performance of PHP's native session handlers. PHP extensions for Memcache and Redis allow sessions to be stored in these in-memory datastores and are a good solution for sessions when multiple webservers are present.
+
+### Avoid nested logic
+
+Nesting logic makes code hard to read. The following is an example of the [wp_unslash](https://codex.wordpress.org/Function_Reference/wp_unslash) function in WP Core.
+
+```php
+function wp_slash( $value ) {
+    if ( is_array( $value ) ) {
+        foreach ( $value as $k => $v ) {
+            if ( is_array( $v ) ) {
+                $value[ $k ] = wp_slash( $v );
+            } else {
+                $value[ $k ] = addslashes( $v );
+            }
+        }
+    } else {
+        $value = addslashes( $value );
+    }
+ 
+    return $value;
+}
+```
+
+This function could be rewritten to make it easier to understand and remove nested logic.
+
+```php
+function wp_slash( $input ) {
+    // Bail early if value is not an array.
+    if ( ! is_array( $input ) ) {
+        return addslashes( $input );
+    }
+
+    $values = [];
+
+    // Loop through values and add slashes to each value.
+    foreach ( $input as $key => $value ) {
+        // Sanitize value or values.
+        $values[ $key ] = is_array( $value ) ? wp_slash( $value ) : addslashes( $value );
+    }
+
+    return $values;
+}
+```
+
+With the refactoring from above, the nested logic is removed and bail early/guard clause logic is being used to return if the value is not an array. A ternary is then used to determine if the function needs to be recursively called and, finally, the values are returned.
