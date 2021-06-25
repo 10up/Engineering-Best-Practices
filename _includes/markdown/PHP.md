@@ -383,7 +383,7 @@ Using a common set of design patterns while working with PHP code is the easiest
 
 ### Namespacing
 
-We properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace or _pseudo_ namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
+We properly namespace all PHP code outside of theme templates. This means any PHP file that isn't part of the [WordPress Template Hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/) should be organized within a namespace so its contents don't conflict with other, similarly-named classes and functions ("namespace collisions").
 
 Generally, this means including a PHP ```namespace``` identifier at the top of included files:
 
@@ -421,22 +421,6 @@ function do_something() {
   $twitter_api = new TwitterAPI();
 }
 ```
-
-If the code is for general release to the WordPress.org theme or plugin repositories, the [minimum PHP compatibility](https://wordpress.org/about/requirements/) of WordPress itself must be met. Unfortunately, PHP namespaces are not supported in version < 5.3, so instead, a class would be used to wrap static functions to serve as a _pseudo_ namespace:
-
-```php
-<?php
-/**
- * Namespaced class name example.
- */
-class Tenup_Utilities_API {
-	public static function do_something() {
-		// ...
-	}
-}
-```
-
-The similar structure of the namespace and the static class will allow for simple onboarding to either style of project (and a quick upgrade to PHP namespaces if and when WordPress raises its minimum version requirements).
 
 Anything declared in the global namespace, including a namespace itself, should be written in such a way as to ensure uniqueness. A namespace like ```TenUp``` is (most likely) unique; ```theme``` is not. A simple way to ensure uniqueness is to prefix a declaration with a unique prefix.
 
