@@ -8,7 +8,7 @@ At 10up, we use [Docker](https://www.docker.com/) to build and interact with vir
 
 <h2 id="scaffolding" class="anchor-heading">Scaffolding {% include Util/link_anchor anchor="scaffolding" %} {% include Util/top %}</h2>
 
-[10up Project Scaffold](https://github.com/10up/project-scaffold) - Developers can use 10up Project Scaffold to quickly create themes and plugins with our recommended tools and many of our best practices already in place.
+[10up WP Scaffold](https://github.com/10up/wp-scaffold) - Developers can use 10up Project Scaffold to quickly create themes and plugins with our recommended tools and many of our best practices already in place.
 
 <h2 id="task-runners" class="anchor-heading">Task Runners {% include Util/link_anchor anchor="task-runners" %} {% include Util/top %}</h2>
 
