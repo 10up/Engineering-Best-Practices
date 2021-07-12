@@ -23,10 +23,10 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
 *   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
 *   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions) this is especially important in avoiding Content Layout Shift issues.
-*   Assets in particular images, should be served through CDN
+*   Assets in particular images, should be served through a CDN.
 *   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect the width and height should be set on the tag.
 * If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
-* Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc
+* Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
 
 <h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
 
@@ -62,8 +62,8 @@ As part of design reviews, engineering teams should provide feedback on the foll
 
 <h2 id="systems" class="anchor-heading">Systems {% include Util/link_anchor anchor="systems" %} {% include Util/top %}</h2>
 
-*   Use HTTP/2 enabled hosting whenever possible
-*   GZIP compression should be active
+*   Use HTTP/2 enabled hosting whenever possible.
+*   GZIP compression should be active.
 
 [Read more on the 10up systems performance best practices.](https://10up.github.io/Engineering-Best-Practices/systems/#performance)
 
@@ -83,7 +83,7 @@ impacts and shortcomings of their sites without a deep understanding of web tech
 
 Web Vitals aims to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
 
-At 10up, we closely monitor Core Web Vitals (a subset of Web Vitals) during development which in June [2021], will be introduced into Googles ranking algorythm. Ensuring healthy Web Vitals through out build and/or retainers is of paramount importance and requires a shift not only in how we go about building components, but in mainting a high level of quality across overall user experience.
+At 10up, we closely monitor Core Web Vitals (a subset of Web Vitals) during development which in June [2021], was introduced into Googles ranking algorithm. Ensuring healthy Web Vitals through out build and/or retainers is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
 
 ### Cross Discipline Approach
 At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Design.
@@ -95,7 +95,7 @@ As defined by Google, the 3 Core Web Vitals are currently:
 * [First Input Delay](https://web.dev/fid/)
 
 <h2 id="lcp" class="anchor-heading">Largest Contentful Paint {% include Util/link_anchor anchor="lcp" %} {% include Util/top %}</h2>
-Largest Contentful Paint is an important metric for measuring pecieved user performance, specifically *loading performance*.
+Largest Contentful Paint is an important metric for measuring perceived user performance, specifically *loading performance*.
 This metric reports the render time of the largest element on the page _that is visible to the user_.
 
 > An LCP score of 2.5 seconds or less is considered to be a conducive measurement for good user experience.
@@ -130,7 +130,7 @@ There are 3 main factors that contribute to LCP:
 2. Render-blocking JavaScript and CSS.
 3. Resource load times.
 
-It's important that your server is optimized in a way that doesnt have a domino effect on other vitals. 
+It's important that your server is optimized in a way that doesn't have a domino effect on other vitals. 
 To measure the "speed" of your server you can track the [Time to First Byte (TTFB)](https://web.dev/time-to-first-byte) vital.
 
 Here are some high-level guidelines for ensuring Largest Contentful Paint occurs as fast as possible:
@@ -140,7 +140,7 @@ Here are some high-level guidelines for ensuring Largest Contentful Paint occurs
 * Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains. 
 * Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
 * Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chromes "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
-* Ensure that your JS bundles are minifed, compressed and if the functionality is not required above-the-fold, lazy-loaded.
+* Ensure that your JS bundles are minified, compressed and if the functionality is not required above-the-fold, lazy-loaded.
 
 The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
 * Optimize and compress all images on the site - ensure images are not greater than twice their contained real-estate.
@@ -198,7 +198,7 @@ Elements that cause CLS can be easily fixed in some instances. As a general rule
 
 * All images loaded on the site have a `width` and a `height` attribute. This is because HTML gets parsed before CSS and the browser will reserve space if it knows the dimensions and aspect-ratio of the image.
 * Ensure that ads, iframes and other embeds have a `width` and `height` attribute.
-* As a best practice, do not insert dynamic content into the site without the user performing an action to recieve it, ie "load more" or "click".
+* As a best practice, do not insert dynamic content into the site without the user performing an action to receive it, ie "load more" or "click".
 * Ensure that you have a Web Font Loading strategy in place that mitigates layout shift when fonts are loaded and displayed in the browser.
 * When animating CSS properties, ensure that you animate `transform` properties rather than `box-model` properties to prevent reflow and layout changes in the browsers [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
@@ -239,7 +239,7 @@ Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have b
 5. Cache font files on the web server.
 6. Use libraries like [WebFontLoader](https://github.com/typekit/webfontloader) to asynchronously load fonts on the page.
 7. The [Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API) can be used as an alternative to WebFontLoader if you're looking for an approach with more control.
-8. Ensure that your fallback fonts closely resmeble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading. 
+8. Ensure that your fallback fonts closely resemble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading. 
 
 
 <h2 id="fid" class="anchor-heading">First Input Delay {% include Util/link_anchor anchor="fid" %} {% include Util/top %}</h2>
@@ -253,7 +253,7 @@ First Input Delay is specifically purposed for measuring how quickly the page be
 
 FID is a unique Core Web Vital and is not actually tracked in Lighthouse or other service metrics. FID is a field metric, meaning that its score is generated by collating data from millions of websites accessed by Google Chrome users. When it come to generating a score for FID "in the lab" or otherwise through Lighthouse, you will be looking to improve the [Total Blocking Time (TBT)](https://web.dev/tbt/) metric. You can think of TBT as a proxy to FID. This is because FID requires a real user and real users cannot be "spoofed" by Lighthouse.
 
-Most importantly, this vital measures the delay from when an event has been recieved to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it take to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers. 
+Most importantly, this vital measures the delay from when an event has been received to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it take to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers. 
 
 ### How to diagnose First Input Delay
 
@@ -268,7 +268,7 @@ You can identify any Long Tasks on your webpage by following these steps:
 4. Check the _Web Vitals_ checkbox
 5. Click the _Reload_ button or hit `⌘ ⇧ E` shortcut
 6. Scroll down to _Main_
-7. If there are Long Task's recorded during page load, you'll see a grey bar labelled by "Task" and then a red diagnoal pattern overlay.
+7. If there are Long Task's recorded during page load, you'll see a grey bar labelled by "Task" and then a red diagonal pattern overlay.
 8. Hovering or clicking on this bar will indicate a long task in the browsers main thread.
 9. In order to better understand and pin-point the offending execution, you can click on "Call Tree".
 10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there. 
@@ -328,7 +328,7 @@ getLCP(sendToAnalytics);
 
 #### _[Lighthouse/Lighthouse CLI](https://github.com/GoogleChrome/lighthouse)_
 Lighthouse which is built into Google Chrome's DevTools is a significant tool for tracking performance data on an ad-hoc basis.
-Wheras the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site. 
+Whereas the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site. 
 
 The Lighthouse CLI tool can also be used with more efficiency if you are managing multiple URL sets. To install the CLI:
 
