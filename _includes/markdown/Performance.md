@@ -22,9 +22,9 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Images should be optimized for Next-Gen formats. JPEG 2000, JPEG XR, and [WebP](https://developers.google.com/speed/webp) are image formats that have superior compression and quality characteristics compared to their older JPEG and PNG counterparts.
 *   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
 *   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
-*   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions) this is especially important in avoiding Content Layout Shift issues.
+*   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions). This is especially important in avoiding Content Layout Shift issues.
 *   Assets in particular images, should be served through a CDN.
-*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect the width and height should be set on the tag.
+*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect, the width and height should be set on the tag.
 * If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
 * Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
 
@@ -74,8 +74,7 @@ As part of design reviews, engineering teams should provide feedback on the foll
 
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
-Web Vitals is a new initiative by Google which provides a set of rules, concepts and metrics
-in order to serve users with the best web experience possible.
+[Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible.
 
 Performance measuring in the past has often landed in the domain of engineers.
 However with the introduction of Web Vitals, site owners can now gain an understanding of the performance
@@ -83,16 +82,16 @@ impacts and shortcomings of their sites without a deep understanding of web tech
 
 Web Vitals aims to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
 
-At 10up, we closely monitor Core Web Vitals (a subset of Web Vitals) during development which in June [2021], was introduced into Googles ranking algorithm. Ensuring healthy Web Vitals through out build and/or retainers is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
+At 10up, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Googles ranking algorithm. Ensuring healthy Web Vitals through out build and/or retainers is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
 
 ### Cross Discipline Approach
-At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Design.
+At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Visual Design.
 
 As defined by Google, the 3 Core Web Vitals are currently:
 
-* [Largest Contentful Paint](https://web.dev/lcp/)
-* [Cumulative Layout Shift](https://web.dev/cls/)
-* [First Input Delay](https://web.dev/fid/)
+* [Largest Contentful Paint (a.k.a. LCP)](https://web.dev/lcp/)
+* [Cumulative Layout Shift (a.k.a. CLS)](https://web.dev/cls/)
+* [First Input Delay (a.k.a. FIP)](https://web.dev/fid/)
 
 <h2 id="lcp" class="anchor-heading">Largest Contentful Paint {% include Util/link_anchor anchor="lcp" %} {% include Util/top %}</h2>
 Largest Contentful Paint is an important metric for measuring perceived user performance, specifically *loading performance*.
