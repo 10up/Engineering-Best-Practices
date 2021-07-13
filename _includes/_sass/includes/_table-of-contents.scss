@@ -59,6 +59,10 @@
 				clear: left;
 			}
 
+			&:last-child {
+				clear: right;
+			}
+
 		}
 
 	}
