@@ -1,8 +1,8 @@
 <h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
 
-At 10up, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions. 
+At 10up, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions.
 
-There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred. 
+There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
 
 Performance should be a consideration throughout the entire engineering process. Significant performance gains can be achieved through attention to detail and following the best practices documented below.
 
@@ -33,7 +33,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/).
 *   Whenever available, WOFF2 font formats should be used for better compression with a WOFF fallback.
 *   Subset Font files if you have them available locally.
-*   Investigate using `unicode-range` to subset fonts if they are being served locally or through Google Fonts.
+*   Investigate using `unicode-range` to subset fonts if they are being served locally or through [Google Fonts](https://developers.google.com/fonts/docs/getting_started#specifying_script_subsets).
 *   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and TypeKit, pick one).
 
 <h2 id="javascript-and-css" class="anchor-heading">JavaScript and CSS {% include Util/link_anchor anchor="javascript-and-css" %} {% include Util/top %}</h2>
@@ -122,21 +122,21 @@ The quickest way to diagnose the Largest Contentful Paint element on the page is
 
 ### How to fix Largest Contentful Paint
 
-Once you have diagnosed which element on the page has the Largest Contentful Paint, the next step is to figure out why. 
+Once you have diagnosed which element on the page has the Largest Contentful Paint, the next step is to figure out why.
 There are 3 main factors that contribute to LCP:
 
 1. Slow server response times.
 2. Render-blocking JavaScript and CSS.
 3. Resource load times.
 
-It's important that your server is optimized in a way that doesn't have a domino effect on other vitals. 
+It's important that your server is optimized in a way that doesn't have a domino effect on other vitals.
 To measure the "speed" of your server you can track the [Time to First Byte (TTFB)](https://web.dev/time-to-first-byte) vital.
 
 Here are some high-level guidelines for ensuring Largest Contentful Paint occurs as fast as possible:
 
 * Serve assets (Images, JavaScript, CSS, Video) over a CDN.
 * Ensure that there is a well-thought out caching strategy in place.
-* Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains. 
+* Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains.
 * Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
 * Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chromes "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
 * Ensure that your JS bundles are minified, compressed and if the functionality is not required above-the-fold, lazy-loaded.
@@ -144,12 +144,12 @@ Here are some high-level guidelines for ensuring Largest Contentful Paint occurs
 The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
 * Optimize and compress all images on the site - ensure images are not greater than twice their contained real-estate.
 * Make sure that images are being served over a CDN, you're serving formats like WebP or AVIF and you're using responsive images techniques.
-* For images that find themselves in Hero components, `preload` the image resource ahead of time. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attributes: `<link rel="preload" as="image" imagesrcset=" image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" imagesizes="100vw" />`. 
+* For images that find themselves in Hero components, `preload` the image resource ahead of time. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attributes: `<link rel="preload" as="image" imagesrcset=" image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" imagesizes="100vw" />`.
 * Check with Systems or Web Engineering that the server is utilizing compression algorithms like Gzip or Brotli.
 
 <h2 id="cls" class="anchor-heading">Cumulative Layout Shift {% include Util/link_anchor anchor="cls" %} {% include Util/top %}</h2>
 
-Cumulative Layout Shift measures the *visual stability* of a web page. 
+Cumulative Layout Shift measures the *visual stability* of a web page.
 CLS can be an elusive metric to get right as elements targeted as having a layout shift are often not the root cause. By ensuring
 limited layout shifts on the page, visitors will be presented with a smooth and delightful user experience.
 
@@ -204,7 +204,7 @@ Elements that cause CLS can be easily fixed in some instances. As a general rule
 #### _Handling Ad Sizes_
 When it comes to ads, its important that slot sizes are consistent in order to prevent CLS. Ads are generally difficult to predict considering that Ad Servers can serve ads at different heights and widths depending on impression data. There are a number of ways to mitigate this:
 
-1. Speak to Audience and Revenue or your Ad Ops team and see if its possible to ensure that ad units are served at more consistent sizes based on impression analytics. 
+1. Speak to Audience and Revenue or your Ad Ops team and see if its possible to ensure that ad units are served at more consistent sizes based on impression analytics.
 2. If you can achieve more consistent ad sizes, you can reserve space for ad slots by using the `min-height` CSS property: `<div id="ad-slot" style="min-height: 250px;"></div>`
 3. If you want to dynamically set the height and width of ads once the `GPT.js` script has ad data you can use the following function:
 
@@ -238,12 +238,12 @@ Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have b
 5. Cache font files on the web server.
 6. Use libraries like [WebFontLoader](https://github.com/typekit/webfontloader) to asynchronously load fonts on the page.
 7. The [Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API) can be used as an alternative to WebFontLoader if you're looking for an approach with more control.
-8. Ensure that your fallback fonts closely resemble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading. 
+8. Ensure that your fallback fonts closely resemble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading.
 
 
 <h2 id="fid" class="anchor-heading">First Input Delay {% include Util/link_anchor anchor="fid" %} {% include Util/top %}</h2>
 
-First Input Delay measures the interactivity of web page. It quantifies the users experience with regards to how fast the page load feels. 
+First Input Delay measures the interactivity of web page. It quantifies the users experience with regards to how fast the page load feels.
 By maintaining a low FID score, users will *feel* like the page is loading faster.
 
 First Input Delay is specifically purposed for measuring how quickly the page becomes interactive to the user on their first impression, where as a vital such as First Contentful Paint measures how quickly the page becomes visible. These are 2 important concepts to grasp when it comes to debugging and diagnosing Core Web Vitals.
@@ -252,12 +252,12 @@ First Input Delay is specifically purposed for measuring how quickly the page be
 
 FID is a unique Core Web Vital and is not actually tracked in Lighthouse or other service metrics. FID is a field metric, meaning that its score is generated by collating data from millions of websites accessed by Google Chrome users. When it come to generating a score for FID "in the lab" or otherwise through Lighthouse, you will be looking to improve the [Total Blocking Time (TBT)](https://web.dev/tbt/) metric. You can think of TBT as a proxy to FID. This is because FID requires a real user and real users cannot be "spoofed" by Lighthouse.
 
-Most importantly, this vital measures the delay from when an event has been received to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it take to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers. 
+Most importantly, this vital measures the delay from when an event has been received to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it take to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers.
 
 ### How to diagnose First Input Delay
 
 Unfortunately, diagnosing Total Blocking Time in Chrome is not as easy as diagnosing Largest Contentful Paint or Cumulative Layout Shift.
-One of the biggest clues for diagnosing TBT is identifying heavy JavaScript execution on the main thread. This requires an understanding of how the browser parses HTML and JavaScript as well as what is known as a [Long Task](https://web.dev/custom-metrics/#long-tasks-api). A Long Task is any JavaScript-based task on the main thread that takes longer than 50 milliseconds (ms) to execute. While the browser is executing a JS task on the main thread, it cannot respond to any user input, as JavaScript is not a multi-threaded language. 
+One of the biggest clues for diagnosing TBT is identifying heavy JavaScript execution on the main thread. This requires an understanding of how the browser parses HTML and JavaScript as well as what is known as a [Long Task](https://web.dev/custom-metrics/#long-tasks-api). A Long Task is any JavaScript-based task on the main thread that takes longer than 50 milliseconds (ms) to execute. While the browser is executing a JS task on the main thread, it cannot respond to any user input, as JavaScript is not a multi-threaded language.
 
 You can identify any Long Tasks on your webpage by following these steps:
 
@@ -270,7 +270,7 @@ You can identify any Long Tasks on your webpage by following these steps:
 7. If there are Long Task's recorded during page load, you'll see a grey bar labelled by "Task" and then a red diagonal pattern overlay.
 8. Hovering or clicking on this bar will indicate a long task in the browsers main thread.
 9. In order to better understand and pin-point the offending execution, you can click on "Call Tree".
-10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there. 
+10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there.
 
 Using Google Chromes "Coverage" tab can provide critical insight into how much of the JavaScript on the page is actually being used.
 Identifying this code can help you off-load non-critical JavaScript until after page load.
@@ -327,7 +327,7 @@ getLCP(sendToAnalytics);
 
 #### _[Lighthouse/Lighthouse CLI](https://github.com/GoogleChrome/lighthouse)_
 Lighthouse which is built into Google Chrome's DevTools is a significant tool for tracking performance data on an ad-hoc basis.
-Whereas the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site. 
+Whereas the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site.
 
 The Lighthouse CLI tool can also be used with more efficiency if you are managing multiple URL sets. To install the CLI:
 
