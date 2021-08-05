@@ -4,7 +4,7 @@ At 10up, we understand the importance of performance in delivering a great user 
 
 There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
 
-Performance should be a consideration throughout the entire engineering process. Significant performance gains can be achieved through attention to detail and following the best practices documented below.
+10up has developed the baseline performance best practices, documented below, which are used and intended to achieve significant performance gains across all projects.
 
 
 <h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
@@ -70,7 +70,7 @@ As part of design reviews, engineering teams should provide feedback on the foll
 <h2 id="third-party-plugins-and-scripts" class="anchor-heading">Third Party Plugins and Scripts {% include Util/link_anchor anchor="third-party-plugins-and-scripts" %} {% include Util/top %}</h2>
 
 *   Third party plugins can play a part in poor site performance. Always audit a plugin for performance issues before adding it to a project. Paying careful attention to the server side impacts of slow non-cached queries and how data is being stored to the weight of the JavaScript and CSS being included on every page.
-*   Third party scripts, particularly those being loaded for analytics, user interactivity and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded with Google Tag Manager. Ensure that when engineering a solution, a discussion is being had around what scripts will be used and test the site performance with all scripts loaded.
+*   Third party scripts, particularly those being loaded for the purpose of analytics, embeds, helper libraries and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded through Google Tag Manager rather than directly in the page using script tags making it difficult to anticipate the impact on a project. Ensure that site performance is being tested ahead of any launch with all third party scripts loaded. If any scripts result in a negative impact on performance, ensure to flag this with your team.
 
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
