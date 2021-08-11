@@ -4,8 +4,7 @@ At 10up, we understand the importance of performance in delivering a great user 
 
 There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
 
-10up has developed the baseline performance best practices, documented below, which are used and intended to achieve significant performance gains across all projects.
-
+__While performance is always important, actual needs very by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
 
 <h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
 
@@ -50,7 +49,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 
 As part of design reviews, engineering teams should provide feedback on the following:
 
-*   Avoid using large media objects for decorative purposes if no business value is present.
+*   Avoid using large media objects for decorative purposes if no business value is present. If large media objects are used, consider only loading them on larger screen sizes.
 *   Avoid structural page changes based on the browser width as they require extra scripting and can slow performance.
 *   Err on the side of typefaces that offer WOFF2 font files, as they are quicker to load.
 *   Avoid auto playing videos, particularly above the fold and on mobile screens.
@@ -58,7 +57,7 @@ As part of design reviews, engineering teams should provide feedback on the foll
 <h2 id="advertising" class="anchor-heading">Advertising {% include Util/link_anchor anchor="advertising" %} {% include Util/top %}</h2>
 
 *   All ads should be lazy loaded.
-*   Keep ads to a minimum above the fold.
+*   Keep ads above the fold to a minimum.
 
 <h2 id="systems" class="anchor-heading">Systems {% include Util/link_anchor anchor="systems" %} {% include Util/top %}</h2>
 
