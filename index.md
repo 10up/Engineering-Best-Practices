@@ -130,12 +130,9 @@ updated: 6 Oct 2014
 	<div class="col">
 		<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/performance/#ads">Ads</a></li>
-			<li><a href="{{ site.baseurl }}/performance/#caching">Caching</a></li>
+			<li><a href="{{ site.baseurl }}/performance/#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}/performance/#baseline">Baseline Best Practices</a></li>
 			<li><a href="{{ site.baseurl }}/performance/#core-web-vitals">Core Web Vitals</a></li>
-			<li><a href="{{ site.baseurl }}/performance/#fonts">Fonts</a></li>
-			<li><a href="{{ site.baseurl }}/performance/#images-and-media">Images & Media</a></li>
-			<li><a href="{{ site.baseurl }}/performance/#javascript-and-css">JavaScript & CSS</a></li>
 		</ul>
 	</div>
 
