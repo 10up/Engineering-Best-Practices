@@ -6,7 +6,9 @@ There are multiple factors to take into account when considering performance on 
 
 __While performance is always important, actual needs very by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
 
-<h2 id="caching" class="anchor-heading">Caching {% include Util/link_anchor anchor="caching" %} {% include Util/top %}</h2>
+<h2 id="baseline" class="anchor-heading">Baseline Performance Best Practices {% include Util/link_anchor anchor="baseline" %} {% include Util/top %}</h2>
+
+### Caching
 
 Caching is a key aspect in reaching optimal performance both from a server and browser optimisation perspective, below are caching approaches:
 
@@ -16,7 +18,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   [Object caching](https://10up.github.io/Engineering-Best-Practices/php/#the-object-cache) should be leveraged where applicable on the server.
 *   All projects should have a [manifest file](https://web.dev/add-manifest/) to download static assets that will be rarely updated. The [manifest.json is included in 10ups WP Scaffold](https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-theme/manifest.json) and will require custom configuration.
 
-<h2 id="images-and-media" class="anchor-heading">Images and Media {% include Util/link_anchor anchor="images-and-media" %} {% include Util/top %}</h2>
+### Images and Media
 
 *   Images should be optimized for Next-Gen formats. JPEG 2000, JPEG XR, and [WebP](https://developers.google.com/speed/webp) are image formats that have superior compression and quality characteristics compared to their older JPEG and PNG counterparts.
 *   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
@@ -27,7 +29,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 * If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
 * Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
 
-<h2 id="fonts" class="anchor-heading">Fonts {% include Util/link_anchor anchor="fonts" %} {% include Util/top %}</h2>
+### Fonts
 
 *   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/).
 *   Whenever available, WOFF2 font formats should be used for better compression with a WOFF fallback.
@@ -35,7 +37,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Investigate using `unicode-range` to subset fonts if they are being served locally or through [Google Fonts](https://developers.google.com/fonts/docs/getting_started#specifying_script_subsets).
 *   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and TypeKit, pick one).
 
-<h2 id="javascript-and-css" class="anchor-heading">JavaScript and CSS {% include Util/link_anchor anchor="javascript-and-css" %} {% include Util/top %}</h2>
+### JavaScript and CSS
 
 *   Write JavaScript and CSS with the "Mobile First" approach in mind.
 *   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/).
@@ -45,7 +47,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Where possible, defer loading of libraries that are not neccessary for a stable user experience until after initial load.
 *   Critical rendering path should be considered. Scripts should be loaded in the footer and external scripts should contain the [‘async’ attribute](https://www.w3schools.com/tags/att_script_async.asp) or be loaded at the bottom of the document where they can’t be concatenated into a single file. Internal scripts without an implicit loading order should contain the [‘defer’ attribute](https://www.w3schools.com/tags/att_script_defer.asp) if possible. Note that scripts using the ‘defer’ attribute can be loaded in the head tag as they will be fetched asynchronously while being executed after the HTML is parsed.
 
-<h2 id="design-and-ux" class="anchor-heading">Design and UX {% include Util/link_anchor anchor="design-and-ux" %} {% include Util/top %}</h2>
+### Design and UX
 
 As part of design reviews, engineering teams should provide feedback on the following:
 
@@ -54,34 +56,28 @@ As part of design reviews, engineering teams should provide feedback on the foll
 *   Err on the side of typefaces that offer WOFF2 font files, as they are quicker to load.
 *   Avoid auto playing videos, particularly above the fold and on mobile screens.
 
-<h2 id="advertising" class="anchor-heading">Advertising {% include Util/link_anchor anchor="advertising" %} {% include Util/top %}</h2>
+### Advertising
 
 *   All ads should be lazy loaded.
 *   Keep ads above the fold to a minimum.
 
-<h2 id="systems" class="anchor-heading">Systems {% include Util/link_anchor anchor="systems" %} {% include Util/top %}</h2>
+### Systems
 
 *   Use HTTP/2 enabled hosting whenever possible.
 *   GZIP compression should be active.
 
 [Read more on the 10up systems performance best practices.](https://10up.github.io/Engineering-Best-Practices/systems/#performance)
 
-<h2 id="third-party-plugins-and-scripts" class="anchor-heading">Third Party Plugins and Scripts {% include Util/link_anchor anchor="third-party-plugins-and-scripts" %} {% include Util/top %}</h2>
+### Third Party Plugins and Scripts
 
 *   Third party plugins can play a part in poor site performance. Always audit a plugin for performance issues before adding it to a project. Paying careful attention to the server side impacts of slow non-cached queries and how data is being stored to the weight of the JavaScript and CSS being included on every page.
 *   Third party scripts, particularly those being loaded for the purpose of analytics, embeds, helper libraries and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded through Google Tag Manager rather than directly in the page using script tags making it difficult to anticipate the impact on a project. Ensure that site performance is being tested ahead of any launch with all third party scripts loaded. If any scripts result in a negative impact on performance, ensure to flag this with your team.
 
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
-[Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible.
+[Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible. Performance measuring in the past has often landed in the domain of engineers. However with the introduction of Web Vitals, site owners can now gain an understanding of the performance impacts and shortcomings of their sites without a deep understanding of web technologies. Web Vitals aim to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
 
-Performance measuring in the past has often landed in the domain of engineers.
-However with the introduction of Web Vitals, site owners can now gain an understanding of the performance
-impacts and shortcomings of their sites without a deep understanding of web technologies.
-
-Web Vitals aims to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
-
-At 10up, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Googles ranking algorithm. Ensuring healthy Web Vitals through out build and/or retainers is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
+At 10up, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Googles ranking algorithm. Ensuring healthy Web Vitals through out build and/or maintenance is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
 
 ### Cross Discipline Approach
 At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Visual Design.
@@ -92,7 +88,7 @@ As defined by Google, the 3 Core Web Vitals are currently:
 * [Cumulative Layout Shift (a.k.a. CLS)](https://web.dev/cls/)
 * [First Input Delay (a.k.a. FIP)](https://web.dev/fid/)
 
-<h2 id="lcp" class="anchor-heading">Largest Contentful Paint {% include Util/link_anchor anchor="lcp" %} {% include Util/top %}</h2>
+### Largest Contentful Paint
 Largest Contentful Paint is an important metric for measuring perceived user performance, specifically *loading performance*.
 This metric reports the render time of the largest element on the page _that is visible to the user_.
 
@@ -106,7 +102,7 @@ LCP is measured in seconds (s) and can be tracked against the following DOM elem
 * An element with a `background-image`
 * Any element that is considered to be block-level (`display: block`)
 
-### How to diagnose Largest Contentful Paint
+#### How to diagnose Largest Contentful Paint
 The quickest way to diagnose the Largest Contentful Paint element on the page is by following these steps:
 
 1. Open _Google Chrome_
@@ -119,7 +115,7 @@ The quickest way to diagnose the Largest Contentful Paint element on the page is
 8. In _Summary_ scroll down to "Related Node"
 9. Click the _node_ listed and it will be highlighted in the _DOM_.
 
-### How to fix Largest Contentful Paint
+#### How to fix Largest Contentful Paint
 
 Once you have diagnosed which element on the page has the Largest Contentful Paint, the next step is to figure out why.
 There are 3 main factors that contribute to LCP:
@@ -146,7 +142,7 @@ The time it takes the browser to fetch resources like images or videos can also 
 * For images that find themselves in Hero components, `preload` the image resource ahead of time. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attributes: `<link rel="preload" as="image" imagesrcset=" image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" imagesizes="100vw" />`.
 * Check with Systems or Web Engineering that the server is utilizing compression algorithms like Gzip or Brotli.
 
-<h2 id="cls" class="anchor-heading">Cumulative Layout Shift {% include Util/link_anchor anchor="cls" %} {% include Util/top %}</h2>
+### Cumulative Layout Shift
 
 Cumulative Layout Shift measures the *visual stability* of a web page.
 CLS can be an elusive metric to get right as elements targeted as having a layout shift are often not the root cause. By ensuring
@@ -166,7 +162,7 @@ Its useful to know that a layout shift can be caused by the following events:
 
 Considering the above, it would be plausible that nearby DOM elements could then change their position and dimensions based on another elements movement.
 
-### How to diagnose Cumulative Layout Shift
+#### How to diagnose Cumulative Layout Shift
 
 The quickest way to diagnose an element that has undergone a layout shift is by following these steps:
 
@@ -190,7 +186,7 @@ As an alternative, you can also diagnose Layout Shifts on the page by:
 6. Check "Layout Shift Regions" and refresh the page.
 7. All elements that have been identified as triggering a layout shift will be highlighted.
 
-### How to fix Cumulative Layout Shift
+#### How to fix Cumulative Layout Shift
 
 Elements that cause CLS can be easily fixed in some instances. As a general rule of thumb ensure that:
 
@@ -200,7 +196,7 @@ Elements that cause CLS can be easily fixed in some instances. As a general rule
 * Ensure that you have a Web Font Loading strategy in place that mitigates layout shift when fonts are loaded and displayed in the browser.
 * When animating CSS properties, ensure that you animate `transform` properties rather than `box-model` properties to prevent reflow and layout changes in the browsers [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
-#### _Handling Ad Sizes_
+##### _Handling Ad Sizes_
 When it comes to ads, its important that slot sizes are consistent in order to prevent CLS. Ads are generally difficult to predict considering that Ad Servers can serve ads at different heights and widths depending on impression data. There are a number of ways to mitigate this:
 
 1. Speak to Audience and Revenue or your Ad Ops team and see if its possible to ensure that ad units are served at more consistent sizes based on impression analytics.
@@ -227,7 +223,7 @@ googletag.pubads().addEventListener('slotRenderEnded', function(event) {
 4. A combination of both 2 and 3 has yielded great improvement to CLS scores.
 5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably wont fill take up no height and width on the page.
 
-#### _Handling Web Fonts_
+##### _Handling Web Fonts_
 Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. Its important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you an do to mitigate those effects:
 
 1. Use `font-display: swap` if your fonts are hosted locally.
@@ -240,7 +236,7 @@ Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have b
 8. Ensure that your fallback fonts closely resemble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading.
 
 
-<h2 id="fid" class="anchor-heading">First Input Delay {% include Util/link_anchor anchor="fid" %} {% include Util/top %}</h2>
+### First Input Delay
 
 First Input Delay measures the interactivity of web page. It quantifies the users experience with regards to how fast the page load feels.
 By maintaining a low FID score, users will *feel* like the page is loading faster.
@@ -253,7 +249,7 @@ FID is a unique Core Web Vital and is not actually tracked in Lighthouse or othe
 
 Most importantly, this vital measures the delay from when an event has been received to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it take to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers.
 
-### How to diagnose First Input Delay
+#### How to diagnose First Input Delay
 
 Unfortunately, diagnosing Total Blocking Time in Chrome is not as easy as diagnosing Largest Contentful Paint or Cumulative Layout Shift.
 One of the biggest clues for diagnosing TBT is identifying heavy JavaScript execution on the main thread. This requires an understanding of how the browser parses HTML and JavaScript as well as what is known as a [Long Task](https://web.dev/custom-metrics/#long-tasks-api). A Long Task is any JavaScript-based task on the main thread that takes longer than 50 milliseconds (ms) to execute. While the browser is executing a JS task on the main thread, it cannot respond to any user input, as JavaScript is not a multi-threaded language.
@@ -274,7 +270,7 @@ You can identify any Long Tasks on your webpage by following these steps:
 Using Google Chromes "Coverage" tab can provide critical insight into how much of the JavaScript on the page is actually being used.
 Identifying this code can help you off-load non-critical JavaScript until after page load.
 
-### How to fix First Input Delay
+#### How to fix First Input Delay
 FID can be fixed in a number of ways that relate to analyzing JavaScript performance:
 
 * Breaking up Long Tasks
@@ -288,7 +284,7 @@ Other factors to look at are the size of your JavaScript bundles as well as how 
 
 One area of conversation (especially with clients) should be around the number and purpose of 3rd-party scripts. Multiple 3rd-party scripts can quickly become unmaintainable and lead to delayed JavaScript execution. Ensuring 3rd party scripts use the `async` and `defer` attributes can also help improve latency.
 
-<h2 id="measuring" class="anchor-heading">Measuring {% include Util/link_anchor anchor="measuring" %} {% include Util/top %}</h2>
+### Measuring
 A plethora of tools have become available to manage and maintain healthy Core Web Vitals. In fact, most performance/reporting based tools now offer some kind of Web Vitals-based data. At 10up, we use the following tools to report accurate Web Vital metrics:
 
 #### _[Web Vitals NPM Package](https://www.npmjs.com/package/web-vitals)_
@@ -356,7 +352,7 @@ These settings give us median test range to see accurate results. An incredibly 
 #### _[Web Vitals Chrome Extention](https://chrome.google.com/webstore/detail/web-vitals/ahfhijdlegdabablpippeagghigmibma?hl=en)_
 Addy Osmani has written a really useful and compact extention that reports on the 3 Core Web Vitals.
 
-## Further reading {% include Util/top %}
+### Further reading {% include Util/top %}
 
 * [Optimize Largest Contentful Paint](https://web.dev/optimize-lcp)
 * [Optimize Cumulative Layout Shift](https://web.dev/optimize-cls/)
