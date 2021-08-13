@@ -40,7 +40,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 ### JavaScript and CSS
 
 *   Write JavaScript and CSS with the "Mobile First" approach in mind.
-*   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/).
+*   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/). Sometimes external plugins and libraries add render blocking scripts that we cannot remove easily. In those cases, we can make exceptions and add todos to remediate later if time permits.
 *   All JavaScript and CSS should be minified.
 *   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it.
 *   Be aware of any additional requests 3rd-party libraries are making on page load. This can serverly impact performance scores.
@@ -73,6 +73,7 @@ As part of design reviews, engineering teams should provide feedback on the foll
 *   Third party plugins can play a part in poor site performance. Always audit a plugin for performance issues before adding it to a project. Paying careful attention to the server side impacts of slow non-cached queries and how data is being stored to the weight of the JavaScript and CSS being included on every page.
 *   Third party scripts, particularly those being loaded for the purpose of analytics, embeds, helper libraries and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded through Google Tag Manager rather than directly in the page using script tags making it difficult to anticipate the impact on a project. Ensure that site performance is being tested ahead of any launch with all third party scripts loaded. If any scripts result in a negative impact on performance, ensure to flag this with your team.
 
+__Note__: When starting a new project or inheriting an existing one, take before screenshots of the Google PSI report so performance can be compared before-and-after.
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
 [Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible. Performance measuring in the past has often landed in the domain of engineers. However with the introduction of Web Vitals, site owners can now gain an understanding of the performance impacts and shortcomings of their sites without a deep understanding of web technologies. Web Vitals aim to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
