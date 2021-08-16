@@ -229,7 +229,7 @@ Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have b
 
 1. Use `font-display: swap` if your fonts are hosted locally.
 2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjunction with `font-display: optional`
-3. Where possible, hosts your fonts locally.
+3. Where possible, host your fonts locally.
 4. Subset your font files if you know that your site will not be translated into other languages.
 5. Cache font files on the web server.
 6. Use libraries like [WebFontLoader](https://github.com/typekit/webfontloader) to asynchronously load fonts on the page.
