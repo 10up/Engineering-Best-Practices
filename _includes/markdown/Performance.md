@@ -24,7 +24,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
 *   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
 *   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions). This is especially important in avoiding Content Layout Shift issues.
-*   Assets in particular images, should be served through a CDN.
+*   Assets, in particular images, should be served through a CDN.
 *   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect, the width and height should be set on the tag.
 * If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
 * Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
