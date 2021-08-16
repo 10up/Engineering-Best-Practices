@@ -225,7 +225,7 @@ googletag.pubads().addEventListener('slotRenderEnded', function(event) {
 5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably won't fill take up no height and width on the page.
 
 ##### _Handling Web Fonts_
-Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you an do to mitigate those effects:
+Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you can do to mitigate those effects:
 
 1. Use `font-display: swap` if your fonts are hosted locally.
 2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjuction with `font-display: optional`
