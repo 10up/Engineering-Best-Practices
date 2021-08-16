@@ -151,11 +151,11 @@ limited layout shifts on the page, visitors will be presented with a smooth and 
 
 > A CLS score of 0.1 or less is considered to be a conducive measurement for good user experience.
 
-Its important to understand that the CLS metric does not just measure one offending element. The CLS score reported is the sum total of all layout shifts on the page. A layout shift occurs any time a visible element (i.e above the fold), changes its position from one rendered frame to the next.
+It's important to understand that the CLS metric does not just measure one offending element. The CLS score reported is the sum total of all layout shifts on the page. A layout shift occurs any time a visible element (i.e above the fold), changes its position from one rendered frame to the next.
 
 To be clear, a layout shift is only considered a problem if it's *unexpected* - so a shift in an elements position that was triggered on purpose by a user is acceptable.
 
-Its useful to know that a layout shift can be caused by the following events:
+It's useful to know that a layout shift can be caused by the following events:
 * A change in the position of a DOM element
 * A change in size of the dimensions of a DOM element
 * Inserting or removing DOM elements through JavaScript
@@ -198,9 +198,9 @@ Elements that cause CLS can be easily fixed in some instances. As a general rule
 * When animating CSS properties, ensure that you animate `transform` properties rather than `box-model` properties to prevent reflow and layout changes in the browsers [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
 ##### _Handling Ad Sizes_
-When it comes to ads, its important that slot sizes are consistent in order to prevent CLS. Ads are generally difficult to predict considering that Ad Servers can serve ads at different heights and widths depending on impression data. There are a number of ways to mitigate this:
+When it comes to ads, it's important that slot sizes are consistent in order to prevent CLS. Ads are generally difficult to predict considering that Ad Servers can serve ads at different heights and widths depending on impression data. There are a number of ways to mitigate this:
 
-1. Speak to Audience and Revenue or your Ad Ops team and see if its possible to ensure that ad units are served at more consistent sizes based on impression analytics.
+1. Speak to Audience and Revenue or your Ad Ops team and see if it's possible to ensure that ad units are served at more consistent sizes based on impression analytics.
 2. If you can achieve more consistent ad sizes, you can reserve space for ad slots by using the `min-height` CSS property: `<div id="ad-slot" style="min-height: 250px;"></div>`
 3. If you want to dynamically set the height and width of ads once the `GPT.js` script has ad data you can use the following function:
 
@@ -225,7 +225,7 @@ googletag.pubads().addEventListener('slotRenderEnded', function(event) {
 5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably wont fill take up no height and width on the page.
 
 ##### _Handling Web Fonts_
-Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. Its important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you an do to mitigate those effects:
+Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you an do to mitigate those effects:
 
 1. Use `font-display: swap` if your fonts are hosted locally.
 2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjuction with `font-display: optional`
