@@ -303,7 +303,7 @@ getLCP(console.log);
 ```
 
 You can also use this library if you would like to send site data on Web Vitals directly to your analytics service. The package won't help you
-identify whats wrong, but it will tell you where your site is starting to slip in terms of web vitals health in a customized and dynamic way.
+identify what's wrong, but it will tell you where your site is starting to slip in terms of web vitals health in a customized and dynamic way.
 
 ```
 import {getCLS, getFID, getLCP} from 'web-vitals';
