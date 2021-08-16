@@ -222,7 +222,7 @@ googletag.pubads().addEventListener('slotRenderEnded', function(event) {
 ```
 
 4. A combination of both 2 and 3 has yielded great improvement to CLS scores.
-5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably wont fill take up no height and width on the page.
+5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably won't fill take up no height and width on the page.
 
 ##### _Handling Web Fonts_
 Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you an do to mitigate those effects:
@@ -291,7 +291,7 @@ A plethora of tools have become available to manage and maintain healthy Core We
 #### _[Web Vitals NPM Package](https://www.npmjs.com/package/web-vitals)_
 This library can be used during development to diagnose Web Vital metrics. It comes with a fairly easy to understand API that directly tracks
 Web Vital data on page load. The data can be a bit hard to read but if you're looking for a programmatic approach to understanding the health
-of you web page, this library wont let you down.
+of you web page, this library won't let you down.
 
 ```
 import {getLCP, getFID, getCLS} from 'web-vitals';
@@ -302,7 +302,7 @@ getLCP(console.log);
 
 ```
 
-You can also use this library if you would like to send site data on Web Vitals directly to your analytics service. The package wont help you
+You can also use this library if you would like to send site data on Web Vitals directly to your analytics service. The package won't help you
 identify whats wrong, but it will tell you where your site is starting to slip in terms of web vitals health in a customized and dynamic way.
 
 ```
