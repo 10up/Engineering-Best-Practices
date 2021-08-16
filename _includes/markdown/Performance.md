@@ -228,7 +228,7 @@ googletag.pubads().addEventListener('slotRenderEnded', function(event) {
 Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you can do to mitigate those effects:
 
 1. Use `font-display: swap` if your fonts are hosted locally.
-2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjuction with `font-display: optional`
+2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjunction with `font-display: optional`
 3. Where possible, hosts your fonts locally.
 4. Subset your font files if you know that your site will not be translated into other languages.
 5. Cache font files on the web server.
