@@ -10,7 +10,7 @@ __While performance is always important, actual needs vary by website. For examp
 
 ### Caching
 
-Caching is a key aspect in reaching optimal performance both from a server and browser optimisation perspective, below are caching approaches:
+Caching is a key aspect in reaching optimal performance both from a server and browser optimization perspective, below are caching approaches:
 
 *   Ensure all static assets have cache busters in the form of either a version or fingerprint in the filename or unique query string in the URL. This needs to be implemented along with a cache-control header max-age of at least 1 month but optimally 1 year.
 *   A CDN is highly recommended, most popular CDN’s may offer page caching, browser caching and image optimizations.
