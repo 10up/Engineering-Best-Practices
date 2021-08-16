@@ -291,7 +291,7 @@ A plethora of tools have become available to manage and maintain healthy Core We
 #### _[Web Vitals NPM Package](https://www.npmjs.com/package/web-vitals)_
 This library can be used during development to diagnose Web Vital metrics. It comes with a fairly easy to understand API that directly tracks
 Web Vital data on page load. The data can be a bit hard to read but if you're looking for a programmatic approach to understanding the health
-of you web page, this library won't let you down.
+of your web page, this library won't let you down.
 
 ```
 import {getLCP, getFID, getCLS} from 'web-vitals';
