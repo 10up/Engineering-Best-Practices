@@ -322,7 +322,7 @@ getLCP(sendToAnalytics);
 ```
 
 #### _[Lighthouse/Lighthouse CLI](https://github.com/GoogleChrome/lighthouse)_
-Lighthouse which is built into Google Chrome's DevTools is a significant tool for tracking performance data on an ad-hoc basis.
+Lighthouse, which is built into Google Chrome's DevTools, is a significant tool for tracking performance data on an ad-hoc basis.
 Whereas the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site.
 
 The Lighthouse CLI tool can also be used with more efficiency if you are managing multiple URL sets. To install the CLI:
