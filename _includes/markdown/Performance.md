@@ -43,7 +43,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/). Sometimes external plugins and libraries add render blocking scripts that we cannot remove easily. In those cases, we can make exceptions and add todos to remediate later if time permits.
 *   All JavaScript and CSS should be minified.
 *   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it.
-*   Be aware of any additional requests 3rd-party libraries are making on page load. This can serverly impact performance scores.
+*   Be aware of any additional requests 3rd-party libraries are making on page load. This can severely impact performance scores.
 *   Where possible, defer loading of libraries that are not neccessary for a stable user experience until after initial load.
 *   Critical rendering path should be considered. Scripts should be loaded in the footer and external scripts should contain the [‘async’ attribute](https://www.w3schools.com/tags/att_script_async.asp) or be loaded at the bottom of the document where they can’t be concatenated into a single file. Internal scripts without an implicit loading order should contain the [‘defer’ attribute](https://www.w3schools.com/tags/att_script_defer.asp) if possible. Note that scripts using the ‘defer’ attribute can be loaded in the head tag as they will be fetched asynchronously while being executed after the HTML is parsed.
 
