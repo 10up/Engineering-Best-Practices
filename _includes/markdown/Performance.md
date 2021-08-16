@@ -268,7 +268,7 @@ You can identify any Long Tasks on your webpage by following these steps:
 9. In order to better understand and pin-point the offending execution, you can click on "Call Tree".
 10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there.
 
-Using Google Chromes "Coverage" tab can provide critical insight into how much of the JavaScript on the page is actually being used.
+Using Google Chrome's "Coverage" tab can provide critical insight into how much of the JavaScript on the page is actually being used.
 Identifying this code can help you off-load non-critical JavaScript until after page load.
 
 #### How to fix First Input Delay
