@@ -134,7 +134,7 @@ Here are some high-level guidelines for ensuring Largest Contentful Paint occurs
 * Ensure that there is a well-thought out caching strategy in place.
 * Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains.
 * Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
-* Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chromes "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
+* Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chrome's "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
 * Ensure that your JS bundles are minified, compressed and if the functionality is not required above-the-fold, lazy-loaded.
 
 The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
