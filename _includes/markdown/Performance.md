@@ -239,7 +239,7 @@ Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have b
 
 ### First Input Delay
 
-First Input Delay measures the interactivity of web page. It quantifies the users experience with regards to how fast the page load feels.
+First Input Delay measures the interactivity of the web page. It quantifies the users experience with regards to how fast the page load feels.
 By maintaining a low FID score, users will *feel* like the page is loading faster.
 
 First Input Delay is specifically purposed for measuring how quickly the page becomes interactive to the user on their first impression, where as a vital such as First Contentful Paint measures how quickly the page becomes visible. These are 2 important concepts to grasp when it comes to debugging and diagnosing Core Web Vitals.
