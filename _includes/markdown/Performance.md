@@ -4,7 +4,7 @@ At 10up, we understand the importance of performance in delivering a great user 
 
 There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
 
-__While performance is always important, actual needs very by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
+__While performance is always important, actual needs vary by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
 
 <h2 id="baseline" class="anchor-heading">Baseline Performance Best Practices {% include Util/link_anchor anchor="baseline" %} {% include Util/top %}</h2>
 
