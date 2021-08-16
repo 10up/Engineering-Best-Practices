@@ -348,7 +348,7 @@ We run tests with the following settings:
 * Number of Tests to Run: *9*
 * Repeat View: *First View Only*
 
-These settings give us median test range to see accurate results. An incredibly useful feature of WebPageTest is their _Chrome Field Performance_ section which reports on where your site lands up based on the 75th percentile of all websites that Chrome tracks in the [Chrome UX Report (CrUX)](https://developers.google.com/web/tools/chrome-user-experience-report). This is a really important contextful feature that should not be ignored.
+These settings give us a median test range to see accurate results. An incredibly useful feature of WebPageTest is their _Chrome Field Performance_ section which reports on where your site lands up based on the 75th percentile of all websites that Chrome tracks in the [Chrome UX Report (CrUX)](https://developers.google.com/web/tools/chrome-user-experience-report). This is a really important contextful feature that should not be ignored.
 
 #### _[Web Vitals Chrome Extention](https://chrome.google.com/webstore/detail/web-vitals/ahfhijdlegdabablpippeagghigmibma?hl=en)_
 Addy Osmani has written a really useful and compact extention that reports on the 3 Core Web Vitals.
