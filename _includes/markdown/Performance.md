@@ -264,7 +264,7 @@ You can identify any Long Tasks on your webpage by following these steps:
 5. Click the _Reload_ button or hit `⌘ ⇧ E` shortcut
 6. Scroll down to _Main_
 7. If there are Long Task's recorded during page load, you'll see a grey bar labelled by "Task" and then a red diagonal pattern overlay.
-8. Hovering or clicking on this bar will indicate a long task in the browsers main thread.
+8. Hovering or clicking on this bar will indicate a long task in the browser's main thread.
 9. In order to better understand and pin-point the offending execution, you can click on "Call Tree".
 10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there.
 
