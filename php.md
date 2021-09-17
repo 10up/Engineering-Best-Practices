@@ -3,7 +3,7 @@ page: php
 title: PHP
 nav: PHP
 group: navigation
-weight: 6
+weight: 5
 layout: default
 subnav:
   - title: Performance

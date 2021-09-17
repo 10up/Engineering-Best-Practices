@@ -3,7 +3,7 @@ page: tools
 title: Tools
 nav: Tools
 group: navigation
-weight: 5
+weight: 7
 layout: default
 subnav:
   - title: Local Development Environments

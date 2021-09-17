@@ -3,7 +3,7 @@ page: design
 title: Project Design
 nav: Design
 group: navigation
-weight: 7
+weight: 6
 layout: default
 subnav:
   - title: File Organization
