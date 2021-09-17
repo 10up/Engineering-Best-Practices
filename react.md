@@ -1,9 +1,6 @@
 ---
 page: react
 title: React
-nav: React
-group: navigation
-weight: 4
 layout: default
 subnav:
   - title: Is React Right For Your Project
@@ -23,7 +20,7 @@ subnav:
   - title: Debugging
     tag: debugging
   - title: Gutenberg
-    tag: gutenberg
+    slug: gutenberg
 updated: 6 October 2020
 
 ---
