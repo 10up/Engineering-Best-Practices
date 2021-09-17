@@ -71,7 +71,7 @@ An example of what a skip link might look like in a template file:
 
 Skip links make use of CSS to hide them from sighted users while keeping them accessible for screen readers. Usually the styles are attached to a `screen-reader-text` class of some kind. This CSS is used to position the links off the screen then use `:focus` styles to make the link visible for sighted keyboard users.
 
-Due to some browsers [not moving keyboard focus when they move visual focus](https://axesslab.com/skip-links/), it is essential to also enhance this feature with JavaScript. The popular Underscores starter theme [comes bundled with a good option](https://github.com/Automattic/_s/blob/master/js/skip-link-focus-fix.js) that can be used as a starting point.
+Due to some browsers [not moving keyboard focus when they move visual focus](https://axesslab.com/skip-links/), it is essential to also enhance this feature with JavaScript. The popular Underscores starter theme [came bundled with a good option](https://github.com/Automattic/_s/blob/cf4410cb1fe413324ed1efc9f5ba094423fdd86c/js/skip-link-focus-fix.js) that can be used as a starting point if you need to support browsers with this issue.
 
 #### ARIA Landmark Roles
 

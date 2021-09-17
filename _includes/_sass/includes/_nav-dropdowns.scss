@@ -56,7 +56,7 @@
 	}
 
 	/** Only use sub-menus on desktop */
-	@include breakpoint($breakpoint-bravo) {
+	@include breakpoint($breakpoint-charlie) {
 		li:hover .subnav {
 			display: block;
 		}

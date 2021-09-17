@@ -142,6 +142,15 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a></h3>
+		<ul>
+			<li><a href="{{ site.baseurl }}/performance/#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}/performance/#baseline">Baseline Best Practices</a></li>
+			<li><a href="{{ site.baseurl }}/performance/#core-web-vitals">Core Web Vitals</a></li>
+		</ul>
+	</div>
+
 </div>
 
 <div class="docs-section">
