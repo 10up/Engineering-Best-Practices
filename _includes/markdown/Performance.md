@@ -40,7 +40,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 ### JavaScript and CSS
 
 *   Write JavaScript and CSS with the "Mobile First" approach in mind.
-*   Ensure that JavaScript and CSS are not [render-blocking](https://web.dev/render-blocking-resources/). Sometimes external plugins and libraries add render blocking scripts that we cannot remove easily. In those cases, we can make exceptions and add todos to remediate later if time permits.
+*   Where viable, ensure that JavaScript and CSS assets are not [render-blocking](https://web.dev/render-blocking-resources/) the browser pipeline. This is mainly achieved by deferring or setting scripts to load asynchronously while other assets are loading.
 *   All JavaScript and CSS should be minified.
 *   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it.
 *   Be aware of any additional requests 3rd-party libraries are making on page load. This can severely impact performance scores.
