@@ -171,8 +171,10 @@ If a management UI is impossible due to the nature of the project, credentials s
 <?php
 // Production API keys should ideally be defined in wp-config.php
 // This section should default to a development or noop key instead.
-if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && defined( 'WP_ENVIRONMENT_TYPE' ) && ! in_array( wp_get_environment_type(), array( 'local', 'development' ) ) ) {
-	define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) {
+    if ( defined( 'WP_ENVIRONMENT_TYPE' ) && 'production' === wp_get_environment_type() ) {
+        define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+    }
 }
 ```
 
