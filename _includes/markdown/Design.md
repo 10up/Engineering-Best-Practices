@@ -172,13 +172,13 @@ If a management UI is impossible due to the nature of the project, credentials s
 // Production API keys should ideally be defined in wp-config.php
 // This section should default to a development or noop key instead.
 if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) {
-    if ( defined( 'WP_ENVIRONMENT_TYPE' ) && 'production' === wp_get_environment_type() ) {
+    if ( 'production' === wp_get_environment_type() ) {
         define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
     }
 }
 ```
 
-The `WP_ENVIRONMENT_TYPE` constant should always be set to `local` or `development` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
+The `WP_ENVIRONMENT_TYPE` constant should always be set to `local` or `development` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a non-production environment.
 
 For futher reading on WordPress environment types, see the function documentation [wp_get_environment_type()](https://developer.wordpress.org/reference/functions/wp_get_environment_type/) and the introduction post [New wp_get_environment_type() function in WordPress 5.5](https://make.wordpress.org/core/2020/07/24/new-wp_get_environment_type-function-in-wordpress-5-5/).
 
