@@ -171,12 +171,18 @@ If a management UI is impossible due to the nature of the project, credentials s
 <?php
 // Production API keys should ideally be defined in wp-config.php
 // This section should default to a development or noop key instead.
-if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) && ! ENV_DEVELOPMENT ) {
-	define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+if ( ! defined( 'CLIENT_MANDRILL_API_KEY' ) {
+    if ( 'production' === wp_get_environment_type() ) {
+        define( 'CLIENT_MANDRILL_API_KEY', '1234567890' );
+    }
 }
 ```
 
-The `ENV_DEVELOPMENT` constant should always be set to `true` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a local environment.
+The `WP_ENVIRONMENT_TYPE` constant should always be set to `local` or `development` for local development and should be used whenever and wherever possible to prevent production-only functionality from triggering in a non-production environment.
+
+For futher reading on WordPress environment types, see the function documentation [wp_get_environment_type()](https://developer.wordpress.org/reference/functions/wp_get_environment_type/) and the introduction post [New wp_get_environment_type() function in WordPress 5.5](https://make.wordpress.org/core/2020/07/24/new-wp_get_environment_type-function-in-wordpress-5-5/).
+
+External integrations, including those that send email, social posts, commerce or transactional / marketing services should be dependent on the `WP_ENVIRONMENT_TYPE` being set with the expected value (e.g. `production`) or conditionally on a per-environment basis to ensure functionality is not unintentionally invoked. When a database is cloned between environments, API keys stored in the database may not be updated - the `WP_ENVIRONMENT_TYPE` constant can prevent events unintentionally firing.
 
 The location where other engineers can retrieve developer API keys (i.e. project management tool) can and should be logged in the `INTEGRATIONS.md` file to aid in local testing. Production API keys must _never_ be stored in the repository, neither in text files or hard-coded into the project itself.
 
