@@ -353,8 +353,19 @@ Avoid:
   left: 10px;
 }
 ```
+
+Prefer: 
+
+```css
+#menu li {
+  transform: translate3d(0, 0, 0);
+  transition: transform 1s ease-in-out;
+}
+#menu li:hover {
+  transform: translate3d(10px, 0, 0);
 }
 ```
+
 Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site. **Note:** [WCAG 2.1, Guideline 2.3.2 Motion from Animation](https://www.w3.org/WAI/WCAG21/quickref/#animation-from-interactions) dictates that, "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed."
 
 Articles worth reading:
