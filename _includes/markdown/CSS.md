@@ -338,7 +338,7 @@ Very common examples include gradients and triangles.
 It's a common belief that CSS animations are more performant than JavaScript animations. A few articles aimed to set the record straight (linked below).
 
 * If you're only animating simple state changes and need good mobile support, go for CSS (most cases).
-* If you need more complex animations, use a JavaScript animation framework or requestAnimationFrame.
+* If you need more complex animations, use a JavaScript animation framework or `requestAnimationFrame`.
 
 Limit your CSS animations to 3D transforms (translate, rotate, scale) and opacity, as those are aided by the GPU and thus smoother. Note that too much reliance on the GPU can also overload it.
 
