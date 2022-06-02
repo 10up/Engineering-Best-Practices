@@ -345,12 +345,14 @@ Limit your CSS animations to 3D transforms (translate, rotate, scale) and opacit
 Avoid:
 
 ```css
-#menu li{
+#menu li {
   left: 0;
   transition: all 1s ease-in-out;
 }
 #menu li:hover {
-  left: 10px
+  left: 10px;
+}
+```
 }
 ```
 Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site. **Note:** [WCAG 2.1, Guideline 2.3.2 Motion from Animation](https://www.w3.org/WAI/WCAG21/quickref/#animation-from-interactions) dictates that, "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed."
