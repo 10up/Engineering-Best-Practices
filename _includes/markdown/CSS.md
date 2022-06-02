@@ -10,19 +10,48 @@ Our websites are built mobile first, using performant CSS. Well-structured CSS y
 
 Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
 
-The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+The `prefer-reduced-motion` CSS media feature has a [decent support](https://caniuse.com/#feat=prefers-reduced-motion) nowadays. However, we still recommend applying the media query with an accessibility-first approach so the code is progressively enhanced rather than potentially missing users that might not want the motion but their devices aren't able to process the media query.
 
 Here is an example:
 
 ```css
-.animation {
-    animation: vibrate 0.3s linear infinite both;
+@media (prefers-reduced-motion: no-preference) {
+    .animation {
+        animation: vibrate 0.3s linear infinite both;
+    }
+}
+```
+
+It might also be a good idea to create a simpler animation that doesn't rely on movement as a default, and if the user hasn't expressed any preference, we enhance by adding some movement. Here's an example of an animation for modals appearing on the screen:
+
+```css
+/* 
+  By default, we'll use the REDUCED MOTION version of the animation.
+*/
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .animation {
-        animation: none;
+/*
+  Then, if the user has NO PREFERENCE for motion, we can OVERRIDE the
+  animation definition to include both the motion and non-motion properties.
+*/
+@media ( prefers-reduced-motion: no-preference ) {
+  @keyframes modal-enter {
+    from {
+      opacity: 0;
+      transform: scale(.7);
     }
+    to {
+      opacity: 1 ;
+      transform: scale(1);
+    }
+  }
 }
 ```
 
