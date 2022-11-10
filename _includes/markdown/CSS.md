@@ -38,7 +38,7 @@ Performance best practices are not only for the browser experience, but for code
 
 <h2 id="responsive-design" class="anchor-heading">Responsive Design {% include Util/top %}</h2>
 
-We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites gracefully degrade.
+We build our websites mobile first. We do not rely on JavaScript libraries such as `respond.js` as it does not work well in certain environments. Instead, we leverage a natural, mobile-first build process and allow sites to gracefully degrade.
 
 ### Min-width media queries
 
