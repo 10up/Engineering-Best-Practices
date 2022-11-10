@@ -26,7 +26,7 @@ By default, always set the ```X-Frame-Options``` header to ```SAMEORIGIN```. Thi
 
 ## Disable XML-RPC
 
-Always disable XML-RPC since it can be used for brute force or DDoS attacks. XML_RPC is an older and mostly unused feature. Perfer the JSON API when available.
+Always disable XML-RPC since it can be used for brute force or DDoS attacks. XML_RPC is an older and mostly unused feature. Prefer the JSON API when available.
 
 ## WordPress updates
 
