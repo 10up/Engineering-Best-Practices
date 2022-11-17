@@ -1,6 +1,6 @@
 <h2 id="code-style" class="anchor-heading">Code Style, Tooling & Documentation {% include Util/link_anchor anchor="code-style" %} {% include Util/top %}</h2>
 
-10up maintains a [eslint shareable config](https://github.com/10up/eslint-config) that is used across all 10up projects. It exposes several different configs and engineers should opt-in to the config that best fits the project. We also maintain a [babel-preset](https://github.com/10up/babel-preset-default/) that works well for most of our projects.
+10up maintains an [eslint shareable config](https://github.com/10up/eslint-config) that is used across all 10up projects. It exposes several different configs and engineers should opt-in to the config that best fits the project. We also maintain a [babel-preset](https://github.com/10up/babel-preset-default/) that works well for most of our projects.
 
 As far as JavaScript documentation goes, we conform to the [WordPress JavaScript documentation standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/) and those standards are enforced by 10up's eslint config.
 
@@ -203,7 +203,7 @@ Avoid using classes unless there's a good reason to. Consider the following exam
 
 ```javascript
 import Module from './mymodule';
-/* Module is a ES6 class */
+/* Module is an ES6 class */
 new Module('.element-selector', {
 	/* options */
 	onEvent1: () => {},
@@ -226,7 +226,7 @@ module1.doSomething();
 module1.hide();
 ```
 
-The example above changes the design of the module API a bit and assumes multiple and separate instance of the module are desired. However, sometimes that might not even be necessary. If all you need is to abstract some complex logic and accept a couple of parameter, exposing a factory/init function is all you need.
+The example above changes the design of the module API a bit and assumes multiple and separate instances of the module are desired. However, sometimes that might not even be necessary. If all you need is to abstract some complex logic and accept a couple of parameters, exposing a factory/init function is all you need.
 
 ```javascript
 // Option 2: not using classes

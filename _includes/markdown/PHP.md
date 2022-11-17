@@ -84,7 +84,7 @@ Here are a few key points:
   ?>
   ```
 
-    See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
+    See [WordPress VIP](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/using-post__not_in/).
 
 * A [taxonomy](https://wordpress.org/support/article/taxonomies/) is a tool that lets us group or classify posts.
 
@@ -206,7 +206,7 @@ However, the cache rebuild in this example would always be triggered by a visito
 
 That said, a relatively easy solution for this problem is to make sure that your users would ideally always hit a primed cache. To accomplish this, you need to think about the conditions that need to be met to make the cached value invalid. In our case this would be the change of a comment.
 
-The easiest hook we could identify that would be triggered for any of this actions would be [```wp_update_comment_count```](https://developer.wordpress.org/reference/hooks/wp_update_comment_count/) set as ```do_action( 'wp_update_comment_count', $post_id, $new, $old )```.
+The easiest hook we could identify that would be triggered for any of these actions would be [```wp_update_comment_count```](https://developer.wordpress.org/reference/hooks/wp_update_comment_count/) set as ```do_action( 'wp_update_comment_count', $post_id, $new, $old )```.
 
 With this in mind, the function could be changed so that the cache would always be primed when this action is triggered.
 
@@ -363,7 +363,7 @@ There are a number of performance considerations for each WordPress storage vehi
 * [Custom Post Types](https://wordpress.org/support/article/post-types/) - WordPress has the notion of "post types". "Post" is a post type which can be confusing. We can register custom post types to store all sorts of interesting pieces of data. If we have a variable amount of data to store such as a product, a custom post type might be a good fit.
 * [Object Cache](https://developer.wordpress.org/reference/classes/wp_object_cache/) - See the "[Caching](#caching)" section.
 
-While it is possible to use WordPress' [Filesystem API](https://developer.wordpress.org/apis/handbook/filesystem/) to interact with a huge variety of storage endpoints, using the filesystem to store and deliver data outside of regular asset uploads should be avoided as this methods conflict with most modern / secure hosting solutions.
+While it is possible to use WordPress' [Filesystem API](https://developer.wordpress.org/apis/handbook/filesystem/) to interact with a huge variety of storage endpoints, using the filesystem to store and deliver data outside of regular asset uploads should be avoided as these methods conflict with most modern / secure hosting solutions.
 
 ### Database Writes
 
@@ -626,7 +626,7 @@ Here is another example:
 <input type="text" onfocus="if( this.value == '<?php echo esc_js( $fields['input_text'] ); ?>' ) { this.value = ''; }" name="name">
 ```
 
-[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute (onfocus="...", for example).
+[```esc_js()```](https://developer.wordpress.org/reference/functions/esc_js/) ensures that whatever is returned is safe to be printed within a JavaScript string. This function is intended to be used for inline JS, inside a tag attribute (`onfocus="..."`, for example).
 
 We should not be writing JavaScript inside tag attributes anymore, this means that ```esc_js()``` should never be used. To escape strings for JS another function should be used.
 
