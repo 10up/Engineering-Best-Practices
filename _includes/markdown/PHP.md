@@ -84,7 +84,7 @@ Here are a few key points:
   ?>
   ```
 
-    See [WordPress VIP](https://vip.wordpress.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/).
+    See [WordPress VIP](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/using-post__not_in/).
 
 * A [taxonomy](https://wordpress.org/support/article/taxonomies/) is a tool that lets us group or classify posts.
 
