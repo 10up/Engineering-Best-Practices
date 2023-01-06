@@ -1,13 +1,13 @@
-name:          10up Engineering Best Practices
-title:         10up Engineering Best Practices
-description:   Engineering best practices used by 10up.
-url:           https://10up.github.io/
+name:          Kanopi Engineering Best Practices
+title:         Kanopi Engineering Best Practices
+description:   Engineering best practices used by Kanopi.
+url:           https://kanopi.github.io/
 baseurl:       /Engineering-Best-Practices
 author:
-  name:    10up
-  email:   sales@10up.com
-  github:  10up
-  twitter: 10up
+  name:    Kanopi
+  email:   sales@kanopi.com
+  github:  kanopi
+  twitter: kanopi
 
 markdown:      kramdown
 permalink:     pretty
