@@ -95,14 +95,17 @@ updated: 6 Oct 2014
 	<div class="col">
 		<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/tools/#local-development">Local Development Environments</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#scaffolding">Scaffolding</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#git-local-workflow">Git & Local Workflow</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#composer">Composer</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#docksal-local">Docksal</a></li>
 			<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#package-managers">Package/Dependency Managers</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#version-control">Version Control</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#command-line">Command Line Tools</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#a11y-testing">Accessibility Tools</a></li>
-			<li><a href="{{ site.baseurl }}/tools/#vrt">Visual Regression Testing</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#linting">Linting & Code Quality</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#cms-cli-tools">CMS Command Line Tools<</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#continuous">Continuous Integration/Continuous Deployment (CI/CD)</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#testing-qa">Testing & QA</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#hosting-environments">Hosting Environments</a></li>
+			<li><a href="{{ site.baseurl }}/tools/#misc-tools">Miscellaneous Tools</a></li>
 		</ul>
 	</div>
 
