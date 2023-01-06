@@ -6,23 +6,29 @@ group: navigation
 weight: 5
 layout: default
 subnav:
-  - title: Local Development Environments
-    tag: local-development
-  - title: Scaffolding
-    tag: scaffolding
+  - title: Kanopi Computers
+    tag: kanopi-computers
+  - title: Git & Local Workflow
+    tag: git-local-workflow
+  - title: Composer
+    tag: composer
+  - title: Docksal
+    tag: docksal-local
   - title: Task Runners
     tag: task-runners
-  - title: Package/Dependency Managers
-    tag: package-managers
-  - title: Version Control
-    tag: version-control
-  - title: Command Line Tools
-    tag: command-line
-  - title: Accessibility Testing
-    tag: a11y-testing
-  - title: Visual Regression Testing
-    tag: vrt
-updated: 5 Oct 2019
+  - title: Linting & Code Quality
+    tag: linting
+  - title: CMS Command Line Tools<
+    tag: cms-cli-tools
+  - title: Continuous Integration/Continuous Deployment (CI/CD)
+    tag: continuous
+  - title: Testing & QA
+    tag: testing-qa
+  - title: Hosting Environments
+    tag: hosting-environments
+  - title: Miscellaneous Tools
+    tag: misc-tools
+updated: 12 21 2022
 ---
 
 <div class="docs-section">
