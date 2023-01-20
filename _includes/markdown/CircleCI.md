@@ -40,7 +40,8 @@ When an environment variable is needed, CircleCI provides [an interface to add e
 ## Updating Orbs & Validating Configuration
 
 * CircleCI offers a [local command line interface](https://circleci.com/docs/local-cli/). This CLI offers a number of useful tools -- chiefly, the ability to test and validate your local configuration before deploying. Running `circleci config validate` is an easy (and very fast) way to test out your current configuration. Check this [helpful Loom walkthrough](https://www.loom.com/share/7ee53c43663d46028343b30d3edc824c).
-* When making updates -- you can typically set `dry-run: true` within the job steps to run the job without making actual changes. This is especially helpful when making any change that could impact an environment currently in use (especially production).
+* When making updates -- you can typically set `dry-run: true` within the job steps to run the job without making actual changes. This is especially helpful when making any change that could impact an environment currently in use (especially production). 
+* You may need to update the job's branch to include your feature branch, as this will allow you to test your configuration changes without merging them into main.
 
 ## Common Problems
 
