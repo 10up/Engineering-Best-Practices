@@ -8,6 +8,12 @@
 		display: block;
 	}
 
+	.cols {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
 	.col {
 		border-top: 1px solid darken(#efefef, 5%);
 		margin: 0;
@@ -19,7 +25,8 @@
 
 		@include breakpoint($breakpoint-bravo) {
 			border-right: 1px solid darken(#efefef, 5%);
-			float: left;
+			//float: left;
+			flex-basis: 25%;
 			padding-right: 2%;
 			vertical-align: top;
 			width: 50%;
