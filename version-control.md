@@ -6,10 +6,10 @@ group: navigation
 weight: 9
 layout: default
 subnav:
-  - title: Structure
-    tag: structure-package-management
+  - title: Structure and Package Management
+    tag: kanopi-structure-and-package-management
   - title: Workflows
-    tag: workflows
+    tag: kanopi-vc-workflows
 updated: 6 Jan 2023
 ---
 

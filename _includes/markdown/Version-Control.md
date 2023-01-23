@@ -1,5 +1,3 @@
-## Introduction
-
 Kanopi Studios uses Git to version control all project code and hosts distributed version control on Github. Alternative remote repository platforms may be used based on client project requirements, including BitBucket and GitLab. 
 
 <h2 id="kanopi-structure-and-package-management" class="anchor-heading">Structure and Package Management</h2>
@@ -27,14 +25,13 @@ local config files
 vendor
 node_modules
 any large media files like videos
-
 ```
 ### Resources:
 
 - Starter repository .gitignore examples:
     - [WordPress .gitignore file](https://github.com/kanopi/wp-starter/blob/main/.gitignore)
     - [Drupal .gitignore file](https://github.com/kanopi/drupal-starter/blob/main/.gitignore)
-- [Creating and Configuring a Global .gitignore](https://intranet.kanopi.com/departments/technology/resources/creating_and_configuring_a_global_gitignore) (move to cacher)
+- [Creating and Configuring a Global .gitignore](https://snippets.cacher.io/snippet/21733480f0c1c64f0d93)
 
 ### Guidelines:
 
@@ -113,13 +110,13 @@ Common Project Management System abbreviations:
 In some cases, a feature will be large enough to warrant multiple developers working on it at the same time. In order to test the feature as a cohesive unit and avoid merge conflicts when pushing to the staging and main branches, it is recommended to create a parent feature branch to act as a staging area. 
 
 1. Branch from the main branch to create the parent feature branch and then, as necessary, 
-2. create child feature branches from the parent feature branch for distinct items of work. 
+2. Create child feature branches from the parent feature branch for distinct items of work. 
 3. When child branch tasks are complete, merge them back to the parent feature branch. 
 
 To pull work from main:
 
 1. Merge main into the parent feature branch, then
-2. merge the parent feature branch into the individual child feature branches. 
+2. Merge the parent feature branch into the individual child feature branches. 
 
 When all work has been merged back into the parent feature branch:
 
@@ -196,10 +193,9 @@ Corrects Missing index notice.
     - **standards:** Formatting changes resulting from applying coding standards (e.g., phpcs, phpcbf)
     
     (source: [Angular docs](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#type))
-    
-#### Tips:
-
-- When applying coding standards (e.g., PHPcs), add formatting changes to a separate commit. This practice will help developers complete code reviews.
+<aside class="green">
+<p>💡 When applying coding standards (e.g., PHPcs), add formatting changes to a separate commit. This practice will help developers complete code reviews.</p>
+</aside>
 
 ### Pull Request Process
 
@@ -208,7 +204,7 @@ Corrects Missing index notice.
 It's an important part of controlling change management that we ensure that there is some separation of responsibilities in the code review process. Our preferred division of responsibilities is as follows.
 
 - PR creation - Developer
-- Resolving Merge conflict - Developer
+- Resolving merge conflict - Developer
 - Code review - Technical Lead or Peer Developer
 - Merging into the main branch - Technical Lead or Developer*
 - Change implementation - Developer
@@ -235,7 +231,7 @@ $ git push origin name-of-local-feature-branch
 
 PRs are created within GitHub and include a Kanopi description template by default. 
 
-Please see the section resources for instructions on creating a PR in GitHub. 
+Please see [the section resources](#pr-resources) for instructions on creating a PR in GitHub. 
 
 The PR template includes the following content:
 
@@ -253,9 +249,10 @@ The PR template includes the following content:
 - Resolve any conflicts before assigning a reviewer.
 - Assign a PR Reviewer when the PR is ready for code review.
 - Transition the Teamwork task to Code Review and assign the task to the PR Reviewer.
-#### Resources:
+#### Resources: {#pr-resources}
 
 - [GitHub: Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request#creating-the-pull-request)
+- [Kanopi Studios PR Template](https://gist.github.com/kwhite/79f59eba02c7ee511d03110ae70d78c5)
 
 ### Reviewing a Pull Request (PR)
 
@@ -297,7 +294,7 @@ Please review project documentation and READMEs for project-specific deployment 
 
 #### Tagged Releases
 
-Deployments to staging and production environments are triggered when Git tags are pushed to a project’s remote repository. Typically tags are applied to the main branch. Tagged releases follow specific naming conventions, please review project documentation for the naming conventions used to trigger automated deploys, examples include:
+Deployments to staging and production environments are triggered when Git tags are pushed to a project’s remote repository. Tagged releases follow specific naming conventions, please review project documentation for the naming conventions used to trigger automated deploys, examples include:
 
 - Semantic Versioning
 - `{ environment }-date`, e.g., production-20221203
