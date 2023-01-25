@@ -4,7 +4,7 @@ These are the official best practices for WisdmLabs. This guide dictates how we,
 
 <a href="https://WisdmLabs.com/contact/"><img src="https://WisdmLabsdotcom-wpengine.s3.amazonaws.com/uploads/2016/10/WisdmLabs-Github-Banner.png" width="850"></a>
 
-
+Mukesh Choudhari
 **[Start reading ☞](https://WisdmLabs.github.io/Engineering-Best-Practices/)**
 
 ## Contributions
