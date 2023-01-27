@@ -72,8 +72,8 @@ updated: 6 Oct 2014
 	<div class="col">
 		<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a></h3>
 		<ul>
-			<li><a href="{{ site.baseurl }}/version-control/#structure">Structure</a></li>
-			<li><a href="{{ site.baseurl }}/version-control/#workflows">Workflows</a></li>
+			<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
+			<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
 		</ul>
 	</div>
 
