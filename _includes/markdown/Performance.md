@@ -1,10 +1,10 @@
 <h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
 
-At 10up, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions.
+At Kanopi, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions.
 
 There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
 
-__While performance is always important, actual needs vary by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
+__While performance is always important, actual needs vary by website. For example, an internal company tool might not place as much importance on it as an online store. As such, Kanopi has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
 
 <h2 id="baseline" class="anchor-heading">Baseline Performance Best Practices {% include Util/link_anchor anchor="baseline" %} {% include Util/top %}</h2>
 
@@ -14,9 +14,9 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 
 *   Ensure all static assets have cache busters in the form of either a version or fingerprint in the filename or unique query string in the URL. This needs to be implemented along with a cache-control header max-age of at least 1 month but optimally 1 year.
 *   A CDN is highly recommended, most popular CDN’s may offer page caching, browser caching and image optimizations.
-*   [Page caching](https://10up.github.io/Engineering-Best-Practices/php/#page-caching) should be set up, a lot of common hosting companies including WP Engine and WordPress VIP offer full page caching.
-*   [Object caching](https://10up.github.io/Engineering-Best-Practices/php/#the-object-cache) should be leveraged where applicable on the server.
-*   All projects should have a [manifest file](https://web.dev/add-manifest/) to download static assets that will be rarely updated. The [manifest.json is included in 10ups WP Scaffold](https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-theme/manifest.json) and will require custom configuration.
+*   [Page caching](https://Kanopi.github.io/Engineering-Best-Practices/php/#page-caching) should be set up, a lot of common hosting companies including WP Engine and WordPress VIP offer full page caching.
+*   [Object caching](https://Kanopi.github.io/Engineering-Best-Practices/php/#the-object-cache) should be leveraged where applicable on the server.
+*   All projects should have a [manifest file](https://web.dev/add-manifest/) to download static assets that will be rarely updated. The [manifest.json is included in Kanopis WP Scaffold](https://github.com/Kanopi/wp-scaffold/blob/trunk/themes/Kanopi-theme/manifest.json) and will require custom configuration.
 
 ### Images and Media
 
@@ -27,7 +27,7 @@ Caching is a key aspect in reaching optimal performance both from a server and b
 *   Assets, in particular images, should be served through a CDN.
 *   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect, the width and height should be set on the tag.
 * If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
-* Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
+* Hosting videos directly on WordPress should be avoided and can be problematic at scale. Kanopi recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
 
 ### Fonts
 
@@ -66,7 +66,7 @@ As part of design reviews, engineering teams should provide feedback on the foll
 *   Use HTTP/2 enabled hosting whenever possible.
 *   GZIP compression should be active.
 
-[Read more on the 10up systems performance best practices.](https://10up.github.io/Engineering-Best-Practices/systems/#performance)
+[Read more on the Kanopi systems performance best practices.](https://Kanopi.github.io/Engineering-Best-Practices/systems/#performance)
 
 ### Third Party Plugins and Scripts
 
@@ -78,10 +78,10 @@ __Note__: When starting a new project or inheriting an existing one, take before
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
 [Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible. Performance measuring in the past has often landed in the domain of engineers. However with the introduction of Web Vitals, site owners can now gain an understanding of the performance impacts and shortcomings of their sites without a deep understanding of web technologies. Web Vitals aim to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
 
-At 10up, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Google's ranking algorithm. Ensuring healthy Web Vitals throughout the build and/or maintenance is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
+At Kanopi, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Google's ranking algorithm. Ensuring healthy Web Vitals throughout the build and/or maintenance is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
 
 ### Cross Discipline Approach
-At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Visual Design.
+At Kanopi we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Visual Design.
 
 As defined by Google, the 3 Core Web Vitals are currently:
 
@@ -134,7 +134,7 @@ Here are some high-level guidelines for ensuring Largest Contentful Paint occurs
 * Ensure that there is a well-thought out caching strategy in place.
 * Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains.
 * Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
-* Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chrome's "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
+* Ensure that your CSS bundles are minified (see [Task Runners](https://Kanopi.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chrome's "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
 * Ensure that your JS bundles are minified, compressed and if the functionality is not required above-the-fold, lazy-loaded.
 
 The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
@@ -286,7 +286,7 @@ Other factors to look at are the size of your JavaScript bundles as well as how 
 One area of conversation (especially with clients) should be around the number and purpose of 3rd-party scripts. Multiple 3rd-party scripts can quickly become unmaintainable and lead to delayed JavaScript execution. Ensuring 3rd party scripts use the `async` and `defer` attributes can also help improve latency.
 
 ### Measuring
-A plethora of tools have become available to manage and maintain healthy Core Web Vitals. In fact, most performance/reporting based tools now offer some kind of Web Vitals-based data. At 10up, we use the following tools to report accurate Web Vital metrics:
+A plethora of tools have become available to manage and maintain healthy Core Web Vitals. In fact, most performance/reporting based tools now offer some kind of Web Vitals-based data. At Kanopi, we use the following tools to report accurate Web Vital metrics:
 
 #### _[Web Vitals NPM Package](https://www.npmjs.com/package/web-vitals)_
 This library can be used during development to diagnose Web Vital metrics. It comes with a fairly easy to understand API that directly tracks
@@ -338,7 +338,7 @@ lighthouse <url> --preset=desktop --view
 
 #### _[WebPageTest](https://www.webpagetest.org/)_
 
-WebPageTest is the preferred tool at 10up for compiling performance budgets and identifying areas of improvement.
+WebPageTest is the preferred tool at Kanopi for compiling performance budgets and identifying areas of improvement.
 We run tests with the following settings:
 
 * Test Location: *Virginia - EC2(Chrome, Firefox)*
