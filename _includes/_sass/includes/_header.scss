@@ -182,7 +182,7 @@ $breakpoint-nav-layout-mid: 900px;
 	@extend %menu-icon;
 	@include icon('github');
 
-	background-color: $almost-black;
+	background-color: $color-mineshaft;
 	background-image: none;
 	display: block;
 	font-size: 1.3rem;

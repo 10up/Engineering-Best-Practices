@@ -1,4 +1,4 @@
-The purpose of this document is to help guide you through working with a project using the JavaScript framework, Vue. Outside of the [official Vue Documentation](https://vuejs.org/), you will  find here personalized recommendations for using the framework based on the types of projects we typically see at 10up. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [official Vue Documentation](https://vuejs.org/).
+The purpose of this document is to help guide you through working with a project using the JavaScript framework, Vue. Outside of the [official Vue Documentation](https://vuejs.org/), you will  find here personalized recommendations for using the framework based on the types of projects we typically see at Kanopi. We have broken these recommendations out into common elements we tend to interact with often in client work. If something you’re looking for isn’t represented you can either submit a pull request to this repository or refer to the [official Vue Documentation](https://vuejs.org/).
 
 For Vue-specific coding style and pattern recommendations please see the official [Vue style guide](https://vuejs.org/v2/style-guide/).
 
@@ -17,7 +17,7 @@ Some questions you may want to ask yourself:
 
 If you find yourself answering, “Yes,” to those questions, Vue may be a great fit for your project or component! If not, a more traditional build may be the best.
 
-While we tend to build large-scale applications with [React]({{ site.baseurl }}/react) at 10up, Vue is a great tool for building small to medium sized features. 
+While we tend to build large-scale applications with [React]({{ site.baseurl }}/react) at Kanopi, Vue is a great tool for building small to medium sized features. 
 
 ## Implementing Vue on a Project
 
@@ -40,9 +40,9 @@ If you are using Vue for isolated components within a single WordPress template,
 
 The [Vue CLI](https://vuejs.org/v2/guide/installation.html#CLI) provides us a quick way to setup and scaffold a Vue project. It sets up a modern frontend workflow providing hot reloading, minification, asset management, module bundling, linting and a development server to test your application under realistic circumstances. It works with zero configuration from your part as everything is already set up in the [vue-CLI templates](https://github.com/vuejs-templates/).
 
-Using the CLI is a more “Vue-centric” approach, and makes sense if you’re building a full Javascript application. Projects at 10up tend to be more “WordPress-centric”, and typically already have their own build process established by the time Vue gets added.
+Using the CLI is a more “Vue-centric” approach, and makes sense if you’re building a full Javascript application. Projects at Kanopi tend to be more “WordPress-centric”, and typically already have their own build process established by the time Vue gets added.
 
-Although we probably won't use Vue in this context, as we tend to build larger applications at 10up using [React]({{ site.baseurl }}/react), it is still important to know that it does exist and the patterns can help guide you in creating a meaningful structure for your project.
+Although we probably won't use Vue in this context, as we tend to build larger applications at Kanopi using [React]({{ site.baseurl }}/react), it is still important to know that it does exist and the patterns can help guide you in creating a meaningful structure for your project.
 
 ## Templating and Components
 There are three main styles of templating built into the Vue framework:

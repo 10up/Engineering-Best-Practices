@@ -19,7 +19,7 @@ Additionally, it is recommended to create a `.nvmrc` file with the officially su
 
 ## Security Updates
 
-The JavaScript ecosystem is constantly evolving, several security patches are released almost every day for the hundreds of npm packages used across 10up’s projects. Keeping packages up-to-date is a time-consuming process considering how fast new patches are released. This section brings a few  best practices and processes to better maintain our JavaScript codebase.
+The JavaScript ecosystem is constantly evolving, several security patches are released almost every day for the hundreds of npm packages used across Kanopi’s projects. Keeping packages up-to-date is a time-consuming process considering how fast new patches are released. This section brings a few  best practices and processes to better maintain our JavaScript codebase.
 
 ### Node.js updates
 

@@ -1,6 +1,6 @@
 <h2 id="nginx" class="anchor-heading">Nginx {% include Util/link_anchor anchor="nginx" %} {% include Util/top %}</h2>
 
-[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at 10up. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  10up maintains a public set of [Nginx configuration templates](https://github.com/10up/nginx_configs "10up Nginx Configuration Template for WordPress") that apply these best practices.
+[Nginx](http://nginx.org/ "Nginx Web Server") is our preferred web server software at Kanopi. It has proven extremely stable, performant, and reliable at high scale and offers a powerful set of tools. This is not to imply there is anything wrong with using [Apache](https://httpd.apache.org/ "Apache Web Server") - we’ve worked on many high scale deployments that use Apache and mod_php that perform very well.  In general, we've found Nginx to be more lightweight, use less memory, provide more flexible configuration, and perform better under heavy load than Apache.  Kanopi maintains a public set of [Nginx configuration templates](https://github.com/Kanopi/nginx_configs "Kanopi Nginx Configuration Template for WordPress") that apply these best practices.
 
 ### Installation
 
@@ -18,19 +18,19 @@ Nginx does not have a history of security vulnerabilities, but keeping it at the
 
 Nginx has a number of modules that provide Web Application Firewall (WAF) style protection, but nearly all come with some significant trade-offs including the need to compile Nginx from source to install. [Naxsi](https://github.com/nbs-system/naxsi) and [modsecurity](https://www.trustwave.com/Resources/SpiderLabs-Blog/Announcing-the-availability-of-ModSecurity-extension-for-Nginx/) are 2 popular choices.
 
-Even without a security module compiled in, Nginx can be used to block some common exploit requests. The basic strategy is to know what kind of traffic you are expecting and would be legitimate, and block everything else. This way, a file snuck onto the server cannot be exploited. The [wordpress_security.inc](https://github.com/10up/nginx_configs/blob/master/security/wordpress_security.inc) file in our Nginx template provides some examples of this.
+Even without a security module compiled in, Nginx can be used to block some common exploit requests. The basic strategy is to know what kind of traffic you are expecting and would be legitimate, and block everything else. This way, a file snuck onto the server cannot be exploited. The [wordpress_security.inc](https://github.com/Kanopi/nginx_configs/blob/master/security/wordpress_security.inc) file in our Nginx template provides some examples of this.
 
-If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/10up/nginx_configs/blob/master/security/block_xmlrpc.inc) but allows for connections from Jetpack or whitelisted IP addresses.
+If you are certain a WordPress site is not using XML-RPC, block it in Nginx to prevent [brute force amplification attacks](https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-against-wordpress-xmlrpc.html).  [Our Nginx template blocks XML-RPC](https://github.com/Kanopi/nginx_configs/blob/master/security/block_xmlrpc.inc) but allows for connections from Jetpack or whitelisted IP addresses.
 
 ### Performance
 
 There are some basic settings that can be adjusted in Nginx to improve the performance of WordPress:
 
-* [Compress files with gzip](https://github.com/10up/nginx_configs/blob/master/includes/performance.inc)
+* [Compress files with gzip](https://github.com/Kanopi/nginx_configs/blob/master/includes/performance.inc)
 
-* Add [upstream response timing to the Nginx access logs](https://github.com/10up/nginx_configs/blob/master/template/nginx.conf#L20) to monitor PHP performance and cache hit status
+* Add [upstream response timing to the Nginx access logs](https://github.com/Kanopi/nginx_configs/blob/master/template/nginx.conf#L20) to monitor PHP performance and cache hit status
 
-* Set appropriate [expires headers for static assets](https://github.com/10up/nginx_configs/blob/master/includes/expires.inc).  The expires header should be set to as far in the future as possible.  Keep in mind that a method to deal with cache invalidation at the CDN and in the browser cache should be utilized for assets (like css and js) that occasionally will change.
+* Set appropriate [expires headers for static assets](https://github.com/Kanopi/nginx_configs/blob/master/includes/expires.inc).  The expires header should be set to as far in the future as possible.  Keep in mind that a method to deal with cache invalidation at the CDN and in the browser cache should be utilized for assets (like css and js) that occasionally will change.
 
 * Always enable [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) on SSL sites to take advantage of the improved header compression, pipelining, and multiplexing.  All major browsers support HTTP/2.
 
@@ -38,23 +38,23 @@ There are some basic settings that can be adjusted in Nginx to improve the perfo
 
 Nginx has a built-in caching mechanism that can be applied to data being proxied or passed to fastCGI. Since Nginx cached data can be served without an extra hop to PHP or a dedicated caching tool like Varnish, it has the potential for being the fastest option. Solutions like Varnish, however, have a big advantage when it comes to cache management and invalidation. Varnish allows sophisticated rules to be built around cache invalidation, whereas Nginx requires extra modules be compiled in to do anything but basic cache management.
 
-10up often uses a "microcaching" strategy with Nginx to provide a performance boost without compiling in extra modules. Cache invalidation integration with WordPress is handled at the PHP level where Batcache provides the main caching mechanism. With microcaching, a small expiration time is set so that cached pages will expire before anyone notices they were even cached in the first place. In this way, there is no need to worry about invalidating caches on new posts, or any other WordPress action that would require a page cache update. This essentially rate limits the amount of requests that are sent to PHP for any given page. A microcaching expiration time of as short as 10 seconds can be helpful on busy sites with spiky traffic patterns.
+Kanopi often uses a "microcaching" strategy with Nginx to provide a performance boost without compiling in extra modules. Cache invalidation integration with WordPress is handled at the PHP level where Batcache provides the main caching mechanism. With microcaching, a small expiration time is set so that cached pages will expire before anyone notices they were even cached in the first place. In this way, there is no need to worry about invalidating caches on new posts, or any other WordPress action that would require a page cache update. This essentially rate limits the amount of requests that are sent to PHP for any given page. A microcaching expiration time of as short as 10 seconds can be helpful on busy sites with spiky traffic patterns.
 
 While a short microcaching time can be useful, the best practice is to set this microcaching expiration for as long a duration as is tolerable. For publishers that deal in breaking news, this may be tens of seconds. On a more static site, or a publisher where the stories are not time critical, microcaching up to 5 or 10 minutes can work and provide a big performance boost. This expiration time should be determined by collaborative discussion with the publishers and content creators.
 
 #### Implementation
 
-A handful of good [blog](https://thelastcicada.com/2014/microcaching-with-nginx-for-wordpress) posts cover microcaching and our Nginx templates provide the settings we commonly use with comments for context.  Microcaching needs configuration in a number of places, so be sure to include configuration in the [server block](https://github.com/10up/nginx_configs/blob/master/includes/wp_microcaching.inc), the [http block](https://github.com/10up/nginx_configs/blob/master/template/example.conf#L3), and in the [php location block](https://github.com/10up/nginx_configs/blob/master/includes/php.inc).
+A handful of good [blog](https://thelastcicada.com/2014/microcaching-with-nginx-for-wordpress) posts cover microcaching and our Nginx templates provide the settings we commonly use with comments for context.  Microcaching needs configuration in a number of places, so be sure to include configuration in the [server block](https://github.com/Kanopi/nginx_configs/blob/master/includes/wp_microcaching.inc), the [http block](https://github.com/Kanopi/nginx_configs/blob/master/template/example.conf#L3), and in the [php location block](https://github.com/Kanopi/nginx_configs/blob/master/includes/php.inc).
 
 <h2 id="php-fpm" class="anchor-heading">PHP-FPM {% include Util/link_anchor anchor="php-fpm" %} {% include Util/top %}</h2>
 
-PHP-FPM is 10up’s preferred solutions for parsing PHP and serving via fastCGI through Nginx to the web. PHP-FPM has proven to be a stable and performant solution, offering a number of variables to configure in the pursuit of performance.
+PHP-FPM is Kanopi’s preferred solutions for parsing PHP and serving via fastCGI through Nginx to the web. PHP-FPM has proven to be a stable and performant solution, offering a number of variables to configure in the pursuit of performance.
 
-10up recommends keeping the PHP version updated to be within 1 release of the most recent version. For example, when PHP is on version 7.1, the version of PHP in production should be no lower than PHP 7.0.
+Kanopi recommends keeping the PHP version updated to be within 1 release of the most recent version. For example, when PHP is on version 7.1, the version of PHP in production should be no lower than PHP 7.0.
 
 ### Installation
 
-The default repos in CentOS (and most Linux distributions) provide stable but usually well out-of-date packages for PHP. These are often more than 1 version behind the latest PHP release. Because of this, 10up relies on the [Remi repos](https://blog.remirepo.net/pages/Config-en) to provide up-to-date versions of PHP for CentOS. When using the Remi repos, edit ```/etc/yum.repos.d/remi.repo``` to select the PHP version to install. Alternatively, look for similarly named files that could be used for other PHP versions (such as ```/etc/yum.repos.d/remi-php71.repo```). By enabling and disabling specific Remi repos, the desired version of PHP can be installed.
+The default repos in CentOS (and most Linux distributions) provide stable but usually well out-of-date packages for PHP. These are often more than 1 version behind the latest PHP release. Because of this, Kanopi relies on the [Remi repos](https://blog.remirepo.net/pages/Config-en) to provide up-to-date versions of PHP for CentOS. When using the Remi repos, edit ```/etc/yum.repos.d/remi.repo``` to select the PHP version to install. Alternatively, look for similarly named files that could be used for other PHP versions (such as ```/etc/yum.repos.d/remi-php71.repo```). By enabling and disabling specific Remi repos, the desired version of PHP can be installed.
 
 When doing a standard yum install PHP-FPM, the software will be installed in the usual places on Linux and updating to a new version of PHP will mean installing directly over the existing version. An alternative method of installation is to use [Software Collections](https://www.softwarecollections.org/en/). Software Collections allow multiple versions of the same software to be installed and run at the same time. The scl command is used to specify which version of the software to use. In this scenario, multiple versions of PHP-FPM can be running simultaneously, making upgrading a website to a new version of PHP as simple as changing the upstream FastCGI process in Nginx. This allows for easy rollbacks if incompatibilities are discovered. This is also a great setup for development environments.
 
@@ -170,7 +170,7 @@ The impact of MySQL performance is very different site to site. A slow database 
 
 ### Version
 
-Both MySQL and MariaDB can serve WordPress as they are fully compatible with each other.  While 10up generally has switched to MariaDB due to the more open source ethos of the project, there’s very little reason not to use MySQL if that is the easier option.  In this document, "MySQL" is used as the generic term to refer to both MySQL and MariaDB.
+Both MySQL and MariaDB can serve WordPress as they are fully compatible with each other.  While Kanopi generally has switched to MariaDB due to the more open source ethos of the project, there’s very little reason not to use MySQL if that is the easier option.  In this document, "MySQL" is used as the generic term to refer to both MySQL and MariaDB.
 
 MySQL versions have a longer lifespan than PHP versions and as long as security patches are being issued for the version in use, it is likely acceptable to use.
 
@@ -236,7 +236,7 @@ When evaluating memory usage, all programs running on the database server should
 
 When tuning memory usage, be aware that many MyISAM buffers and caches are per thread while many InnoDB buffers are global. InnoDB is the default database engine in MySQL and is what most WordPress installs will be using at this time, so MyISAM buffers can be greatly reduced (but should be non-zero as some MySQL internal tables can use MyISAM).
 
-This section will outline the most common variables that are tuned in the ```/etc/my.cnf``` or ```/etc/my.cnf.d/server.cnf``` files using a real example from a 10up configured site.
+This section will outline the most common variables that are tuned in the ```/etc/my.cnf``` or ```/etc/my.cnf.d/server.cnf``` files using a real example from a Kanopi configured site.
 
 * **Innodb_buffer_pool_size**: This is by far the most important variable for efficient performance of an InnoDB database.  InnoDB is the database engine which all WordPress databases should be unless there are very unusual circumstances. The InnoDB buffer pool should be larger than the size of the MySQL dataset so that all active databases can fit into memory, limiting at 85% of system RAM (assuming no other services are run on the database server). MySQLTuner provides excellent guidance for setting this value correctly. In our example project, MySQLTuner states ```InnoDB buffer pool / data size: 200.0M/455.9M```. This server has 4GB of RAM and has Memcached (the only other process running on this server) already using 128MB of RAM, so there’s plenty of room to devote to MySQL. MySQLTuner reports this as well showing ```Maximum possible memory usage: 972.0M (24.61% of installed RAM)```. In this example, this setting was increased as such to allow for growth: ```innodb_buffer_pool_size = 600M```
 
@@ -272,7 +272,7 @@ New sites should implement HTTPS (Hypertext Transfer Protocol Secure) unless the
 * **Non-HTTPS APIs** - Caution should be taken when sending sensitive information such as usernames or passwords to 3rd-party APIs not utilizing HTTPS. When sending data to a non-secure API, always be sure sensitive information is encrypted and decrypted on each end of the connection so that they are not exposed. Likewise, sensitive information, such as passwords, session tokens, etc should not be exposed in HTTP URL requests, which can be captured in web server logs.
 <h2 id="memcached-and-redis" class="anchor-heading">Memcached and Redis {% include Util/link_anchor anchor="memcached-and-redis" %} {% include Util/top %}</h2>
 
-Memcached and Redis are in memory data stores that are used for the WordPress object cache. Implementation of the object cache in WordPress code is covered extensively in the [PHP Performance](https://10up.github.io/Engineering-Best-Practices/php/#performance) section of the Best Practices and this section will focus on the hosting and setup of memcached and Redis.
+Memcached and Redis are in memory data stores that are used for the WordPress object cache. Implementation of the object cache in WordPress code is covered extensively in the [PHP Performance](https://Kanopi.github.io/Engineering-Best-Practices/php/#performance) section of the Best Practices and this section will focus on the hosting and setup of memcached and Redis.
 
 Memcached and Redis are used by WordPress as simple, in memory key-value stores. By being in memory and not having the possibility for complex queries, these tools provide blazing fast retrieval of data, usually in less than 1 millisecond. Common use cases of these data stores are:
 
@@ -284,7 +284,7 @@ Items stored in these caching technologies are made up of 3 things: a key, a val
 
 ### Sizing the Cache Pool
 
-The LRU eviction policy means that even a small cache can be effective and the most used data will always be in the cache. However, the most effective cache pool will never evict an item before the expiration time is reached and will have enough space for a healthy collection of items with no expiration time.  10up has tested various sizes of cache pools and has found 256 MB to be appropriate for most WordPress sites.  Complicated sites or large multisites may benefit from 512 MB and small sites on limited hardware can perform well with as little as 64 MB, but 256 MB should be used as a safe “rule of thumb”.  Above 256 MB, the cache hit rate and eviction rate usually do not improve no matter how large the cache pool is.
+The LRU eviction policy means that even a small cache can be effective and the most used data will always be in the cache. However, the most effective cache pool will never evict an item before the expiration time is reached and will have enough space for a healthy collection of items with no expiration time.  Kanopi has tested various sizes of cache pools and has found 256 MB to be appropriate for most WordPress sites.  Complicated sites or large multisites may benefit from 512 MB and small sites on limited hardware can perform well with as little as 64 MB, but 256 MB should be used as a safe “rule of thumb”.  Above 256 MB, the cache hit rate and eviction rate usually do not improve no matter how large the cache pool is.
 
 A common misconception is that a full cache pool is a problem and should be avoided, or that a full cache means a bigger cache pool is needed. In reality, a full cache pool is the normal state of the cache with WordPress and means nothing.  No matter how big the cache pool, it will eventually become full.  This is because there will always be some cached items without an expiration time that will persist in the cache forever, until the cache is full and the LRU policy evicts it to make room for a new item.
 
@@ -312,7 +312,7 @@ Starting in memcached version 1.4.2, the item size is configurable via the `-I` 
 
 #### Connecting WordPress to Memcached
 
-WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcache](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, 10up mostly uses one of the following:
+WordPress connects to memcached through an object-cache.php drop-in plugin file placed in the wp-content folder.  The object-cache.php file will leverage a php extension to handle communicating with memcached.  There are two PHP extensions commonly used, confusingly named [php-memcache](https://pecl.php.net/package/memcache) and [php-memcached](https://pecl.php.net/package/memcached).  It is important to match the object-cache.php file with the right PHP extension, and, while there’s many object cache files that can work, Kanopi mostly uses one of the following:
 
 * [Memcached Object Cache](https://wordpress.org/plugins/memcached/) for php-memcache
 * [Wordpress-pecl-memcached-object-cache](https://github.com/humanmade/wordpress-pecl-memcached-object-cache) for php-memcached
@@ -388,11 +388,11 @@ The load balancing algorithm decides which back-end server to send the next requ
 * Least Connections - Sends the next request to the server with the least number of active requests.  If each request is assumed to be equal, this should maintain an even balance of load across servers.  If some requests can cause much greater load than others (such as requests to an admin dashboard vs public page loads), this might not result in the desired outcome.
 * Response Time - sends the next request to the server with the fastest response time.  If we assume response time is dictated by number of requests and server load, this will result in the best performance.  Can result in unexpected traffic distribution if response time between servers differs slightly for reasons not related to the application.  Also requires the load balancer to maintain knowledge of the current response time of each server, which is not a feature of all load balancers.
 
-For most applications, 10up uses Round Robin as it satisfies the goals of load balancing with the simplest solution and is very predictable.
+For most applications, Kanopi uses Round Robin as it satisfies the goals of load balancing with the simplest solution and is very predictable.
 
 ### Session Persistence
 
-In most scenarios, 10up recommends against enabling session persistence on the load balancer.  Session persistence, or sticky sessions, will attempt to identify each user and route the user to the same backend server for all their requests.  Users can be identified by their IP address or using a cookie.  Reasons to do this include:
+In most scenarios, Kanopi recommends against enabling session persistence on the load balancer.  Session persistence, or sticky sessions, will attempt to identify each user and route the user to the same backend server for all their requests.  Users can be identified by their IP address or using a cookie.  Reasons to do this include:
 
 * An application that uses PHP sessions (see section about PHP Sessions below)
 * Webservers that may not be identical (it would be better for the servers to be identical instead)
@@ -417,7 +417,7 @@ Storage becomes an issue in a multi-server environment, particularly how to deal
 
 Using a shared storage solution is a popular option, and the most popular protocol is [NFS](https://en.wikipedia.org/wiki/Network_File_System).  NFS mounts a drive from one server onto other servers, making the drive shared across all servers it is mounted on.  NFS is an open standard, reliable, and compatible with nearly all operating systems.  When using a shared drive with NFS or similar technology, everything about the file system will work similarly to a single-server setup and no special provisions need to be made.  While this is a very convenient option, it has one major flaw: it introduces a single point of failure in a critical system.  If the NFS server were to fail and the NFS server is where all WordPress code and uploads are served from, it doesn't matter how many webservers or database servers exist for redundancy, the site will be offline.  Additionally, if network latency between the webservers and NFS server increases for some reason, page load times will dramatically worsen.
 
-To mitigate some of this risk, 10up often will install all code directly to the webservers and only rely on NFS for WordPress uploads.  The shared storage is still a single point of failure, but with a CDN in place that will serve media, the site can keep functioning even if the NFS becomes unavailable.  An additional benefit of installing code on the local disk of the webservers is that the local disk will always be more performant than storage mounted over the network.  This puts the code (which we want to perform optimally) on the fastest storage, reducing any potential bottlenecks.
+To mitigate some of this risk, Kanopi often will install all code directly to the webservers and only rely on NFS for WordPress uploads.  The shared storage is still a single point of failure, but with a CDN in place that will serve media, the site can keep functioning even if the NFS becomes unavailable.  An additional benefit of installing code on the local disk of the webservers is that the local disk will always be more performant than storage mounted over the network.  This puts the code (which we want to perform optimally) on the fastest storage, reducing any potential bottlenecks.
 
 When code is no longer served from shared storage, a new solution for keeping it in sync across all webservers is needed.  While it can be effective to sync files between servers automatically using something like [lsyncd](https://github.com/axkibe/lsyncd), [unison](https://www.cis.upenn.edu/~bcpierce/unison/), or [syncthing](https://syncthing.net/), a better solution is to move all code to a version controlled repository and build process.  This way, all fo the code is managed outside of the server environment and fully version controlled.  A scripted deployment process can be used to deploy the files from version control to each server.  File modifications should be disabled in the wp-config.php file with `define('DISALLOW_FILE_MODS', true);` to avoid any confusion and prevent code from being installed via the broswer.  This has the added benefit of increased security by disabling a vector of attack.
 
@@ -426,19 +426,19 @@ To create a fully highly available infrastructure, replace NFS entirely with a h
 * [S3-Uploads](https://github.com/humanmade/S3-Uploads)
 * [Microsoft Azure Storage for WordPress](https://wordpress.org/plugins/windows-azure-storage/)
 
-Using a cloud object storage system is 10up's preferred solution, but does come with some challenges:
+Using a cloud object storage system is Kanopi's preferred solution, but does come with some challenges:
 
 * Bulk actions on the WordPress uploads, such as resizing thumbnails, will be much slower than when using local storage.
 * The cost of bandwidth when serving files from S3 or Blob Storage can quickly get prohibitive, so careful architecture that offloads image serving to the CDN is suggested.
 
 ### Software and Services
 
-Load balancing has become a comodity service, avaiable at the click of a button on every cloud hosting platform.  The load balancing services offered by the major cloud providers, such as Amazon Web Services, Microsoft Azure, and Google Cloud, are quite good and 10up recommends their use.  Be advised, however, that each platform has multiple types of load balancers and the documentation should be consulted to make sure the type chosen matches up with the type of load balancing needed.
+Load balancing has become a comodity service, avaiable at the click of a button on every cloud hosting platform.  The load balancing services offered by the major cloud providers, such as Amazon Web Services, Microsoft Azure, and Google Cloud, are quite good and Kanopi recommends their use.  Be advised, however, that each platform has multiple types of load balancers and the documentation should be consulted to make sure the type chosen matches up with the type of load balancing needed.
 
 If building a multiserver environment outside of the cloud providers, the following software load balancers are a good place to start:
 
-* [Nginx](hhttps://10up.github.io/Engineering-Best-Practices/systems/#nginx) - fully featured web server and proxy with advanced capabilities
+* [Nginx](hhttps://Kanopi.github.io/Engineering-Best-Practices/systems/#nginx) - fully featured web server and proxy with advanced capabilities
 * [HAProxy](http://www.haproxy.org/) - focused load balancer software with powerful options
 * [LVS](http://www.linuxvirtualserver.org/whatis.html) - Simple load balancing with very little overhead
 
-As 10up uses Nginx as our main webserver software, we also prefer to use it as our load balancing solution for the sake of simplicity.
+As Kanopi uses Nginx as our main webserver software, we also prefer to use it as our load balancing solution for the sake of simplicity.

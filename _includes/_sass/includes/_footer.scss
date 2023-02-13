@@ -16,7 +16,7 @@ footer[role="contentinfo"] {
 		@include breakpoint($breakpoint-alpha) {
 			@include transition(background-size, 150ms, linear);
 
-			background: $color-mineshaft url("img/10up-icon-reversed.svg") no-repeat center;
+			background: $color-mineshaft url("img/kanopi.png") no-repeat center;
 			background-size: 42%;
 			border-top-left-radius: 100%;
 			border-top-right-radius: 100%;

@@ -2,7 +2,7 @@ The following are recommendations for better site security. This list will grow 
 
 ## Always Enforce Strong Passwords.
 
-Always enforce strong passwords. By default WordPress does not enforce strong passwords. Make sure to use a plugin or custom solution to enforce a strong password policy. 10up recommends using randomly generated passwords from a password manager application.
+Always enforce strong passwords. By default WordPress does not enforce strong passwords. Make sure to use a plugin or custom solution to enforce a strong password policy. Kanopi recommends using randomly generated passwords from a password manager application.
 
 ## Use multi-factor authentication for administrator accounts.
 
@@ -44,7 +44,7 @@ Always consider the information available on the JSON API about the users of the
 
 Where possible, keys should be stored either in the `wp_options` table, or as a constant defined in the `wp-config.php`, never within the application source code. Storing keys in these locations reduce the chance of accidentally pushing these keys into an upstream version control repository.  Additionally, these locations increase discoverability during routine security audits or when rotating keys.
 
-## 10up Experience Plugin
+## Kanopi Experience Plugin
 
-For improved security, 10up recommends our [10up experience plugin](https://github.com/10up/10up-experience). 10up experience configures WordPress to better protect and inform our clients. [Please read the plugin readme for a description of the functionality.](https://github.com/10up/10up-experience#functionality)
+For improved security, Kanopi recommends our [Kanopi experience plugin](https://github.com/Kanopi/Kanopi-experience). Kanopi experience configures WordPress to better protect and inform our clients. [Please read the plugin readme for a description of the functionality.](https://github.com/Kanopi/Kanopi-experience#functionality)
 
