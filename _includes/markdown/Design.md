@@ -116,7 +116,7 @@ Here's what `composer.json` might look like with some example plugins:
 
 ```json
 {
-  "name": "10up/project-slug",
+  "name": "Kanopi/project-slug",
   "description": "Project description",
   "repositories":[
     {
