@@ -8,10 +8,17 @@
 		display: block;
 	}
 
+	.cols {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
 	.col {
 		border-top: 1px solid darken(#efefef, 5%);
 		margin: 0;
 		word-break: break-word;
+		flex-basis: 100%;
 
 		&:first-child {
 			border-top: none;
@@ -19,10 +26,10 @@
 
 		@include breakpoint($breakpoint-bravo) {
 			border-right: 1px solid darken(#efefef, 5%);
-			float: left;
+			//float: left;
+			flex-basis: 25%;
 			padding-right: 2%;
 			vertical-align: top;
-			width: 50%;
 
 			&:nth-child(2n+1) {
 				border-left: 1px solid darken(#efefef, 5%);
@@ -40,7 +47,6 @@
 
 		@include breakpoint($breakpoint-charlie) {
 			border-right: none;
-			width: 24%;
 
 			/** reset from breakpoint-alpha **/
 			&:nth-of-type(2n+3) {
