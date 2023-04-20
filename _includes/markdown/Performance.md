@@ -1,367 +1,552 @@
-<h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
+<h2 id="performance-culture" class="anchor-heading">Performance Culture {% include Util/link_anchor anchor="performance-culture" %} {% include Util/top %}</h2>
 
-At 10up, we understand the importance of performance in delivering a great user experience and ensuring that content is optimized for search engine rankings. As the web and application development has evolved, feature rich content can be problematic and slow to load, particularly on mobile devices. It is more important than ever to pay careful consideration towards performance when designing and engineering solutions.
+At 10up, we understand that website performance is essential for a positive User Experience, Engineering, SEO, Revenue, and Design. It's not a task that can be postponed but rather a continuous and evolving process that requires strategic planning, thoughtful consideration, and extensive experience in creating high-quality websites.
 
-There are multiple factors to take into account when considering performance on a project. Third party embeds or scripts can often have a negative impact on performance, but in some cases the inherent value that they bring may justify the performance impact incurred.
+10up engineers prioritize performance optimization when building solutions, using the latest best practices to ensure consistent and healthy performance metrics. We aim to develop innovative and dynamic solutions to reduce latency, bandwidth, and page load time.
 
-__While performance is always important, actual needs vary by website. For example, an internal company tool might not place as much importance on it as an online store. As such, 10up has developed these baseline performance best practices to be implemented on all our projects. On some projects more will be done for performance, but we strive to achieve this baseline no matter what. Also worth mentioning is we don't have any sort of standard "numbers" e.g. core web vitals, PSI score, or TTFB. This is because there is no one number that can apply to all websites.__
-
-<h2 id="baseline" class="anchor-heading">Baseline Performance Best Practices {% include Util/link_anchor anchor="baseline" %} {% include Util/top %}</h2>
-
-### Caching
-
-Caching is a key aspect in reaching optimal performance both from a server and browser optimization perspective, below are caching approaches:
-
-*   Ensure all static assets have cache busters in the form of either a version or fingerprint in the filename or unique query string in the URL. This needs to be implemented along with a cache-control header max-age of at least 1 month but optimally 1 year.
-*   A CDN is highly recommended, most popular CDN’s may offer page caching, browser caching and image optimizations.
-*   [Page caching](https://10up.github.io/Engineering-Best-Practices/php/#page-caching) should be set up, a lot of common hosting companies including WP Engine and WordPress VIP offer full page caching.
-*   [Object caching](https://10up.github.io/Engineering-Best-Practices/php/#the-object-cache) should be leveraged where applicable on the server.
-*   All projects should have a [manifest file](https://web.dev/add-manifest/) to download static assets that will be rarely updated. The [manifest.json is included in 10ups WP Scaffold](https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-theme/manifest.json) and will require custom configuration.
-
-### Images and Media
-
-*   Images should be optimized for Next-Gen formats. JPEG 2000, JPEG XR, and [WebP](https://developers.google.com/speed/webp) are image formats that have superior compression and quality characteristics compared to their older JPEG and PNG counterparts.
-*   Crop images appropriately, you do not need to create a crop for every size but in some cases a few extra crops to handle mobile proportions can be useful.
-*   Images should be served using srcset so that smaller sizes can be shown for smaller viewports.
-*   All images implemented through code should [contain a width and height attribute](https://web.dev/optimize-cls/#images-without-dimensions). This is especially important in avoiding Content Layout Shift issues.
-*   Assets, in particular images, should be served through a CDN.
-*   Images, Videos and iFrames should be lazy loaded. Please note that [WordPress will handle browser level lazy loading](https://make.wordpress.org/core/2021/02/19/lazy-loading-iframes-in-5-7/) using [native lazy load](https://web.dev/native-lazy-loading/). In order for this to take effect, the width and height should be set on the tag.
-* If you're not seeing performance benefits by lazy-loading IFrames, look into using the [Facade Pattern](https://web.dev/third-party-facades/)
-* Hosting videos directly on WordPress should be avoided and can be problematic at scale. 10up recommends a dedicated hosting service such as Brightcove, Vimeo, YouTube, Dailymotion, etc.
-
-### Fonts
-
-*   Fonts used across the site should be [preloaded](https://web.dev/codelab-preload-web-fonts/).
-*   Whenever available, WOFF2 font formats should be used for better compression with a WOFF fallback.
-*   Subset Font files if you have them available locally.
-*   Investigate using `unicode-range` to subset fonts if they are being served locally or through [Google Fonts](https://developers.google.com/fonts/docs/getting_started#specifying_script_subsets).
-*   Fonts should either be served locally or from a single foundry (don’t mix Google fonts and TypeKit, pick one).
-
-### JavaScript and CSS
-
-*   Write JavaScript and CSS with the "Mobile First" approach in mind.
-*   Where viable, ensure that JavaScript and CSS assets are not [render-blocking](https://web.dev/render-blocking-resources/) the browser pipeline. This is mainly achieved by deferring or setting scripts to load asynchronously while other assets are loading.
-*   All JavaScript and CSS should be minified.
-*   Standalone site features should be broken off into isolated entry points so we don’t have to load more CSS/JS on pages that will never use it.
-*   Be aware of any additional requests 3rd-party libraries are making on page load. This can severely impact performance scores.
-*   Where possible, defer loading of libraries that are not necessary for a stable user experience until after initial load.
-*   Critical rendering path should be considered. Scripts should be loaded in the footer and external scripts should contain the [‘async’ attribute](https://www.w3schools.com/tags/att_script_async.asp) or be loaded at the bottom of the document where they can’t be concatenated into a single file. Internal scripts without an implicit loading order should contain the [‘defer’ attribute](https://www.w3schools.com/tags/att_script_defer.asp) if possible. Note that scripts using the ‘defer’ attribute can be loaded in the head tag as they will be fetched asynchronously while being executed after the HTML is parsed.
-
-### Design and UX
-
-As part of design reviews, engineering teams should provide feedback on the following:
-
-*   Avoid using large media objects for decorative purposes if no business value is present. If large media objects are used, consider only loading them on larger screen sizes.
-*   Avoid structural page changes based on the browser width as they require extra scripting and can slow performance.
-*   Err on the side of typefaces that offer WOFF2 font files, as they are quicker to load.
-*   Avoid auto playing videos, particularly above the fold and on mobile screens.
-
-### Advertising
-
-*   All ads should be lazy loaded.
-*   Keep ads above the fold to a minimum.
-
-### Systems
-
-*   Use HTTP/2 enabled hosting whenever possible.
-*   GZIP compression should be active.
-
-[Read more on the 10up systems performance best practices.](https://10up.github.io/Engineering-Best-Practices/systems/#performance)
-
-### Third Party Plugins and Scripts
-
-*   Third party plugins can play a part in poor site performance. Always audit a plugin for performance issues before adding it to a project. Paying careful attention to the server side impacts of slow non-cached queries and how data is being stored to the weight of the JavaScript and CSS being included on every page.
-*   Third party scripts, particularly those being loaded for the purpose of analytics, embeds, helper libraries and advertising can have a major impact on site performance. Oftentimes, these scripts may be loaded through Google Tag Manager rather than directly in the page using script tags making it difficult to anticipate the impact on a project. Ensure that site performance is being tested ahead of any launch with all third party scripts loaded. If any scripts result in a negative impact on performance, ensure to flag this with your team.
-
-__Note__: When starting a new project or inheriting an existing one, take before screenshots of the Google PSI report so performance can be compared before-and-after.
 
 <h2 id="core-web-vitals" class="anchor-heading">Core Web Vitals {% include Util/link_anchor anchor="core-web-vitals" %} {% include Util/top %}</h2>
-[Web Vitals](https://web.dev/vitals/), a performance initiative by Google, provides us a set of rules, concepts and metrics in order to serve users with the best web experience possible. Performance measuring in the past has often landed in the domain of engineers. However with the introduction of Web Vitals, site owners can now gain an understanding of the performance impacts and shortcomings of their sites without a deep understanding of web technologies. Web Vitals aim to simplify understanding and provide pertinent guidance to site owners and engineers alike in order to optimize user experience.
 
-At 10up, we closely monitor [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (a subset of Web Vitals) during development which was introduced in June 2021 into Google's ranking algorithm. Ensuring healthy Web Vitals throughout the build and/or maintenance is of paramount importance and requires a shift not only in how we go about building components, but in maintaining a high level of quality across overall user experience.
+At 10up, we pay close attention to Largest Contentful Paint, Cumulative Layout Shift, and First Input Delay. Collectively, these three metrics are known as Core Web Vitals.
 
-### Cross Discipline Approach
-At 10up we acknowledge that achieving healthy Web Vitals across the board is not siloed to one discipline. Ensuring healthy Web Vitals requires a cross discipline approach spanning Front-end Engineering, Web Engineering, Systems, Audience and Revenue and Visual Design.
+We closely monitor Core Web Vitals during development to ensure a high-quality user experience. Maintaining healthy Web Vitals throughout the build and maintenance process is crucial, which requires a shift in building and supporting components. Achieving healthy Web Vitals requires a cross-disciplinary approach spanning Front-end engineering, Back-end engineering, Systems, Audience and Revenue, and Visual design.
 
-As defined by Google, the 3 Core Web Vitals are currently:
+<h3>Quick Links</h3>
 
-* [Largest Contentful Paint (a.k.a. LCP)](https://web.dev/lcp/)
-* [Cumulative Layout Shift (a.k.a. CLS)](https://web.dev/cls/)
-* [First Input Delay (a.k.a. FIP)](https://web.dev/fid/)
+1. [Optimising Images](#optimising-images)
+2. [Optimising Rich Media](#optimising-rich-media)
+3. [Optimising JavaScript](#optimising-javascript)
+4. [Optimising CSS](#optimising-css)
+5. [Optimising Fonts](#optimising-fonts)
+6. [Optimising Resource Networking](#optimising-resource-networking)
+7. [Optimising Third-party Scripts](#optimising-third-party-scripts)
 
-### Largest Contentful Paint
-Largest Contentful Paint is an important metric for measuring perceived user performance, specifically *loading performance*.
-This metric reports the render time of the largest element on the page _that is visible to the user_.
+<h3 id="optimising-images">1. Optimising Images {% include Util/link_anchor anchor="optimising-images" %}</h3>
 
-> An LCP score of 2.5 seconds or less is considered to be a conducive measurement for good user experience.
+_Images are typically the most significant resource on a webpage and can drastically affect load times. Therefore, optimizing images while maintaining quality to enhance user experience is crucial. To achieve this, consider the following aspects when working with website images. Combining all suggestions below can improve page load times and perceived performance._
 
-LCP is measured in seconds (s) and can be tracked against the following DOM elements:
+<h4>1.1 Serve responsive images</h4>
 
-* `<img>`
-* `<image>` - inside an SVG
-* `<video>`
-* An element with a `background-image`
-* Any element that is considered to be block-level (`display: block`)
+Using [responsive images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) in web development means that the most suitable image size for the device or viewport will be served, which saves bandwidth and complements responsive web design. 
+Many platforms, such as [WordPress](https://wordpress.org/) and [NextJS](https://nextjs.org/), provide responsive image markup out of the box using specific APIs or components. [Google Lighthouse](https://web.dev/serve-responsive-images/) will indicate if further optimization of your responsive images is necessary. You can also use the [Responsive Breakpoints Generator](https://www.responsivebreakpoints.com/) or [RespImageLint - Linter for Responsive Images](https://ausi.github.io/respimagelint/) to help you generate or debug responsive image sizes.
 
-#### How to diagnose Largest Contentful Paint
-The quickest way to diagnose the Largest Contentful Paint element on the page is by following these steps:
 
-1. Open _Google Chrome_
-2. Open _Chrome DevTools_
-3. Select the _Performance_ Tab
-4. Check the _Web Vitals_ checkbox
-5. Click the _Reload_ button or hit `⌘ ⇧ E` shortcut
-6. Scroll down to _Timings_
-7. Select the green _LCP_ marker
-8. In _Summary_ scroll down to "Related Node"
-9. Click the _node_ listed and it will be highlighted in the _DOM_.
-
-#### How to fix Largest Contentful Paint
-
-Once you have diagnosed which element on the page has the Largest Contentful Paint, the next step is to figure out why.
-There are 3 main factors that contribute to LCP:
-
-1. Slow server response times.
-2. Render-blocking JavaScript and CSS.
-3. Resource load times.
-
-It's important that your server is optimized in a way that doesn't have a domino effect on other vitals.
-To measure the "speed" of your server you can track the [Time to First Byte (TTFB)](https://web.dev/time-to-first-byte) vital.
-
-Here are some high-level guidelines for ensuring Largest Contentful Paint occurs as fast as possible:
-
-* Serve assets (Images, JavaScript, CSS, Video) over a CDN.
-* Ensure that there is a well-thought out caching strategy in place.
-* Use `<link rel="preconnect">` and `<link rel="dns-prefetch">` for assets that originate at third-party domains.
-* Ensure that scripts and styles are carefully audited to ensure that there are no render-blocking patterns in order to improve First Contentful Paint, which will consequently improve Largest Contentful Paint.
-* Ensure that your CSS bundles are minified (see [Task Runners](https://10up.github.io/Engineering-Best-Practices/tools/#task-runners)) and deferred if the CSS rules do not apply above the fold. You can also use Chrome's "Coverage" tab to identify just how much of your CSS bundle is being utilized on the page.
-* Ensure that your JS bundles are minified, compressed and if the functionality is not required above-the-fold, lazy-loaded.
-
-The time it takes the browser to fetch resources like images or videos can also have an effect on LCP:
-* Optimize and compress all images on the site - ensure images are not greater than twice their contained real-estate.
-* Make sure that images are being served over a CDN, you're serving formats like WebP or AVIF and you're using responsive images techniques.
-* For images that find themselves in Hero components, `preload` the image resource ahead of time. For [responsive images](https://web.dev/preload-responsive-images/) you will need to add the `imagesrcset` and `imagesizes` attributes: `<link rel="preload" as="image" imagesrcset=" image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" imagesizes="100vw" />`.
-* Check with Systems or Web Engineering that the server is utilizing compression algorithms like Gzip or Brotli.
-
-### Cumulative Layout Shift
-
-Cumulative Layout Shift measures the *visual stability* of a web page.
-CLS can be an elusive metric to get right as elements targeted as having a layout shift are often not the root cause. By ensuring
-limited layout shifts on the page, visitors will be presented with a smooth and delightful user experience.
-
-> A CLS score of 0.1 or less is considered to be a conducive measurement for good user experience.
-
-It's important to understand that the CLS metric does not just measure one offending element. The CLS score reported is the sum total of all layout shifts on the page. A layout shift occurs any time a visible element (i.e above the fold), changes its position from one rendered frame to the next.
-
-To be clear, a layout shift is only considered a problem if it's *unexpected* - so a shift in an elements position that was triggered on purpose by a user is acceptable.
-
-It's useful to know that a layout shift can be caused by the following events:
-* A change in the position of a DOM element
-* A change in size of the dimensions of a DOM element
-* Inserting or removing DOM elements through JavaScript
-* CSS / JS animations that would trigger Reflow (recalculation of layout)
-
-Considering the above, it would be plausible that nearby DOM elements could then change their position and dimensions based on another elements movement.
-
-#### How to diagnose Cumulative Layout Shift
-
-The quickest way to diagnose an element that has undergone a layout shift is by following these steps:
-
-1. Open _Google Chrome_
-2. Open _Chrome DevTools_
-3. Select the _Performance_ Tab
-4. Check the _Web Vitals_ checkbox
-5. Click the _Reload_ button or hit `⌘ ⇧ E` shortcut
-6. Scroll down to _Experience_
-7. If there is a Layout Shift on the page, Chrome will add a red bar with "Layout Shift" as the label.
-8. In _Summary_ scroll down to the "Moved from" / "Moved to" section.
-9. Hover over each "Location" / "Size" label and Chrome will highlight the offending element on the page.
-
-As an alternative, you can also diagnose Layout Shifts on the page by:
-
-1. Open _Google Chrome_
-2. Open _Chrome DevTools_
-3. Hit `⌘ ⇧ P` to open the actions console.
-4. Start typing "Rendering" until the prompt suggests: "Show Rendering", hit Enter.
-5. A dialog will appear at the bottom of the DevTools window.
-6. Check "Layout Shift Regions" and refresh the page.
-7. All elements that have been identified as triggering a layout shift will be highlighted.
-
-#### How to fix Cumulative Layout Shift
-
-Elements that cause CLS can be easily fixed in some instances. As a general rule of thumb ensure that:
-
-* All images loaded on the site have a `width` and a `height` attribute. This is because HTML gets parsed before CSS and the browser will reserve space if it knows the dimensions and aspect-ratio of the image.
-* Ensure that ads, iframes and other embeds have a `width` and `height` attribute.
-* As a best practice, do not insert dynamic content into the site without the user performing an action to receive it, ie "load more" or "click".
-* Ensure that you have a Web Font Loading strategy in place that mitigates layout shift when fonts are loaded and displayed in the browser.
-* When animating CSS properties, ensure that you animate `transform` properties rather than `box-model` properties to prevent reflow and layout changes in the browsers [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
-
-##### _Handling Ad Sizes_
-When it comes to ads, it's important that slot sizes are consistent in order to prevent CLS. Ads are generally difficult to predict considering that Ad Servers can serve ads at different heights and widths depending on impression data. There are a number of ways to mitigate this:
-
-1. Speak to Audience and Revenue or your Ad Ops team and see if it's possible to ensure that ad units are served at more consistent sizes based on impression analytics.
-2. If you can achieve more consistent ad sizes, you can reserve space for ad slots by using the `min-height` CSS property: `<div id="ad-slot" style="min-height: 250px;"></div>`
-3. If you want to dynamically set the height and width of ads once the `GPT.js` script has ad data you can use the following function:
+```html
+<img
+  alt="10up.com Logo"
+  height="90px"
+  srcset="ten-up-logo-480w.jpg 480w, ten-up-logo-800w.jpg 800w"
+  sizes="(max-width: 600px) 480px,
+         800px"
+  src="ten-up-logo-800w.jpg"
+  width="160px"
+/>
 
 ```
-googletag.pubads().addEventListener('slotRenderEnded', function(event) {
-	var size = event.size;
-	if(size === null) return;
-	var slot = event.slot;
-	var slotDiv = document.getElementById(slot.getSlotElementId());
 
-	if (size[0] > slotDiv.clientWidth) {
-		slotDiv.style.width = size[0] + 'px';
-	}
+<h4>1.2 Serve images from a CDN</h4>
 
-	if (size[1] > slotDiv.clientHeight) {
-		slotDiv.style.height = size[1] + 'px';
-	}
+Using a [Content Delivery Network (CDN)](https://developer.mozilla.org/en-US/docs/Glossary/CDN) to serve images can significantly enhance the loading speed of resources. Additionally, CDNs can provide optimized images using contemporary formats and compression techniques. Nowadays, CDNs are regarded as a fundamental element for optimizing performance. Here are some CDN suggestions with proven track records:
+
+1. [Cloudinary](https://cloudinary.com/)
+2. [Cloudflare](https://www.cloudflare.com/)
+3. [Fastly](https://www.fastly.com/)
+4. [WordPress VIP](https://docs.wpvip.com/technical-references/vip-platform/edge-cache/)
+
+<h4>1.3 Serve images in modern formats</h4>
+
+Efforts are currently focused on optimizing image compression algorithms to deliver high-quality, low-bandwidth images. Although several proposals have been made, only a few have been successful. [WebP](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#webp_image) is the most widely used contemporary format for this purpose.
+When using a CDN, images can quickly be served as .webp by making a simple configuration change. The WordPress Performance Lab plugin has also added .webp functionality for uploads, which can be utilized if necessary.
+
+Generally, it's recommended to use the .webp image format as much as possible in projects due to its performance benefits. Doing so can help pass the "[Serve images in modern formats](https://developer.chrome.com/en/docs/lighthouse/performance/uses-webp-images/)" audit in Google Lighthouse.
+
+<h4>1.4 Lazy-load and decode images below the fold</h4>
+
+We can use lazy loading for images to prioritize the rendering of critical above-the-fold content. This reduces the number of requests needed to render important content. Use the "[loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading)" attribute on images to achieve this.
+
+The "[decoding](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding)" attribute can enhance performance by enabling parallel image loading. WordPress Core offers this functionality by default.
+
+```html
+/* Above the Fold */
+<img
+  alt="10up.com Logo"
+  decoding="sync"
+  loading="eager"
+  height="90px"
+  src="ten-up-logo-800w.jpg"
+  width="160px"
+/>
+
+/* Below the Fold */
+<img
+  alt="10up.com Logo"
+  decoding="async"
+  loading="lazy"
+  height="90px"
+  src="ten-up-logo-800w.jpg"
+  width="160px"
+/>
+
+```
+
+<h4>1.5 Use fetchpriority for LCP images</h4>
+
+To improve your website's loading time, you’ll likely need to optimize the LCP element, which is typically the most prominent and first [image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/fetchPriority) on the page. Factors such as [First Contentful Paint](https://web.dev/fcp), [Time to First Byte](https://web.dev/ttfb/), and render-blocking CSS/JS can cause an image to be flagged as the LCP element. 
+
+We can set a [fetch priority](https://addyosmani.com/blog/fetch-priority/) on the resource to load the image faster. The attribute hints to the browser that it should prioritize the fetch of the image relative to other images. The [Performance Lab plugin](http://g/plugins/performance-lab/) offers this functionality as a experimental option.
+
+```html
+<img
+  alt="10up.com Logo"
+  decoding="async"
+  loading="eager"
+  fetchpriority="high"
+  height="90px"
+  src="ten-up-logo-800w.jpg"
+  width="160px"
+/>
+
+```
+<h4>1.6 Ensure images have a width and height</h4>
+
+Adding width and height attributes to all `<img />` elements on a page is essential to prevent CLS. If these attributes are missing, two problems can occur: 
+
+1. the browser cannot reserve the correct space needed for the image,
+2. the browser cannot calculate the aspect ratio of the image. 
+
+This can also cause the [Properly size images](https://developer.chrome.com/en/docs/lighthouse/performance/uses-responsive-images/) audit Lighthouse to flag errors.
+
+```html
+<img
+  alt="10up.com Logo"
+  height="90px"
+  src="ten-up-logo-800w.jpg"
+  width="160px"
+/>
+```
+
+<h4>1.7 Reduce image requests</h4>
+
+Reducing the number of image requests a webpage makes is the best approach to improve image performance. This requires effective design and UX decisions. Additionally, using [SVGs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg) instead of images for icons, decorative elements, animations, and other site elements can improve bandwidth and page load time.
+
+Use tools like [SVGOMG](https://svgomg.net/) to optimize and minify SVG elements through build managers or manually in the browser where needed.
+
+<h3 id="optimising-rich-media">2. Optimising Rich Media {% include Util/link_anchor anchor="optimising-rich-media" %}</h3>
+
+<h4>2.1 Lazy-load iframes below the fold</h4>
+
+To improve page loading speed, use the [loading="lazy"](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) attribute for rich media that use iframes, like [Youtube](https://www.youtube.com/), [Vimeo](https://vimeo.com/), or [Spotify](https://open.spotify.com/). This will delay the loading of assets until after the initial page load, which can save time and improve the user experience. 
+Note: To lazy load the video and audio HTML5 elements, you’ll need to use either Load on Visibility or Load using the Facade Pattern.
+
+<h4>2.2 Load using the Facade Pattern</h4>
+
+To reduce the page load time, you can use the [Facade pattern](https://www.patterns.dev/posts/import-on-interaction) to render a low-cost preview of heavy and expensive assets, such as videos, and then import the actual asset when a user requests it. This technique enables loading the asset on demand while attempting to retain the overall user experience. 
+
+Recently, this methodology has received a fair amount of attention; there are already packages that help achieve implementation for several services:
+
+1. [Lite Youtube Embed](https://github.com/paulirish/lite-youtube-embed)
+2. [Lite Vimeo Embed](https://github.com/luwes/lite-vimeo-embed)
+3. [Intercom Chat Facade](https://github.com/danielbachhuber/intercom-facade/)
+
+Follow [these instructions](https://gutenberg.10up.com/guides/modifying-the-markup-of-a-core-block/#youtube-embed-facade) to modify the core block output to support the facade pattern.
+
+You can use the [script-loader snippet](https://gist.github.com/itsjavi/93cc837dd2213ec0636a) (outdated) to create a more general Facade mechanism. This snippet uses promises and can load necessary scripts when the user interacts with the user interface.
+
+```js
+const playBtn = document.querySelector("#play");
+
+playBtn.addEventListener("click", () => {
+  const scriptLoaderInit = new scriptLoader();
+  scriptLoaderInit
+     .load(["https://some-third-party-script.com/library.js"])
+    .then(() => {
+      console. log(`Script loaded!`);
+    });
 });
 ```
 
-4. A combination of both 2 and 3 has yielded great improvement to CLS scores.
-5. Consider using `googletag.pubads().collapseEmptyDivs();` to ensure that ad slots that probably won't fill take up no height and width on the page.
+If your environment supports ES6 you can also use dynamic import:
 
-##### _Handling Web Fonts_
-Handling FOUT (Flash of Unstyled Text) and FOIT (Flash of Invisible Text) have become a much discussed topic recently. It's important to be aware that your page could subscribe to either of the unwanted side-effects of embedding custom fonts. Here's what you can do to mitigate those effects:
-
-1. Use `font-display: swap` if your fonts are hosted locally.
-2. Where possible, preload font files using the `<link rel="preload"/>` schema in conjunction with `font-display: optional`
-3. Where possible, host your fonts locally.
-4. Subset your font files if you know that your site will not be translated into other languages.
-5. Cache font files on the web server.
-6. Use libraries like [WebFontLoader](https://github.com/typekit/webfontloader) to asynchronously load fonts on the page.
-7. The [Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API) can be used as an alternative to WebFontLoader if you're looking for an approach with more control.
-8. Ensure that your fallback fonts closely resemble the desired primary font in the stack. A layout shift will / can occur when fallback fonts have different line-heights, kerning and leading.
-
-
-### First Input Delay
-
-First Input Delay measures the interactivity of the web page. It quantifies the user's experience with regards to how fast the page load feels.
-By maintaining a low FID score, users will *feel* like the page is loading faster.
-
-First Input Delay is specifically purposed for measuring how quickly the page becomes interactive to the user on their first impression, where as a vital such as First Contentful Paint measures how quickly the page becomes visible. These are 2 important concepts to grasp when it comes to debugging and diagnosing Core Web Vitals.
-
-> An FID score of 100 milliseconds (ms) or less is considering to be a conducive measurement for good user experience.
-
-FID is a unique Core Web Vital and is not actually tracked in Lighthouse or other service metrics. FID is a field metric, meaning that its score is generated by collating data from millions of websites accessed by Google Chrome users. When it comes to generating a score for FID "in the lab" or otherwise through Lighthouse, you will be looking to improve the [Total Blocking Time (TBT)](https://web.dev/tbt/) metric. You can think of TBT as a proxy to FID. This is because FID requires a real user and real users cannot be "spoofed" by Lighthouse.
-
-Most importantly, this vital measures the delay from when an event has been received to when the main thread of the browser is idle, this is also known as "input latency". The "event" can include user events like clicks or taps, but there are far more events in JavaScript that do not require actual user input. FID does not measure the time it takes to actually process the event in JavaScript or the time that it takes to update the UI based on event handlers.
-
-#### How to diagnose First Input Delay
-
-Unfortunately, diagnosing Total Blocking Time in Chrome is not as easy as diagnosing Largest Contentful Paint or Cumulative Layout Shift.
-One of the biggest clues for diagnosing TBT is identifying heavy JavaScript execution on the main thread. This requires an understanding of how the browser parses HTML and JavaScript as well as what is known as a [Long Task](https://web.dev/custom-metrics/#long-tasks-api). A Long Task is any JavaScript-based task on the main thread that takes longer than 50 milliseconds (ms) to execute. While the browser is executing a JS task on the main thread, it cannot respond to any user input, as JavaScript is not a multi-threaded language.
-
-You can identify any Long Tasks on your webpage by following these steps:
-
-1. Open _Google Chrome_
-2. Open _Chrome DevTools_
-3. Select the _Performance_ Tab
-4. Check the _Web Vitals_ checkbox
-5. Click the _Reload_ button or hit `⌘ ⇧ E` shortcut
-6. Scroll down to _Main_
-7. If there are Long Task's recorded during page load, you'll see a grey bar labelled by "Task" and then a red diagonal pattern overlay.
-8. Hovering or clicking on this bar will indicate a long task in the browser's main thread.
-9. In order to better understand and pin-point the offending execution, you can click on "Call Tree".
-10. Once in the "Call Tree" dialog you will see under "Activity" that the length of the task is broken down into function calls and will provide you with a link to the offended JavaScript source file. You can continue your debugging from there.
-
-Using Google Chrome's "Coverage" tab can provide critical insight into how much of the JavaScript on the page is actually being used.
-Identifying this code can help you off-load non-critical JavaScript until after page load.
-
-#### How to fix First Input Delay
-FID can be fixed in a number of ways that relate to analyzing JavaScript performance:
-
-* Breaking up Long Tasks
-* Optimizing your web page for interaction readiness
-* Using a web worker
-* Reducing JavaScript execution time.
-
-We've already discussed at a high-level what Long Tasks are, but more importantly, we want to make sure that these long tasks can be broken up into smaller, asynchronous tasks. This can be achieved by code-splitting your JavaScript bundles using [ES6 Dynamic Import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports) syntax as well as keeping an eye on polyfill's clogging up your main bundle. Fallback polyfills can add a tremendous amount of bloat to bundle sizes.
-
-Other factors to look at are the size of your JavaScript bundles as well as how many JavaScript files your page is loading during initial load. If the main thread has to parse unnecessary JavaScript that may not be needed by the user the chance of Long Tasks preventing user interaction during load rises exponentially. Where possible you should also defer the fetching of data from API services as network latency can also effect TBT.
-
-One area of conversation (especially with clients) should be around the number and purpose of 3rd-party scripts. Multiple 3rd-party scripts can quickly become unmaintainable and lead to delayed JavaScript execution. Ensuring 3rd party scripts use the `async` and `defer` attributes can also help improve latency.
-
-### Measuring
-A plethora of tools have become available to manage and maintain healthy Core Web Vitals. In fact, most performance/reporting based tools now offer some kind of Web Vitals-based data. At 10up, we use the following tools to report accurate Web Vital metrics:
-
-#### _[Web Vitals NPM Package](https://www.npmjs.com/package/web-vitals)_
-This library can be used during development to diagnose Web Vital metrics. It comes with a fairly easy to understand API that directly tracks
-Web Vital data on page load. The data can be a bit hard to read but if you're looking for a programmatic approach to understanding the health
-of your web page, this library won't let you down.
-
-```
-import {getLCP, getFID, getCLS} from 'web-vitals';
-
-getCLS(console.log);
-getFID(console.log);
-getLCP(console.log);
-
+```js
+const btn = document.querySelector("button");
+ 
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  import("third-party.library")
+    .then((module) => module.default)
+    .then(executeFunction()) // use the imported dependency
+    .catch((err) => {
+      console.log(err);
+    });
+});
 ```
 
-You can also use this library if you would like to send site data on Web Vitals directly to your analytics service. The package won't help you
-identify what's wrong, but it will tell you where your site is starting to slip in terms of web vitals health in a customized and dynamic way.
+<h4>2.3 Load on Visibility</h4>
 
-```
-import {getCLS, getFID, getLCP} from 'web-vitals';
+To load non-critical resources on demand, engineers can only load assets when they [become visible](https://www.patterns.dev/posts/import-on-visibility). The [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) can trigger a callback when elements become visible, enabling the selective loading of potentially heavy resources.
 
-function sendToAnalytics(metric) {
-  const body = JSON.stringify({[metric.name]: metric.value});
-  // Use `navigator.sendBeacon()` if available, falling back to `fetch()`.
-  (navigator.sendBeacon && navigator.sendBeacon('/analytics', body)) ||
-      fetch('/analytics', {body, method: 'POST', keepalive: true});
+Read this [Smashing Magazine article](https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/) for an in-depth understanding of how the Observer APIs work. See the example code below for an idea of how to go about implementation:
+
+```js
+const images = document.querySelectorAll('.lazyload');
+
+function handleIntersection(entries) {
+  entries.map((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.src = entry.target.dataset.src;
+      entry.target.classList.add('loaded')
+      observer.unobserve(entry.target);
+    }
+  });
 }
 
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getLCP(sendToAnalytics);
+const observer = new IntersectionObserver(handleIntersection);
+images.forEach(image => observer.observe(image));
+```
+
+<h3 id="optimising-javascript">3. Optimising JavaScript {% include Util/link_anchor anchor="optimising-javascript" %}</h3>
+
+_JavaScript files tend to be large and can block other resources from loading, slowing down page load times. Optimizing JavaScript without compromising its functionality is essential to enhance user experience and ensure a fast and responsive website._
+
+<h4>3.1 Minify and compress payloads</h4>
+
+To make your JavaScript code load faster and prevent it from blocking the rendering of your web page, it's important to minimize and compress the JavaScript payloads to reduce bandwidth usage. 10up Toolkit does this out-of-the-box using Webpack.
+
+Files should also be [Gzip](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding) or [Brotli](https://github.com/google/brotli) compressed. All major hosts already do this.
+
+_Remember:_ *it's far more performant to load many smaller JS files than fewer larger JS files.*
+
+<h4>3.2 Defer non-critical JavaScript</h4>
+
+To provide an optimal user experience, it's crucial only to load critical JavaScript code during the initial page load. JavaScript that doesn't contribute to above-the-fold functionality should be deferred. 
+
+Several approaches, outlined in sections 3.3 (Remove unused JavaScript code) and 3.4 (Leverage Code Splitting), can help achieve this. 
+As an engineer, it's essential to determine what JavaScript is critical versus non-critical for each project. Generally, any JavaScript related to above-the-fold functionality is considered critical, but this may vary depending on the project.
+
+The [script_loader_tag](https://developer.wordpress.org/reference/hooks/script_loader_tag/) filter allows you to extend [wp_enqueue_script](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) to apply async or defer attributes on rendered script tags. This functionality can be found in [10up/wp-scaffold](https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-theme/includes/core.php#L273).
+
+
+<h4>3.3 Remove unused JavaScript code</h4>
+
+To optimize the performance of your website, it's crucial to manage JavaScript bloat. Start by being mindful of what is requested during page load and the libraries and dependencies added to your JavaScript bundles.
+
+First, remove unnecessary libraries and consider building custom solutions for required functionality instead of relying on bloated JS libraries that cover all edge cases.
+
+Next, use the [Chrome Coverage tool](https://developer.chrome.com/docs/devtools/coverage/) to analyze the percentage of unused code within your bundles. This provides insights into how much code is being used.
+
+Finally, leverage BundleAnalyzer tools to understand better what is bundled into your JavaScript payloads. This allows you to clearly understand your bundler's output, leading to more effective [code splitting](https://developer.mozilla.org/en-US/docs/Glossary/Code_splitting) and optimizing your website's performance.
+
+
+<h4>3.4 Leverage code-splitting</h4>
+
+Code splitting is a powerful technique that can significantly improve performance. It involves breaking JavaScript bundles into smaller chunks that can be loaded on demand or in parallel, especially as sites and applications scale. 
+
+This is important because JavaScript affects Core Web Vitals, and code splitting can easily improve scores with minimal engineering effort. Tools like Webpack make it easy to set up code splitting, and [dynamic imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) further support its implementation. 
+
+With code splitting, all chunks are lazy-loaded, reducing the likelihood of [long tasks](https://developer.mozilla.org/en-US/docs/Glossary/Long_task) and [render-blocking behavior](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/renderBlockingStatus) and providing a streamlined implementation for better performance.
+
+As an added benefit, if you know which chunks will be required on demand, you can [preload them](https://web.dev/preload-critical-assets) to be available sooner. To set up code splitting, you can use the Webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/).
+
+
+<h4>3.5 Identify and flag long tasks</h4>
+
+A long task refers to any JavaScript task on the main thread that takes longer than 50ms to execute. Long tasks are problematic as they block the main thread, preventing it from moving on to its next task in the pipeline and negatively impacting performance.
+
+To improve performance, engineers must find ways to break up long tasks and prevent them from blocking the main thread. However, this can be challenging, especially when dealing with third-party vendor code that cannot be optimized directly.
+
+This underscores the importance of practicing effective task management to mitigate the impact of long tasks on performance. The subject of task management is complex and requires an in-depth understanding of JavaScript and browser mechanics. 
+
+However, you can look into the following strategies if your code is causing long task behavior:
+
+1. _Use setTimeOut_: leverage [setTimeOut](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) to yield to the main thread. [See example](https://web.dev/optimize-long-tasks/#manually-defer-code-execution).
+2. _Use async/await_: you can use [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) to yield to the main thread. [See example](https://web.dev/optimize-long-tasks/#use-asyncawait-to-create-yield-points).
+3. _Use isInputPending_: this [method](https://web.dev/isinputpending/) allows you to yield to the main thread if the user interacts with the page. [See example](https://web.dev/optimize-long-tasks/#yield-only-when-necessary).
+4. _Use postTask_: The [Scheduler API](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/postTask) allows you to set a priority on functions. It's only supported in Chrome now but provides fine-grained control over how and when tasks execute on the main thread. [See example](https://web.dev/optimize-long-tasks/#a-dedicated-scheduler-api).
+
+<h3 id="optimising-css">4. Optimising CSS {% include Util/link_anchor anchor="optimising-css" %}</h3>
+
+_Large and complex CSS files can slow page load times and affect interactivity. Optimizing CSS without sacrificing design quality is essential to ensure a fast and responsive website._
+
+<h4>4.1 Minify CSS</h4>
+
+[Minifying CSS](https://web.dev/minify-css/) is a common practice that reduces data transfer between the server and browser. Since modern web pages have a lot of CSS, compressing them is crucial to reduce bandwidth consumption. 
+
+Use build tools like [Webpack](https://webpack.js.org/) or CDNs with query string parameters to minify CSS. Smaller CSS files can speed up download times and reduce render-blocking activity in the browser. [10up Toolkit](https://github.com/10up/10up-toolkit) does all this out of the box.
+
+<h4>4.2 Leverage Purge CSS</h4>
+
+[Purge CSS](https://purgecss.com/) optimises the browser rendering pipeline and prioritize critical resources. PurgeCSS is a library that minimizes unused CSS on a web page. It analyzes your content and CSS files, matches the selectors used in your files with the ones in your content files, and removes unused selectors from your CSS. 
+
+This results in smaller CSS files, but it may not work for dynamic class name values that can change at build time. If you have primarily static CSS on your site, PurgeCSS is an excellent tool.At any time, you can leverage the [Code Coverage](https://developer.chrome.com/docs/devtools/css/reference/#coverage) tool in Google Chrome to determine how much of your CSS is unused. 
+
+<h4>4.3 Avoid render-blocking CSS</h4>
+
+[Render-blocking CSS](https://developer.mozilla.org/en-US/docs/Web/Performance/Critical_rendering_path) is a significant performance issue that engineers must tackle to ensure a positive user experience. Not all CSS required for the page should be loaded during the initial load. Some can be deferred or prioritized, depending on the use case. There are various ways to solve render-blocking CSS on a webpage, each with its caveats and variability. Here are some potential options:
+
+1. Embed critical and anticipated CSS using `<style>` tags. This can be a performant way to improve user experience. You may want to place CSS related to fonts, globals, or elements that appear above the fold so that the browser renders them faster.
+2. Use the [Asynchronous CSS Technique](https://gomakethings.com/how-to-load-css-asynchronously/) to defer non-critical CSS. Only use this for CSS that may appear below the fold. 
+
+```html
+<link
+ rel="preload"
+ href="styles.css"
+ as="style"
+ onload="this.onload=null;this.rel='stylesheet'"
+>
+<noscript><link rel="stylesheet" href="styles.css"></noscript>
+```
+If you would like to identify and debug render-blocking CSS and JS you can toggle on [ct.css](https://csswizardry.com/ct/) in [10up/wp-scaffold](https://github.com/10up/wp-scaffold). By appending `?debug_perf=1` to any URL in your theme, all render-blocking assets in the head will be highlighted on the screen.
+
+<h4>4.4 Adhere to CSS Best Practices</h4>
+
+How we [write CSS](https://www.youtube.com/watch?v=nWcexTnvIKI) can significantly affect how quickly the browser parses the [CSSOM](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) and [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction). The more complex the rule, the longer it takes the browser to calculate how it should be applied. Clean and optimized CSS rules that are not overly specific can help deliver a great user experience.
+
+When writing performant CSS, there are certain guidelines to consider to ensure optimal performance. Here are some of the most important ones:
+
+1. Avoid importing base64 encoded images: this dramatically increases the file size of your CSS.
+2. Avoid importing one CSS file into another CSS file using @import: this can trigger knock network requests and lead to latency.
+3. Be cautious when animating elements, and avoid overusing them without careful consideration.
+3. Avoid animating or transitioning margin, padding, width, and height properties.
+5. Be mindful of elements that trigger a [re-paint](https://css-tricks.com/browser-painting-and-considerations-for-web-performance/) and [reflow](https://developers.google.com/speed/docs/insights/browser-reflow).
+
+Use [CSS Triggers](https://csstriggers.com/) to determine which properties affect the [Browser Rendering Pipeline](https://web.dev/rendering-performance/).
+
+<h3 id="optimising-fonts">5. Optimising Fonts {% include Util/link_anchor anchor="optimising-fonts" %}</h3>
+
+_Loading multiple or large font files can increase page load times and affect overall site performance. Optimizing fonts while maintaining design integrity is essential for a fast and responsive website._
+
+<h4>5.1 Always set a font-display</h4>
+
+Choosing the right [font-display](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display) property can significantly affect how fast fonts are [rendered](https://web.dev/optimize-webfont-loading/). To get the fastest loading time, it's recommended to use [font-display: swap](https://css-tricks.com/almanac/properties/f/font-display/) since it blocks the rendering process for the shortest amount of time compared to other options.  
+
+```css
+@font-face {
+  font-family: 'WebFont';
+  font-display: swap;
+  src:  url('myfont.woff2') format('woff2'),
+        url('myfont.woff') format('woff');
+}
 
 ```
 
-#### _[Lighthouse/Lighthouse CLI](https://github.com/GoogleChrome/lighthouse)_
-Lighthouse, which is built into Google Chrome's DevTools, is a significant tool for tracking performance data on an ad-hoc basis.
-Whereas the tool is accurate and performs many important audits, it should only be used as a "check up" on performance data and not a real assumption of how multiple users perceive performance on the site.
+Note: For [TypeKit](https://fonts.adobe.com/fonts), the font-display setting can be configured on the type settings page. For [Google Fonts](https://fonts.google.com/), you can append &display=swap to the end of the URL of the font resource.
 
-The Lighthouse CLI tool can also be used with more efficiency if you are managing multiple URL sets. To install the CLI:
+<h4>5.2 Preconnect and serve fonts from a CDN</h4>
+
+Font foundries like Google Fonts and TypeKit use CDNs to serve fonts. This speeds up load times and allows font files and CSS to be delivered to the browser faster. Since fonts are essential to the rendering process, ensuring the browser can fetch them early is crucial. 
+To do this, preconnect to the necessary origins and use dns-prefetch as a fallback for older browsers:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+```
+<h4>5.3 Serve fonts locally</h4>
+
+To achieve fast font rendering, serving fonts locally can be very effective. This can be done using the CSS [@font-face](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) declaration to specify a custom font using a local path. The browser will first check if the font exists on the user's operating system, and if it does, it will use the local version. This is the quickest way to serve a font - but only if the user has it installed.
+
+```css
+@font-face {
+  font-family: 'WebFont';
+  font-display: swap;
+  src:  local('myfont.woff2'),
+        url('myfont.woff2') format('woff2'),
+        url('myfont.woff') format('woff');
+}
 
 ```
-npm install -g lighthouse
-```
-then run the CLI against a URL:
+
+<h4>5.4 Subset fonts</h4>
+
+Subsetting is a valuable technique for reducing the font size. When we add fonts to a site, we sometimes include subsets containing glyphs for languages that have yet to be used. This unnecessarily increases page load times. 
+However, the @font-face [unicode-range descriptor](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range) can be used to filter out unnecessary glyph ranges based on the specific requirements of your website.
+
+```css
+@font-face {
+  font-family: 'WebFont';
+  font-display: swap;
+  src:  local('myfont.woff2'),
+        url('myfont.woff2') format('woff2'),
+        url('myfont.woff') format('woff');
+  unicode-range: U+0025-00FF;
+}
 
 ```
-lighthouse <url> --preset=desktop --view
+
+<h4>5.5 Leverage size-adjust</h4>
+
+To reduce the impact of Cumulative Layout Shift (CLS) on web pages, the [size-adjust](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust) property can be helpful. It helps [normalize document font sizes and prevents layout shifts](https://web.dev/css-size-adjust/) when switching fonts. This is especially important on slow connections, where a fallback font is initially rendered before the desired font is loaded. 
+
+```css
+// Desired Font
+@font-face {
+  font-family: 'WebFont';
+  font-display: swap;
+  src:  local('myfont.woff2'),
+        url('myfont.woff2') format('woff2'),
+        url('myfont.woff') format('woff');
+}
+
+// Fallback
+@font-face {
+  font-family: 'Arial';
+  src:  local('Arial.woff2');
+  font-family: 90%;
+}
+
 ```
 
-#### _[WebPageTest](https://www.webpagetest.org/)_
+<h4>5.6 Font Delivery Considerations</h4>
 
-WebPageTest is the preferred tool at 10up for compiling performance budgets and identifying areas of improvement.
-We run tests with the following settings:
+When loading fonts, there are a few other things to keep in mind:
 
-* Test Location: *Virginia - EC2(Chrome, Firefox)*
-* Browser: *Chrome*
-* Connection: *3G Fast (1.6 Mbps/768 Kbps 150ms RTT)*
-* Desktop Browser Dimensions: *default (1366x768)*
-* Number of Tests to Run: *9*
-* Repeat View: *First View Only*
+1. Use [WOFF](https://developer.mozilla.org/en-US/docs/Web/Guide/WOFF) or [WOFF2](https://www.w3.org/TR/WOFF2/) formats instead of [EOT](https://www.w3.org/Submission/EOT/#:~:text=The%20Embedded%20OpenType%20File%20Format,the%20font%20the%20author%20desired.) and [TTF](https://en.wikipedia.org/wiki/TrueType), as the latter is no longer necessary.
+2. Load fewer web fonts whenever possible. Where possible, use a maximum of 2 fonts. 
+3. Consider using [variable fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) if your site requires many font weights or styles.
 
-These settings give us a median test range to see accurate results. An incredibly useful feature of WebPageTest is their _Chrome Field Performance_ section which reports on where your site lands up based on the 75th percentile of all websites that Chrome tracks in the [Chrome UX Report (CrUX)](https://developers.google.com/web/tools/chrome-user-experience-report). This is a really important contextful feature that should not be ignored.
+<h3 id="optimising-resource-networking">6. Optimising Resource Networking {% include Util/link_anchor anchor="optimising-resource-networking" %}</h3>
 
-#### _[Web Vitals Chrome Extension](https://chrome.google.com/webstore/detail/web-vitals/ahfhijdlegdabablpippeagghigmibma?hl=en)_
-Addy Osmani has written a really useful and compact extension that reports on the 3 Core Web Vitals.
+_Poorly optimized resource networking can lead to slow page load times and a poor user experience. To improve Core Web Vital's performance, maximizing resource networking is crucial by minimizing the number of requests made, reducing the file size of resources, and utilizing browser caching._
 
-### Further reading {% include Util/top %}
+<h4>6.1 Use a CDN for static assets</h4>
 
-* [Optimize Largest Contentful Paint](https://web.dev/optimize-lcp)
-* [Optimize Cumulative Layout Shift](https://web.dev/optimize-cls/)
-* [Optimize First Input Delay](https://web.dev/optimize-fid/)
-* [The business impact of Core Web Vitals](https://web.dev/vitals-business-impact/)
-* [Getting started with measuring Web Vitals](https://web.dev/vitals-measurement-getting-started/)
-* [Preloading responsive images](https://web.dev/preload-responsive-images/)
+In section 1.2, "Serve images from a CDN," it was mentioned that using a CDN can help deliver more than just images. It can also serve CSS, JS, Fonts, and Rich Media from nearby global data centers. 
+
+To reduce latency and round trips through DNS servers, serve all static assets over a CDN as much as possible. Additionally, you can establish an early connection to the CDN origin by [pre-connecting](https://developer.chrome.com/en/docs/lighthouse/performance/uses-rel-preconnect/) to ensure faster page load times.
+
+<h4>6.2 Establish network connectivity early</h4>
+
+To establish an early connection and improve the loading speed of resources critical to above-the-fold content rendering and interactivity, add the appropriate `<link rel="preconnect" />` tag to the `<head>`. 
+
+By placing the tag in the `<head>`, the browser is notified to establish a connection as soon as possible. This approach, also called [Resource Hints](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints), can speed up resource times by 100-500ms. It's crucial, however, to only preconnect to some third-party origins on a page. Only preconnect to origins essential for the start and completion of page rendering.
+
+Some examples of origins you may want to connect to are:
+
+- CDNs
+- Critical 3rd-party scripts that manipulate the DOM above the fold.
+- Consent Management libraries, e.g., OneTrust
+- Ad or tag scripts like Google Publisher Tag or Google Tag Manager.
+
+<h4>6.3 Prioritise and preload critical resources</h4>
+
+Browsers try to prioritize scripts and resources as best as possible, but sometimes human intervention is needed. Engineers can influence the browser's decisions using specific attributes and hints.
+
+You can view the assigned priority for each resource in the [Chrome Dev Tools Network tab](https://developer.chrome.com/docs/devtools/network/). The browser has three solutions for influencing priorities.
+
+1. preconnect - which hints to the browser that you’d like to establish a connection with another origin early.
+2. prefetch - hints to the browser that something should happen with a non-critical resource.
+3. preload - allows you to request critical resources ahead of time.
+
+Here are three scenarios where it would make the most sense to implement the `<link rel="preload" />` tag:
+
+1. Any resource defined in a CSS file, i.e., an image or font, should be preloaded.
+2. Any non-critical CSS should be preloaded to mitigate render-blocking JavaScript if implementing Critical CSS.
+3. Preloading critical JavaScript chunk files.
+
+Add a `<link />` tag in the `<head>` to preload a resource. The as attribute tells the browser how best to set the resource's prioritization, headers, and cache status.
+
+```html
+<link rel="preload" as="style" href="/path/to/resource" />
+```
+
+<h4>6.4 Optimise TTFB (Server Response)</h4>
+
+Although TTFB (Time to First Byte) is not classified as a Core Web Vital, it is a critical indicator of site speed. TTFB is the first metric before every other measurable metric regarding web performance. If your TTFB is extremely slow, it will impact FCP and LCP.
+
+Achieving the lowest possible TTFB value is essential to ensure that the client-side markup can start rendering as quickly as possible. To improve TTFB, you need to focus less on the client side and more on what occurs before the browser begins to paint content. Factors to consider include:
+
+- hosting,
+- platform-specific guidance (such as WordPress or NextJS),
+- the use of a CDN (Content Delivery Network), 
+- and the number of redirects.
+
+It's highly advisable to leverage a strategic caching strategy in order to optimize Time to First Byte. Suggested caching strategies are documented in the [PHP Performance Best Practices](https://10up.github.io/Engineering-Best-Practices/php/#performance).  
+
+You can read more about [Optimizing TTFB](https://web.dev/optimize-ttfb/) on [web.dev](https://web.dev/).
+
+<h4>6.5 Leverage Adaptive Serving</h4>
+
+You can use adaptive serving to help improve performance when network conditions are poor. This functionality can be implemented using the Network Information API to return data about the current network.
+
+Adaptive serving allows you to decide on behalf of the user to handle circumstances like:
+
+1. Serving high-definition vs. low-definition resources
+2. Whether or not to preload certain resources
+3. Warn users about poor network conditions to improve user experience.
+4. Send data to analytics to determine what percentage of your traffic uses your website under poor connectivity scenarios.
+
+```js
+navigator.connection.addEventListener("change", () => {
+   sendBeacon(); // Send to Analytics
+   if (navigator.connection.effectiveType === "2g" ) {
+     body.classList.add("low-data-mode") 
+   }
+});
+```
+
+<h3 id="optimising-third-party-scripts">7. Optimising Third-party Scripts {% include Util/link_anchor anchor="optimising-third-party-scripts" %}</h3>
+
+_Third-party scripts can significantly impact website performance and negatively affect Core Web Vitals metrics. Optimizing and managing third-party scripts is essential to ensure they don't negatively impact user experience._
+
+<h4>7.1 Identify slow third-party scripts</h4>
+
+The best way to flag slow-performing third-party scripts is to use three Chrome DevTools features: [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/), [Network Request Blocking](https://developer.chrome.com/docs/devtools/network/), and the [Coverage tool](https://developer.chrome.com/docs/devtools/coverage/).
+
+Two audits will fail if you have third-party scripts causing performance to degrade:
+
+1. [Reduce JavaScript execution time](https://developer.chrome.com/docs/lighthouse/performance/bootup-time/): highlights scripts that take a long time to parse, compile, or evaluate.
+2. [Avoid enormous network payloads](https://developer.chrome.com/docs/lighthouse/performance/total-byte-weight/): identifies network requests—including those from third parties—that may slow down page load time.
+
+To get more information on third-party scripts' impact on performance, you can check the [Third-party usage report](https://developer.chrome.com/docs/lighthouse/performance/third-party-summary/) generated after Lighthouse finishes auditing the site. You can also use the Coverage tool to identify scripts that load on the page but are mostly unused.
+
+To demonstrate the impact of third-party scripts, you can use Chrome's Network Request Blocking feature to prevent them from loading on the page. After blocking them, run a Lighthouse audit on the page to see the performance improvement. 
+
+Follow the [instructions provided](https://developer.chrome.com/docs/devtools/network/#block) to use this feature.
+
+<h4>7.2 Prioritize critical third-party scripts</h4>
+
+To optimize the critical rendering path, prioritize loading third-party scripts essential for rendering a valuable and interactive page experience above the fold content. 
+
+Only load a minimal amount of critical JavaScript during the initial page load. Defer any non-critical scripts until after the page load. 
+Note that third-party scripts running JavaScript have the potential to obstruct the main thread, causing delays in page load if not fetched, parsed, compiled, and evaluated properly. As an engineer, you must decide which scripts to postpone.
+
+Usually, deferring interactive chat or social media embed scripts will see performance benefits. Ad-tech and cookie consent libraries are unsuitable for this approach and should be loaded immediately.
 
 
+<h4>7.3 Lazy-load scripts on interaction</h4>
+
+It's also possible to load third-party scripts (depending on the use case) on UI interaction. You can follow the guidance provided in 2.3 Load using the Facade Pattern or 2.4 Load on Visibility for details on achieving that functionality.  
 
 
+<h4>7.4 Leverage service workers</h4>
+
+Using a [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) is one way to cache scripts and improve performance, but there are some critical considerations. Setting up a service worker can be challenging, and your site must use HTTPS. Additionally, the resource you are caching must support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). If it does not, you will need to use a [proxy server](https://en.wikipedia.org/wiki/Proxy_server). 
+
+Use [Google's Workbox](https://developer.chrome.com/docs/workbox/) solution for implementing caching strategies with service workers. Service workers can cache static assets such as fonts, JS, CSS, and images. The service worker may not fetch the latest version if you are caching scripts that update frequently. In this instance, you must account for that using a [network-first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/) approach.
+
+
+<h4>7.5 Tag Manager implications</h4>
+
+Google Tag Manager (GTM) is a commonly used tool for implementing tags and third-party snippets. While the GTM script is not always an issue, the amount of third-party code it injects can significantly impact performance. 
+
+In general, the impact on performance based on tag type is as follows: image tags (pixels), custom templates, and custom HTML. If you inject a vendor tag, the impact will depend on the functionality they add to the site. 
+
+Do inject scripts with any visual or functional side effects during page load. Custom HTML tags get injected into the DOM and can cause unexpected issues. Avoid using Custom HTML that forces the browser to recalculate the layout or could trigger a layout shift. 
+
+Injecting scripts can also negatively impact performance. Inject all scripts via a Tag Manager before the closing body tag instead of the `<head>`. Triggers, custom events, and variables add extra code to the parsing and evaluation of the tag manager script.
+
+Loading the tag manager script appropriately is essential to fire triggers and events properly. Loading the script later in the DOM can help with this. It's also important to periodically audit the container to ensure no duplicated or unused tags and to keep it up-to-date with current business requirements.
+
+
+<h4>7.6 Ad Script Best Practices</h4>
+
+Ad technologies can generate significant revenue for publishing clients, making it crucial to optimize for performance. However, complex ad implementations can negatively impact performance, primarily when ad configurations fire during the initial page load. 
+
+Implementing ad configurations requires an in-depth understanding of ad exchanges and scripts. Here are high-level guidelines to effectively implement ads on publisher sites:
+
+1. To minimize CLS, ensure space is reserved for ad units above the fold. Follow [Google's recommendation](https://developers.google.com/publisher-tag/guides/minimize-layout-shift) to determine the most frequently served ad unit in a slot and set the height of the reserved space accordingly.
+2. Load the ad script in the `<head>` as early as possible to ensure the browser parses and executes it promptly. To further improve this, you can [preload](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) the ad script so that it's available to the browser sooner.
+3. Ensure that the ad script is loaded asynchronously. This can be achieved by placing the async="true" attribute on the script. This allows the browser to fetch the resource while parsing and evaluating the script.
+4. Always load the script statically: place the evaluated script in the `<head>`. Never build the script asynchronously using the [createElement API](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement). This can lead to latency issues and delayed execution of ad calls.
+5. The most important consideration for ensuring performant ad implementations is a healthy page experience. An optimized [critical rendering path](https://developer.mozilla.org/en-US/docs/Web/Performance/Critical_rendering_path) and low FCP and TTFB can improve ad performance. 
