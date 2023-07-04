@@ -900,3 +900,43 @@ Instead of sessions, use cookies or client-side storage APIs if possible. In add
 If sessions must be used, create them conservatively. Don't create sessions for every visitor. Limit sessions to the smallest group that needs them: logged-in editors and admins, or visitors using a particular feature.
 
 Sessions should never be stored in the database. This introduces extra data into a storage system that's not meant for that volume. Database session libraries also rely on PHP code which can't match the performance of PHP's native session handlers. PHP extensions for Memcache and Redis allow sessions to be stored in these in-memory datastores and are a good solution for sessions when multiple webservers are present.
+
+<h2 id="upgrade-workflow" class="anchor-heading">WordPress & PHP Version Upgrade Workflow {% include Util/link_anchor anchor="upgrade" %}</h2>
+The following procedures are what should happen in the WordPress world when there is a new PHP version, whether major or minor. This ensures adequate testing across our WordPress sites. We upgrade PHP versions proactively because we do not wish to be reactively forced into an upgrade when our hosting providers stop supporting old PHP versions and upgrade us on short notice.
+
+Create a spreadsheet based on [the upgrade template](https://docs.google.com/spreadsheets/d/13Df3pyPwK4yWOD4P5_uH5Klrkg_rnBNTRUYXqNuFm4o/edit?pli=1#gid=0). The purpose of this spreadsheet is manifold:
+
+* To identify whether it actually makes sense to upgrade PHP versions yet. If we encounter dozens of fatal errors in many plugins, it's likely we should just hold off.
+* To identify any themes, plugins, or sites that have the potential to be especially problematic with a PHP version upgrade. For example, if a site was created in 2012 and PHP is several versions out of date, that site will probably need special care and attention.
+* To gather a list of ~10 semi-representative sites that use a mix of common plugins likely to be found across multiple sites. This is so that developers can knowledge-share any particular fixes, workarounds, or other special attentions those plugins will require.
+
+Steps for testing out a PHP version upgrade broadly/globally across many sites:
+
+* Review the PHP manual [release documentation](https://www.php.net/releases/index.php) for any major changes to the way things work. Make a list (whether mental or physical) of issues likely to arise from language changes.
+* Review the WordPress [PHP compatibility](https://make.wordpress.org/core/handbook/references/php-compatibility-and-wordpress-versions/) for any compatibility issues with new PHP versions.
+* Gather a list of 10 representative Kanopi WordPress sites that use a mix of common plugins (e.g., ACF, Search and Filter, FacetWP, Gravity Forms, Ninja Forms, Yoast SEO)
+* Upgrade all 10 sites locally, using Docksal.env
+* Ensure debugging and debug log are enabled
+* Test all 10 sites locally, using the following steps at a minimum:
+  * Test ability to use WP-CLI command successfully, e.g. wp plugin list
+  * View homepage and several other pages on the site, especially any pages with complex URL structures
+  * Test front end ability to search -- if there are any search modifier plugins on the site, test those as well
+  * Test ability to update existing post and add a new post in a standard CPT such as Posts or Pages
+  * Test update/add new for any major CPTs added by plugins (e.g., Events for The Events Calendar)
+  * Test update/add new for at least one custom CPT
+  * Test ability to update/add new sidebar widgets, if applicable
+  * Multilanguage test - does content still show in the appropriate language? Can you switch between languages? Does edit functionality work for translations?
+* Make note of any issues in two places:
+  * Specific to this site. These issues should be posted to a ticket created for that specific site. Issues specific to only one site (e.g., found in a custom plugin or a custom theme) should only be documented in the ticket and information specific to that site -- not the spreadsheet. These issues don’t repeat across different sites so no need to centrally log them.
+  * Add to lists of issues in the global spreadsheet for things that are potentially used on other sites (e.g., if you find an issue with ACF, put it in the spreadsheet – there are other sites using ACF). The purpose of this is so that we can knowledge-share more easily.
+* Compile issues into a broad human-readable overview for project managers
+* Send the broad human readable overview and the spreadsheet of potentially problematic sites to the PMs -- allow project managers to decide for their individual projects if a specific site needs to be tested further
+* Make a final recommendation -- e.g., "we should all start upgrading" or "we should wait a little while until more things become PHP compatible" based on your findings.
+
+Steps for developers upgrading a PHP version upgrade:
+
+* Upgrade site using Docksal.env PHP version
+* Ensure debugging and debug log are enabled
+* For individual sites: developers may wish to start a separate local environment. E.g., if your site is pen_org, create pen_org_php8. This is so that you can still work on any other tasks in parallel with the PHP version upgrade. It keeps parity with the version of PHP actually on production, and also minimizes the amount of time spent starting and restarting your project.
+* Fix any PHP fatal errors arising from the new PHP version. Warnings should also be fixed wherever possible to keep logs clean.
+*  We have found in the past that some plugins and similar are less compatible. These obviously cannot be fixed as it is third-party code. Plugin-based warnings are skippable and do not need to be fixed. We can wait until the plugin author fixes their code.
