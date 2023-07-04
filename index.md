@@ -71,7 +71,7 @@ updated: 6 Oct 2014
 		</div>
 
 	<div class="col">
-		<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a></h3>
+		<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/updated %}</h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
 			<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
@@ -94,7 +94,7 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
+			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a>{% include Util/updated %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#git-local-workflow">Git & Local Workflow</a></li>
