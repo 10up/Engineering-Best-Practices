@@ -3,7 +3,6 @@
 
 // Make text capitalized and spaced out a bit for legibility
 %caps-text {
-	text-transform: uppercase;
 	letter-spacing: .1em;
 }
 
@@ -79,7 +78,6 @@
 	//letter-spacing: 3px; // letter spacing is a design no-no on non-uppercase words
 	font-weight: 300;
 	font-style: normal;
-	text-transform: uppercase;
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 

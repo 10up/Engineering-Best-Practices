@@ -34,66 +34,53 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
+			<h3><a href="{{ site.baseurl }}/systems/#top">System Architecture</a></h3>
 			<ul>
-				<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
-				<li><a href="{{ site.baseurl }}/markup/#accessibility">Accessibility</a></li>
-				<li><a href="{{ site.baseurl }}/markup/#structure">Structure</a></li>
-				<li><a href="{{ site.baseurl }}/markup/#media">Media</a></li>
-				<li><a href="{{ site.baseurl }}/markup/#svg">SVG</a></li>
+				<li><a href="{{ site.baseurl }}/#">PHP</a></li>
+				<li><a href="{{ site.baseurl }}/#">Twig</a></li>
+				<li><a href="{{ site.baseurl }}/#">CSS</a></li>
+				<li><a href="{{ site.baseurl }}/#">Javascript</a></li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
-
+			<h3><a href="{{ site.baseurl }}/Accessibility/#top">Accessibility</a></h3>
 			<ul>
-				<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
-				<li><a href="{{ site.baseurl }}/css/#accessibility">Accessibility</a></li>
-				<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
-				<li><a href="{{ site.baseurl }}/css/#responsive-design">Responsive Design</a></li>
-				<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
-				<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
-				<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
+				<li>Coming Soon...</li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/php/#top">PHP</a></h3>
+			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a></h3>
 			<ul>
-				<li><a href="{{ site.baseurl }}/php/#performance">Performance</a></li>
-				<li><a href="{{ site.baseurl }}/php/#design-patterns">Design Patterns</a></li>
-				<li><a href="{{ site.baseurl }}/php/#security">Security</a></li>
-				<li><a href="{{ site.baseurl }}/php/#code-style">Code Style & Documentation</a></li>
-				<li><a href="{{ site.baseurl }}/php/#unit-testing">Unit and Integration Testing</a></li>
-				<li><a href="{{ site.baseurl }}/php/#libraries">Libraries and Frameworks</a></li>
-			</ul>
-		</div>
-
-	<div class="col">
-		<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/updated %}</h3>
-		<ul>
-			<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
-			<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
-		</ul>
-	</div>
-
-		<div class="col">
-			<h3><a href="{{ site.baseurl }}/javascript/#top">JavaScript</a></h3>
-			<ul>
-				<li><a href="{{ site.baseurl }}/javascript/#performance">Performance</a></li>
-				<li><a href="{{ site.baseurl }}/javascript/#client-side-data">Client-side Data</a></li>
-				<li><a href="{{ site.baseurl }}/javascript/#design-patterns">Design Patterns</a></li>
-				<li><a href="{{ site.baseurl }}/javascript/#code-style">Code Style & Documentation</a></li>
-				<li>
-					<a href="{{ site.baseurl }}/javascript/#unit-and-integration-testing">Unit and Integration Testing</a>
-				</li>
-				<li><a href="{{ site.baseurl }}/javascript/#libraries">Libraries</a></li>
-				<li><a href="{{ site.baseurl }}/react/">React</a></li>
+				<li>Coming Soon...</li>
 			</ul>
 		</div>
 
 		<div class="col">
+			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/updated %}</h3>
+			<ul>
+				<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
+				<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a></h3>
+			<ul>
+				<li><a href="{{ site.baseurl }}/performance/#baseline">Best Practices</a></li>
+				<li><a href="{{ site.baseurl }}/performance/#core-web-vitals">Core Web Vitals</a></li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<h3><a href="{{ site.baseurl }}/security/#top">Security</a></h3>
+			<ul>
+				<li>Coming Soon...</li>
+			</ul>
+		</div>
+
+		<div class="col col--tools">
 			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a>{% include Util/updated %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
@@ -102,8 +89,9 @@ updated: 6 Oct 2014
 				<li><a href="{{ site.baseurl }}/tools/#docksal-local">Docksal</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#linting">Linting & Code Quality</a></li>
-				<li><a href="{{ site.baseurl }}/tools/#cms-cli-tools">CMS Command Line Tools<</a></li>
+				<li><a href="{{ site.baseurl }}/tools/#cms-cli-tools">CMS Command Line Tools</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#continuous">Continuous Integration/Continuous Deployment (CI/CD)</a></li>
+				<a href="{{ site.baseurl }}/circleci/#top">CircleCI</a>
 				<li><a href="{{ site.baseurl }}/tools/#testing-qa">Testing & QA</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#hosting-environments">Hosting Environments</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#misc-tools">Miscellaneous Tools</a></li>
@@ -111,39 +99,9 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/structure/#top">Project Design</a></h3>
+			<h3><a href="{{ site.baseurl }}/migrations/#top">Migration</a></h3>
 			<ul>
-				<li><a href="{{ site.baseurl }}/structure/#file-organization">File Organization</a></li>
-				<li><a href="{{ site.baseurl }}/structure/#dependencies">Dependencies</a></li>
-				<li><a href="{{ site.baseurl }}/structure/#integrations">Third-Party Integrations</a></li>
-				<li><a href="{{ site.baseurl }}/structure/#modular-code">Modular Code</a></li>
-			</ul>
-		</div>
-
-		<div class="col">
-			<h3><a href="{{ site.baseurl }}/systems/#top">Systems</a></h3>
-			<ul>
-				<li><a href="{{ site.baseurl }}/systems/#nginx">Nginx</a></li>
-				<li><a href="{{ site.baseurl }}/systems/#php-fpm">PHP-FPM</a></li>
-				<li><a href="{{ site.baseurl }}/systems/#mysql">MySQL</a></li>
-				<li><a href="{{ site.baseurl }}/systems/#memcached-and-redis">Memcached and Redis</a></li>
-				<li><a href="{{ site.baseurl }}/systems/#load-balancing">Load Balancing</a></li>
-			</ul>
-		</div>
-
-		<div class="col">
-			<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a></h3>
-			<ul>
-				<li><a href="{{ site.baseurl }}/performance/#philosophy">Philosophy</a></li>
-				<li><a href="{{ site.baseurl }}/performance/#baseline">Baseline Best Practices</a></li>
-				<li><a href="{{ site.baseurl }}/performance/#core-web-vitals">Core Web Vitals</a></li>
-			</ul>
-		</div>
-
-		<div class="col">
-			<h3><a href="{{ site.baseurl }}/circleci/#top">CircleCI</a></h3>
-			<ul>
-				<li><a href="{{ site.baseurl }}/circleci/#something">Something</a></li>
+				<li>Coming Soon...</li>
 			</ul>
 		</div>
 	</div>

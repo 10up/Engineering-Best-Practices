@@ -2,7 +2,6 @@
 page: site-security
 title: Security
 nav: Security
-group: navigation
 weight: 10
 layout: default
 updated: 11 May 2020

@@ -12,6 +12,11 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+
+		@include breakpoint($breakpoint-bravo) {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+		}
 	}
 
 	.col {
@@ -20,14 +25,8 @@
 		word-break: break-word;
 		flex-basis: 100%;
 
-		&:first-child {
-			border-top: none;
-		}
-
 		@include breakpoint($breakpoint-bravo) {
 			border-right: 1px solid darken(#efefef, 5%);
-			//float: left;
-			flex-basis: 25%;
 			padding-right: 2%;
 			vertical-align: top;
 
@@ -38,10 +37,6 @@
 				margin-right: 0;
 				padding-left: 2%;
 				position: relative;
-			}
-
-			&:nth-of-type(2n+3){
-				clear: left;
 			}
 		}
 
@@ -71,6 +66,12 @@
 
 		}
 
+	}
+
+	.col--tools {
+		@include breakpoint($breakpoint-bravo) {
+			grid-area: 1 / 4 / 3;
+		}
 	}
 
 	h2 {
