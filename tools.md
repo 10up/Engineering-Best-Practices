@@ -3,7 +3,7 @@ page: tools
 title: Tools
 nav: Tools
 group: navigation
-weight: 5
+weight: 8
 layout: default
 subnav:
   - title: Kanopi Computers
@@ -18,17 +18,19 @@ subnav:
     tag: task-runners
   - title: Linting & Code Quality
     tag: linting
-  - title: CMS Command Line Tools<
+  - title: CMS Command Line Tools
     tag: cms-cli-tools
   - title: Continuous Integration/Continuous Deployment (CI/CD)
     tag: continuous
+  - title: Circle CI
+    slug: circleci
   - title: Testing & QA
     tag: testing-qa
   - title: Hosting Environments
     tag: hosting-environments
   - title: Miscellaneous Tools
     tag: misc-tools
-updated: 12 21 2022
+updated: 4 July 2023
 ---
 
 <div class="docs-section">

@@ -3,16 +3,10 @@ page: performance
 title: Performance
 nav: Performance
 group: navigation
-weight: 10
+weight: 6
 layout: default
 subnav:
-  - title: Philosophy
-    tag: philosophy
-  - title: Baseline Best Practices
-    tag: caching
-  - title: Core Web Vitals
-    tag: core-web-vitals
-updated: 14 June 2021
+updated: 4 July 2023
 ---
 
 <div class="docs-section">

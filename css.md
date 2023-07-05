@@ -1,8 +1,8 @@
 ---
 page: css
 title: CSS
-nav: CSS
-group: navigation
+nav: 
+group:
 weight: 2
 layout: default
 subnav:

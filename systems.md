@@ -1,22 +1,12 @@
 ---
 page: systems
-title: Systems
-nav: Systems
+title: System Architecture
+nav: System Architecture
 group: navigation
-weight: 10
+weight: 2
 layout: default
 subnav:
-  - title: Nginx
-    tag: nginx
-  - title: PHP-FPM
-    tag: php-fpm
-  - title: MySQL
-    tag: mysql
-  - title: Memcached and Redis
-    tag: memcached-and-redis
-  - title: Load Balancing
-    tag: load-balancing
-updated: 13 December 2019
+updated: 4 July 2023
 ---
 
 <div class="docs-section">

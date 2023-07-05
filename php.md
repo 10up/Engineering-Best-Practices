@@ -1,8 +1,8 @@
 ---
-page: php
+page: 
 title: PHP
-nav: PHP
-group: navigation
+nav: 
+group: 
 weight: 6
 layout: default
 subnav:

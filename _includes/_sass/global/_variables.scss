@@ -1,8 +1,8 @@
 // Colors
 $party-blue: #54cdcd;
 $humming-bird: #cef8f7;
-$business-red: #b73030;
-$business-red-light: #b72f2f;
+$business-green: #153e35;
+$business-green-light: #c4d600;
 
 $white: #fff;
 $very-light-grey: #fefefe;
@@ -38,10 +38,10 @@ $color-light-text: contrast($color-light);
 $color-very-light: $very-light-grey;
 $color-very-light-text: contrast($color-very-light);
 
-$color-accent: $business-red;
+$color-accent: $business-green;
 $color-accent-text: lighten($color-accent, 30%);
 
-$color-accent-light: $business-red-light;
+$color-accent-light: $business-green-light;
 $color-accent-light-text: lighten($color-accent-light, 30%);
 
 $color-accent-alternate: $party-blue;

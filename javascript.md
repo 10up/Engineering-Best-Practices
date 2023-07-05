@@ -2,7 +2,7 @@
 page: javascript
 title: JavaScript
 nav: JS
-group: navigation
+group:
 weight: 3
 layout: default
 subnav:
@@ -22,7 +22,7 @@ subnav:
     slug: react
   - title: Node.js
     slug: nodejs
-updated: 10 Dec 2018
+updated: 4 July 2023
 ---
 
 <div class="docs-section">

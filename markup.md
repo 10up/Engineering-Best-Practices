@@ -1,8 +1,8 @@
 ---
-page: markup
+page: 
 title: Markup
-nav: Markup
-group: navigation
+nav: 
+group: 
 weight: 4
 layout: default
 subnav:

@@ -22,11 +22,8 @@ $breakpoint-nav-layout-mid: 900px;
 
 		background: $color-mineshaft url("img/kanopi.png") no-repeat 46% 30%;
 		background-size: 50%;
-		border-radius: 100%;
-		bottom: -$header-logo-small-protrusion;
 		height: $header-logo-small;
-		left: 50%;
-		margin-left: -$header-logo-small / 2;
+		left: 0;
 		position: absolute;
 		width: $header-logo-small;
 		z-index: 10; /* So that it overlays any expanded .top-nav */
@@ -34,10 +31,8 @@ $breakpoint-nav-layout-mid: 900px;
 		@include breakpoint($breakpoint-charlie) {
 			background-position: 46% 50%;
 			background-size: 45%;
-			bottom: -$header-logo-large-protrusion;
-			height: $header-logo-large;
-			margin-left: -55px;
-			width: $header-logo-large;
+			height: $header-logo-small;
+			width: $header-logo-small;
 		}
 	}
 
@@ -92,10 +87,6 @@ $breakpoint-nav-layout-mid: 900px;
 					margin: 0 0.24em
 				}
 
-				li:nth-child(7) {
-					margin-right: 80px;
-				}
-
 				li:nth-child(8) {
 					margin-left: auto;
 				}
@@ -119,10 +110,6 @@ $breakpoint-nav-layout-mid: 900px;
 
 				> li {
 					margin: 0 0.3em
-				}
-
-				li:nth-child(7) {
-					margin-right: 97px;
 				}
 
 				li:first-child {

@@ -1,5 +1,5 @@
 ---
-page: circleci
+page: tools
 title: CircleCI
 nav: CircleCI
 weight: 8

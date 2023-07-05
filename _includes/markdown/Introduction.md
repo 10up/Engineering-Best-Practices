@@ -1,29 +1,28 @@
 <h2 id="audience" class="anchor-heading">Audience {% include Util/link_anchor anchor="audience" %}</h2>
 
-The Kanopi Engineering Best Practices are not geared to teach anyone to become an engineer. Rather, they aim to illustrate how to engineer the Kanopi way. Therefore, these best practices are intended for capable engineers.
+This guide is written for Kanopi engineers, regardless of discipline or CMS of choice. The expectation is that you are familiar with basic CS concepts and aren't afraid to ask a question or two if something here is challenging or unfamiliar.
 
 <h2 id="goal" class="anchor-heading">Goal {% include Util/link_anchor anchor="goal" %} {% include Util/top %}</h2>
 
-As a company, we strive to provide websites and components that yield a top-notch user experience. In order to improve efficiency, we need to standardize what we use and how we use it. Standardizing our tools, frameworks, libraries, style, version control, and even languages will allow us to better understand the inner workings of someone else’s project and produce better solutions ourselves.
-
-As such, Kanopi engineers should follow these best practices in all their work. Our best practices are not meant to be restrictive or comprehensive; we value creativity at Kanopi. The aim is for this document to provide a strong guidance, not an authoritative direction. It's our hope that these best practices will not only influence Kanopipers but community members as well.
+We strive to create as much parity as possible across both Drupal and WordPress in our work, and the goal of this documentation is to set universal standards for our code and our tooling that represent general open source engineering best practices. These best practices are opinionated, but intentional.
 
 <h2 id="philosophy" class="anchor-heading">Philosophy {% include Util/link_anchor anchor="philosophy" %} {% include Util/top %}</h2>
 
-> "We make web publishing easy. Maybe even fun."
-
-At the very heart of Kanopi is the publishing or user experience. WordPress, we firmly believe, is the best starting point to achieve this. We design and build custom publishing experiences for major companies and brands around the world. Our publishing experiences or websites are tailor-made for our clients and their specific needs.
-
-As such, the content management experience cannot be made to be generic. We don't cut corners when it comes to user experience and interface. We don't take shortcuts that compromise the end experience for the user. We don't distribute pre-packaged, auto-generated user interfaces or components.
-
-> "Keep it simple."
-
-While our solutions are complex, we want our code, tools, processes, systems, and practices to be as simple as possible. Simplicity facilitates collaboration as there is a lower barrier of entry. This goes for things like PHP design patterns as well as workflow. We discourage practices such as writing extra levels of code abstraction (wrapping existing API's) as they complicate debugging and add another component that needs to be maintained.
-
-> "We are always learning."
-
-We are constantly challenging ourselves and learning. Knowledge gives us a competitive edge. Everyone around us is growing; if we stop growing individually or collectively and stop challenging ourselves to improve, we fall behind. For that reason, this document is not set in stone and will change. Evolving these best practices through contributions is incredibly important to us.
+<ul>
+    <li>We use technology to solve challenges, but we don’t use technology for its own sake.</li>
+    <li>We plan for the future, but we don’t over-engineer.
+    We build sites that will last, but we don’t build boring sites.</li>
+    <li>We empower complex content, but we don’t create complexity.</li>
+    <li>We excel in open-source platforms, but we don’t force-fit solutions.</li>
+    <li>We strive to innovate, but we focus on the business need.</li>
+</ul>
 
 <h2 id="contributing" class="anchor-heading">Contributing {% include Util/link_anchor anchor="contributing" %} {% include Util/top %}</h2>
 
+ If something in this guide doesn't make sense, raises questions, or otherwise causes you to scratch your head, definitely reach out to the documentation working group or your manager with your suggestions. We want to hear them -- collaborating on our tools and standards is part of what makes us #BetterTogether. We may not always accept every suggestion or make every change, but an open dialogue is a healthy one.
+
 Please contribute via [pull requests on GitHub](https://github.com/Kanopi/Engineering-Best-Practices).
+
+<h2 id="mentorship" class="anchor-heading">Mentorship {% include Util/link_anchor anchor="mentorship" %} {% include Util/top %}</h2>
+
+Kanopi works to provide mentorship at every level of our engineering organization. This starts with dedicated channels in Slack and extends to a formal mentorship program for new engineers, new employees, and folx moving into a new role. Head over to the intranet to learn more about what mentorship looks like at Kanopi.

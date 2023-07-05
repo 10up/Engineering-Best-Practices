@@ -1,8 +1,8 @@
 ---
 page: design
 title: Project Design
-nav: Design
-group: navigation
+nav: 
+group: 
 weight: 7
 layout: default
 subnav:
