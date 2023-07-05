@@ -14,7 +14,7 @@ subnav:
     tag: philosophy
   - title: Contributing
     tag: contributing
-updated: 6 Oct 2014
+updated: 5 July 2023
 ---
 
 <div class="toc">
@@ -34,7 +34,7 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/systems/#top">System Architecture</a></h3>
+			<h3><a href="{{ site.baseurl }}/systems/#top">System Architecture</a>{% include Util/status status="in-progress" %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/#">PHP</a></li>
 				<li><a href="{{ site.baseurl }}/#">Twig</a></li>
@@ -44,21 +44,21 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/Accessibility/#top">Accessibility</a></h3>
+			<h3><a href="{{ site.baseurl }}/Accessibility/#top">Accessibility</a>{% include Util/status status="in-progress" %}</h3>
 			<ul>
 				<li>Coming Soon...</li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a></h3>
+			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a>{% include Util/status status="in-progress" %}</h3>
 			<ul>
 				<li>Coming Soon...</li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/updated %}</h3>
+			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/status status="updated" %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
@@ -66,7 +66,7 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a></h3>
+			<h3><a href="{{ site.baseurl }}/performance/#top">Performance</a>{% include Util/status status="in-progress" %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/performance/#baseline">Best Practices</a></li>
 				<li><a href="{{ site.baseurl }}/performance/#core-web-vitals">Core Web Vitals</a></li>
@@ -74,14 +74,14 @@ updated: 6 Oct 2014
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/security/#top">Security</a></h3>
+			<h3><a href="{{ site.baseurl }}/security/#top">Security</a>{% include Util/status status="in-progress" %}</h3>
 			<ul>
 				<li>Coming Soon...</li>
 			</ul>
 		</div>
 
 		<div class="col col--tools">
-			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a>{% include Util/updated %}</h3>
+			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#git-local-workflow">Git & Local Workflow</a></li>

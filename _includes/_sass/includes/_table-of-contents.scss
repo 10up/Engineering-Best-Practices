@@ -20,52 +20,20 @@
 	}
 
 	.col {
-		border-top: 1px solid darken(#efefef, 5%);
 		margin: 0;
 		word-break: break-word;
 		flex-basis: 100%;
 
 		@include breakpoint($breakpoint-bravo) {
-			border-right: 1px solid darken(#efefef, 5%);
 			padding-right: 2%;
 			vertical-align: top;
 
 			&:nth-child(2n+1) {
-				border-left: 1px solid darken(#efefef, 5%);
-				border-right: none;
-				left: -1px; /* middle border overlap */
 				margin-right: 0;
 				padding-left: 2%;
 				position: relative;
 			}
 		}
-
-		@include breakpoint($breakpoint-charlie) {
-			border-right: none;
-
-			/** reset from breakpoint-alpha **/
-			&:nth-of-type(2n+3) {
-				clear: none;
-			}
-
-			&:nth-of-type(5n) {
-				clear: left;
-			}
-
-			&:nth-child(2n+1) {
-				border-left: none;
-			}
-
-			&:nth-of-type(9n) {
-				clear: left;
-			}
-
-			&:last-child {
-				clear: right;
-			}
-
-		}
-
 	}
 
 	.col--tools {
