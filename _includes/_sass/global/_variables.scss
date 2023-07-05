@@ -3,6 +3,7 @@ $party-blue: #54cdcd;
 $humming-bird: #cef8f7;
 $business-green: #153e35;
 $business-green-light: #c4d600;
+$kanopi-orange: #c73e14;
 
 $white: #fff;
 $very-light-grey: #fefefe;
@@ -44,10 +45,10 @@ $color-accent-text: lighten($color-accent, 30%);
 $color-accent-light: $business-green-light;
 $color-accent-light-text: lighten($color-accent-light, 30%);
 
-$color-accent-alternate: $party-blue;
+$color-accent-alternate: $business-green-light;
 $color-accent-alternate-text: lighten($color-accent-alternate, 30%);
 
-$color-accent-alternate-2: $humming-bird;
+$color-accent-alternate-2: $kanopi-orange;
 $color-accent-alternate-2-text: contrast($color-accent-alternate-2);
 
 $color-button: $very-dark-grey;
@@ -93,8 +94,3 @@ $single-max-width: 900px;
 
 $header-height-sm: 200px;
 $header-height: 388px;
-
-
-// ----------------------
-// COLORS
-// ----------------------

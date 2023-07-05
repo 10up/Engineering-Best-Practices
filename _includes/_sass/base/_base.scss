@@ -33,9 +33,9 @@ img {
 }
 
 a {
-	background-image: linear-gradient(transparent calc(100% - 7px), $color-error-light 0),
-	linear-gradient(transparent calc(100% - 7px), $color-accent-alternate-2 0);
-	background-position: 0 0;
+	background-image: linear-gradient(transparent calc(100% - 2px), $business-green 0),
+	linear-gradient(transparent calc(100% - 2px), $color-accent-alternate-2 0);
+	background-position: 0 -3px;
 	background-repeat: no-repeat;
 	background-size: 0 100%, 100% 100%;
 	color: $color-dark;
