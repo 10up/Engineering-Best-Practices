@@ -88,6 +88,7 @@ updated: 5 July 2023
 				<li><a href="{{ site.baseurl }}/tools/#composer">Composer</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#docksal-local">Docksal</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
+				<li><a href="{{ site.baseurl }}/kanopipack/#top">Kanopi Pack</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#linting">Linting & Code Quality</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#cms-cli-tools">CMS Command Line Tools</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#continuous">Continuous Integration/Continuous Deployment (CI/CD)</a></li>
