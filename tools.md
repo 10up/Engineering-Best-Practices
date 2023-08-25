@@ -16,6 +16,8 @@ subnav:
     tag: docksal-local
   - title: Task Runners
     tag: task-runners
+  - title: Kanopi Pack
+    slug: kanopipack
   - title: Linting & Code Quality
     tag: linting
   - title: CMS Command Line Tools

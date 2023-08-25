@@ -42,6 +42,12 @@
 		}
 	}
 
+	.col--a11y {
+		@include breakpoint($breakpoint-bravo) {
+			grid-area: 1 / 3 / 3;
+		}
+	}
+
 	h2 {
 		margin: 0 0 1em;
 	}

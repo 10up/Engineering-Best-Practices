@@ -43,22 +43,44 @@ updated: 5 July 2023
 			</ul>
 		</div>
 
-		<div class="col">
-			<h3><a href="{{ site.baseurl }}/Accessibility/#top">Accessibility</a>{% include Util/status status="in-progress" %}</h3>
+		<div class="col col--a11y">
+			<h3><a href="{{ site.baseurl }}/accessibility/#top">Accessibility</a>{% include Util/status status="updated" %}</h3>
 			<ul>
-				<li>Coming Soon...</li>
+				<li><a href="{{ site.baseurl }}/accessibility/#getting-started">Getting Started with Accessibility</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#testing-accessibility">Testing Accessibility</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#a11y-teaching-learning">A11y Teaching & Learning</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#wcag">WCAG Guideline Quick Reference</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#images">Images</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#landmarks">Landmarks</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#videos">Videos</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#motion">Motion & Animation</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#aria">ARIA</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#forms">Forms</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#keyboard">Keyboard</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#audit">Accessibility Auditing Tools</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#screenreader">Screen Readers</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#links">Links</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#headings">Headings</a></li>
+				<li><a href="{{ site.baseurl }}/accessibility/#cacher">Cacher Examples</a></li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a>{% include Util/status status="in-progress" %}</h3>
+			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a>{% include Util/status status="updated" %}</h3>
 			<ul>
-				<li>Coming Soon...</li>
+				<li><a href="{{ site.baseurl }}/seo/#basics">SEO Basics</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#meta">Head Data</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#searchability">Searchability</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#design">Design</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#other">Other Factors</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#yoast">Yoast (WordPress)</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#rankmath">RankMath (WordPress)</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#metatag">Metatag (Drupal)</a></li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/status status="updated" %}</h3>
+			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a></h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
@@ -81,13 +103,14 @@ updated: 5 July 2023
 		</div>
 
 		<div class="col col--tools">
-			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
+			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a>{% include Util/status status="updated" %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#git-local-workflow">Git & Local Workflow</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#composer">Composer</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#docksal-local">Docksal</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#task-runners">Task Runners</a></li>
+				<li><a href="{{ site.baseurl }}/kanopipack/#top">Kanopi Pack</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#linting">Linting & Code Quality</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#cms-cli-tools">CMS Command Line Tools</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#continuous">Continuous Integration/Continuous Deployment (CI/CD)</a></li>
