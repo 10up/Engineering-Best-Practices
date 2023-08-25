@@ -286,7 +286,7 @@ XDEBUG_ENABLED=0
 # WordPress settings
 WP_ADMIN_USER=example
 WP_ADMIN_PASS=example
-WP_ADMIN_EMAIL=wordpress@kanopi.com
+WP_ADMIN_EMAIL=example_email_address
 
 # If you'd like the installer to set up your theme, uncomment this line and add your theme folder.
 WP_THEME_SLUG=custom/ucsf
