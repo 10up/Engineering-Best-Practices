@@ -5,7 +5,7 @@ nav: SEO
 group: navigation
 weight: 4
 layout: default
-updated: 4 July 2023
+updated: 25 Aug 2023
 ---
 
 <div class="docs-section">
