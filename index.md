@@ -51,14 +51,21 @@ updated: 5 July 2023
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a>{% include Util/status status="in-progress" %}</h3>
+			<h3><a href="{{ site.baseurl }}/seo/#top">SEO</a>{% include Util/status status="updated" %}</h3>
 			<ul>
-				<li>Coming Soon...</li>
+				<li><a href="{{ site.baseurl }}/seo/#basics">SEO Basics</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#meta">Head Data</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#searchability">Searchability</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#design">Design</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#other">Other Factors</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#yoast">Yoast (WordPress)</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#rankmath">RankMath (WordPress)</a></li>
+				<li><a href="{{ site.baseurl }}/seo/#metatag">Metatag (Drupal)</a></li>
 			</ul>
 		</div>
 
 		<div class="col">
-			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a>{% include Util/status status="updated" %}</h3>
+			<h3><a href="{{ site.baseurl }}/version-control/#top">Version Control</a></h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-structure-and-package-management">Structure and Package Management</a></li>
 				<li><a href="{{ site.baseurl }}/version-control/#kanopi-vc-workflows">Workflows</a></li>
@@ -81,7 +88,7 @@ updated: 5 July 2023
 		</div>
 
 		<div class="col col--tools">
-			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a></h3>
+			<h3><a href="{{ site.baseurl }}/tools/#top">Tools</a>{% include Util/status status="updated" %}</h3>
 			<ul>
 				<li><a href="{{ site.baseurl }}/tools/#kanopi-computers">Kanopi Computers</a></li>
 				<li><a href="{{ site.baseurl }}/tools/#git-local-workflow">Git & Local Workflow</a></li>
