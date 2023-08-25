@@ -284,8 +284,8 @@ DOCROOT=web
 XDEBUG_ENABLED=0
 
 # WordPress settings
-WP_ADMIN_USER=kadmin
-WP_ADMIN_PASS=kadmin
+WP_ADMIN_USER=example
+WP_ADMIN_PASS=example
 WP_ADMIN_EMAIL=wordpress@kanopi.com
 
 # If you'd like the installer to set up your theme, uncomment this line and add your theme folder.
