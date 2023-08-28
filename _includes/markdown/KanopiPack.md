@@ -450,6 +450,8 @@ if ( class_exists( 'Kanopi\Assets\Registry\WordPress' ) ) {
 } //end if
 ```
 
+Finally, make sure to remove any code that still enqueues assets outside of this function.
+
 ## You made it!
 
 Once you have completed the installation, you can run `fin development` and confirm that your assets are being compiled.
