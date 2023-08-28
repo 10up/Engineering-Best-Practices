@@ -1,6 +1,6 @@
 ## Migrating a WordPress site to Kanopi Pack
 
-There are many steps involved in converting a legacy site, or creating a new site, using Kanopi Pack. Below, they are detailed in the steps recommended. This is meant to be a high level overview with explanations. Considerations may be needed on a project-to-project basis.
+There are many steps involved in converting a legacy site, or creating a new site, using (Kanopi Pack)[https://github.com/kanopi/kanopi-pack/]. Below, they are detailed in the steps recommended. This is meant to be a high level overview with explanations. Considerations may be needed on a project-to-project basis.
 
 1. Composer
 2. Docksal
