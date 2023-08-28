@@ -3,10 +3,10 @@
 There are many steps involved in converting a legacy site, or creating a new site, using Kanopi Pack. Below, they are detailed in the steps recommended. This is meant to be a high level overview with explanations. Considerations may be needed on a project-to-project basis.
 
 1. Composer
-2. WP Config
-2. MU Plugins
-3. Theme
-4. Docksal
+2. Docksal
+3. WP Config
+4. MU Plugins
+5. Theme
 
 CircleCI and Tugboat changes are not referenced here, as that should be handled by the TechOps team. However, any compiled changes should NOT be stored in the repo, and instead, handled via CI.
 
@@ -89,6 +89,101 @@ CircleCI and Tugboat changes are not referenced here, as that should be handled 
 }
 ```
 
+## Docksal
+
+### .env
+
+Below is a Pantheon-specific example for your `docksal.env` file. For WPEngine sites, change the stack to `default`, and the DOCROOT to `.`
+
+*We do not have an image available for PHP 8.2 at the moment for Docksal. Please update the image when one becomes available.*
+
+```
+DOCKSAL_STACK=pantheon
+CLI_IMAGE='docksal/cli:php8.0-3'
+
+# Docksal configuration.
+DOCROOT=web
+
+# Enable/disable xdebug
+# To override locally, copy the two lines below into .docksal/docksal-local.env and adjust as necessary
+XDEBUG_ENABLED=0
+
+# WordPress settings
+WP_ADMIN_USER=example
+WP_ADMIN_PASS=example
+WP_ADMIN_EMAIL=example_email_address
+
+# If you'd like the installer to set up your theme, uncomment this line and add your theme folder.
+WP_THEME_SLUG=custom/ucsf
+WP_THEME_ASSETS_HOST_SUBDOMAIN=theme-assets
+WP_THEME_RELATIVE_PATH=wp-content/themes/$WP_THEME_SLUG
+
+# Local ssl certs folder
+CONFIG_CERTS="${CONFIG_CERTS:-$HOME/.docksal/certs}"
+
+# Set hosting details for Pull command (Pantheon specific)
+# Put any specific variables for your refresh command here.
+
+```
+
+### .yml
+
+```
+version: "2.1"
+
+services:
+  web:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: nginx
+    environment:
+      - APACHE_FILE_PROXY
+      - WP_THEME_ASSETS_HOST_SUBDOMAIN
+      - WP_THEME_RELATIVE_PATH
+      - WP_THEME_SLUG
+      - NGINX_VHOST_PRESET=wordpress
+  cli:
+    environment:
+      - WP_ADMIN_USER
+      - WP_ADMIN_PASS
+      - WP_ADMIN_EMAIL
+      - WP_THEME_RELATIVE_PATH
+      - WP_THEME_ASSETS_HOST_SUBDOMAIN
+      - WP_THEME_SLUG
+      - COMPOSER_MEMORY_LIMIT=-1
+      - VIRTUAL_HOST
+      - CONFIG_CERTS
+      - DB_HOST=db
+      - DB_NAME=default
+      - DB_USER=user
+      - DB_PASSWORD=user
+    labels:
+      - io.docksal.virtual-host=${WP_THEME_ASSETS_HOST_SUBDOMAIN}.${VIRTUAL_HOST}
+      - io.docksal.virtual-port=4400
+    expose:
+      - 4400
+  pma:
+    hostname: pma
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+    labels:
+      - io.docksal.virtual-host=pma.${VIRTUAL_HOST}
+```
+
+### Commands
+
+You will need to create or update the following commands:
+* fin init
+* fin development
+* fin production
+* fin init-theme-assets
+* fin npm
+
+Please copy these from (this Cacher)[https://snippets.cacher.io/snippet/c0ba9321b584bfa1c756].
+
 ## WP Config
 
 For Kanopi Pack to be able to run its development server, you will need to add the following code to your `wp-config-local.php`:
@@ -163,7 +258,21 @@ if ( ! class_exists( 'Kanopi\Assets\Registry\WordPress' ) ) {
 
 ### Assets
 
-* You will need to have an `/assets/` folder, with the following two subfolders, `/config/`, and `/src/`. All your JS and SASS/SCSS partials will live in the `/src/` folder, with the folder structure being explained below.
+You will need to have an `/assets/` folder, with the following two subfolders, `/config/`, and `/src/`. All your JS and SASS/SCSS partials will live in the `/src/` folder, with the folder structure being explained below. Your images and fonts will live in the `/static/` folder under `/src/`.
+
+```
+├── src
+│   ├── js
+│   │   ├── **/*/*.js
+│   │   ├── theme.js
+│   ├── scss
+│   │   ├── **/*/*.scss
+│   │   ├── theme.scss
+│   ├── static
+│   │   ├── images
+│   │       ├── */[fileextension]
+
+```
 
 #### Config
 
@@ -244,120 +353,102 @@ The above example references Stylelint being placed in a subfolder of tools. It 
 
 You may also disable particular rules inline (as the above is global), using `/* stylelint-disable [RULENAME} */`, and then re-enabling with `/* stylelint-enable [RULENAME] */`
 
-#### Folder Structure
+### Functions
 
-As mentioned, all your development files will go within a `/src/` subfolder under `/assets/`. Below is a representation of what should live where:
+Now that you've moved all your assets and have a good understanding of what compiled files will be required, it's time to update the way WordPress will enqueue the files.
 
-```
-├── src
-│   ├── js
-│   │   ├── **/*/*.js
-│   │   ├── theme.js
-│   ├── scss
-│   │   ├── **/*/*.scss
-│   │   ├── theme.scss
-│   ├── static
-│   │   ├── images
-│   │       ├── */[fileextension]
+Start by adding these libraries to the root of your `functions.php`:
 
 ```
-
-You may run `fin production` in your local environment in the future to debug a deployment that is failing. Make sure to add a `.gitignore` file in your theme to avoid pushing files from the `dist` folder.
-
-### Docksal
-
-#### .env
-
-Below is a Pantheon-specific example for your `docksal.env` file. For WPEngine sites, change the stack to `default`, and the DOCROOT to `.`
-
-*We do not have an image available for PHP 8.2 at the moment for Docksal. Please update the image when one becomes available.*
-
-```
-DOCKSAL_STACK=pantheon
-CLI_IMAGE='docksal/cli:php8.0-3'
-
-# Docksal configuration.
-DOCROOT=web
-
-# Enable/disable xdebug
-# To override locally, copy the two lines below into .docksal/docksal-local.env and adjust as necessary
-XDEBUG_ENABLED=0
-
-# WordPress settings
-WP_ADMIN_USER=example
-WP_ADMIN_PASS=example
-WP_ADMIN_EMAIL=example_email_address
-
-# If you'd like the installer to set up your theme, uncomment this line and add your theme folder.
-WP_THEME_SLUG=custom/ucsf
-WP_THEME_ASSETS_HOST_SUBDOMAIN=theme-assets
-WP_THEME_RELATIVE_PATH=wp-content/themes/$WP_THEME_SLUG
-
-# Local ssl certs folder
-CONFIG_CERTS="${CONFIG_CERTS:-$HOME/.docksal/certs}"
-
-# Set hosting details for Pull command (Pantheon specific)
-# Put any specific variables for your refresh command here.
-
+// Enqueue things.
+use Kanopi\Assets\Model\LoaderConfiguration;
+use Kanopi\Assets\Registry\WordPress;
 ```
 
-#### .yml
+Right after, add the function found below. A few things to know/update:
+
+#### Loader Configuration
+
+1. `PRODUCTION_URL` should be replaced with the production link of the project's website.
+
+#### Frontend Scripts
+
+1. The `vendor` script might show an error on your production environment.
+2. The `runtime` script needs to stay and you do not have to setup anything for it.
+3. The `theme` style is the name of the `scss` file provided on `kanopi-pack.js` as an entry point. Any file generated by the compiler must be called this way.
+4. There is an example of how to use an `action` hook to load a specific file. In this case, we are loading styles for the Classic Editor.
+5. The legacy `wp_register_style` only needs the `SITENAME` value updated.
+6. Below, you have an example of a standard external file being enqueued, if you need it.
+
+#### Block Scripts
+
+1. If your site is using blocks, this is how you would register the custom styles and scripts.
 
 ```
-version: "2.1"
+/**
+ * Kanopi Pack Theme Setup
+ *
+ * @return void
+ */
+if ( class_exists( 'Kanopi\Assets\Registry\WordPress' ) ) {
+	// All assets are held in the active theme under the directory /assets.
+	// The constant `KANOPI_DEVELOPMENT_ASSET_URL` is defined before calling, otherwise only Production mode is available.
+	$loader = new WordPress(
+		new LoaderConfiguration(
+			WordPress::read_theme_version(),
+			array( 'PRODUCTION_URL' ),
+			'/assets/dist/webpack-assets.json'
+		)
+	);
 
-services:
-  web:
-    extends:
-      file: ${HOME}/.docksal/stacks/services.yml
-      service: nginx
-    environment:
-      - APACHE_FILE_PROXY
-      - WP_THEME_ASSETS_HOST_SUBDOMAIN
-      - WP_THEME_RELATIVE_PATH
-      - WP_THEME_SLUG
-      - NGINX_VHOST_PRESET=wordpress
-  cli:
-    environment:
-      - WP_ADMIN_USER
-      - WP_ADMIN_PASS
-      - WP_ADMIN_EMAIL
-      - WP_THEME_RELATIVE_PATH
-      - WP_THEME_ASSETS_HOST_SUBDOMAIN
-      - WP_THEME_SLUG
-      - COMPOSER_MEMORY_LIMIT=-1
-      - VIRTUAL_HOST
-      - CONFIG_CERTS
-      - DB_HOST=db
-      - DB_NAME=default
-      - DB_USER=user
-      - DB_PASSWORD=user
-    labels:
-      - io.docksal.virtual-host=${WP_THEME_ASSETS_HOST_SUBDOMAIN}.${VIRTUAL_HOST}
-      - io.docksal.virtual-port=4400
-    expose:
-      - 4400
-  pma:
-    hostname: pma
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
-    labels:
-      - io.docksal.virtual-host=pma.${VIRTUAL_HOST}
+	$loader->register_frontend_scripts(
+		function ( $_registry ) {
+			$loader = $_registry->asset_loader();
+
+			$loader->register_vendor_script( 'vendor' );
+
+			$loader->register_runtime_script( 'runtime', array( 'jquery' ) );
+
+			$loader->register_style( 'theme' );
+
+			$loader->register_script( 'legacy' );
+
+			add_action( 'admin_init', function () use ( $loader ) {
+
+				$loader->register_style( 'editor' );
+
+			});
+
+			// Required theme stylesheet.
+			wp_register_style(
+				'SITENAME-style-header',
+				esc_url_raw( get_stylesheet_directory_uri() . '/style.css' ),
+				array(),
+				$_registry::read_theme_version(),
+			);
+			wp_enqueue_style( 'SITENAME-style-header' );
+
+			wp_register_script( 'fontawesome', '//kit.fontawesome.com/6b142e11da.js', array( 'jquery' ) );
+			wp_enqueue_script( 'fontawesome' );
+
+			// Enqueue our assets last.
+			$loader->enqueue_assets();
+		}
+	);
+
+  $loader->register_block_editor_scripts(
+		function ( $_registry ) {
+			$loader = $_registry->asset_loader();
+			$loader->register_vendor_script( 'vendor' );
+
+			$loader->register_runtime_script( 'runtime', array( 'jquery' ) );
+			$loader->register_style( 'editor' );
+
+			$loader->enqueue_assets();
+		}
+	);
+} //end if
 ```
-
-#### Commands
-
-You will need to create or update the following commands:
-* fin init
-* fin development
-* fin production
-* fin init-theme-assets
-* fin npm
-
-Please copy these from (this Cacher)[https://snippets.cacher.io/snippet/c0ba9321b584bfa1c756].
 
 ## You made it!
 
@@ -380,3 +471,7 @@ This likely means there was a silent fail on `production`. To test this, run `fi
 **_fin development won't run for me :(_**
 
 Sometimes Docker can be an resource hog. Stop all your running projects, and restart (`fin restart`) just the one you are working on, and try `fin development` again. If that doesn't work, restart Docker Desktop.
+
+**_fin production isn't working on CircleCI_**
+
+You may run `fin production` in your local environment in the future to debug a deployment that is failing. Make sure to add a `.gitignore` file in your theme to avoid pushing files from the `dist` folder.
