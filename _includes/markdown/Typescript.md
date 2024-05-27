@@ -33,6 +33,7 @@ In an ideal world, all engineers would be capable of typing everything properly 
 Our philosophy is that over time engineers will organically get more familiar with TypeScript and strictness will come as a result. Code reviews are also a place where engineers might get quick feedback that would allow them to more efficiently address typing issues instead of wasting a lot of time during initial development trying to figure it out on their own.
 
 When facing such typing challenges we recommend the following strategies as an escape hatch:
+
 #### 1. The `as unknown as ExpectedType` type cast
 
 When struggling with a type that does not match the expected type, one of the escape hatches we recommend is to forcibly typecast the type to the expected type:
@@ -70,6 +71,8 @@ This is not a full list but we highlight some recommended settings here.
 2. `noImplicitAny: true` - [Definition](https://www.typescriptlang.org/tsconfig/#noImplicitAny) - ensures you define `any` explicitly, rather than implicitly assume it. This makes it a lot easier to find all code relying on any for future refactoring.
 3. `strictNullChecks: true` - [Definition](https://www.typescriptlang.org/tsconfig/#strictNullChecks) - forces handling both `undefined` and `null`
 4. `noUnusedParameters: true` - [Definition](https://www.typescriptlang.org/tsconfig/#noUnusedParameters) - does not allow unused parameters to remain in code
+
+We also have a recommended [tsconfig.json](https://github.com/10up/headstartwp/blob/develop/projects/wp-nextjs/tsconfig.json) for Next.js projects.
 
 ## TypeScript and React
 
