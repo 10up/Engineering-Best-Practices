@@ -70,3 +70,111 @@ This is not a full list but we highlight some recommended settings here.
 2. `noImplicitAny: true` - [Definition](https://www.typescriptlang.org/tsconfig/#noImplicitAny) - ensures you define `any` explicitly, rather than implicitly assume it. This makes it a lot easier to find all code relying on any for future refactoring.
 3. `strictNullChecks: true` - [Definition](https://www.typescriptlang.org/tsconfig/#strictNullChecks) - forces handling both `undefined` and `null`
 4. `noUnusedParameters: true` - [Definition](https://www.typescriptlang.org/tsconfig/#noUnusedParameters) - does not allow unused parameters to remain in code
+
+## TypeScript and React
+
+### Use `type` for React Props
+
+While `interface` and `type` are mostly interchangeable, prefer `type` over `interfaces` unless you expect the props to be the base for other components's props.
+
+```ts
+type BlocksProps = {
+	html: string;
+};
+
+export const Blocks = ({ html }: BlocksProps) => {
+    // render blocks
+}
+```
+
+### Use function default arguments instead of `defaultProps`
+
+`defaultProps` has been deprecated in React 19, therefore prefer using function default arguments.
+
+```ts
+type MyComponentProps = {
+    title?: strinmg;
+};
+
+export const MyComponent = ({ title = 'Default Title' }: MyComponentsProps) => {
+    // ...
+}
+```
+
+Make sure the eslint rule `react/require-default-props` is set up to look for `defaultArguments` e.g `'react/require-default-props': ['error', { functions: 'defaultArguments' }]`;
+
+### Prefer explicitly declaring `children` instead of using `PropsWithChildren`
+
+`PropsWithChildren` will make `children` optional, but sometimes you do want to be very explicit and make it required. Therefore we generally recommend declaring `children` explicitly.
+
+```ts
+type LayoutProps = {
+    children: React.Node
+};
+
+// Layout has passed a children prop
+const Layout = (props: LayoutProps) {
+    return (
+        <main>
+            {children}
+        </main>
+    );
+}
+```
+
+### Avoid prop spreading
+
+Prop spreading is when you simply forward all props to another component e.g:
+
+```ts
+// AVOID DOING THIS
+const PostProps = {
+    title: string,
+    category: string,
+    link: string
+    // other props
+};
+
+const Post = (props: PostProps) => {
+    return (
+        <article>
+            <PostContent {...props} >
+        </article>
+    );
+}
+```
+
+While there might be use cases where you need to use them, it's generally better to avoid them and pass props explicitly. In the example above it would be better to just pass a `post` object as a single prop.
+
+Prop spreading is especially dangerous when prop spreading into native DOM elements. So make sure to not ignore TypeScript errors and make sure your types are set up correctly so that TS can catch forwarded props incompatible with the target component/element.
+
+### Colocate types with React components
+
+For the most part, the React Component types should be colocated with the React component, meaning that it should be in the same file that the React component is written. Only hoist types to avoid circular dependencies and when you expect them to be reused/shared across many components/files.
+
+### Use `@types` packages if necessary
+
+If the library you're using does not ship types, check if there is type information available for that package in the [DefinatelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) repo.
+
+### Global types definitions
+
+**Do not** put the application types in the global scope just to avoid importing them. You may only create global type definitions when needing to extend global types (e.g `window` object).
+
+To extend global types create a `global.d.ts` file and include them in your `tsconfig.json` in the `include` config option. Here's an example for a Next.js project:
+
+```json
+ "include": [
+    "next-env.d.ts",
+    "src/global.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+```
+
+```ts
+// globals.d.ts
+interface Window {
+    // add any methods or props added by third party scripts/libraries
+    custom_prop: number;
+}
+```
