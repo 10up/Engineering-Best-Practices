@@ -138,7 +138,7 @@ const PostProps = {
 const Post = (props: PostProps) => {
     return (
         <article>
-            <PostContent {...props} >
+            <PostContent {...props}>
         </article>
     );
 }
