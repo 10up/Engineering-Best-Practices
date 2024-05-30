@@ -101,7 +101,7 @@ export const Blocks = ({ html }: BlocksProps) => {
 
 ```ts
 type MyComponentProps = {
-    title?: strinmg;
+    title?: string;
 };
 
 export const MyComponent = ({ title = 'Default Title' }: MyComponentsProps) => {
