@@ -19,7 +19,7 @@ The main reason we don't require TypeScript for standard WordPress projects at t
 
 ## How to use TypeScript
 
-In an ideal world, every engineer would be fully capable of writing all sorts of complex TypeScript types, however, we understand that it takes time to master a language like TypeScript, especially in a few scenarios that require writing more complex types. Therefore, while we use a reasonably strict `tsconfig.json`` we are flexible in practice. 
+In an ideal world, every engineer would be fully capable of writing all sorts of complex TypeScript types, however, we understand that it takes time to master a language like TypeScript, especially in a few scenarios that require writing more complex types. Therefore, while we use a reasonably strict `tsconfig.json` we are flexible in practice.
 
 We want the TypeScript to always be valid and issue no errors at compilation, but we allow a few escape hatches should engineers get stuck with a particular typing problem. We follow the principles below when writing TypeScript:
 
@@ -56,6 +56,11 @@ Note: we recommend setting the `noImplicitAny` setting to `true` in `tsconfig.js
 Lastly, if nothing else worked to unblock the code, TypeScript allows disregarding errors on a given line by just telling the compiler that an error is expected on that line. This is usually the least effective option as it would only solve the problem for a single line. However, if nothing else works, this is the last and most drastic escape hatch.
 
 While we'd like none of these escape hatches to be used, it would be unrealistic to expect all engineers to have types 100% correct on every project all the time. We believe that these recommendations provide a path to address them organically during the life-cycle of the project.
+
+## Tools
+
+- [TypeScript Error Translator](https://ts-error-translator.vercel.app/): Lets you drop any TypeScript error message and gives you a human-readable explanation in plain English.
+- [pretty-ts-errors] (https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors): A VSCode extension that translaters TypeScript errors in a human-readable way right into VSCode.
 
 ## TypeScript and CI
 
