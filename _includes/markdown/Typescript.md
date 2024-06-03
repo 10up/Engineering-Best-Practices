@@ -199,7 +199,7 @@ If the library you're using does not ship types, check if there is type informat
 
 ### Global types definitions
 
-**Do not** put the application types in the global scope just to avoid importing them. You may only create global type definitions when needing to extend global types (e.g `window` object).
+**Do not** put the application types in the global scope just to avoid importing them. You may only create global type definitions when needing to extend global types (e.g. `window` object).
 
 To extend global types create a `global.d.ts` file and include them in your `tsconfig.json` in the `include` config option. Here's an example for a Next.js project:
 
