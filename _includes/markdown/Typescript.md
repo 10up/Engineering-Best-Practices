@@ -142,7 +142,7 @@ export const MyComponent = ({ title = 'Default Title' }: MyComponentsProps) => {
 }
 ```
 
-Make sure the eslint rule `react/require-default-props` is set up to look for `defaultArguments` e.g `'react/require-default-props': ['error', { functions: 'defaultArguments' }]`;
+Make sure the ESLint rule `react/require-default-props` is set up to look for `defaultArguments` e.g `'react/require-default-props': ['error', { functions: 'defaultArguments' }]`;
 
 ### Prefer explicitly declaring `children` instead of using `PropsWithChildren`
 
