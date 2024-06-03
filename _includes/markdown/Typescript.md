@@ -24,7 +24,7 @@ The main reason we don't require TypeScript for standard WordPress projects is t
 
 In an ideal world, no one would struggle with TypeScript, however, we understand that it takes time to master a language like TypeScript, especially in a few scenarios that require writing more complex types. Therefore, while we use a reasonably strict `tsconfig.json` we are flexible in practice.
 
-We also don't want engineers looking for "perfection" when it comes to writing complex types. TypeScript has a very powerfull type system and it allows for amazing things to be done statically at compilation level, however, we should recognize that most projects will suffice with simpler, easy-to-use types. Unless there's a good reason (e.g building a reusable package or library), engineers should strive to not write overly complex types.
+We also don't want engineers looking for "perfection" when it comes to writing complex types. TypeScript has a very powerful type system and it allows for amazing things to be done statically at the compilation level, however, we should recognize that most projects will suffice with simpler, easy-to-use types. Unless there's a good reason (e.g. building a reusable package or library), engineers should strive to not write overly complex types.
 
 Lastly, we want TypeScript to always be valid and issue no errors at compilation, but we allow a few escape hatches should engineers get stuck with a particular typing problem. We follow the principles below when writing TypeScript:
 
