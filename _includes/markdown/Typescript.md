@@ -36,7 +36,7 @@ Depending on the tooling you're using (e.g. Next.js) it is possible to disable t
 
 In an ideal world, all engineers would be capable of typing everything properly from the get-go. However, we know that is not the case and engineers need time and practice to get there. For that reason, we favor efficiency over strict typing. 
 
-By "efficiency" we mean engineers recognizing and time-boxing the time spent trying to type something properly and not letting that block the development of the task at hand. We prefer to ship non-strict typed code instead of sinking a lot of time on it.
+By "efficiency" we mean engineers recognizing and time-boxing the time spent trying to type something properly and not letting that block the development of the task at hand. We prefer to ship non-strict typed code instead of spending a lot of time on it.
 
 Our philosophy is that over time engineers will organically get more familiar with TypeScript and strictness will come as a result. Code reviews are also a place where engineers might get quick feedback that would allow them to more efficiently address typing issues instead of wasting a lot of time during initial development trying to figure it out on their own.
 
