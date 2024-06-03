@@ -10,7 +10,7 @@ We believe that:
 
 Therefore we are big fans of TypeScript at 10up and we strive to use it whenever it makes sense.
 
-We also recgonize that the industry has largely adopted TypeScript as the defacto standard for writing JavaScript apps.
+We also recognize that the industry has largely adopted TypeScript as the de facto standard for writing JavaScript apps.
 
 ## When to use TypeScript
 
