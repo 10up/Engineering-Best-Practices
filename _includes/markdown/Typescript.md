@@ -16,7 +16,7 @@ We also recognize that the industry has largely adopted TypeScript as the de fac
 
 At 10up we require that all projects considered "JavaScript-First" to make use of TypeScript. Generally speaking Standard WordPress projects (including block development) would not fall under "JavaScript-First" projects. 
 
-If you are building a project using Next.js and/or 10up's [HeadstartWP framework](https://headstartwp.10up.com/), Sanity and any other headless CMS'es powered by a React front-end then we require TypeScript unless other circumstances make using JavaScript a better choice.
+If you are building a project using Next.js and/or 10up's [HeadstartWP framework](https://headstartwp.10up.com/), Sanity and any other headless CMSs' powered by a React front-end then we require TypeScript unless other circumstances make using JavaScript a better choice.
 
 The main reason we don't require TypeScript for standard WordPress projects is that TypeScript support for block development is still very limited, largely driven by community types packages that don't always match the actual types for the `@wordpress` packages.
 
