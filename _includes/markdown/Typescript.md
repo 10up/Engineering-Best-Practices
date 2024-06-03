@@ -126,7 +126,7 @@ export const MyComponent: React.FC<MyComponentProps> = (props) => {
 ```
 **Note**: If using React < 17, be aware that `children` will be explicitly set for all components using `React.FC`. This can cause some TS errors when upgrading React to 18+, if a component is passed `children` but does not explicitly declare it as a prop.
 
-The [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/) is a good resource to check how to type specific things in React (e.g Forms, Events etc).
+The [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/) is a good resource to check how to type specific things in React (e.g. Forms, Events etc).
 
 ### Use function default arguments instead of `defaultProps`
 
