@@ -212,6 +212,7 @@ To extend global types create a `global.d.ts` file and include them in your `tsc
     "**/*.tsx"
   ],
 }
+```
 
 ```ts
 // globals.d.ts
