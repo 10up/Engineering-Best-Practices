@@ -57,7 +57,17 @@ While this usually indicates that there's something wrong with types or even the
 
 Another strategy is to just type your variable with `any` which essentially disables type checking for that variable and while it is a more drastic measure it should be an easy way to unblock work until engineers have more time to come back and try to get the types right.
 
-Note: we recommend setting the `noImplicitAny` setting to `true` in `tsconfig.json` which forces explicitly setting a type as any. This makes it easier to identify code that is relying on any and would also make catching the escape hatch in code reviews which is a great opportunity to get feedback and potentially get the types right.
+```ts
+function prepareMyObject(object: any) {
+    // do something with object
+}
+
+const myObject = prepareMyObject(JSON.parse(JSONStringWithUnknownSchema));
+```
+
+The above example showcases a situation where you might not known the schema for a remote JSON string and thus using `any` is a easy way to workaround that. There are [several](https://developermemos.com/posts/parsing-casting-json-typescript) [ways](https://dev.to/maafaishal/safely-use-jsonparse-in-typescript-12e7) to type `JSON.parse` in TypeScript though so you don't need to use `any` all the time with `JSON.parse`.
+
+We recommend setting the `noImplicitAny` setting to `true` in `tsconfig.json` which forces explicitly setting a type as any. This makes it easier to identify code that is relying on any and would also make catching the escape hatch in code reviews which is a great opportunity to get feedback and potentially get the types right.
 
 #### 3. The `// @ts-expect-error` comment
 
@@ -66,8 +76,12 @@ Lastly, if nothing else worked to unblock the code, TypeScript allows disregardi
 When using any of these escape hatches, please leave a `TODO` comment with a short description of the issue:
 
 ```js
-// TODO(nicholaiso): the types coming from the package do not seem correct
+// TODO(nicholaiso): object is not typed property but it should have a `function` method
+// @ts-expect-error
+const result = object.function()
 ```
+
+Note that with the example above, you could have used the "The `as unknown as ExpectedType` type cast" escape hatch which would be a much better alternative. We don't expect `// @ts-expect-error` to be used too widely.
 
 While we'd like none of these escape hatches to be used, it would be unrealistic to expect all engineers to have types 100% correct on every project all the time. We believe that these recommendations provide a path to address them organically during the life-cycle of the project.
 
@@ -137,7 +151,7 @@ type MyComponentProps = {
     title?: string;
 };
 
-export const MyComponent = ({ title = 'Default Title' }: MyComponentsProps) => {
+export const MyComponent: React.FC<MyComponentProps> = ({ title = 'Default Title' }) => {
     // ...
 }
 ```
@@ -154,7 +168,7 @@ type LayoutProps = {
 };
 
 // If Layout is not passed a children, TS will catch the error
-const Layout = (props: LayoutProps) => {
+const Layout: React.FC<LayoutProps> = (props) => {
     return (
         <main>
             {children}
@@ -176,7 +190,7 @@ const PostProps = {
     // other props
 };
 
-const Post = (props: PostProps) => {
+const Post: React.FC<PostProps>  = (props) => {
     return (
         <article>
             <PostContent {...props} />
