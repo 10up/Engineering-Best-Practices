@@ -8,7 +8,7 @@ We believe that:
 3. TypeScript helps engineers unfamiliar with the codebase
 4. TypeScript helps catch certain issues earlier
 
-Therefore we are big fans of TypeScript at 10up and we strive to use it whenever it makes sense.
+Therefore, we are big fans of TypeScript at 10up and we strive to use it whenever it makes sense.
 
 We also recognize that the industry has largely adopted TypeScript as the de facto standard for writing JavaScript apps.
 
@@ -74,7 +74,7 @@ While we'd like none of these escape hatches to be used, it would be unrealistic
 ## Tools
 
 - [TypeScript Error Translator](https://ts-error-translator.vercel.app/): Lets you drop any TypeScript error message and gives you a human-readable explanation in plain English.
-- [pretty-ts-errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors): A VSCode extension that translaters TypeScript errors in a human-readable way right into VSCode.
+- [pretty-ts-errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors): A VSCode extension that translates TypeScript errors in a human-readable way right into VSCode.
 
 ## TypeScript and CI
 
@@ -97,7 +97,7 @@ We also have a recommended [tsconfig.json](https://github.com/10up/headstartwp/b
 
 ### Use `type` for React Props
 
-While `interface` and `type` are mostly interchangeable, prefer `type` over `interfaces` unless you expect the props to be the base for other components's props.
+While `interface` and `type` are mostly interchangeable, prefer `type` over `interfaces` unless you expect the props to be the base for other components' props.
 
 ```tsx
 type BlocksProps = {
@@ -154,7 +154,7 @@ type LayoutProps = {
 };
 
 // If Layout is not passed a children, TS will catch the error
-const Layout = (props: LayoutProps) {
+const Layout = (props: LayoutProps) => {
     return (
         <main>
             {children}
@@ -189,13 +189,13 @@ While there might be use cases where you need to use them, it's generally better
 
 Prop spreading is especially dangerous when prop spreading into native DOM elements. So make sure to not ignore TypeScript errors and make sure your types are set up correctly so that TS can catch forwarded props incompatible with the target component/element.
 
-### Colocate types with React components
+### Co-locate types with React components
 
-For the most part, the React Component types should be colocated with the React component, meaning that it should be in the same file that the React component is written. Only hoist types to avoid circular dependencies and when you expect them to be reused/shared across many components/files.
+For the most part, the React Component types should be co-located with the React component, meaning that it should be in the same file that the React component is written. Only hoist types to avoid circular dependencies and when you expect them to be reused/shared across many components/files.
 
 ### Use `@types` packages if necessary
 
-If the library you're using does not ship types, check if there is type information available for that package in the [DefinatelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) repo.
+If the library you're using does not ship types, check if there is type information available for that package in the [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) repo.
 
 ### Global types definitions
 
@@ -204,13 +204,14 @@ If the library you're using does not ship types, check if there is type informat
 To extend global types create a `global.d.ts` file and include them in your `tsconfig.json` in the `include` config option. Here's an example for a Next.js project:
 
 ```json
- "include": [
+{
+  "include": [
     "next-env.d.ts",
     "src/global.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
-```
+}
 
 ```ts
 // globals.d.ts
