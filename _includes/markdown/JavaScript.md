@@ -237,6 +237,55 @@ module('.element-selector', {
 });
 ```
 
+### Avoid Barrel Files
+
+When you have a large number of files, it can appear useful to create a barrel file to export all of the files in a directory, however this pattern is **not recommended**.
+
+It can lead to a large number of files being exported and included in your final undle. Instead, we recommend using direct import statements to the specific file you need.
+
+For example, if you have a package with the following files:
+
+```
+/utils/src/date.js
+/utils/src/time.js
+/utils/src/cache.js
+```
+
+You should consume these modules by importing them directly, and not relying on a index.js entry point which exports using wildcards from all subdirectories.
+
+```javascript
+// Do not do this
+
+// File index.js
+export * from ./date;
+export * from ./time;
+export * from ./cache;
+
+// File ./SomeComponent.jsx
+import { formatDate } from './utils';
+```
+
+```javascript
+// Do this
+
+// File ./SomeComponent.jsx
+import { formatDate } from './utils/src/date';
+```
+
+### Use Named Exports
+
+When exporting a component, it is recommended to use named exports.
+
+
+```javascript
+import Button from './button';
+
+export default Button;
+```
+
+This will allow you to import the component from the file and use it in your application.
+
+
 ### Don't Pollute the Window Object
 
 Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. If you need to expose data to the rest of your application, you should first consider using some sort of state management. Sometimes however, exposing methods or properties to the ```window``` global is necessary and when doing so wrap your code in closures and expose methods and properties to ```window``` with caution.
