@@ -241,7 +241,7 @@ module('.element-selector', {
 
 When you have a large number of files, it can appear useful to create a barrel file to export all of the files in a directory, however this pattern is **not recommended**.
 
-It can lead to a large number of files being exported and included in your final undle. Instead, we recommend using direct import statements to the specific file you need.
+It can lead to a large number of files being exported and included in your final bundle. Instead, we recommend using direct import statements to the specific file you need.
 
 For example, if you have a package with the following files:
 
