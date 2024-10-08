@@ -272,19 +272,21 @@ import { formatDate } from './utils';
 import { formatDate } from './utils/src/date';
 ```
 
-### Use Named Exports
+#### Alternate Approach for Libraries
 
-When exporting a component, it is recommended to use named exports.
-
+The "exports" field in package.json is crucial when authoring packages for public use, defining a clear, controlled API. Here's an example:
 
 ```javascript
-import Button from './button';
-
-export default Button;
+{
+  "name": "@namespace/utils",
+  "version": "1.0.0",
+  "exports": {
+    "./date": "./dist/utils/date.js",
+    "./time": "./dist/utils/time.js"
+  }
+}
 ```
-
-This will allow you to import the component from the file and use it in your application.
-
+This pattern is especially useful for built and distributed packages and provide a performant alternative to Barrel Files. It provides a stable interface between your package's potentially complex build output and its users, allowing internal refactoring without breaking changes. For distributed packages, "exports" can also optimize module resolution, improving performance in applications using your package.
 
 ### Don't Pollute the Window Object
 
