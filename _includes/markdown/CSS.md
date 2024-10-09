@@ -10,19 +10,48 @@ Our websites are built mobile first, using performant CSS. Well-structured CSS y
 
 Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
 
-The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+The `prefer-reduced-motion` CSS media feature has a [decent support](https://caniuse.com/#feat=prefers-reduced-motion) nowadays. However, we still recommend applying the media query with an accessibility-first approach so the code is progressively enhanced rather than potentially missing users that might not want the motion but their devices aren't able to process the media query.
 
 Here is an example:
 
 ```css
-.animation {
-    animation: vibrate 0.3s linear infinite both;
+@media (prefers-reduced-motion: no-preference) {
+    .animation {
+        animation: vibrate 0.3s linear infinite both;
+    }
+}
+```
+
+It might also be a good idea to create a simpler animation that doesn't rely on movement as a default, and if the user hasn't expressed any preference, we enhance by adding some movement. Here's an example of an animation for modals appearing on the screen:
+
+```css
+/* 
+  By default, we'll use the REDUCED MOTION version of the animation.
+*/
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .animation {
-        animation: none;
+/*
+  Then, if the user has NO PREFERENCE for motion, we can OVERRIDE the
+  animation definition to include both the motion and non-motion properties.
+*/
+@media ( prefers-reduced-motion: no-preference ) {
+  @keyframes modal-enter {
+    from {
+      opacity: 0;
+      transform: scale(.7);
     }
+    to {
+      opacity: 1 ;
+      transform: scale(1);
+    }
+  }
 }
 ```
 
@@ -79,9 +108,10 @@ Avoid:
 
 Prefer:
 
-```css
+```pcss
 .some-class {
 	color: red;
+	
 	@media only screen and (min-width: 1024px) {
 		color: blue;
 	}
@@ -338,21 +368,34 @@ Very common examples include gradients and triangles.
 It's a common belief that CSS animations are more performant than JavaScript animations. A few articles aimed to set the record straight (linked below).
 
 * If you're only animating simple state changes and need good mobile support, go for CSS (most cases).
-* If you need more complex animations, use a JavaScript animation framework or requestAnimationFrame.
+* If you need more complex animations, use a JavaScript animation framework or `requestAnimationFrame`.
 
 Limit your CSS animations to 3D transforms (translate, rotate, scale) and opacity, as those are aided by the GPU and thus smoother. Note that too much reliance on the GPU can also overload it.
 
 Avoid:
 
 ```css
-#menu li{
+#menu li {
   left: 0;
   transition: all 1s ease-in-out;
 }
 #menu li:hover {
-  left: 10px
+  left: 10px;
 }
 ```
+
+Prefer: 
+
+```css
+#menu li {
+  transform: translate3d(0, 0, 0);
+  transition: transform 1s ease-in-out;
+}
+#menu li:hover {
+  transform: translate3d(10px, 0, 0);
+}
+```
+
 Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site. **Note:** [WCAG 2.1, Guideline 2.3.2 Motion from Animation](https://www.w3.org/WAI/WCAG21/quickref/#animation-from-interactions) dictates that, "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed."
 
 Articles worth reading:
