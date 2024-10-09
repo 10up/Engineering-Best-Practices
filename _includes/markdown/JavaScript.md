@@ -237,6 +237,57 @@ module('.element-selector', {
 });
 ```
 
+### Avoid Barrel Files
+
+When you have a large number of files, it can appear useful to create a barrel file to export all of the files in a directory, however this pattern is **not recommended**.
+
+It can lead to a large number of files being exported and included in your final bundle. Instead, we recommend using direct import statements to the specific file you need.
+
+For example, if you have a package with the following files:
+
+```
+/utils/src/date.js
+/utils/src/time.js
+/utils/src/cache.js
+```
+
+You should consume these modules by importing them directly, and not relying on a index.js entry point which exports using wildcards from all subdirectories.
+
+```javascript
+// Do not do this
+
+// File index.js
+export * from ./date;
+export * from ./time;
+export * from ./cache;
+
+// File ./SomeComponent.jsx
+import { formatDate } from './utils';
+```
+
+```javascript
+// Do this
+
+// File ./SomeComponent.jsx
+import { formatDate } from './utils/src/date';
+```
+
+#### Alternate Approach for Libraries
+
+The "exports" field in package.json is crucial when authoring packages for public use, defining a clear, controlled API. Here's an example:
+
+```javascript
+{
+  "name": "@namespace/utils",
+  "version": "1.0.0",
+  "exports": {
+    "./date": "./dist/utils/date.js",
+    "./time": "./dist/utils/time.js"
+  }
+}
+```
+This pattern is especially useful for built and distributed packages and provide a performant alternative to Barrel Files. It provides a stable interface between your package's potentially complex build output and its users, allowing internal refactoring without breaking changes. For distributed packages, "exports" can also optimize module resolution, improving performance in applications using your package.
+
 ### Don't Pollute the Window Object
 
 Adding methods or properties to the ```window``` object or the global namespace should be done carefully. ```window``` object pollution can result in collisions with other scripts. If you need to expose data to the rest of your application, you should first consider using some sort of state management. Sometimes however, exposing methods or properties to the ```window``` global is necessary and when doing so wrap your code in closures and expose methods and properties to ```window``` with caution.
