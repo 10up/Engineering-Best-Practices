@@ -63,7 +63,7 @@ Here are a few key points:
   if ( $foo_query->have_posts() ) :
       while ( $foo_query->have_posts() ) :
           $foo_query->the_post();
-          if ( in_array( get_the_ID(), $posts_to_exclude ) ) {
+          if ( in_array( get_the_ID(), $posts_to_exclude, true ) ) {
               continue;
           }
           the_title();
