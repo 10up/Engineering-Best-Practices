@@ -10,7 +10,7 @@ Our websites are built mobile first, using performant CSS. Well-structured CSS y
 
 Not every animation brings pleasure to the end user. In some cases motion can trigger harmful reactions from users with vestibular disorders, epilepsy or even migraines.
 
-The `prefer-reduced-motion` CSS media feature does not currently have the widest support, but is active in [Safari and Firefox](https://caniuse.com/#feat=prefers-reduced-motion)). However, we still recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
+The `prefer-reduced-motion` CSS media feature currently has good support, as it is available in [most modern browsers](https://caniuse.com/#feat=prefers-reduced-motion)). We recommend applying it, as it is simple to implement and affords a better experience for those using supported browsers.
 
 Here is an example:
 
