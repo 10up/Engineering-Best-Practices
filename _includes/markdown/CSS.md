@@ -280,7 +280,7 @@ li:nth-child(n+4):nth-child(-n+8) {
 * Limit the number of requests by concatenating CSS files and encoding sprites and font files to the CSS file.
 * Minify stylesheets
 * Use GZIP compression when possible
-Automate these tasks with a PHP or/and JavaScript build process.
+* Automate these tasks with a PHP or/and JavaScript build process.
 
 ### CSS Specificity
 
@@ -356,11 +356,11 @@ Avoid:
 Always test animations on a real mobile device loading real assets, to ensure the limited memory environment doesn't tank the site. **Note:** [WCAG 2.1, Guideline 2.3.2 Motion from Animation](https://www.w3.org/WAI/WCAG21/quickref/#animation-from-interactions) dictates that, "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed."
 
 Articles worth reading:
-* [CSS animations performance: the untold story](https://greensock.com/css-performance)
+* [CSS animations performance: the untold story](https://gsap.com/community/css-performance/)
 * [Myth Busting: CSS Animations vs. JavaScript](https://css-tricks.com/myth-busting-css-animations-vs-javascript/)
 * [CSS vs. JS Animation: Which is Faster?](https://davidwalsh.name/css-js-animation)
 * [Why Moving Elements With Translate() Is Better Than Pos:abs Top/left](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
-* [CSS vs JavaScript Animations](https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript?hl=en)
+* [CSS vs JavaScript Animations](https://web.dev/articles/css-vs-javascript)
 * [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
 <h2 id="frameworks" class="anchor-heading">Frameworks {% include Util/link_anchor anchor="frameworks" %} {% include Util/top %}</h2>
