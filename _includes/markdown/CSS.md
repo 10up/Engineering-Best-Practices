@@ -10,9 +10,8 @@ Below are our suggested best practices for writing CSS at Fueled.
 
 There are countless ways to organize your CSS styles. From naming conventions to structuring files, there’s no single "right" way to do it. What’s important is understanding and respecting the system that’s already in place.
 
-* **Assume intent**. Always operate under the assumption that existing patterns or conventions were created for a reason. Even if they seem unfamiliar or inefficient at first glance, dig deeper to understand the context.  
-* **Learn before you suggest.** When you join a project, take the time to understand how the styles are organized and why they’re structured that way. Avoid making snap judgments or introducing changes before fully grasping the system.  
-* **Build on established patterns first.** Stick to the existing conventions, even if they feel unfamiliar unless there’s an obvious reason to deviate. Continuity is critical for maintainability and teamwork.  
+* **Assume intent.** Always operate under the assumption that existing patterns or conventions were created for a reason. Stick to the existing conventions, even if they feel unfamiliar or inefficient at first glance—dig deeper to understand the context. Continuity is critical for maintainability and teamwork.  
+* **Learn before you suggest.** When you join a project, take the time to understand how the styles are organized and why they're structured that way. Avoid making snap judgments or introducing changes before fully grasping the system.  
 * **When in doubt, align with technical leadership**. If you are unsure about patterns or systems to adhere to, follow the guidance and recommendation of a project's technical leadership (if viable). 
 
 Only propose changes if the current convention is genuinely problematic—for example, if it’s inconsistent, hard to scale, or causes errors. When you suggest a change, be ready to explain why the new approach is better and how it solves a specific problem.
