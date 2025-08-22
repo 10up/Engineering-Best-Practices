@@ -4,7 +4,7 @@ At 10up, we value content and the experience users will have reading it. We writ
 
 Our websites are built mobile first, using performant CSS. Well-structured CSS yields maintainability and better collaboration which ultimately yields better client experiences.
 
-Below are some of the best practices for writing CSS that we follow.
+Below are our suggested best practices for writing CSS at Fueled.
 
 <h2 id="established-system" class="anchor-heading">Follow an Established System First {% include Util/link_anchor anchor="established-system" %}</h2>
 
