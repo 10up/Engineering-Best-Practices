@@ -264,7 +264,7 @@ Key details to note:
 
 * Margin reset: The margin is set to zero to remove default browser margins. You can handle multiple headings in one go with `:where(h1, h2, h3...) { margin-block: 0 }`.
 
-Avoid adding styles that are too opinionated at the base level. For example, setting text-align: center on the heading in the previous example can cause issues. Even if most headings are center-aligned, there will likely be cases where you need a left- or right-aligned heading. This forces you to override the style in all components where center alignment isn’t needed, bloating the CSS and adding mental overhead.
+Avoid adding styles that are too opinionated at the base level. For example, setting `text-align: center` on the heading in the previous example can cause issues. Even if most headings are center-aligned, there will likely be cases where you need a left- or right-aligned heading. This forces you to override the style in all components where center alignment isn’t needed, bloating the CSS and adding mental overhead.
 
 Be cautious about which styles you place at this level. Only include styles that should apply to all elements in 99.9% of cases. Removing base-level styles once a project is live—especially if thousands of pages depend on them—can introduce regressions.
 
