@@ -14,7 +14,7 @@ There are countless ways to organize your CSS styles. From naming conventions to
 * **Learn before you suggest.** When you join a project, take the time to understand how the styles are organized and why they're structured that way. Avoid making snap judgments or introducing changes before fully grasping the system.  
 * **When in doubt, align with technical leadership**. If you are unsure about patterns or systems to adhere to, follow the guidance and recommendation of a project's technical leadership (if viable). 
 
-Only propose changes if the current convention is genuinely problematic—for example, if it’s inconsistent, hard to scale, or causes errors. When you suggest a change, be ready to explain why the new approach is better and how it solves a specific problem.
+Only propose changes if the current convention is genuinely problematic, e.g., if it’s inconsistent, hard to scale, or causes errors. When you suggest a change, be ready to explain why the new approach is better and how it solves a specific problem.
 
 This approach helps avoid duplication—why have two things that do the same job? It’s inefficient and creates unnecessary confusion. Beyond that, following established patterns shows respect for your team’s work and fosters a healthy, collaborative relationship. Consistency in the codebase reflects a consistent and unified team.
 
