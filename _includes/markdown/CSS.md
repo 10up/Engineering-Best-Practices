@@ -469,6 +469,7 @@ Clear, consistent naming makes your CSS maintainable, readable, and scalable. Go
 * Use sparingly and not for styling, (e.g. for use with anchors and in-page links)  
 * Names should clearly communicate the unique purpose.  
 * Prefer camelCase (e.g., `#mainNavigation`).
+* For JavaScript-specific functionality, consider using a `js-` prefix with kebab-case (e.g., `#js-main-navigation`) to clearly indicate the element is targeted by JavaScript code.
 
 ### Custom Properties (CSS Variables)
 
