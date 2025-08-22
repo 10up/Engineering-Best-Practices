@@ -183,7 +183,7 @@ Global rules play a critical role in setting consistent behavior across your ent
 }
 ```
 
-By applying box-sizing: border-box, you ensure that padding and border widths are included in the element’s total width and height calculations. This eliminates common layout issues and simplifies sizing calculations, reducing developer frustration and the likelihood of design inconsistencies.
+By applying `box-sizing: border-box`, you ensure that padding and border widths are included in the element’s total width and height calculations. This eliminates common layout issues and simplifies sizing calculations, reducing developer frustration and the likelihood of design inconsistencies.
 
 It is very easy to set up at the beginning of a project and very hard and expensive to fix when the project is live and has hundreds (or in some cases thousands) of pages and many components.
 
@@ -262,9 +262,9 @@ Key details to note:
 
 * CSS Custom Properties: These variables, defined at the global level, keep the styles consistent and easy to maintain.
 
-* Margin reset: The margin is set to zero to remove default browser margins. You can handle multiple headings in one go with :where(h1, h2, h3...) { margin-block: 0 }.
+* Margin reset: The margin is set to zero to remove default browser margins. You can handle multiple headings in one go with `:where(h1, h2, h3...) { margin-block: 0 }`.
 
-Avoid adding styles that are too opinionated at the base level. For example, setting text-align: center on the heading in the previous example can cause issues. Even if most headings are center-aligned, there will likely be cases where you need a left- or right-aligned heading. This forces you to override the style in all components where center alignment isn’t needed, bloating the CSS and adding mental overhead.
+Avoid adding styles that are too opinionated at the base level. For example, setting `text-align: center` on the heading in the previous example can cause issues. Even if most headings are center-aligned, there will likely be cases where you need a left- or right-aligned heading. This forces you to override the style in all components where center alignment isn’t needed, bloating the CSS and adding mental overhead.
 
 Be cautious about which styles you place at this level. Only include styles that should apply to all elements in 99.9% of cases. Removing base-level styles once a project is live—especially if thousands of pages depend on them—can introduce regressions.
 
@@ -403,7 +403,7 @@ Refrain from using IDs for styling purposes. IDs have high specificity, which ma
 
 ### Avoid \!important
 
-Reserve \!important for truly exceptional cases. Overusing \!important disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
+Reserve `\!important` for truly exceptional cases. Overusing `!important` disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
 
 <h2 id="no-margins-components" class="anchor-heading">Do Not Use Margins on Reusable Components {% include Util/link_anchor anchor="no-margins-components" %}</h2>
 
