@@ -403,7 +403,7 @@ Refrain from using IDs for styling purposes. IDs have high specificity, which ma
 
 ### Avoid \!important
 
-Reserve \!important for truly exceptional cases. Overusing \!important disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
+Reserve `\!important` for truly exceptional cases. Overusing `!important` disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
 
 <h2 id="no-margins-components" class="anchor-heading">Do Not Use Margins on Reusable Components {% include Util/link_anchor anchor="no-margins-components" %}</h2>
 
