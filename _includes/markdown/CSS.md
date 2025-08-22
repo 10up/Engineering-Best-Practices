@@ -24,7 +24,7 @@ When you start a new codebase, pause before writing components and choose a CSS 
 
 If you opt to design a custom architecture, capture every key choice: folder layout, naming conventions, tooling, and any deviations from common patterns. A short explanation of why each decision was made helps future contributors understand the system quickly and avoids guesswork.
 
-Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository’s setup or onboarding documentation. Follow your organization’s standard documentation format so the notes remain consistent, searchable, and easy to maintain.
+*Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository’s setup or onboarding documentation. Follow your organization’s standard documentation format so the notes remain consistent, searchable, and easy to maintain.*
 
 <h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing About the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
 
