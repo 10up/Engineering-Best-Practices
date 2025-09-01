@@ -51,17 +51,17 @@ When writing CSS, stick to the styles you need and avoid overcomplicating. For e
 
 ```css
 .container {
-  max-inline-size: 48rem;
-  margin: 0 auto;
+  max-width: 48rem;
+  margin: 0 auto; /* ⚠️ Avoid this */
 }
 ```
 
-While this centering approach achieves the goal, it also zeroes out the top and bottom margins, which may not be intentional and will have unwanted impact in the cascade. Instead, use logical properties:
+While this centering approach achieves the goal, it also zeroes out the top and bottom margins, which may not be intentional and will have unwanted impact in the cascade. Instead, only set the margin you need:
 
 ```css
 .container {
-  max-inline-size: 48rem;
-  margin-inline: auto;
+  max-width: 48rem;
+  margin-inline: auto; /* ✅ Do this instead */
 }
 ```
 
