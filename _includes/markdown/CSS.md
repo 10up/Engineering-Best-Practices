@@ -375,7 +375,7 @@ It’s okay to nest pseudo classes that represent state, for example:
 }
 ```
 
-Not necessary to nest elements or modifiers:
+It's not necessary to nest elements or modifiers:
 
 ```css
 /* block */
