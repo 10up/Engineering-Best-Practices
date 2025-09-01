@@ -298,7 +298,7 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 
 * Single Responsibility: Each utility class should only do one thing. For example, is-style-h1 should only apply styles required to make the text appear as heading level 1 and do nothing else.
 
-* Specificity Level: Utility classes sit at the top of inverted triangle architecture, so they can have higher specificity then base styles and components. In practice they usually have the same level of specificity as components, because of that they should be applied after the component class.
+* Specificity Level: Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
 
 * Consistency: Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
 
