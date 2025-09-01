@@ -18,7 +18,7 @@ Only propose changes if the current convention is genuinely problematic, e.g., i
 
 This approach helps avoid duplication—why have two things that do the same job? It’s inefficient and creates unnecessary confusion. Beyond that, following established patterns shows respect for your team’s work and fosters a healthy, collaborative relationship. Consistency in the codebase reflects a consistent and unified team.
 
-<h2 id="document-system" class="anchor-heading">Establish And Document The System {% include Util/link_anchor anchor="document-system" %}</h2>
+<h2 id="document-system" class="anchor-heading">Establish and Document the System {% include Util/link_anchor anchor="document-system" %}</h2>
 
 When you start a new codebase, pause before writing components and choose a CSS methodology—such as ITCSS, BEM, or a utility-first approach—that fits the project’s size, maintenance horizon, and team expertise. Committing to a structured methodology early establishes clear naming rules, predictable specificity, and sensible file organization. These guardrails ease onboarding, minimize refactors, and save both time and budget over the life of the project.
 
@@ -26,7 +26,7 @@ If you opt to design a custom architecture, capture every key choice: folder lay
 
 *Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository’s setup or onboarding documentation. Follow your organization’s standard documentation format so the notes remain consistent, searchable, and easy to maintain.*
 
-<h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing About the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
+<h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing about the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
 
 When building components, always start with the mindset that you have no control over the content they’ll handle. Even if the client or designer specifies certain limits, assume those constraints could change—or be ignored entirely.
 
@@ -120,7 +120,7 @@ Designing with a mobile-first approach is essential because most users access we
 
 This doesn't mean we must *design* for mobile devices first chronologically (although it is a viable approach), but rather that mobile devices get enough attention and are not an afterthought. This approach also helps prioritize essential features and content, making the site faster and more efficient.
 
-### What Does It Mean In Practice
+### What Does It Mean in Practice
 
 As a front-end engineer, it's crucial to be present at every design planning meeting. Your job is *not* just to determine whether the designs can be done in CSS but whether they *should* be done. Your input ensures that the designs are not only visually appealing but also can be implemented for mobile devices in an efficient way.
 
@@ -167,7 +167,7 @@ When building a robust and scalable front-end architecture, setting good default
 2. **CSS Normalize:** A normalize CSS file (i.e. [normalize.css](https://necolas.github.io/normalize.css/)) focuses on addressing inconsistencies between browsers while retaining most of their default styles. This approach minimizes the need for excessive rework while still providing a reliable base.  
 3. **Hybrid (or Custom) Approach:** Many projects adopt a blend of resets and normalization, coupled with project-specific global styles, to balance control and practicality. For example, resetting some elements like margins and paddings but setting global defaults for others, (following ITCSS architecture) such as lists and forms.
 
-### The importance of Global Rules
+### The Importance of Global Rules
 
 Global rules play a critical role in setting consistent behavior across your entire application. These rules can prevent costly refactoring and unexpected bugs as your project evolves. One key example is setting the `box-sizing` property globally:
 
