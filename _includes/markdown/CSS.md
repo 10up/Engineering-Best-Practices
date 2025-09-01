@@ -498,7 +498,7 @@ A common use case for CSS Custom Properties is design tokens. Naming tokens is c
 
 <h2 id="new-features" class="anchor-heading">New CSS Features {% include Util/link_anchor anchor="new-features" %}</h2>
 
-Browsers keep evolving, and CSS is always introducing new features. But adopting them too soon can cause issues for older or niche browsers. Here’s how we  evaluate and adopt modern CSS.
+Browsers keep evolving, and CSS is always introducing new features. But adopting them too soon can cause issues for older or niche browsers. Here’s how we evaluate and adopt modern CSS.
 
 When introducing a new feature, think about the experience a user will get if the feature is not available. CSS features, when not supported, are ignored by browsers. Always think about what the effect is for an unsupported browser. 
 
