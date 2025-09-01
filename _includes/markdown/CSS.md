@@ -341,7 +341,7 @@ The maximum specificity level you should aim for is 0, 1, 0 to 0, 2, 1\. If your
 
 ### Use `:where()` for Bare Elements
 
-Utilize the :where() pseudo-class when styling bare elements to avoid increasing specificity. Unlike other selectors, :where() doesn’t contribute to specificity, making it easier to override styles when needed and ensuring a cleaner cascade hierarchy. This allows you to apply styles without affecting how CSS rules are prioritized and inherited, keeping the order of styles predictable and easier to manage. For example:
+Utilize the `:where()` pseudo-class when styling bare elements to avoid increasing specificity. Unlike other selectors, `:where()` doesn’t contribute to specificity, making it easier to override styles when needed and ensuring a cleaner cascade hierarchy. This allows you to apply styles without affecting how CSS rules are prioritized and inherited, keeping the order of styles predictable and easier to manage. For example:
 
 ```css
 :where(h1, h2, h3, h4, h5, h6) {
