@@ -482,6 +482,7 @@ A common use case for CSS Custom Properties is design tokens. Naming tokens is c
 * Use clear, meaningful names that reflect hierarchical relationships (e.g., `color-background-primary`, `spacing-medium`).  
 * Avoid overly abstract, compact, or vague names; clarity and predictability are key. `button` is better `btn.`  
 * Consistently apply naming patterns to help users anticipate token structures.  
+* Avoid excessive nesting or chaining of CSS variables (e.g., mapping a color to a UI name to another variable). Deep abstractions create unnecessary layers, increase bundle size, and reduce performance. Keep token hierarchies reasonably flat—aim for 1-2 levels of abstraction rather than 3+ levels.  
 * Reference [Nathan Curtis's detailed guide](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676#08b2) for in-depth practices.
 
 ### Animations (@keyframes)
