@@ -12,7 +12,7 @@ There are countless ways to organize your CSS styles. From naming conventions to
 
 * **Assume intent.** Always operate under the assumption that existing patterns or conventions were created for a reason. Stick to the existing conventions, even if they feel unfamiliar or inefficient at first glance—dig deeper to understand the context. Continuity is critical for maintainability and teamwork.  
 * **Learn before you suggest.** When you join a project, take the time to understand how the styles are organized and why they're structured that way. Avoid making snap judgments or introducing changes before fully grasping the system.  
-* **When in doubt, align with technical leadership**. If you are unsure about patterns or systems to adhere to, follow the guidance and recommendation of a project's technical leadership (if viable). 
+* **When in doubt, align with technical leadership**. If you are unsure about patterns or systems to adhere to, follow the guidance and recommendations of a project's technical leadership (where feasible). 
 
 Only propose changes if the current convention is genuinely problematic, e.g., if it’s inconsistent, hard to scale, or causes errors. When you suggest a change, be ready to explain why the new approach is better and how it solves a specific problem.
 
@@ -298,7 +298,7 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 
 * Single Responsibility: Each utility class should only do one thing. For example, is-style-h1 should only apply styles required to make the text appear as heading level 1 and do nothing else.
 
-* Specificity Level: Utility classes sit at the top of inverted triangle architecture, so they can have higher specificity then base styles and components. In practice they usually have the same level of specificity as components, because of that they should be applied after the component class.
+* Specificity Level: Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
 
 * Consistency: Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
 
@@ -375,7 +375,7 @@ It’s okay to nest pseudo classes that represent state, for example:
 }
 ```
 
-Not necessary to nest elements or modifiers:
+It's not necessary to nest elements or modifiers:
 
 ```css
 /* block */
