@@ -247,7 +247,7 @@ Below are some examples of styles at this level:
 
 ```css
 :where(h1) {
-    color: var(--color--heading);
+  color: var(--color--heading);
   font-family: var(--font--family--heading);
   font-size: var(--font--size--heading-1);
   font-weight: var(--font--weight--heading);
