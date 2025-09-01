@@ -26,7 +26,7 @@ If you opt to design a custom architecture, capture every key choice: folder lay
 
 *Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository’s setup or onboarding documentation. Follow your organization’s standard documentation format so the notes remain consistent, searchable, and easy to maintain.*
 
-<h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing about the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
+<h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing About the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
 
 When building components, always start with the mindset that you have no control over the content they’ll handle. Even if the client or designer specifies certain limits, assume those constraints could change—or be ignored entirely.
 

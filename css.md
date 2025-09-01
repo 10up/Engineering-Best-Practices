@@ -10,7 +10,7 @@ subnav:
     tag: philosophy
   - title: Follow an Established System First
     tag: established-system
-  - title: Establish And Document The System
+  - title: Establish and Document the System
     tag: document-system
   - title: Assume You Know Nothing About the Content
     tag: content-agnostic
@@ -36,7 +36,7 @@ subnav:
     tag: naming
   - title: New CSS Features
     tag: new-features
-updated: 14 October 2019
+updated: 1 September 2025
 ---
 
 <div class="docs-section">
