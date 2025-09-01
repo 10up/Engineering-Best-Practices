@@ -43,7 +43,7 @@ When building a component, test it against extreme content scenarios. For exampl
 * A card title that is just one word  
 * An excerpt that’s 300 characters long—or empty.
 
-Building flexible, content-agnostic components makes your work more resilient to change. It reduces the need for constant adjustments and protects the layout from breaking when new content doesn’t fit the original plan. And let’s be real: the original plan often changes.
+Building flexible, content-agnostic components makes your work more resilient to change. It reduces the need for constant adjustments and protects the layout from breaking when new content doesn’t fit the original plan. In practice, requirements often evolve throughout a project's lifecycle.
 
 <h2 id="minimal-styles" class="anchor-heading">Write Only the Styles You Need, Don't Do Too Much {% include Util/link_anchor anchor="minimal-styles" %}</h2>
 
