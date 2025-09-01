@@ -566,7 +566,7 @@ This "not" approach is easy to remove when older browsers catch up. Just look fo
 ### 5. Use Automated Tooling
 
 * PostCSS (with postcss-preset-env) can convert cutting-edge CSS into more compatible code.  
-* Inspect how it transforms your code. Some transformations, like `@layer`, can bloat your CSS with hacks like `:not(#\#)` selectors.  
+* Inspect how it transforms your code. Some transformations, like `@layer`, can bloat your CSS with hacks like `:not(#\#)` selectors—that's why we avoid `@layer` on large projects that require support for older browsers.
 * Decide if that overhead is worth it.
 
 ### 6. Decide How Soon to Adopt
