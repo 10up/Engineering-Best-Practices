@@ -34,6 +34,9 @@ Content is unpredictable. You might not know how long a title will be, how many 
 
 Prepare for edge cases. Your components must be resilient and robust enough to handle all reasonable variations, including unexpected ones. If you don’t account for these possibilities, it could lead to broken layouts, unreadable text, or poor user experiences.
 
+**Useful resources:**
+- [Defensive CSS](https://defensivecss.dev/)
+
 ### Stress Test Your Components
 
 When building a component, test it against extreme content scenarios. For example:
