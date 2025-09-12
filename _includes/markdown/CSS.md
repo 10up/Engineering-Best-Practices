@@ -481,14 +481,16 @@ Clear, consistent naming makes your CSS maintainable, readable, and scalable. Go
 * Name according to usage rather than appearance (e.g., `--primary-color`, `--spacing-large`).  
 * Use hyphenated lowercase consistently.  
 * Keep them semantic to represent meaning and intent.
+* Avoid excessive nesting or chaining of CSS variables (e.g., mapping a color to a UI name to another variable). Deep abstractions create unnecessary layers, increase bundle size, and reduce performance. Keep token hierarchies reasonably flat—aim for 1-2 levels of abstraction rather than 3+ levels.
 
-A common use case for CSS Custom Properties is design tokens. Naming tokens is crucial and delicate—well-named tokens ensure consistency, ease of understanding, and scalability. When naming design tokens.
+A common use case for CSS Custom Properties is design tokens. Naming tokens is crucial and delicate—well-named tokens ensure consistency, ease of understanding, and scalability.
 
-* Use clear, meaningful names that reflect hierarchical relationships (e.g., `color-background-primary`, `spacing-medium`).  
+* When naming design tokens, use clear, meaningful names that reflect hierarchical relationships. In most projects, it makes sense to separate tokens into two categories: `primitive` and `semantic`. Primitive tokens describe the values directly, like `color-red-100` and `font-weight-bold`, while semantic tokens describe the application of primitive tokens, like `color-background-default` or `typography-body-font-family`.  
 * Avoid overly abstract, compact, or vague names; clarity and predictability are key. `button` is better `btn.`  
 * Consistently apply naming patterns to help users anticipate token structures.  
-* Avoid excessive nesting or chaining of CSS variables (e.g., mapping a color to a UI name to another variable). Deep abstractions create unnecessary layers, increase bundle size, and reduce performance. Keep token hierarchies reasonably flat—aim for 1-2 levels of abstraction rather than 3+ levels.  
-* Reference [Nathan Curtis's detailed guide](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676#08b2) for in-depth practices.
+
+**Useful resources:**
+- [Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676#08b2)
 
 ### Animations (@keyframes)
 
