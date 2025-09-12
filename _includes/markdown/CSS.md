@@ -310,6 +310,7 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 **Useful resources:**
 
 - [The Inverted Triangle Architecture: how to manage large CSS Projects](https://www.freecodecamp.org/news/managing-large-s-css-projects-using-the-inverted-triangle-architecture-3c03e4b1e6df/)
+- [ITCSS × Skillshare](https://csswizardry.com/2018/11/itcss-and-skillshare/) - Harry Roberts' official collaboration on ITCSS methodology
 
 <h2 id="accessibility" class="anchor-heading">Always Keep Accessibility in Mind {% include Util/link_anchor anchor="accessibility" %}</h2>
 
