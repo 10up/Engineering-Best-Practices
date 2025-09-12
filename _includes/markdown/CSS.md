@@ -86,6 +86,8 @@ Using background shorthand like the above implicitly sets many background proper
 }
 ```
 
+The same principle applies to other shorthand properties, such as `border`, `transform`, `transition`, `font`, and others.
+
 Finally, be cautious with broad declarations that affect more elements than intended. For instance, adding an underline animation to links:
 
 ```css
