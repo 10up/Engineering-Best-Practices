@@ -109,6 +109,8 @@ Adding a global style like this can unintentionally affect other links that donâ
 }
 ```
 
+This selector precisely targets only links that are direct children of text content elements within `.entry-content`, avoiding the side effects of the overly broad `a` selector. The [`:is()` pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:is) keeps this selector concise by matching any of the listed elements without needing to repeat the entire selector chain for each element type.
+
 Second, you can use a utility class.
 
 ```css
