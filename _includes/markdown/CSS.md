@@ -330,9 +330,18 @@ Ensure there’s enough contrast between text and its background. Use tools to c
 
 Properly manage focus states. Use :focus styles to make focused elements visible and distinct. Don’t trap focus in modal dialogs or dropdowns without providing a clear way to exit. Reset focus logically when users interact with dynamic content, such as moving to a new page.
 
-### Zoom Level
+### Zoom and Reflow
 
-Style every component to make sure zoom level up to 400% is supported. If you are using a sticky header, make sure that at 400% it doesn’t cover the majority of the screen.
+Your site must support 400% zoom without loss of content or functionality. When a user views your site on a 1280px wide viewport and zooms to 400%, the page should reflow to behave like a 320px viewport. This ensures users who need magnification can still access all features and content.
+
+Key requirements:
+
+* Text must scale to at least 200% of its original size
+* Content should reflow without requiring horizontal scrolling
+* All functionality must remain accessible and usable
+* Sticky headers should not dominate the viewport—ensure they occupy a reasonable portion of the screen at high zoom levels
+
+Use responsive design techniques with relative units (rem, em, %) rather than fixed pixel values, and test your components at various zoom levels during development. For detailed guidance, see [WCAG 2.2 Understanding Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html).
 
 ### Advocate for Accessible Design Patterns
 
