@@ -190,9 +190,11 @@ Global rules play a critical role in setting consistent behavior across your ent
 }
 ```
 
-By applying `box-sizing: border-box`, you ensure that padding and border widths are included in the element’s total width and height calculations. This eliminates common layout issues and simplifies sizing calculations, reducing developer frustration and the likelihood of design inconsistencies.
+By applying `box-sizing: border-box`, you ensure that padding and border widths are included in the element's total width and height calculations. This eliminates common layout issues and simplifies sizing calculations, reducing developer frustration and the likelihood of design inconsistencies.
 
 It is very easy to set up at the beginning of a project and very hard and expensive to fix when the project is live and has hundreds (or in some cases thousands) of pages and many components.
+
+**Important:** Make this decision at the start of your project—don't proceed without addressing it. Either set `box-sizing: border-box` manually as shown above, or verify that your chosen CSS reset or normalize library already includes it. This small upfront decision prevents significant technical debt later.
 
 ### Foundational Styles for HTML Elements
 
