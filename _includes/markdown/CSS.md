@@ -457,7 +457,7 @@ When applying margins, stick to using them in a single direction. This approach 
 * Consistency across the codebase. By standardizing margin usage, you create a predictable structure. This consistency makes it easier for others (and future you) to understand and work with the code.  
 * Simpler debugging. Troubleshooting layout issues becomes much easier when margins are applied in only one direction. You don’t have to chase down conflicting styles or figure out which element's margins are responsible for extra spacing.  
 * Avoid collapsing margins. Margins applied in both directions can lead to confusing margin-collapsing behavior in CSS. Sticking to one direction eliminates this issue entirely, making the layout behavior more predictable and easier to control.  
-* Why "up" is preferred. Applying margins upwards (e.g., margin-top) is particularly effective because it works seamlessly with the lobotomized owl selector (`* + *`). This selector targets all adjacent siblings and is perfect for applying consistent spacing between elements without extra markup.
+* Why "up" is preferred. Applying margins upwards (e.g., margin-top) is particularly effective because it works seamlessly with the [lobotomized owl selector](https://alistapart.com/article/axiomatic-css-and-lobotomized-owls/) (`* + *`). This selector targets all adjacent siblings and is perfect for applying consistent spacing between elements without extra markup.
 
 <h2 id="responsiveness" class="anchor-heading">Responsiveness and Media Queries {% include Util/link_anchor anchor="responsiveness" %}</h2>
 
