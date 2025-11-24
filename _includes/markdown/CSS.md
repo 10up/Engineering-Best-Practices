@@ -464,7 +464,7 @@ When applying margins, stick to using them in a single direction. This approach 
 Creating responsive designs is essential, but the approach you take can make a big difference in your code's maintainability and flexibility. Media queries are a powerful tool, but they shouldn’t always be your first choice.
 
 * **Reach for media queries last.** Instead of relying heavily on media queries to adjust styles, focus on building layouts and components that adapt naturally to different screen sizes. Media queries should be a fallback for cases where intrinsic solutions won’t work.  
-* **Leverage clamp().** Use the clamp() function to create fluid, responsive values for properties like font sizes, spacing, and widths. It allows you to define a minimum, preferred, and maximum value, so elements scale dynamically without needing media queries.  
+* **Leverage clamp().** Use the clamp() function to create [fluid, responsive values](https://www.sitepoint.com/fluid-typography-css-clamp-function/) for properties like font sizes, spacing, and widths. It allows you to define a minimum, preferred, and maximum value, so elements scale dynamically without needing media queries.  
 * **Use intrinsic layouts with CSS Grid.** Grid layouts are inherently responsive and let you define flexible areas that adjust automatically to available space. Pair grids with techniques like minmax() and auto-fit for dynamic behavior without extra breakpoints.
 
 <h2 id="naming" class="anchor-heading">Naming Things {% include Util/link_anchor anchor="naming" %}</h2>
