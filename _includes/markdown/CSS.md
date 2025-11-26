@@ -356,7 +356,12 @@ Promote the adoption of design patterns that inherently prevent accessibility is
 
 Maintaining low specificity in your CSS is essential for creating scalable, maintainable, and predictable stylesheets. High specificity can make it difficult to override styles, leading to a cascade that is hard to manage and debug. By keeping specificity low, you ensure that your styles remain flexible and easy to adapt as your project evolves.
 
-The maximum specificity level you should aim for is 0, 1, 0 to 0, 2, 1\. If your specificity exceeds 0, 3, 1, you are likely doing something wrong and should revisit your selectors.
+Aim for a maximum specificity of `0,1,0` to `0,2,1`. Avoid combining tag selectors with classes unless necessary—use `.button` instead of `a.button`, and `.nav-item` instead of `ul.nav li.nav-item`. In limited cases, selectors like `.component .utility-class a` may reach `0,2,1`, but exceeding this threshold requires serious justification.
+
+**Tools for checking specificity:**
+
+- [Specificity Calculator](https://specificity.keegan.st/) - A helpful tool for visualizing and calculating CSS specificity
+- **stylelint rule**: Enforce specificity limits in your projects using the [`selector-max-specificity`](https://stylelint.io/user-guide/rules/selector-max-specificity/) rule. 
 
 ### Use `:where()` for Bare Elements
 
