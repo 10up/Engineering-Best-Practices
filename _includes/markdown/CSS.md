@@ -24,7 +24,7 @@ When you start a new codebase, pause before writing components and choose a CSS 
 
 If you opt to design a custom architecture, capture every key choice: folder layout, naming conventions, tooling, and any deviations from common patterns. A short explanation of why each decision was made helps future contributors understand the system quickly and avoids guesswork.
 
-*Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository’s setup or onboarding documentation. Follow your organization’s standard documentation format so the notes remain consistent, searchable, and easy to maintain.*
+**Note:** Keep this record where engineers will look first—typically in a /decisions/ directory inside the repository's setup or onboarding documentation. Follow your organization's standard documentation format so the notes remain consistent, searchable, and easy to maintain.
 
 <h2 id="content-agnostic" class="anchor-heading">Assume You Know Nothing About the Content {% include Util/link_anchor anchor="content-agnostic" %}</h2>
 
@@ -35,16 +35,17 @@ Content is unpredictable. You might not know how long a title will be, how many 
 Prepare for edge cases. Your components must be resilient and robust enough to handle all reasonable variations, including unexpected ones. If you don’t account for these possibilities, it could lead to broken layouts, unreadable text, or poor user experiences.
 
 **Useful resources:**
+
 - [Defensive CSS](https://defensivecss.dev/)
 
 ### Stress Test Your Components
 
 When building a component, test it against extreme content scenarios. For example:
 
-* A navigation menu with 20 items instead of 5\.  
+* A navigation menu with 20 items instead of 5.  
 * A card title that wraps onto three or more lines.  
-* A card title that is just one word  
-* An excerpt that’s 300 characters long—or empty.
+* A card title that is just one word.  
+* An excerpt that's 300 characters long—or empty.
 
 Building flexible, content-agnostic components makes your work more resilient to change. It reduces the need for constant adjustments and protects the layout from breaking when new content doesn’t fit the original plan. In practice, requirements often evolve throughout a project's lifecycle.
 
@@ -127,7 +128,7 @@ Designing with a mobile-first approach is essential because most users access we
 
 This doesn't mean we must *design* for mobile devices first chronologically (although it is a viable approach), but rather that mobile devices get enough attention and are not an afterthought. This approach also helps prioritize essential features and content, making the site faster and more efficient.
 
-### What Does It Mean in Practice
+### What Does It Mean in Practice?
 
 As a front-end engineer, it's crucial to be present at every design planning meeting. Your job is *not* just to determine whether the designs can be done in CSS but whether they *should* be done. Your input ensures that the designs are not only visually appealing but also can be implemented for mobile devices in an efficient way.
 
@@ -214,7 +215,7 @@ A well-crafted CSS foundation includes thoughtful defaults for HTML elements, su
 /* And so on for other heading levels */
 ```
 
-**Lists:** Ensure that unordered and ordered lists have adequate styling by default
+**Lists:** Ensure that unordered and ordered lists have adequate styling by default.
 
 ```css
 :where(ul, ol, dl) {
@@ -238,15 +239,15 @@ Begin with base styles that affect the entire application:
 
 ### Global
 
-* `@font-face`: Defines the fonts available throughout the application.
+* **`@font-face`:** Defines the fonts available throughout the application.
 
-* media queries: When using tools like PostCSS, `@custom-media` rules should be placed here for global breakpoints.
+* **Media queries:** When using tools like PostCSS, `@custom-media` rules should be placed here for global breakpoints.
 
-* CSS Custom Properties: Also known as variables. When placed in :root, they provide access to all components across the application.
+* **CSS Custom Properties:** Also known as variables. When placed in :root, they provide access to all components across the application.
 
-* mixins: If using PostCSS, global mixins should also be defined at this level.
+* **Mixins:** If using PostCSS, global mixins should also be defined at this level.
 
-* defaults: Set application-wide defaults, such as box-sizing, global outline behavior, and other foundational styles. Keep this section minimal, as there typically aren’t many styles applied at this level.
+* **Defaults:** Set application-wide defaults, such as box-sizing, global outline behavior, and other foundational styles. Keep this section minimal, as there typically aren't many styles applied at this level.
 
 ### Elements
 
@@ -267,11 +268,11 @@ Below are some examples of styles at this level:
 
 Key details to note:
 
-* `:where` pseudo-class: Ensures zero specificity for these styles, making it easier to apply other styles
+* **`:where` pseudo-class:** Ensures zero specificity for these styles, making it easier to apply other styles.
 
-* CSS Custom Properties: These variables, defined at the global level, keep the styles consistent and easy to maintain.
+* **CSS Custom Properties:** These variables, defined at the global level, keep the styles consistent and easy to maintain.
 
-* Margin reset: The margin is set to zero to remove default browser margins. You can handle multiple headings in one go with `:where(h1, h2, h3...) { margin-block: 0 }`.
+* **Margin reset:** The margin is set to zero to remove default browser margins. You can handle multiple headings in one go with `:where(h1, h2, h3...) { margin-block: 0 }`.
 
 Avoid adding styles that are too opinionated at the base level. For example, setting `text-align: center` on the heading in the previous example can cause issues. Even if most headings are center-aligned, there will likely be cases where you need a left- or right-aligned heading. This forces you to override the style in all components where center alignment isn’t needed, bloating the CSS and adding mental overhead.
 
@@ -283,23 +284,23 @@ The Component layer is where styles are applied to reusable UI elements. These a
 
 #### Key Guidelines
 
-* Reusability: Focus on creating modular, reusable components. Always consider how the component will respond to:
+* **Reusability:** Focus on creating modular, reusable components. Always consider how the component will respond to:
 
   * Changes in viewport width.
 
-  * Varying content. For example, if you're styling a card with a title that fits nicely on one line in the design, think about how the card will react to a very long title, or if there’s no title at all.
+  * Varying content. For example, if you're styling a card with a title that fits nicely on one line in the design, think about how the card will react to a very long title, or if there's no title at all.
 
-* Inheritance from Base: Components should take advantage of the solid foundation provided by base styles. When base-level styles are set up correctly, you minimize the need to redefine styles. Usually, you’ll only need to adjust specific properties like colors or spacing at the component level.
+* **Inheritance from Base:** Components should take advantage of the solid foundation provided by base styles. When base-level styles are set up correctly, you minimize the need to redefine styles. Usually, you'll only need to adjust specific properties like colors or spacing at the component level.
 
-* Avoid Using Margins on Components: Baking margins into reusable components creates spacing that's difficult to override in different contexts. Instead, create spacing using techniques like the lobotomized owl selector (`* + *`) or the `gap` property on parent containers. We'll cover these approaches in detail later in this document.
+* **Avoid Using Margins on Components:** Baking margins into reusable components creates spacing that's difficult to override in different contexts. Instead, create spacing using techniques like the lobotomized owl selector (`* + *`) or the `gap` property on parent containers. We'll cover these approaches in detail later in this document.
 
-* Encapsulation: Component styles should be scoped and encapsulated to avoid affecting other components. Use methodologies like BEM or CUBE to ensure your styles remain modular and isolated.
+* **Encapsulation:** Component styles should be scoped and encapsulated to avoid affecting other components. Use methodologies like BEM or CUBE to ensure your styles remain modular and isolated.
 
-* Leverage Variables: Use globally defined variables for properties like colors and spacing. This avoids magic numbers and ensures visual consistency across your app.
+* **Leverage Variables:** Use globally defined variables for properties like colors and spacing. This avoids magic numbers and ensures visual consistency across your app.
 
-* Responsiveness: Components should be fully responsive, adapting effortlessly to different container sizes and screen widths.
+* **Responsiveness:** Components should be fully responsive, adapting effortlessly to different container sizes and screen widths.
 
-* Component-Specific Animations: If a component requires a unique animation that won't be reused elsewhere, define the `@keyframes` alongside the component styles. This keeps related code together and makes it easier to maintain or remove the component later.
+* **Component-Specific Animations:** If a component requires a unique animation that won't be reused elsewhere, define the `@keyframes` alongside the component styles. This keeps related code together and makes it easier to maintain or remove the component later.
 
 ### Utilities
 
@@ -307,13 +308,13 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 
 #### Key Guidelines
 
-* Single Responsibility: Each utility class should only do one thing. For example, is-style-h1 should only apply styles required to make the text appear as heading level 1 and do nothing else.
+* **Single Responsibility:** Each utility class should only do one thing. For example, is-style-h1 should only apply styles required to make the text appear as heading level 1 and do nothing else.
 
-* Specificity Level: Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
+* **Specificity Level:** Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
 
-* Consistency: Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
+* **Consistency:** Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
 
-* Reusable Animations: Place reusable `@keyframes` animations in the utilities layer when they're used across multiple components (e.g., fade-in, slide-up, pulse). This promotes consistency and reduces duplication across your codebase.
+* **Reusable Animations:** Place reusable `@keyframes` animations in the utilities layer when they're used across multiple components (e.g., fade-in, slide-up, pulse). This promotes consistency and reduces duplication across your codebase.
 
 **Useful resources:**
 
@@ -340,10 +341,10 @@ Your site must support 400% zoom without loss of content or functionality. When 
 
 Key requirements:
 
-* Text must scale to at least 200% of its original size
-* Content should reflow without requiring horizontal scrolling
-* All functionality must remain accessible and usable
-* Sticky headers should not dominate the viewport—ensure they occupy a reasonable portion of the screen at high zoom levels
+* Text must scale to at least 200% of its original size.
+* Content should reflow without requiring horizontal scrolling.
+* All functionality must remain accessible and usable.
+* Sticky headers should not dominate the viewport—ensure they occupy a reasonable portion of the screen at high zoom levels.
 
 Use responsive design techniques with relative units (rem, em, %) rather than fixed pixel values, and test your components at various zoom levels during development. For detailed guidance, see [WCAG 2.2 Understanding Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html).
 
@@ -364,8 +365,8 @@ Aim for a maximum specificity of `0,1,0` to `0,2,1`. Avoid combining tag selecto
 
 **Tools for checking specificity:**
 
-- [Specificity Calculator](https://specificity.keegan.st/) - A helpful tool for visualizing and calculating CSS specificity
-- **stylelint rule**: Enforce specificity limits in your projects using the [`selector-max-specificity`](https://stylelint.io/user-guide/rules/selector-max-specificity/) rule. 
+- [Specificity Calculator](https://specificity.keegan.st/) - A helpful tool for visualizing and calculating CSS specificity.
+- **stylelint rule:** Enforce specificity limits in your projects using the [`selector-max-specificity`](https://stylelint.io/user-guide/rules/selector-max-specificity/) rule. 
 
 ### Use `:where()` for Bare Elements
 
@@ -378,6 +379,7 @@ Utilize the `:where()` pseudo-class when styling bare elements to avoid increasi
 ```
 
 **Useful resources:**
+
 - [`:where()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:where) - Comprehensive documentation on specificity impacts and browser support
 
 ### Avoid Excessive Nesting
@@ -432,9 +434,9 @@ It's not necessary to nest elements or modifiers:
 
 Refrain from using IDs for styling purposes. IDs have high specificity, which makes them difficult to override and maintain. Instead, use classes for consistent and reusable styling. If you must target an element by its ID in CSS, consider using an attribute selector like `[id="drawer-trigger"]` instead of `#drawer-trigger`—this provides the same uniqueness without the specificity cost.
 
-### Avoid \!important
+### Avoid !important
 
-Reserve `\!important` for truly exceptional cases. Overusing `!important` disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
+Reserve `!important` for truly exceptional cases. Overusing `!important` disrupts the cascade and makes debugging more difficult. Focus on writing clean, organized selectors instead of relying on this property to enforce styles.
 
 <h2 id="no-margins-components" class="anchor-heading">Do Not Use Margins on Reusable Components {% include Util/link_anchor anchor="no-margins-components" %}</h2>
 
@@ -466,7 +468,7 @@ Instead, define the margin outside of the component:
 
 This achieves the same result, but the Card can now be reused without disrupting layouts where the margin isn’t needed.
 
-*Note:* It doesn’t have to be a grid. The key idea is to set margins at the "element" level, ensuring the reusable component—like card-grid in the example—controls only what happens inside it, not outside.
+**Note:** It doesn't have to be a grid. The key idea is to set margins at the "element" level, ensuring the reusable component—like card-grid in the example—controls only what happens inside it, not outside.
 
 <h2 id="one-direction-margins" class="anchor-heading">Apply Margins in One Direction {% include Util/link_anchor anchor="one-direction-margins" %}</h2>
 
@@ -513,10 +515,11 @@ Clear, consistent naming makes your CSS maintainable, readable, and scalable. Go
 A common use case for CSS Custom Properties is design tokens. Naming tokens is crucial and delicate—well-named tokens ensure consistency, ease of understanding, and scalability.
 
 * When naming design tokens, use clear, meaningful names that reflect hierarchical relationships. In most projects, it makes sense to separate tokens into two categories: `primitive` and `semantic`. Primitive tokens describe the values directly, like `color-red-100` and `font-weight-bold`, while semantic tokens describe the application of primitive tokens, like `color-background-default` or `typography-body-font-family`.  
-* Avoid overly abstract, compact, or vague names; clarity and predictability are key. `button` is better `btn.`  
+* Avoid overly abstract, compact, or vague names; clarity and predictability are key. `button` is better than `btn`.  
 * Consistently apply naming patterns to help users anticipate token structures.  
 
 **Useful resources:**
+
 - [Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676#08b2)
 
 ### Animations (@keyframes)
@@ -541,7 +544,8 @@ When introducing a new feature, think about the experience a user will get if th
 In 2023, Google introduced Baseline to help developers determine whether certain features or APIs are safe to use in production. This tool aids in understanding the stability and support of web features across the most recent two versions of major browsers: Safari, Firefox, Chrome and Edge.
 
 * Use [Can I Use](https://caniuse.com/) (backed by Google Baseline) to see which browsers support a feature.  
-* Google Baseline classifies support:  
+* Google Baseline classifies support:
+
   * **Newly available:** Interoperable across all major browsers.  
   * **Widely available:** Feature has been interoperable for at least 30 months.  
   * **Limited availability:** Not yet in Baseline; some browsers lack support.
