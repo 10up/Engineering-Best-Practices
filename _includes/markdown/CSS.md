@@ -426,7 +426,7 @@ It's not necessary to nest elements or modifiers:
 
 ### Avoid IDs
 
-Refrain from using IDs for styling purposes. IDs have high specificity, which makes them difficult to override and maintain. Instead, use classes for consistent and reusable styling.
+Refrain from using IDs for styling purposes. IDs have high specificity, which makes them difficult to override and maintain. Instead, use classes for consistent and reusable styling. If you must target an element by its ID in CSS, consider using an attribute selector like `[id="drawer-trigger"]` instead of `#drawer-trigger`—this provides the same uniqueness without the specificity cost.
 
 ### Avoid \!important
 
