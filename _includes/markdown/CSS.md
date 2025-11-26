@@ -240,7 +240,7 @@ Begin with base styles that affect the entire application:
 
 * `@font-face`: Defines the fonts available throughout the application.
 
-* media queries: When using tools like PostCSS, @custom-media rules should be placed here for global breakpoints.
+* media queries: When using tools like PostCSS, `@custom-media` rules should be placed here for global breakpoints.
 
 * CSS Custom Properties: Also known as variables. When placed in :root, they provide access to all components across the application.
 
