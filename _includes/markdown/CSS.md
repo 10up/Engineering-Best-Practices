@@ -291,7 +291,7 @@ The Component layer is where styles are applied to reusable UI elements. These a
 
 * Inheritance from Base: Components should take advantage of the solid foundation provided by base styles. When base-level styles are set up correctly, you minimize the need to redefine styles. Usually, you’ll only need to adjust specific properties like colors or spacing at the component level.
 
-* Avoid Using Margins on Components: Components should be built in isolation, meaning we don’t know exactly where a component will be used. Including margins directly in component styles can create unnecessary complications. We'll cover alternative approaches later in this document.
+* Avoid Using Margins on Components: Baking margins into reusable components creates spacing that's difficult to override in different contexts. Instead, create spacing using techniques like the lobotomized owl selector (`* + *`) or the `gap` property on parent containers. We'll cover these approaches in detail later in this document.
 
 * Encapsulation: Component styles should be scoped and encapsulated to avoid affecting other components. Use methodologies like BEM or CUBE to ensure your styles remain modular and isolated.
 
