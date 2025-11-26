@@ -238,7 +238,7 @@ Begin with base styles that affect the entire application:
 
 ### Global
 
-* font-face: Defines the fonts available throughout the application.
+* `@font-face`: Defines the fonts available throughout the application.
 
 * media queries: When using tools like PostCSS, @custom-media rules should be placed here for global breakpoints.
 
