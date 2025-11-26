@@ -299,6 +299,8 @@ The Component layer is where styles are applied to reusable UI elements. These a
 
 * Responsiveness: Components should be fully responsive, adapting effortlessly to different container sizes and screen widths.
 
+* Component-Specific Animations: If a component requires a unique animation that won't be reused elsewhere, define the `@keyframes` alongside the component styles. This keeps related code together and makes it easier to maintain or remove the component later.
+
 ### Utilities
 
 Utility classes provide quick, reusable styling solutions for common, single-purpose tasks. They allow you to apply styles without the need for creating new components.
@@ -310,6 +312,8 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 * Specificity Level: Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
 
 * Consistency: Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
+
+* Reusable Animations: Place reusable `@keyframes` animations in the utilities layer when they're used across multiple components (e.g., fade-in, slide-up, pulse). This promotes consistency and reduces duplication across your codebase.
 
 **Useful resources:**
 
@@ -518,7 +522,7 @@ A common use case for CSS Custom Properties is design tokens. Naming tokens is c
 ### Animations (@keyframes)
 
 * Use clear action-based names (e.g., fade-in, slide-up).  
-* Maintain short, intuitive names indicating the animation’s behavior.
+* Maintain short, intuitive names indicating the animation's behavior.
 
 ### Grid Template Areas and Lines
 
