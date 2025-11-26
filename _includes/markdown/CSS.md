@@ -577,6 +577,7 @@ Or reverse it with not:
   min-height: 100dvh;
 }
 
+/* remove when dvh is fully supported */
 @supports not (min-height: 100dvh) {
   .site {
     min-height: 100vh;
@@ -584,7 +585,7 @@ Or reverse it with not:
 }
 ```
 
-This "not" approach is easy to remove when older browsers catch up. Just look for a comment like `// remove` when `dvh` is fully supported.
+Add comments like `/* remove when dvh is fully supported */` above fallback code. This makes it easy to search and remove outdated fallbacks when browser support improves.
 
 ### 4. Consider Polyfills
 
