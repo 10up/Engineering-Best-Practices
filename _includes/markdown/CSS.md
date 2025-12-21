@@ -42,12 +42,15 @@ Prepare for edge cases. Your components must be resilient and robust enough to h
 
 When building a component, test it against extreme content scenarios. For example:
 
-* A navigation menu with 20 items instead of 5.  
-* A card title that wraps onto three or more lines.  
-* A card title that is just one word.  
-* An excerpt that's 300 characters long—or empty.
+- A navigation menu with twenty items instead of five.
+- A card designed to display an image but rendered without one.
+- A card meant for a single-line title, but the title wraps to three or more lines.
+- A card title that consists of a single word.
+- An excerpt that is three hundred characters long, or completely empty.
 
-Building flexible, content-agnostic components makes your work more resilient to change. It reduces the need for constant adjustments and protects the layout from breaking when new content doesn’t fit the original plan. In practice, requirements often evolve throughout a project's lifecycle.
+The goal is to make these situations work. They may not look ideal, but they should remain usable and accessible.
+
+Designing flexible, content-agnostic components makes your work more resilient over time. It reduces the need for constant adjustments and helps protect layouts from breaking when content does not match the original assumptions. In practice, requirements tend to change as a project moves forward.
 
 <h2 id="minimal-styles" class="anchor-heading">Write Only the Styles You Need, Don't Do Too Much {% include Util/link_anchor anchor="minimal-styles" %}</h2>
 
