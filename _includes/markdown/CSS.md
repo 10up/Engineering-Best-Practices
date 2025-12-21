@@ -422,12 +422,13 @@ It's not necessary to nest elements or modifiers:
     /* styles here */
   }
 
-  /* ❌ element and modifier must not be nested inside the block */
+  /* ❌ element must not be nested inside the block */
   & .button__icon {
     /* styles here */
   }
 
-  & .button--primary {
+	/* ❌ modifier must not be nested inside the block */
+  &.button--primary {
     /* styles here */
   }
 }
