@@ -351,15 +351,6 @@ Key requirements:
 
 Use responsive design techniques with relative units (rem, em, %) rather than fixed pixel values, and test your components at various zoom levels during development. For detailed guidance, see [WCAG 2.2 Understanding Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html).
 
-### Advocate for Accessible Design Patterns
-
-Promote the adoption of design patterns that inherently prevent accessibility issues. Examples include:
-
-* Avoid placing text directly over images unless sufficient contrast or a background overlay is provided to ensure readability.  
-* Use native HTML `<select>` elements for dropdowns instead of creating custom solutions or using frameworks. Native elements are inherently accessible and offer consistent behavior across platforms.  
-* When custom components are necessary, replicate the behavior of native elements. For instance, custom modals should support full keyboard navigation and include options to close them using standard shortcuts.  
-* Design forms with clear and descriptive error messages. Pair these messages with ARIA roles or properties to make them accessible to screen readers.
-
 ### RTL and Logical Properties
 
 Support right-to-left (RTL) languages by using CSS logical properties instead of physical ones where it makes sense. Logical properties use direction-agnostic terms (`inline` and `block`) that automatically adapt to the text direction, making RTL support automatic.
@@ -380,6 +371,15 @@ Set the `dir` attribute on the `<html>` element or specific containers to enable
 
 - [MDN: Logical Properties and Values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
 - [RTL Styling 101](https://rtlstyling.com/)
+
+### Advocate for Accessible Design Patterns
+
+Promote the adoption of design patterns that inherently prevent accessibility issues. Examples include:
+
+* Avoid placing text directly over images unless sufficient contrast or a background overlay is provided to ensure readability.  
+* Use native HTML `<select>` elements for dropdowns instead of creating custom solutions or using frameworks. Native elements are inherently accessible and offer consistent behavior across platforms.  
+* When custom components are necessary, replicate the behavior of native elements. For instance, custom modals should support full keyboard navigation and include options to close them using standard shortcuts.  
+* Design forms with clear and descriptive error messages. Pair these messages with ARIA roles or properties to make them accessible to screen readers.
 
 <h2 id="low-specificity" class="anchor-heading">Keep Specificity Extremely Low {% include Util/link_anchor anchor="low-specificity" %}</h2>
 
