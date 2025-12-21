@@ -336,7 +336,7 @@ Ensure there’s enough contrast between text and its background. Use tools to c
 
 ### Focus
 
-Properly manage focus states. Use :focus styles to make focused elements visible and distinct. Don’t trap focus in modal dialogs or dropdowns without providing a clear way to exit. Reset focus logically when users interact with dynamic content, such as moving to a new page.
+Properly manage focus states. Use :focus-visible styles to make focused elements visible and distinct. Don’t trap focus in modal dialogs or dropdowns without providing a clear way to exit. Reset focus logically when users interact with dynamic content, such as moving to a new page.
 
 ### Zoom and Reflow
 
