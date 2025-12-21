@@ -12,7 +12,7 @@ There are countless ways to organize your CSS styles. From naming conventions to
 
 * **Assume intent.** Always operate under the assumption that existing patterns or conventions were created for a reason. Stick to the existing conventions, even if they feel unfamiliar or inefficient at first glance—dig deeper to understand the context. Continuity is critical for maintainability and teamwork.  
 * **Learn before you suggest.** When you join a project, take the time to understand how the styles are organized and why they're structured that way. Avoid making snap judgments or introducing changes before fully grasping the system.  
-* **When in doubt, align with technical leadership**. If you are unsure about patterns or systems to adhere to, follow the guidance and recommendations of a project's technical leadership (where feasible). 
+* **When in doubt, align with technical leadership.** If you are unsure about patterns or systems to adhere to, follow the guidance and recommendations of a project's technical leadership (where feasible). 
 
 Only propose changes if the current convention is genuinely problematic, e.g., if it’s inconsistent, hard to scale, or causes errors. When you suggest a change, be ready to explain why the new approach is better and how it solves a specific problem.
 
@@ -254,7 +254,7 @@ Begin with base styles that affect the entire application:
 
 ### Elements
 
-This layer targets raw HTML elements (tags), without using classes, IDs, or other specific selectors. The purpose of the Base level is to establish foundational styles for elements to be used within components later on.
+This layer targets raw HTML elements (tags), without using classes, IDs, or other specific selectors. The purpose of the Elements level is to establish foundational styles for elements to be used within components later on.
 
 Below are some examples of styles at this level:
 
@@ -311,9 +311,9 @@ Utility classes provide quick, reusable styling solutions for common, single-pur
 
 #### Key Guidelines
 
-* **Single Responsibility:** Each utility class should only do one thing. For example, is-style-h1 should only apply styles required to make the text appear as heading level 1 and do nothing else.
+* **Single Responsibility:** Each utility class should only do one thing. For example, the is-style-h1 class should only apply the styles required to make the text appear as heading level 1 and do nothing else.
 
-* **Specificity Level:** Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that they should be applied after the component class.
+* **Specificity Level:** Utility classes sit at the top of the inverted triangle architecture, so they can have higher specificity than base styles and components. In practice, they usually have the same level of specificity as components, because of that, they should be applied after the component class.
 
 * **Consistency:** Like global variables, utility classes help maintain consistency throughout the app. By standardizing common patterns like text alignment, padding, or display properties, you reduce the risk of divergent styles across components.
 
@@ -484,7 +484,7 @@ Instead, define the margin outside of the component:
 
 ```css
 /* Context-specific spacing */
-.card-grid > * {
+.card-grid {
   display: grid;
   grid-template-columns: ...
   row-gap: 1.5rem; /* ✅ Do this instead */
@@ -566,7 +566,7 @@ When introducing a new feature, think about the experience a user will get if th
 
 ### 1. Check Browser Compatibility
 
-In 2023, Google introduced Baseline to help developers determine whether certain features or APIs are safe to use in production. This tool aids in understanding the stability and support of web features across the most recent two versions of major browsers: Safari, Firefox, Chrome and Edge.
+In 2023, Google introduced Baseline to help developers determine whether certain features or APIs are safe to use in production. This tool aids in understanding the stability and support of web features across the most recent two versions of major browsers: Safari, Firefox, Chrome, and Edge.
 
 * Use [Can I Use](https://caniuse.com/) (backed by Google Baseline) to see which browsers support a feature.  
 * Google Baseline classifies support:
