@@ -360,6 +360,27 @@ Promote the adoption of design patterns that inherently prevent accessibility is
 * When custom components are necessary, replicate the behavior of native elements. For instance, custom modals should support full keyboard navigation and include options to close them using standard shortcuts.  
 * Design forms with clear and descriptive error messages. Pair these messages with ARIA roles or properties to make them accessible to screen readers.
 
+### RTL and Logical Properties
+
+Support right-to-left (RTL) languages by using CSS logical properties instead of physical ones where it makes sense. Logical properties use direction-agnostic terms (`inline` and `block`) that automatically adapt to the text direction, making RTL support automatic.
+
+Instead of physical properties like `margin-left`, `padding-right`, or `text-align: left`, use logical equivalents:
+
+```css
+.element {
+  margin-inline-start: 1rem;  /* instead of margin-left */
+  padding-inline: 1rem;       /* instead of padding-left/right */
+  text-align: start;           /* instead of text-align: left */
+}
+```
+
+Set the `dir` attribute on the `<html>` element or specific containers to enable RTL rendering. Test your layouts by toggling `dir="rtl"` to ensure they work correctly in both directions.
+
+**Useful resources:**
+
+- [MDN: Logical Properties and Values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
+- [RTL Styling 101](https://rtlstyling.com/)
+
 <h2 id="low-specificity" class="anchor-heading">Keep Specificity Extremely Low {% include Util/link_anchor anchor="low-specificity" %}</h2>
 
 Maintaining low specificity in your CSS is essential for creating scalable, maintainable, and predictable stylesheets. High specificity can make it difficult to override styles, leading to a cascade that is hard to manage and debug. By keeping specificity low, you ensure that your styles remain flexible and easy to adapt as your project evolves.
