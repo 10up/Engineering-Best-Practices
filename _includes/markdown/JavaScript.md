@@ -447,6 +447,37 @@ Throttling a function will cause it to only be called a maximum number of times 
 
 requestAnimationFrame is similar to throttling, but it's a browser native API and tries to always throttle to 60fps. Its very name helps us know when it's best to use: while animating things. This would be the case when our JavaScript function is updating element positions, sizes, or anything else that's "painting" to the screen.
 
+**React and React Native Considerations:**
+
+When using `requestAnimationFrame` (RAF) in React or React Native applications, several issues can arise:
+
+1. **Conflicts with React's rendering cycle**: React manages its own render scheduling and batching. `requestAnimationFrame` runs independently of React's lifecycle, which can cause unnecessary re-renders if React state is updated inside the callback, stale closures capturing outdated state or props, and race conditions between React's render cycle and animation callbacks.
+
+2. **Memory leaks**: If `requestAnimationFrame` callbacks are not properly cleaned up in `useEffect` hooks, they will continue executing after component unmount, leading to memory leaks and potential errors from updating unmounted components. Always cancel animation frames in cleanup functions:
+
+```js
+useEffect(() => {
+  let rafId;
+
+  const animate = () => {
+    // animation logic
+    rafId = requestAnimationFrame(animate);
+  };
+
+  rafId = requestAnimationFrame(animate);
+
+  return () => cancelAnimationFrame(rafId);
+}, []);
+```
+
+3. **Performance overhead**: Each `requestAnimationFrame` callback executes every frame (~16ms at 60fps). Heavy computations or multiple concurrent animation loops can block the main thread, cause frame drops, and increase battery consumption on mobile devices.
+
+4. **React Native specific issues**: In React Native, `requestAnimationFrame` runs on the JavaScript thread. In the legacy architecture, this competes with bridge communication between JavaScript and native modules, which can cause jank and performance issues. With the new architecture (Fabric + TurboModules + JSI), while synchronous communication via JSI reduces overhead, `requestAnimationFrame` still executes on the JavaScript thread and can block other JavaScript operations, potentially causing frame drops. For React Native animations, prefer the `Animated` API or libraries like `react-native-reanimated` that leverage native drivers and run animations on the UI thread, minimizing JavaScript thread contention.
+
+5. **State synchronization problems**: Updating React state inside `requestAnimationFrame` callbacks can lead to stale closures, unnecessary re-renders, and layout thrashing if DOM reads and writes occur within the same frame.
+
+For React applications, consider using CSS transitions, the Web Animations API, or animation libraries like `framer-motion` that integrate with React's lifecycle. Reserve `requestAnimationFrame` for cases where direct DOM manipulation or canvas rendering is <ins>really</ins> necessary.
+
 Note that some of our recommended utility libraries already provide these functions, such as Underscore's [debounce](https://underscorejs.org/#debounce) and [throttle](https://underscorejs.org/#throttle) and Lodash's [debounce](https://lodash.com/docs/4.17.11#debounce) and [throttle](https://lodash.com/docs/4.17.11#throttle).
 
 For more information and examples of debouncing, throttling, and requestAnimationFrame, see [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/), [The Difference Between Throttling and Debouncing ](https://css-tricks.com/the-difference-between-throttling-and-debouncing/), and [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function).
