@@ -93,7 +93,7 @@ The "[decoding](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElemen
 
 To improve your website's loading time, you’ll likely need to optimize the LCP element, which is typically the most prominent and first [image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/fetchPriority) on the page. Factors such as [First Contentful Paint](https://web.dev/fcp), [Time to First Byte](https://web.dev/ttfb/), and render-blocking CSS/JS can cause an image to be flagged as the LCP element. 
 
-We can set a [fetch priority](https://addyosmani.com/blog/fetch-priority/) on the resource to load the image faster. The attribute hints to the browser that it should prioritize the fetch of the image relative to other images. The [Performance Lab plugin](http://g/plugins/performance-lab/) offers this functionality as a experimental option.
+We can set a [fetch priority](https://addyosmani.com/blog/fetch-priority/) on the resource to load the image faster. The attribute hints to the browser that it should prioritize the fetch of the image relative to other images. The [Performance Lab plugin](https://wordpress.org/plugins/performance-lab/) offers this functionality as a experimental option.
 
 ```html
 <img
