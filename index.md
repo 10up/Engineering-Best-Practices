@@ -32,7 +32,7 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
-    <div class="col">
+	<div class="col">
 		<h3><a href="{{ site.baseurl }}/markup/#top">Markup</a></h3>
 		<ul>
 			<li><a href="{{ site.baseurl }}/markup/#philosophy">Philosophy</a></li>
@@ -43,19 +43,24 @@ updated: 6 Oct 2014
 		</ul>
 	</div>
 
-	    <div class="col">
-  		<h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
+	<div class="col">
+		<h3><a href="{{ site.baseurl }}/css/#top">CSS</a></h3>
 
-  		<ul>
-  			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
+		<ul>
+			<li><a href="{{ site.baseurl }}/css/#philosophy">Philosophy</a></li>
+			<li><a href="{{ site.baseurl }}/css/#established-system">Follow a System First</a></li>
+			<li><a href="{{ site.baseurl }}/css/#document-system">Establish the System</a></li>
+			<li><a href="{{ site.baseurl }}/css/#content-agnostic">Assume You Know Nothing</a></li>
+			<li><a href="{{ site.baseurl }}/css/#minimal-styles">Write Only the Styles You Need</a></li>
+			<li><a href="{{ site.baseurl }}/css/#mobile-first">Mobile-First</a></li>
+			<li><a href="{{ site.baseurl }}/css/#solid-defaults">Set Solid Defaults</a></li>
+			<li><a href="{{ site.baseurl }}/css/#inverted-triangle">Follow ITCSS</a></li>
 			<li><a href="{{ site.baseurl }}/css/#accessibility">Accessibility</a></li>
-			<li><a href="{{ site.baseurl }}/css/#performance">Performance</a></li>
-			<li><a href="{{ site.baseurl }}/css/#responsive-design">Responsive Design</a></li>
-			<li><a href="{{ site.baseurl }}/css/#syntax-formatting">Syntax and Formatting</a></li>
-			<li><a href="{{ site.baseurl }}/css/#documentation">Documentation</a></li>
-  			<li><a href="{{ site.baseurl }}/css/#frameworks">Frameworks</a></li>
-  		</ul>
-  	</div>
+			<li><a href="{{ site.baseurl }}/css/#low-specificity">Specificity</a></li>
+			<li><a href="{{ site.baseurl }}/css/#no-margins-components">No Margins on Components</a></li>
+			<li><a href="{{ site.baseurl }}/css/#one-direction-margins">Margins in One Direction</a></li>
+		</ul>
+	</div>
 
 	<div class="col">
 		<h3><a href="{{ site.baseurl }}/php/#top">PHP</a></h3>
