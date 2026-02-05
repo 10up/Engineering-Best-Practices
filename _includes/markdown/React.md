@@ -256,8 +256,9 @@ React accessibility is not so different than standard accessibility support. It 
 Using the the most relevant HTML elements is always preferred, and doesn’t change when using React. Sometimes we can break HTML semantics when we add div elements to our JSX to make our React code work, especially with a set of elements such as lists. In these cases we should use Fragments.
 
 [Fragments](https://reactjs.org/docs/accessibility.html/#semantic-html) are a pattern used in React which allow a component to return multiple elements, without an encompassing div component. Using div elements in certain contexts may break HTML semantics.
-Use fragment when a key prop is required
-Use `<elem></elem>` syntax everywhere else
+
+Use fragments when a key prop is required.
+Use `<elem></elem>` syntax everywhere else.
 
 ### Accessible Forms
 Standard HTML practices should be used for forms. One caveat though is making sure all inputs have proper labeling. In React the `“for”` attribute is written as `“htmlFor”` in JSX.
@@ -270,7 +271,7 @@ Standard HTML practices should be used for forms. One caveat though is making su
 
 React applications continuously modify the HTML DOM during runtime, sometimes leading to keyboard focus being lost or set to an unexpected element. React provides “Refs” in order to modify child components or elements outside of the standard flow. These can help us specifically manage keyboard focus.
 
-The ref attribute can be placed on any React component, with a function value. This function will be executed as soon as the component is mounted or unmounted. The first parameter of the function will be a reference to the element or the component the ref is on.
+The `“ref”` attribute can be placed on any React component, with a function value. This function will be executed as soon as the component is mounted or unmounted. The first parameter of the function will be a reference to the element or the component the `ref` is on.
 
 [Read more about creating refs and focus control in React](https://reactjs.org/docs/accessibility.html#focus-control)
 
