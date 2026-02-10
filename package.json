@@ -19,14 +19,14 @@
     "url": "https://github.com/10up/Engineering-Best-Practices/issues"
   },
   "devDependencies": {
-    "@10up/eslint-config": "^2.0.3-next",
+    "@10up/eslint-config": "^2.4.7",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^9.39.2",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsdoc": "^22.1.0",
+    "eslint-plugin-jsdoc": "^62.5.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-markdown": "^1.0.2",
     "eslint-plugin-prettier": "^3.1.2",
