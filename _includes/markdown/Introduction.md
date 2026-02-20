@@ -26,4 +26,4 @@ We are constantly challenging ourselves and learning. Knowledge gives us a compe
 
 <h2 id="contributing" class="anchor-heading">Contributing {% include Util/link_anchor anchor="contributing" %} {% include Util/top %}</h2>
 
-Please contribute via [pull requests on GitHub](https://github.com/10up/Engineering-Best-Practices).
+Details on contributing to our Engineering Best Practices is described in [CONTRIBUTING.md](https://github.com/10up/Engineering-Best-Practices/blob/gh-pages/CONTRIBUTING.md).  Please contribute via [pull requests on GitHub](https://github.com/10up/Engineering-Best-Practices).
